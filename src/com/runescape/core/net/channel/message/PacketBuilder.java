@@ -31,8 +31,14 @@ public final class PacketBuilder {
 	 */
 	private int position = 0;
 
+	/**
+	 * The id of the packet being created.
+	 */
 	private int opcode;
 	
+	/**
+	 * The header or also known as the type of packet being sent.
+	 */
 	private PacketHeader header;
 	
 	/**
@@ -73,23 +79,35 @@ public final class PacketBuilder {
 		this.builder  = ByteBuffer.allocate(amount);
 	}
 	
+	/**
+	 * Gets the opcode of this packet.
+	 * 
+	 * @return The id of this packet.
+	 */
 	public int getOpcode() {
 		return opcode;
 	}
 	
+	/**
+	 * Gets the header for this packet, or also known as the type of packet being created.
+	 * 
+	 * @return The header of the packet being created.
+	 */
 	public PacketHeader getHeader() {
 		return header;
 	}
 	
 	/**
-	 * Places a single value into the internal buffer
+	 * Places a single byte value into the internal buffer.
 	 * 
-	 * @param value The value.
+	 * @param value
+	 * 		The value of this byte.
 	 * 
-	 * @param definition The definition of any transformations performed on the value.
+	 * @param modification
+	 * 		The manipulation of this byte value.
 	 */
-	public void put(long value, ByteValue definition) {
-		switch (definition) {
+	public void put(long value, ByteValue modification) {
+		switch (modification) {
 
 		case ADDITIONAL:
 			this.getInternal().put((byte) (value + 128));
@@ -109,8 +127,17 @@ public final class PacketBuilder {
 		}
 	}
 	
-	public void putInt(long value, ByteValue definition) {
-		switch (definition) {
+	/**
+	 * Places a single integer value into the internal buffer.
+	 * 
+	 * @param value
+	 * 		The value of this integer.
+	 * 
+	 * @param modification
+	 * 		The manipulation of this integer value.
+	 */
+	public void putInt(long value, ByteValue modification) {
+		switch (modification) {
 		
 		case ADDITIONAL:
 			this.getInternal().putInt((int) (value + 128));
@@ -131,14 +158,16 @@ public final class PacketBuilder {
 	}
 	
 	/**
-	 * Places a single long into the internal buffer.
+	 * Places a single long value into the internal buffer.
 	 * 
-	 * @param value The value of the long.
+	 * @param value
+	 * 		The value of this long.
 	 * 
-	 * @param definition The definition of any transformations performed on the long.
+	 * @param modification
+	 * 		The manipulation of this long value.
 	 */
-	public void putLong(long value, ByteValue definition) {
-		switch (definition) {
+	public void putLong(long value, ByteValue modification) {
+		switch (modification) {
 
 		case ADDITIONAL:
 			this.getInternal().putLong(value + 128);
@@ -158,6 +187,13 @@ public final class PacketBuilder {
 		}
 	}
 	
+	/**
+	 * Places a single short value into the internal buffer that has
+	 * a Standard {@link ByteValue}, and Big Byte Order {@link ByteOrder}
+	 * 
+	 * @param value
+	 * 		The value of this short.
+	 */
 	public void putShort(int value) {
 		putShort(value, ByteValue.STANDARD, ByteOrder.BIG_BYTE_ORDER);		
 	}
@@ -165,12 +201,14 @@ public final class PacketBuilder {
 	/**
 	 * Places a single short into the internal buffer.
 	 * 
-	 * @param value The value of the short.
+	 * @param value
+	 * 			The value of this short.
 	 * 
-	 * @param definition The definition of any transformations performed on the short.
+	 * @param modification
+	 * 			The manipulation of this short value.
 	 */
-	public void putShort(long value, ByteValue definition) {
-		switch (definition) {
+	public void putShort(long value, ByteValue modification) {
+		switch (modification) {
 
 		case ADDITIONAL:
 			this.getInternal().putShort((short) (value + 128));
@@ -191,23 +229,27 @@ public final class PacketBuilder {
 	}
 
 	/**
-	 * Places a single short into the internal buffer. Offers order specification.
+	 * Places a single short into the internal buffer, which offers
+	 * order specification.
 	 * 
-	 * @param value The value of the short.
+	 * @param value
+	 * 		The value of this short.
 	 * 
-	 * @param definition The definition of any transformations performed on the short.
+	 * @param modification
+	 * 		The manipulation of this byte value.
 	 * 
-	 * @param order The definition of the ordering of the value.
+	 * @param order
+	 * 		The order to be placed into the internal buffer.
 	 */
-	public final void putShort(int value, ByteValue definition, ByteOrder order) {
+	public final void putShort(int value, ByteValue modification, ByteOrder order) {
 		switch (order) {
 		case BIG_BYTE_ORDER:
 			putByte(value >> 8, ByteValue.STANDARD);
-			putByte(value, definition);
+			putByte(value, modification);
 			break;
 
 		case LITTLE_BYTE_ORDER:
-			putByte(value, definition);
+			putByte(value, modification);
 			putByte(value >> 8, ByteValue.STANDARD);
 			break;
 
@@ -216,7 +258,19 @@ public final class PacketBuilder {
 		}
 	}
 	
-	public void putBits(long value, int amount, ByteValue definition) {	
+	/**
+	 * Places bit values into the internal buffer.
+	 * 
+	 * @param value
+	 * 		The value of these bits.
+	 * 
+	 * @param amount
+	 * 		The amount
+	 * 
+	 * @param modification
+	 * 		The manipulation of the byte values.
+	 */
+	public void putBits(long value, int amount, ByteValue modification) {	
 
 		int bytePosition = this.getPosition() >> 3;
 		int bitOffset = 8 - (this.getPosition() & 7);

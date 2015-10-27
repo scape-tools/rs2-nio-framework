@@ -42,6 +42,8 @@ public class PacketSender {
 	 * 
 	 * @param message
 	 * 		The message to display in the chatbox.
+	 * 
+	 * @param The instance of this encoder.
 	 */
 	public PacketSender sendMessage(String message) {
 		PacketBuilder out = new PacketBuilder(253, PacketHeader.VARIABLE_BYTE);
@@ -53,6 +55,20 @@ public class PacketSender {
 		return this;
 	}
 
+	/**
+	 * Updates a single player.
+	 * 
+	 * The player updating process consists of 4 parts.
+	 * 
+	 * 1. Our player movement updates
+	 * 2. Other player movement updates
+	 * 3. Player list updating
+	 * 		a) Appearance updating
+	 * 		b) Location updating
+	 * 4. Player update block flag-based updates. 
+	 * 
+	 * @param The instance of this encoder.
+	 */
 	public PacketSender sendPlayerUpdate() {
 		PacketBuilder update = new PacketBuilder();
 
@@ -125,6 +141,8 @@ public class PacketSender {
 
 	/**
 	 * The packet that sends the current map region.
+	 * 
+	 * @param The instance of this encoder.
 	 */
 	public PacketSender sendRegionalUpdate() {
 		PacketBuilder out = new PacketBuilder(73, PacketHeader.STANDARD);
@@ -147,6 +165,8 @@ public class PacketSender {
 	 * 
 	 * @param interfaceId
 	 * 		The interface to show.
+	 * 
+	 * @param The instance of this encoder.
 	 */
 	public PacketSender sendTabInterface(int tabId, int interfaceId) {
 		PacketBuilder out = new PacketBuilder(71);
@@ -160,6 +180,8 @@ public class PacketSender {
 
 	/**
 	 * Creates all the in-game tabs for a player.
+	 * 
+	 * @param The instance of this encoder.
 	 */
 	public PacketSender sendTabs() {
 		sendTabInterface(GameConstants.ATTACK_TAB, 2423);

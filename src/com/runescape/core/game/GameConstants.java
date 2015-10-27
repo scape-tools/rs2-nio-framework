@@ -1,5 +1,10 @@
 package com.runescape.core.game;
 
+/**
+ * Class containing game-related constants.
+ * 
+ * @author SeVen
+ */
 public class GameConstants {
 	
 	public static final int	ATTACK_TAB = 0,

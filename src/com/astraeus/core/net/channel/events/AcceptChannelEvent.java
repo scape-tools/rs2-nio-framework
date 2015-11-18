@@ -24,7 +24,6 @@ public final class AcceptChannelEvent extends ChannelEvent {
 	 * key based network events.
 	 */
 	public AcceptChannelEvent(Selector selector) {
-
 		this.selector = selector;
 	}
 
@@ -32,11 +31,11 @@ public final class AcceptChannelEvent extends ChannelEvent {
 	public void execute(PlayerIO context) throws IOException {
 
 		context.getChannel().configureBlocking(false);
-
+		
 		final SelectionKey selectedKey = context.getChannel().register(selector, SelectionKey.OP_READ, context);
-
+		
 		context.setSelectedKey(selectedKey);
-
+		
 		context.setProtocolDecoder(new LoginRequestDecoder());
 	}
 }

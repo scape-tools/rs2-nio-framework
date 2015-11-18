@@ -11,32 +11,51 @@ import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
 public final class PrepareChannelEvent extends ChannelEvent {
 
 	/**
-	 * The message's heading definition.
+	 * The header for this message.
 	 */
-	private final PacketHeader definition;
+	private final PacketHeader header;
 
 	/**
-	 * The internal buffer.
+	 * The buffer for this message.
 	 */
 	private final PacketBuilder buffer;
 
 	/**
-	 * The numerical opcode.
+	 * The opcode for this message.
 	 */
 	private final int opcode;
+	
+	/**
+	 * Creates a new {@link PrepareChannelEvent} with a default
+	 * {@code PacketHeader} of {@code EMPTY}.
+	 * 
+	 * @param header
+	 * 		The header for this message.
+	 * 
+	 * @param buffer
+	 * 		The buffer for this message.
+	 * 
+	 * @param opcode
+	 * 		The opcode for this message.
+	 */
+	public PrepareChannelEvent(PacketBuilder buffer, int opcode) {
+		this(PacketHeader.EMPTY, buffer, opcode);
+	}
 
 	/**
-	 * The overloaded class constructor used for the instantiation of this
-	 * class file.
+	 * Creates a new {@link PrepareChannelEvent}.
 	 * 
-	 * @param definition The message's heading definition.
+	 * @param header
+	 * 		The header for this message.
 	 * 
-	 * @param buffer The internal buffer.
+	 * @param buffer
+	 * 		The buffer for this message.
 	 * 
-	 * @param opcode The numerical opcode.
+	 * @param opcode
+	 * 		The opcode for this message.
 	 */
-	public PrepareChannelEvent(PacketHeader definition, PacketBuilder buffer, int opcode) {
-		this.definition = definition;
+	public PrepareChannelEvent(PacketHeader header, PacketBuilder buffer, int opcode) {
+		this.header = header;
 		this.buffer = buffer;
 		this.opcode = opcode;
 	}
@@ -48,13 +67,13 @@ public final class PrepareChannelEvent extends ChannelEvent {
 		 * with a cryptographic cipher. After the encryption if the packet's heading is
 		 * defined as a byte or a short the length must be indicated by that primitive.
 		 */
-		if (!definition.equals(PacketHeader.EMPTY)) {
+		if (!header.equals(PacketHeader.EMPTY)) {
 			buffer.putByte(opcode + context.getPlayer().getCryptographyPair().getDecoder().getNextValue(), ByteValue.STANDARD);
 			
-			if (definition.equals(PacketHeader.VARIABLE_BYTE)) {
+			if (header.equals(PacketHeader.VARIABLE_BYTE)) {
 				buffer.setLength(buffer.getInternal().position());
 				buffer.putByte(0, ByteValue.STANDARD);
-			} else if (definition.equals(PacketHeader.VARIABLE_SHORT)) {
+			} else if (header.equals(PacketHeader.VARIABLE_SHORT)) {
 				buffer.setLength(buffer.getInternal().position());
 				buffer.putShort(0, ByteValue.STANDARD);
 			}

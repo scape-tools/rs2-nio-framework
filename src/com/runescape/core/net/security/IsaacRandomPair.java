@@ -1,16 +1,22 @@
-package com.runescape.core.game.utility.cryption;
+package com.runescape.core.net.security;
 
-public final class CryptionAlgorithmPair {
+/**
+ * A pair of two {@link IsaacRandom} random number generators used as a stream cipher. One takes the role of an encoder
+ * for this endpoint, the other takes the role of a decoder for this endpoint.
+ *
+ * @author Graham
+ */
+public final class IsaacRandomPair {
 
 	/**
 	 * The cryptography algorithm for opcode encoding.
 	 */
-	private final CryptionAlgorithm encoder;
+	private final IsaacRandom encoder;
 
 	/**
 	 * The cryptography algorithm for opcode decoding.
 	 */
-	private final CryptionAlgorithm decoder;
+	private final IsaacRandom decoder;
 
 	/**
 	 * The overloaded class constructor used for the instantiation of
@@ -20,10 +26,8 @@ public final class CryptionAlgorithmPair {
 	 * 
 	 * @param decoder The cryptography algorithm for opcode decoding.
 	 */
-	public CryptionAlgorithmPair(CryptionAlgorithm encoder, CryptionAlgorithm decoder) {
-
+	public IsaacRandomPair(IsaacRandom encoder, IsaacRandom decoder) {
 		this.encoder = encoder;
-
 		this.decoder = decoder;
 	}
 
@@ -32,8 +36,7 @@ public final class CryptionAlgorithmPair {
 	 * 
 	 * @return The returned instance.
 	 */
-	public final CryptionAlgorithm getEncoder() {
-
+	public final IsaacRandom getEncoder() {
 		return encoder;
 	}
 
@@ -42,8 +45,7 @@ public final class CryptionAlgorithmPair {
 	 * 
 	 * @return The returned instance.
 	 */
-	public final CryptionAlgorithm getDecoder() {
-
+	public final IsaacRandom getDecoder() {
 		return decoder;
 	}
 }

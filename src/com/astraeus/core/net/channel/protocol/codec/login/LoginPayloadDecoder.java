@@ -5,13 +5,13 @@ import java.nio.ByteBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.astraeus.core.net.ByteValue;
 import com.astraeus.core.net.channel.PlayerIO;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.message.Packet.PacketHeader;
 import com.astraeus.core.net.channel.protocol.ProtocolConstants;
 import com.astraeus.core.net.channel.protocol.ProtocolStateDecoder;
+import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
 import com.astraeus.core.net.channel.protocol.codec.game.GamePacketPayloadDecoder;
 import com.astraeus.core.net.security.IsaacRandom;
 import com.astraeus.core.net.security.IsaacRandomPair;

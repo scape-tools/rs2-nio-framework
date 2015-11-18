@@ -2,11 +2,11 @@ package com.astraeus.core.net.channel.events;
 
 import java.io.IOException;
 
-import com.astraeus.core.net.ByteValue;
 import com.astraeus.core.net.channel.ChannelEvent;
 import com.astraeus.core.net.channel.PlayerIO;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.message.Packet.PacketHeader;
+import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
 
 public final class PrepareChannelEvent extends ChannelEvent {
 

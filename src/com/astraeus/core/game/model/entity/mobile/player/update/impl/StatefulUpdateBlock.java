@@ -4,8 +4,8 @@ import com.astraeus.core.game.model.entity.UpdateFlags;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.mobile.player.update.UpdateBlock;
 import com.astraeus.core.game.utility.Utilities;
-import com.astraeus.core.net.ByteValue;
 import com.astraeus.core.net.channel.message.PacketBuilder;
+import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
 
 public final class StatefulUpdateBlock extends UpdateBlock {
 

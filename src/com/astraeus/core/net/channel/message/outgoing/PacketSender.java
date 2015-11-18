@@ -8,11 +8,11 @@ import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.mobile.player.update.impl.PlayerMovementBlock;
 import com.astraeus.core.game.model.entity.mobile.player.update.impl.RegionalMovementBlock;
 import com.astraeus.core.game.model.entity.mobile.player.update.impl.StatefulUpdateBlock;
-import com.astraeus.core.net.ByteAccess;
-import com.astraeus.core.net.ByteOrder;
-import com.astraeus.core.net.ByteValue;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.message.Packet.PacketHeader;
+import com.astraeus.core.net.channel.protocol.codec.game.ByteAccess;
+import com.astraeus.core.net.channel.protocol.codec.game.ByteOrder;
+import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
 
 /**
  * Contains outgoing packets that can be sent to the Client.

@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.logging.Logger;
 
-import com.astraeus.core.net.ByteValue;
 import com.astraeus.core.net.channel.PlayerIO;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.message.Packet.PacketHeader;
 import com.astraeus.core.net.channel.protocol.ProtocolStateDecoder;
+import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
 
 public final class LoginHeaderDecoder extends ProtocolStateDecoder {
 	

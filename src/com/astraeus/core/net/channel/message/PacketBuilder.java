@@ -3,11 +3,11 @@ package com.astraeus.core.net.channel.message;
 import java.nio.ByteBuffer;
 import java.util.stream.IntStream;
 
-import com.astraeus.core.net.ByteAccess;
-import com.astraeus.core.net.ByteOrder;
-import com.astraeus.core.net.ByteValue;
 import com.astraeus.core.net.channel.message.Packet.PacketHeader;
 import com.astraeus.core.net.channel.protocol.ProtocolConstants;
+import com.astraeus.core.net.channel.protocol.codec.game.ByteAccess;
+import com.astraeus.core.net.channel.protocol.codec.game.ByteOrder;
+import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
 
 /**
  * Functions as a write-only {@link ByteBuffer} for building outgoing messages.

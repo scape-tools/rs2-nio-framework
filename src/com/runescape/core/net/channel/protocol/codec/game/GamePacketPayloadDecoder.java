@@ -1,4 +1,4 @@
-package com.runescape.core.net.channel.protocol.codec;
+package com.runescape.core.net.channel.protocol.codec.game;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -12,14 +12,27 @@ import com.runescape.core.net.channel.message.IncomingPacketRegistration;
 import com.runescape.core.net.channel.message.Packet;
 import com.runescape.core.net.channel.protocol.ProtocolStateDecoder;
 
-public final class PacketPayloadDecoder extends ProtocolStateDecoder {
+/**
+ * The decoder that decodes incoming {@Packet}s.
+ * 
+ * @author SeVen
+ */
+public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 	
 	/**
 	 * The single logger for this class.
 	 */
-	public static final Logger logger = Logger.getLogger(PacketPayloadDecoder.class.getName());
+	public static final Logger logger = Logger.getLogger(GamePacketPayloadDecoder.class.getName());
 
-	private int length = -1, opcode = -1;
+	/**
+	 * The default opcode.
+	 */
+	private int opcode = -1;	
+	
+	/**
+	 * The default length.
+	 */
+	private int length = -1;
 	
 	@Override
 	public void decode(PlayerIO context) throws IOException {
@@ -63,7 +76,7 @@ public final class PacketPayloadDecoder extends ProtocolStateDecoder {
 	}
 	
 	/**
-	 * Returns the numerical length of the packet.
+	 * Gets the length of a packet.
 	 * 
 	 * @return The returned length.
 	 */
@@ -72,27 +85,29 @@ public final class PacketPayloadDecoder extends ProtocolStateDecoder {
 	}
 
 	/**
-	 * Modifies the numerical length of the packet.
+	 * Sets the length of a packet.
 	 * 
-	 * @param length The new modification.
+	 * @param length
+	 * 		The new length of this packet.
 	 */
 	public void setLength(int length) {
 		this.length = length;
 	}
 
 	/**
-	 * Returns the numerical opcode of the packet.
+	 * Gets the opcode of a packet.
 	 * 
-	 * @return The returned opcode.
+	 * @return The opcode.
 	 */
 	public int getOpcode() {
 		return opcode;
 	}
 
 	/**
-	 * Modifies the numerical opcode of the packet.
+	 * Sets a new opcode value.
 	 * 
-	 * @param opcode The new modification.
+	 * @param opcode
+	 * 		The opcode to be set.
 	 */
 	public void setOpcode(int opcode) {
 		this.opcode = opcode;

@@ -5,8 +5,8 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 
 import com.runescape.core.net.channel.PlayerIO;
+import com.runescape.core.net.channel.protocol.codec.login.LoginRequestDecoder;
 import com.runescape.core.net.channel.ChannelEvent;
-import com.runescape.core.net.channel.protocol.codec.LoginRequestDecoder;
 
 public final class AcceptChannelEvent extends ChannelEvent {
 

@@ -1,4 +1,4 @@
-package com.runescape.core.game.model.entity.character;
+package com.runescape.core.game.model.entity.mobile;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -6,14 +6,14 @@ import java.util.List;
 import com.runescape.core.game.model.entity.Entity;
 import com.runescape.core.game.model.entity.Position;
 import com.runescape.core.game.model.entity.UpdateFlags;
-import com.runescape.core.game.model.entity.character.player.Player;
+import com.runescape.core.game.model.entity.mobile.player.Player;
 
 public abstract class MobileEntity extends Entity {
 
 	/**
 	 * The entity's last known coordinate point.
 	 */
-	private Position lastLocation = new Position(0, 0, 0);
+	private Position lastPosition = new Position(0, 0, 0);
 
 	/**
 	 * An ordered collection or sequence of {@link UpdateFlags} which signify an update block.
@@ -40,8 +40,8 @@ public abstract class MobileEntity extends Entity {
 	 * 
 	 * @return The returned instance.
 	 */
-	public Position getLastLocation() {
-		return lastLocation;
+	public Position getLastPosition() {
+		return lastPosition;
 	}
 
 	/**
@@ -49,8 +49,8 @@ public abstract class MobileEntity extends Entity {
 	 * 
 	 * @param lastLocation The new modification.
 	 */
-	public void setLastLocation(Position lastLocation) {
-		this.lastLocation = lastLocation;
+	public void setLastPosition(Position lastLocation) {
+		this.lastPosition = lastLocation;
 	}
 
 	/**

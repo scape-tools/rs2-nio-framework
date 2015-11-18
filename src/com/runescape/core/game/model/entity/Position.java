@@ -148,6 +148,21 @@ public final class Position {
 		this.y = other.getY();
 		this.z = other.getZ();
 	}
+	
+	/**
+	 * Adds an additional set of values onto the current position.
+	 * 
+	 * @param x The X coordinate value.
+	 * 
+	 * @param y The Y coordinate value.
+	 * 
+	 * @param plane The height plane value.
+	 */
+	public final void setPositionAdditional(int x, int y, int z) {
+		this.x += x;
+		this.y += y;
+		this.z += z;
+	}
 
 	/**
 	 * Determines if another coordinate point is within a set distance

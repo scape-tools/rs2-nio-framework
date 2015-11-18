@@ -1,11 +1,18 @@
 package com.runescape.core.game.model.entity;
 
+import com.runescape.core.game.model.entity.mobile.Movement;
+
 public abstract class Entity {
 
 	/**
 	 * The current coordinate point the entity is residing on.
 	 */
-	private Position location = new Position(0, 0, 0);
+	private Position position = new Position(0, 0, 0);
+	
+	/**
+	 * Handles the movement procedures of an entity.
+	 */
+	private final Movement movement = new Movement(this);
 
 	/**
 	 * The numerical index of the entity. This index is synchronized
@@ -25,9 +32,8 @@ public abstract class Entity {
 	 * 
 	 * @return The returned coordinate point.
 	 */
-	public Position getLocation() {
-
-		return location;
+	public Position getPosition() {
+		return position;
 	}
 
 	/**
@@ -36,9 +42,18 @@ public abstract class Entity {
 	 * @param location The new modification.
 	 */
 	public void setLocation(Position location) {
-
-		this.location = location;
+		this.position = location;
 	}
+	
+	/**
+	 * Returns the instance for entity movement control.
+	 * 
+	 * @return The returned instance.
+	 */
+	public final Movement getMovement() {
+		return movement;
+	}
+
 
 	/**
 	 * Returns the entity's numerical identification index.
@@ -46,7 +61,6 @@ public abstract class Entity {
 	 * @return The returned index.
 	 */
 	public int getIndex() {
-
 		return index;
 	}
 
@@ -56,7 +70,6 @@ public abstract class Entity {
 	 * @param index The new modification.
 	 */
 	public void setIndex(int index) {
-
 		this.index = index;
 	}
 }

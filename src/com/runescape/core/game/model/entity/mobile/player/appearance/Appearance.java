@@ -1,7 +1,7 @@
-package com.runescape.core.game.model.entity.character.player.appearance;
+package com.runescape.core.game.model.entity.mobile.player.appearance;
 
-import com.runescape.core.game.model.entity.character.player.Player;
-import com.runescape.core.game.model.entity.character.player.PlayerConstants;
+import com.runescape.core.game.model.entity.mobile.player.Player;
+import com.runescape.core.game.model.entity.mobile.player.PlayerConstants;
 
 public final class Appearance {
 

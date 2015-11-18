@@ -1,6 +1,6 @@
 package com.runescape.core.net.channel.message.incoming.impl;
 
-import com.runescape.core.game.model.entity.character.player.Player;
+import com.runescape.core.game.model.entity.mobile.player.Player;
 import com.runescape.core.net.channel.message.IncomingPacketOpcode;
 import com.runescape.core.net.channel.message.Packet;
 import com.runescape.core.net.channel.message.incoming.IncomingPacketListener;

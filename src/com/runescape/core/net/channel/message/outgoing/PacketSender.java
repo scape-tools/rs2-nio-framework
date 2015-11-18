@@ -4,10 +4,10 @@ import java.util.Iterator;
 
 import com.runescape.core.Server;
 import com.runescape.core.game.GameConstants;
-import com.runescape.core.game.model.entity.character.player.Player;
-import com.runescape.core.game.model.entity.character.player.update.impl.PlayerMovementBlock;
-import com.runescape.core.game.model.entity.character.player.update.impl.RegionalMovementBlock;
-import com.runescape.core.game.model.entity.character.player.update.impl.StatefulUpdateBlock;
+import com.runescape.core.game.model.entity.mobile.player.Player;
+import com.runescape.core.game.model.entity.mobile.player.update.impl.PlayerMovementBlock;
+import com.runescape.core.game.model.entity.mobile.player.update.impl.RegionalMovementBlock;
+import com.runescape.core.game.model.entity.mobile.player.update.impl.StatefulUpdateBlock;
 import com.runescape.core.net.ByteAccess;
 import com.runescape.core.net.ByteOrder;
 import com.runescape.core.net.ByteValue;
@@ -91,6 +91,7 @@ public class PacketSender {
 		
 		player.getContext().prepare(out);
 		out.setAccessType(ByteAccess.BIT_ACCESS);
+
 		player.append(new PlayerMovementBlock(), out, player);
 
 		if (player.updateRequired()) {
@@ -102,7 +103,7 @@ public class PacketSender {
 				.hasNext();) {
 			final Player other = iterator.next();
 
-			if (other.getLocation().isWithinDistance(player.getLocation(), 15)) {
+			if (other.getPosition().isWithinDistance(player.getPosition(), 15)) {
 				player.append(new RegionalMovementBlock(), out, other);
 
 				if (other.updateRequired()) {
@@ -125,15 +126,15 @@ public class PacketSender {
 				continue;
 
 			}
-			if (other.getLocation().isWithinDistance(player.getLocation(), 15)) {
+			if (other.getPosition().isWithinDistance(player.getPosition(), 15)) {
 				player.getLocalPlayers().add(other);
 				out.putBits(11, other.getIndex());
 				out.putBits(1, 1);
 				out.putBits(1, 1);
-				out.putBits(5, other.getLocation().getY()
-						- player.getLocation().getY());
-				out.putBits(5, other.getLocation().getX()
-						- player.getLocation().getX());
+				out.putBits(5, other.getPosition().getY()
+						- player.getPosition().getY());
+				out.putBits(5, other.getPosition().getX()
+						- player.getPosition().getX());
 				player.append(new StatefulUpdateBlock(true), update, other);
 			}
 		}
@@ -155,17 +156,17 @@ public class PacketSender {
 	 * 
 	 * @param The instance of this encoder.
 	 */
-	public PacketSender sendRegionalUpdate() {
+	public PacketBuilder sendRegionalUpdate() {
 		PacketBuilder out = new PacketBuilder(73, PacketHeader.STANDARD);
 		out.allocate(5);
 		player.getContext().prepare(out);
-		out.putShort(player.getLocation().getRegionalX() + 6,
+		out.putShort(player.getPosition().getRegionalX() + 6,
 				ByteValue.ADDITIONAL, ByteOrder.BIG_BYTE_ORDER);
-		out.putShort(player.getLocation().getRegionalY() + 6,
+		out.putShort(player.getPosition().getRegionalY() + 6,
 				ByteValue.STANDARD);
-		player.setLastLocation(player.getLocation());
+		player.setLastPosition(player.getPosition());
 		player.write(out);
-		return this;
+		return out;
 	}
 
 	/**

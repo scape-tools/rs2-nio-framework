@@ -1,4 +1,4 @@
-package com.runescape.core.game.model.entity.character.player;
+package com.runescape.core.game.model.entity.mobile.player;
 
 public final class PlayerDetails {
 

@@ -7,7 +7,7 @@ import java.nio.channels.SocketChannel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.runescape.core.game.model.entity.character.player.Player;
+import com.runescape.core.game.model.entity.mobile.player.Player;
 import com.runescape.core.net.channel.events.PrepareChannelEvent;
 import com.runescape.core.net.channel.message.PacketBuilder;
 import com.runescape.core.net.channel.protocol.ProtocolStateDecoder;

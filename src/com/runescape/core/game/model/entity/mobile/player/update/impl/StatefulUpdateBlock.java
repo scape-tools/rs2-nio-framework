@@ -1,8 +1,8 @@
-package com.runescape.core.game.model.entity.character.player.update.impl;
+package com.runescape.core.game.model.entity.mobile.player.update.impl;
 
 import com.runescape.core.game.model.entity.UpdateFlags;
-import com.runescape.core.game.model.entity.character.player.Player;
-import com.runescape.core.game.model.entity.character.player.update.UpdateBlock;
+import com.runescape.core.game.model.entity.mobile.player.Player;
+import com.runescape.core.game.model.entity.mobile.player.update.UpdateBlock;
 import com.runescape.core.net.ByteValue;
 import com.runescape.core.net.channel.message.PacketBuilder;
 

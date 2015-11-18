@@ -1,6 +1,6 @@
-package com.runescape.core.game.model.entity.character.player.update;
+package com.runescape.core.game.model.entity.mobile.player.update;
 
-import com.runescape.core.game.model.entity.character.player.Player;
+import com.runescape.core.game.model.entity.mobile.player.Player;
 import com.runescape.core.net.channel.message.PacketBuilder;
 
 public abstract class UpdateBlock {

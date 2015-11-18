@@ -1,11 +1,11 @@
-package com.runescape.core.game.model.entity.character.player;
+package com.runescape.core.game.model.entity.mobile.player;
 
 import java.io.IOException;
 
 import com.runescape.core.game.model.entity.EntityEventListener;
-import com.runescape.core.game.model.entity.character.MobileEntity;
-import com.runescape.core.game.model.entity.character.player.appearance.Appearance;
-import com.runescape.core.game.model.entity.character.player.update.UpdateBlock;
+import com.runescape.core.game.model.entity.mobile.MobileEntity;
+import com.runescape.core.game.model.entity.mobile.player.appearance.Appearance;
+import com.runescape.core.game.model.entity.mobile.player.update.UpdateBlock;
 import com.runescape.core.game.utility.cryption.CryptionAlgorithmPair;
 import com.runescape.core.net.channel.PlayerIO;
 import com.runescape.core.net.channel.events.WriteChannelEvent;
@@ -44,6 +44,13 @@ public final class Player extends MobileEntity {
 	 */
 	public Player(PlayerIO context) {
 		this.context = context;
+	}
+	
+	/**
+	 * Prepares a prior update method to the main update block.
+	 */
+	public final void prepare() {
+		getMovement().handleEntityMovement();
 	}
 
 	/**

@@ -3,10 +3,11 @@ package com.runescape.core.net.channel.message;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.runescape.core.game.model.entity.character.player.Player;
+import com.runescape.core.game.model.entity.mobile.player.Player;
 import com.runescape.core.net.channel.message.incoming.IncomingPacketListener;
 import com.runescape.core.net.channel.message.incoming.impl.ButtonClickPacketListener;
 import com.runescape.core.net.channel.message.incoming.impl.CommandPacketListener;
+import com.runescape.core.net.channel.message.incoming.impl.MovementPacketListener;
 
 /**
  * @author Dylan Vicchiarelli
@@ -27,6 +28,7 @@ public final class IncomingPacketRegistration {
 	public IncomingPacketRegistration() {
 		registerPacket(new ButtonClickPacketListener());
 		registerPacket(new CommandPacketListener());
+		registerPacket(new MovementPacketListener());
 	}
 
 	/**

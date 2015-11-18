@@ -1,4 +1,4 @@
-package com.runescape.core.game.model.entity.character.player.appearance;
+package com.runescape.core.game.model.entity.mobile.player.appearance;
 
 public enum Gender {
 

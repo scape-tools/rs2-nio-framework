@@ -9,7 +9,6 @@ public final class PlayerMovementBlock extends UpdateBlock {
 
 	@Override
 	public void update(Player player, PacketBuilder buffer) {
-		System.out.println("Called");
 		if (player.getUpdateFlags().contains(UpdateFlags.UPDATE_MAP_REGION)) {
 			buffer.putBits(1, 1);
 			buffer.putBits(2, 3);

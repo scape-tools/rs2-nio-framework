@@ -67,10 +67,30 @@ public class PacketSender {
 	}
 	
 	public PacketSender sendChatInterface(int interfaceId) {
-		PacketBuilder out = new PacketBuilder();
+		PacketBuilder out = new PacketBuilder(164);
 		out.allocate(3);
 		player.getContext().prepare(out);
 		out.putShort(interfaceId, ByteOrder.LITTLE);
+		player.write(out);
+		return this;
+	}
+	
+	public PacketSender sendDialogueAnimation(int interfaceId, int animationId) {		
+		PacketBuilder out = new PacketBuilder(200);		
+		out.allocate(10);
+		player.getContext().prepare(out);
+		out.putShort(interfaceId);
+		out.putShort(animationId);
+		player.write(out);		
+		return this;
+	}
+	
+	public PacketSender sendDialogueNpcHead(int npcId, int interfaceId) {
+		PacketBuilder out = new PacketBuilder(75);
+		out.allocate(15);
+		player.getContext().prepare(out);
+		out.putShort(npcId, ByteValue.ADDITION, ByteOrder.LITTLE);
+		out.putShort(interfaceId, ByteValue.ADDITION, ByteOrder.LITTLE);
 		player.write(out);
 		return this;
 	}

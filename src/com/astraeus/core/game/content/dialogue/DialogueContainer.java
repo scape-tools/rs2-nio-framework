@@ -93,16 +93,82 @@ public class DialogueContainer {
 			player.setDialogueOption(option);
 			break;
 
-		case 4:
-
-			break;
-
 		default:
 				logger.log(Level.SEVERE, String.format("Invalid dialogue option line length: %s", lines.length));
 			break;
 
 		}
 
+	}
+	
+	/**
+	 * Sends a dialogue with a npc talking.
+	 * 
+	 * @param player
+	 * 		The player that is receiving the dialogue.
+	 * 
+	 * @param npcName
+	 * 		The name of the npc.
+	 * 
+	 * @param npcId
+	 * 		The id of the npc.
+	 * 
+	 * @param expression
+	 * 		The npc's expression.
+	 * 
+	 * @param lines
+	 * 		The lines of dialogue.
+	 */
+	public static final void sendNpcChat(Player player, String npcName, int npcId, Expression expression, String... lines) {
+		
+		int line = lines.length - 1;
+		
+		switch(line) {
+		
+		case 0:
+			player.getPacketSender().sendDialogueAnimation(4883, expression.getId());
+			player.getPacketSender().sendString(npcName, 4884);
+			player.getPacketSender().sendString(lines[0], 4885);
+			player.getPacketSender().sendDialogueNpcHead(npcId, 4883);
+			player.getPacketSender().sendChatInterface(4882);
+			break;
+			
+		case 1:
+			player.getPacketSender().sendDialogueAnimation(4888, expression.getId());
+			player.getPacketSender().sendString(npcName, 4889);
+			player.getPacketSender().sendString(lines[0], 4890);
+			player.getPacketSender().sendString(lines[1], 4891);
+			player.getPacketSender().sendDialogueNpcHead(npcId, 4888);
+			player.getPacketSender().sendChatInterface(4887);
+			break;
+			
+		case 2:
+			player.getPacketSender().sendDialogueAnimation(4894, expression.getId());
+			player.getPacketSender().sendString(npcName, 4895);
+			player.getPacketSender().sendString(lines[0], 4896);
+			player.getPacketSender().sendString(lines[1], 4897);
+			player.getPacketSender().sendString(lines[2], 4898);
+			player.getPacketSender().sendDialogueNpcHead(npcId, 4894);
+			player.getPacketSender().sendChatInterface(4893);
+			break;
+			
+		case 3:
+			player.getPacketSender().sendDialogueAnimation(4901, expression.getId());
+			player.getPacketSender().sendString(npcName, 4902);
+			player.getPacketSender().sendString(lines[0], 4903);
+			player.getPacketSender().sendString(lines[1], 4904);
+			player.getPacketSender().sendString(lines[2], 4905);
+			player.getPacketSender().sendString(lines[3], 4906);
+			player.getPacketSender().sendDialogueNpcHead(npcId, 4901);
+			player.getPacketSender().sendChatInterface(4900);
+			break;
+			
+		default:
+			logger.log(Level.SEVERE, String.format("Invalid npc dialogue line length: %s", line));
+		break;
+		
+		}
+		
 	}
 
 }

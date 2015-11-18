@@ -30,6 +30,17 @@ public final class ObjectActionPacketListener implements IncomingPacketListener 
 			player.getAttributes().put(Attributes.CLICK_X, objectX);
 			PulseScheduler.getInstance().register(new InteractionDistancePulse(player, InteractionType.OBJECT_INTERACTION_FIRST_CLICK), true);
 			break;
+			
+		case IncomingPacketConstants.SECOND_CLICK_OBJECT:
+			objectIndex = packet.readLittleEndianShortAddition();
+			objectY = packet.readLittleEndianShort();
+			objectX = packet.readAdditionalShort();
+
+			player.getAttributes().put(Attributes.CLICK_Y, objectY);
+			player.getAttributes().put(Attributes.CLICK_INDEX, objectIndex);
+			player.getAttributes().put(Attributes.CLICK_X, objectX);
+			PulseScheduler.getInstance().register(new InteractionDistancePulse(player, InteractionType.OBJECT_INTERACTION_SECOND_CLICK), true);
+			break;
 		}
 		
 	}

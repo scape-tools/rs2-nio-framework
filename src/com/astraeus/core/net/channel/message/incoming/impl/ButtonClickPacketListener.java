@@ -10,35 +10,37 @@ import com.astraeus.core.net.channel.message.incoming.IncomingPacketListener;
  * 
  * @author SeVen
  */
-@IncomingPacketOpcode( 185 )
+@IncomingPacketOpcode(185)
 public class ButtonClickPacketListener implements IncomingPacketListener {
 
 	@Override
 	public void handleMessage(Player player, Packet packet) {
 		final int button = packet.getBuffer().getShort();
-		
-		System.out.println(player.getPacketSender().sendMessage("ButtonId: " + button));
-		
-		switch(button) {
-		
+
+		switch (button) {
+
 		// walk
 		case 152:
 			player.getMovement().setRunning(false);
 			player.getMovement().setRunningQueueEnabled(false);
 			break;
-		
+
 		// run
 		case 153:
 			player.getMovement().setRunning(true);
 			player.getMovement().setRunningQueueEnabled(true);
 			break;
-		
+
 		// logout
 		case 2458:
 			player.getPacketSender().sendLogout();
 			player.getContext().close();
-			break;		
-		
+			break;
+
+		default:
+			player.getPacketSender().sendMessage("[ButtonClick] - ButtonId: " + button);
+			break;
+
 		}
 	}
 

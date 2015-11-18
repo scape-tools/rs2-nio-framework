@@ -69,9 +69,7 @@ public final class InteractionDistancePulse extends Pulse {
 		case OBJECT_INTERACTION_FIRST_CLICK:
 
 			if (player.getPosition().isWithinDistance(destination, 1)) {
-
 				player.faceDirection(destination);
-
 				setActive(false);
 			}
 			break;
@@ -79,9 +77,7 @@ public final class InteractionDistancePulse extends Pulse {
 		case OBJECT_INTERACTION_SECOND_CLICK:
 
 			if (player.getPosition().isWithinDistance(destination, 1)) {
-
 				player.faceDirection(destination);
-
 				setActive(false);
 			}
 			break;
@@ -89,7 +85,6 @@ public final class InteractionDistancePulse extends Pulse {
 		case RETREIVE_ITEM:
 
 			if (player.getPosition().coordinatesEqual(destination)) {
-
 				setActive(false);
 			}
 			break;
@@ -97,9 +92,7 @@ public final class InteractionDistancePulse extends Pulse {
 		case MOB_INTERACTION_FIRST_CLICK:
 
 			if (player.getPosition().isWithinDistance(destination, 1)) {
-
 				player.faceDirection(destination);
-
 				setActive(false);
 			}
 			break;
@@ -121,10 +114,16 @@ public final class InteractionDistancePulse extends Pulse {
 				PlayerWalkToActions.objectFirstClick(player, destination, (Integer) player.getAttributes().get(Attributes.CLICK_INDEX));
 			}
 			break;
+			
+		case OBJECT_INTERACTION_SECOND_CLICK:
+			if (player.getPosition().isWithinDistance(destination, 1)) {
+				PlayerWalkToActions.objectSecondClick(player, destination, (Integer) player.getAttributes().get(Attributes.CLICK_INDEX));
+			}
+			break;
+			
 		case MOB_INTERACTION_FIRST_CLICK:
 			break;
-		case OBJECT_INTERACTION_SECOND_CLICK:
-			break;
+
 		case RETREIVE_ITEM:
 			break;
 		default:

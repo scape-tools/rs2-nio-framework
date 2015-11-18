@@ -20,8 +20,6 @@ public class MovementPacketListener implements IncomingPacketListener {
 	@Override
 	public void handleMessage(Player player, Packet packet) {
 		
-		System.out.println("Movement detected");
-
 		int packetLength = packet.getLength();
 
 		if (packet.getOpcode() == 248) {

@@ -1,5 +1,10 @@
 package com.runescape.core.net;
 
+/**
+ * Represents the order in which bytes are written.
+ * 
+ * @author SeVen
+ */
 public enum ByteOrder {
 
 	/**
@@ -21,4 +26,5 @@ public enum ByteOrder {
 	 * Stores the most significant part in the second byte (V2 Order)
 	 */
 	INVERSE;
+	
 }

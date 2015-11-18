@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import com.runescape.core.game.processor.PeriodicalLogicProcessor;
 import com.runescape.core.game.processor.impl.PeriodicalNetworkProcessor;
 import com.runescape.core.game.processor.impl.PeriodicalUpdateProcessor;
+import com.runescape.core.net.channel.message.IncomingPacketRegistration;
 
 /**
  * The core class for the server.
@@ -37,6 +38,9 @@ public final class Server {
 	 *            The command line arguments.
 	 */
 	public static void main(String... args) throws IOException {
+
+		new IncomingPacketRegistration();
+		
 		bind();
 	}
 

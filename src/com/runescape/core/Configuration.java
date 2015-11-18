@@ -21,5 +21,10 @@ public class Configuration {
 	 * The port to which the {@link ServerSocketChannel} will bind to.
 	 */
 	public static final int PORT = 43594;
+	
+	/**
+	 * Displays server debug messages.
+	 */
+	public static boolean SERVER_DEBUG = true;
 
 }

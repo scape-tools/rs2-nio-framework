@@ -4,17 +4,12 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.runescape.core.game.model.entity.character.player.Player;
-import com.runescape.core.net.NetworkConstants;
 import com.runescape.core.net.channel.events.PrepareChannelEvent;
-import com.runescape.core.net.channel.message.Packet;
 import com.runescape.core.net.channel.message.PacketBuilder;
-import com.runescape.core.net.channel.message.incoming.PacketListener;
 import com.runescape.core.net.channel.protocol.ProtocolStateDecoder;
 
 /**
@@ -28,15 +23,6 @@ public final class PlayerIO {
 	 * The single logger for this class.
 	 */
 	public static final Logger logger = Logger.getLogger(PlayerIO.class.getName());
-
-	/**
-	 * Holds packets that need to be prioritized.
-	 */
-	private final Queue<Packet> prioritizedPacketQueue = new ConcurrentLinkedQueue<>();
-	/**
-	 * Holds packets to be handled on the next sequence.
-	 */
-	private final Queue<Packet> packetQueue = new ConcurrentLinkedQueue<>();
 	
 	/**
 	 * A token representing the registration of a channel.
@@ -71,42 +57,6 @@ public final class PlayerIO {
 	 */
 	public PlayerIO(SocketChannel channel) {
 		this.channel = channel;
-	}
-	
-	/**
-	 * Processes all of the queued Packets by polling the queue, and them processes
-	 * them via the handleInputMessage. 
-	 */
-	public void handleQueuedPackets() {
-		handlePrioritizedPacketQueue();
-		Packet msg;
-		while((msg = packetQueue.poll()) != null) {
-			handleIncomingPacket(msg);
-		}	
-	}
-	
-	/**
-	 * Processes packets that need to be prioritized.
-	 */
-	public void handlePrioritizedPacketQueue() {
-		Packet msg;
-		while((msg = prioritizedPacketQueue.poll()) != null) {
-			handleIncomingPacket(msg);
-		}
-	}
-	
-	/**
-	 * Processes incoming packets from the {@link SocketChannel}.
-	 */
-	public void handleIncomingPacket(Packet msg) {
-		int opcode = msg.getOpcode();
-		PacketListener listener = NetworkConstants.PACKETS[opcode];
-		
-		if (msg.getLength() != NetworkConstants.PACKET_SIZES[opcode]) {
-			System.out.println("Invalid Incoming Packet: " + msg.getOpcode() + " Length: " + msg.getLength() + " Actual: "  + msg.getLength());
-			return;
-		}
-		listener.handleMessage(player, msg);
 	}
 
 	/**
@@ -203,6 +153,7 @@ public final class PlayerIO {
 	 */
 	public void close() {
 		try {
+			
 			/*
 			 * Requests that the registration of this key's channel with its selector be cancelled.
 			 */
@@ -212,6 +163,8 @@ public final class PlayerIO {
 			 * Removes the player from the virtual world.
 			 */
 			player.getEventListener().remove(player);
+			
+			channel.close();
 
 			/*
 			 * Informs the user of the removal of the channel's connection.

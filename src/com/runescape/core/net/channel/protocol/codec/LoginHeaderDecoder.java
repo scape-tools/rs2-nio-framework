@@ -38,8 +38,4 @@ public final class LoginHeaderDecoder extends ProtocolStateDecoder {
 		context.setProtocolDecoder(new LoginPayloadDecoder());
 	}
 
-	@Override
-	public void error(PlayerIO context, String description) throws IOException {
-		logger.info(description);
-	}
 }

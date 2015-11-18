@@ -2,6 +2,7 @@ package com.runescape.core.net.channel.protocol.codec;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.runescape.core.game.utility.cryption.CryptionAlgorithm;
@@ -15,6 +16,11 @@ import com.runescape.core.net.channel.protocol.ProtocolConstants;
 import com.runescape.core.net.channel.protocol.ProtocolStateDecoder;
 
 public final class LoginPayloadDecoder extends ProtocolStateDecoder {
+	
+	/**
+	 * The single logger for this class.
+	 */
+	public static final Logger logger = Logger.getLogger(LoginPayloadDecoder.class.getName());
 
 	@Override
 	public void decode(PlayerIO context) throws IOException {
@@ -37,27 +43,27 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 			final int encryptedLoginBlockSize = (loginBlockSize - ProtocolConstants.LOGIN_BLOCK_ENCRYPTION_KEY);
 
 			if (opcode != ProtocolConstants.NEW_CONNECTION_OPCODE && opcode != ProtocolConstants.RECONNECTION_OPCODE) {
-				error(context, "Invalid connection opcode.");
+				logger.log(Level.WARNING, "Invalid connection opcode.");
 				return;
 			}
 
 			if (encryptedLoginBlockSize < 1) {
-				error(context, "Invalid Login-Block size.");
+				logger.log(Level.WARNING, "Invalid Login-Block size.");
 				return;
 			}
 
 			if (context.getBuffer().remaining() < loginBlockSize) {
-				error(context, "Insufficent buffered memory.");
+				logger.log(Level.WARNING, "Insufficent buffered memory.");
 				return;
 			}
 
 			if ((context.getBuffer().get() & 0xFF) != ProtocolConstants.MAGIC_NUMBER_OPCODE) {
-				error(context, "Invalid magic number.");
+				logger.log(Level.WARNING, "Invalid magic number.");
 				return;
 			}
 
 			if (context.getBuffer().getShort() != ProtocolConstants.PROTOCOL_REVISION) {
-				error(context, "Invalid server release.");
+				logger.log(Level.WARNING, "Invalid client version.");
 				return;
 			}
 
@@ -135,17 +141,11 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 				context.getPlayer().getEventListener().add(context.getPlayer());
 				context.setProtocolDecoder(new PacketPayloadDecoder());
 			} else {
-				error(context, "Invalid RSA identifier.");
+				logger.log(Level.WARNING, "Invalid RSA key.");
 			}
 		} else {
 			context.getBuffer().compact();
 		}
-	}
-
-	@Override
-	public void error(PlayerIO context, String description) throws IOException {
-
-		Logger.getLogger(LoginPayloadDecoder.class.getCanonicalName()).info(description);
 	}
 
 	/**

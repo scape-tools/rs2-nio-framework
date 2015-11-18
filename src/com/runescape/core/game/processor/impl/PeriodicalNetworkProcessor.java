@@ -36,21 +36,15 @@ public final class PeriodicalNetworkProcessor extends PeriodicalLogicProcessor {
 	 * @param channel A channel for stream-oriented listening sockets.
 	 */
 	public PeriodicalNetworkProcessor(Selector selector, ServerSocketChannel channel) {
-
 		super(PeriodicalLogicProcessorConstants.NETWORK_PROCESSOR_RATE);
-
 		this.selector = selector;
-
 		this.channel = channel;
 	}
 
 	@Override
 	public void execute() {
-
 		try {
-
 			selector.selectNow();
-
 			final Iterator<SelectionKey> iterator = selector.keys().iterator();
 
 			while (iterator.hasNext()) {
@@ -58,32 +52,24 @@ public final class PeriodicalNetworkProcessor extends PeriodicalLogicProcessor {
 				final SelectionKey selection = iterator.next();
 
 				if (selection.isValid()) {
-
 					if (selection.isAcceptable()) {
-
 						final SocketChannel selectedChannel = channel.accept();
 
 						if (selectedChannel != null) {
-
 							final PlayerIO context = new PlayerIO(selectedChannel);
-
 							context.execute(new AcceptChannelEvent(selector));
 						}
 					}
 
 					if (selection.isReadable()) {
-
 						final PlayerIO attachment = (PlayerIO) selection.attachment();
-
 						if (attachment != null && attachment.getChannel().isOpen()) {
-
 							attachment.execute(new ReadChannelEvent());
 						}
 					}
 				}
 			}
 		} catch (IOException exception) {
-
 			exception.printStackTrace();
 		}
 	}

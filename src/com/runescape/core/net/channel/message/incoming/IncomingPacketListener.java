@@ -10,7 +10,7 @@ import com.runescape.core.net.channel.message.Packet;
  * 
  * @author SeVen
  */
-public interface PacketListener {
+public interface IncomingPacketListener {
 	
 	/**
 	 * Executes the packet that has been received.

@@ -10,33 +10,45 @@ import com.astraeus.core.net.channel.message.Packet.PacketHeader;
 public final class WriteChannelEvent extends ChannelEvent {
 
 	/**
-	 * The message's heading definition.
+	 * The header for the packet.
 	 */
-	private final PacketHeader definition;
+	private final PacketHeader header;
 
 	/**
-	 * The internal buffer.
+	 * The buffer being used.
 	 */
 	private final PacketBuilder buffer;
+	
+	/**
+	 * Creates a new {@link WriteChannelEvent} with a
+	 * default {@code PacketHeader} of {@code EMPTY}.
+	 * 
+	 * @param buffer
+	 * 		The buffer being used.
+	 */
+	public WriteChannelEvent(PacketBuilder buffer) {
+		this(PacketHeader.EMPTY, buffer);
+	}
 
 	/**
-	 * The overloaded class constructor used for the instantiation of
-	 * this class file.
+	 * Creates a new {@link WriteChannelEvent}.
 	 * 
-	 * @param definition The message's heading definition.
+	 * @param header
+	 * 		The header for this channel event.
 	 * 
-	 * @param buffer The internal buffer.
+	 * @param buffer
+	 * 		The buffer being used.
 	 */
-	public WriteChannelEvent(PacketHeader definition, PacketBuilder buffer) {
-		this.definition = definition;
+	public WriteChannelEvent(PacketHeader header, PacketBuilder buffer) {
+		this.header = header;
 		this.buffer = buffer;
 	}
 
 	@Override
 	public void execute(PlayerIO context) throws IOException {
-		if (definition.equals(PacketHeader.VARIABLE_BYTE)) {
+		if (header.equals(PacketHeader.VARIABLE_BYTE)) {
 			buffer.getInternal().put(buffer.getLength(), (byte) (buffer.getInternal().position() - buffer.getLength() - 1));
-		} else if (definition.equals(PacketHeader.VARIABLE_SHORT)) {
+		} else if (header.equals(PacketHeader.VARIABLE_SHORT)) {
 			buffer.getInternal().putShort(buffer.getLength(), (short) (buffer.getInternal().position() - buffer.getLength() - 2));
 		}
 		/*

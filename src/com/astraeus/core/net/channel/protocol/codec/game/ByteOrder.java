@@ -1,4 +1,4 @@
-package com.astraeus.core.net;
+package com.astraeus.core.net.channel.protocol.codec.game;
 
 /**
  * Represents the order in which bytes are written.

@@ -143,7 +143,7 @@ public final class Position {
 	 * 
 	 * @param other The new modification.
 	 */
-	public final void setLocation(Position other) {
+	public final void setPosition(Position other) {
 		this.x = other.getX();
 		this.y = other.getY();
 		this.z = other.getZ();
@@ -162,6 +162,19 @@ public final class Position {
 		this.x += x;
 		this.y += y;
 		this.z += z;
+	}
+	
+	/**
+	 * Performs a check to see if the specified position is equal to
+	 * the instanced one.
+	 * 
+	 * @param other
+	 * 		The other coordinate to be checked.
+	 * 
+	 * @return The result of the operation.
+	 */
+	public final boolean coordinatesEqual(Position other) {
+		return other.getX() == this.getX() && other.getY() == this.getY() && other.getZ() == this.getZ();
 	}
 
 	/**

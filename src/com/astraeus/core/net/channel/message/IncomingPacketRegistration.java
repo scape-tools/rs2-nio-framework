@@ -9,6 +9,7 @@ import com.astraeus.core.net.channel.message.incoming.impl.ButtonClickPacketList
 import com.astraeus.core.net.channel.message.incoming.impl.CommandPacketListener;
 import com.astraeus.core.net.channel.message.incoming.impl.DialoguePacketListener;
 import com.astraeus.core.net.channel.message.incoming.impl.MovementPacketListener;
+import com.astraeus.core.net.channel.message.incoming.impl.ObjectActionPacketListener;
 
 /**
  * @author Dylan Vicchiarelli
@@ -31,6 +32,7 @@ public final class IncomingPacketRegistration {
 		registerPacket(new CommandPacketListener());
 		registerPacket(new MovementPacketListener());
 		registerPacket(new DialoguePacketListener());
+		registerPacket(new ObjectActionPacketListener());
 	}
 
 	/**

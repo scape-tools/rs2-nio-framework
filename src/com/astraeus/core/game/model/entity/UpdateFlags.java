@@ -11,4 +11,6 @@ public enum UpdateFlags {
 	 * Updates the player's current appearance.
 	 */
 	UPDATE_APPEARANCE,
+	
+	FACE_POSITION;
 }

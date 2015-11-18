@@ -1,6 +1,7 @@
 package com.astraeus.core.game.model.entity.mobile.player;
 
 import java.io.IOException;
+import java.util.EnumMap;
 
 import com.astraeus.core.game.content.dialogue.Dialogue;
 import com.astraeus.core.game.content.dialogue.DialogueOption;
@@ -47,6 +48,22 @@ public final class Player extends MobileEntity {
 	private final Appearance appearance = new Appearance(this);
 	
 	private PacketSender packetSender = new PacketSender(this);
+	
+	/**
+	 * The attributes a player can have.
+	 */
+	public enum Attributes {
+		USERNAME,
+		PASSWORD,
+		SHOPPING,
+		TRADING,
+		BANKING,
+		CLICK_X,
+		CLICK_Y,
+		WALK_TO_ACTION,
+		CLICK_INDEX,
+		FACE_DIRECTION;
+	}
 
 	/**
 	 * The overloaded class constructor used for instantiation of this
@@ -114,6 +131,20 @@ public final class Player extends MobileEntity {
 
 	public void setDialogueOption(DialogueOption dialogueOption) {
 		this.dialogueOption = dialogueOption;
+	}
+	
+	/**
+	 * @return the attributes
+	 */
+	public EnumMap<Attributes, Object> getAttributes() {
+		return attributes;
+	}
+
+	/**
+	 * @param attributes the attributes to set
+	 */
+	public void setAttribute(EnumMap<Attributes, Object> attributes) {
+		this.attributes = attributes;
 	}
 
 	/**

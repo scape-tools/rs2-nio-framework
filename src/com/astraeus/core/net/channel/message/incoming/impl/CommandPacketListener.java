@@ -5,7 +5,7 @@ import com.astraeus.core.net.channel.message.IncomingPacketOpcode;
 import com.astraeus.core.net.channel.message.Packet;
 import com.astraeus.core.net.channel.message.incoming.IncomingPacketListener;
 
-@IncomingPacketOpcode(103)
+@IncomingPacketOpcode( 103 )
 public class CommandPacketListener implements IncomingPacketListener {
 
 	@Override

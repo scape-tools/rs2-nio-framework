@@ -8,7 +8,7 @@ import com.astraeus.core.net.channel.message.incoming.IncomingPacketListener;
 /**
  * The packet opcodes which this listener implementation handles.
  */
-@IncomingPacketOpcode ({248, 98, 164})
+@IncomingPacketOpcode ({ 248, 98, 164 })
 
 /**
  * @author Dylan Vicchiarelli

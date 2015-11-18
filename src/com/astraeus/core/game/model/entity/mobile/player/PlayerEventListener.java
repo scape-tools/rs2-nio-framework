@@ -19,7 +19,7 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 			/*
 			 * Sets an initial starting location.
 			 */
-			player.setLocation(PlayerConstants.START_COORDINATES);
+			player.setPosition(PlayerConstants.START_COORDINATES);
 
 			/*
 			 * Updates the player's region upon initial placement.

@@ -24,8 +24,8 @@ public class ButtonClickPacketListener implements IncomingPacketListener {
 		//logout
 		case 2458:
 			player.getContext().close();
-			break;
-		
+			player.getPacketSender().sendLogout();
+			break;		
 		
 		}
 	}

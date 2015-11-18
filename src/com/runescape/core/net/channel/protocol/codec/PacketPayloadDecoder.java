@@ -51,9 +51,10 @@ public final class PacketPayloadDecoder extends ProtocolStateDecoder {
 			packetPayload.flip();
 			
 			Packet packet = new Packet(packetPayload, getOpcode(), getLength());
+
 			IncomingPacketRegistration.dispatchToListener(packet, context.getPlayer());
 			
-			if(Configuration.SERVER_DEBUG)
+			if(Configuration.SERVER_DEBUG && packet.getOpcode() != 0)
 			logger.log(Level.INFO, String.format("[Packet] - Opcode: %d Length: %d", packet.getOpcode(), packet.getLength()));
 	
 			setOpcode(-1);

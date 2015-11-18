@@ -54,6 +54,17 @@ public class PacketSender {
 		player.write(out);
 		return this;
 	}
+	
+	/**
+	 * The outgoing packet that logs a player out of the game.
+	 */
+	public PacketSender sendLogout() {
+		PacketBuilder out = new PacketBuilder(109);
+		out.allocate(1);
+		player.getContext().prepare(out);
+		player.write(out);
+		return this;
+	}
 
 	/**
 	 * Updates a single player.

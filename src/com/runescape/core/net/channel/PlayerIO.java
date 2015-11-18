@@ -163,8 +163,6 @@ public final class PlayerIO {
 			 * Removes the player from the virtual world.
 			 */
 			player.getEventListener().remove(player);
-			
-			channel.close();
 
 			/*
 			 * Informs the user of the removal of the channel's connection.

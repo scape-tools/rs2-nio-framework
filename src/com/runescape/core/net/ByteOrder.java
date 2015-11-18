@@ -13,12 +13,12 @@ public enum ByteOrder {
 	BIG,
 
 	/**
-	 * Stores the most significant part in the second to last byte.
+	 * Stores the most significant part in the second to last byte. (V1 Order)
 	 */
 	MIDDLE,
 
 	/**
-	 * Stores the most significant part in the second byte.
+	 * Stores the most significant part in the second byte (V2 Order)
 	 */
 	INVERSE;
 }

@@ -80,7 +80,7 @@ public final class StatefulUpdateBlock extends UpdateBlock {
 				properties.putLong(Utilities.convertStringToLong(player.getDetails().getUsername()), ByteValue.STANDARD);
 				properties.putByte(3, ByteValue.STANDARD);
 				properties.putShort(0, ByteValue.STANDARD);
-				buffer.putByte(properties.getInternal().position(), ByteValue.NEGATED);
+				buffer.putByte(properties.getInternal().position(), ByteValue.INVERSION);
 				buffer.putBytes(properties.getInternal());
 			}
 		}

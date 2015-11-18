@@ -109,11 +109,11 @@ public final class PacketBuilder {
 	public void put(long value, ByteValue modification) {
 		switch (modification) {
 
-		case ADDITIONAL:
+		case ADDITION:
 			this.getInternal().put((byte) (value + 128));
 			break;
 
-		case NEGATED:
+		case INVERSION:
 			this.getInternal().put((byte) -value);
 			break;
 
@@ -121,7 +121,7 @@ public final class PacketBuilder {
 			this.getInternal().put((byte) value);
 			break;
 
-		case SUBTRACTED:
+		case SUBTRACTION:
 			this.getInternal().put((byte) (128 - value));
 			break;
 		}
@@ -139,11 +139,11 @@ public final class PacketBuilder {
 	public void putInt(long value, ByteValue modification) {
 		switch (modification) {
 		
-		case ADDITIONAL:
+		case ADDITION:
 			this.getInternal().putInt((int) (value + 128));
 			break;
 
-		case NEGATED:
+		case INVERSION:
 			this.getInternal().putInt((int) -value);
 			break;
 
@@ -151,7 +151,7 @@ public final class PacketBuilder {
 			this.getInternal().putInt((int) value);
 			break;
 
-		case SUBTRACTED:
+		case SUBTRACTION:
 			this.getInternal().putInt((int) (128 - value));
 			break;
 		}
@@ -169,11 +169,11 @@ public final class PacketBuilder {
 	public void putLong(long value, ByteValue modification) {
 		switch (modification) {
 
-		case ADDITIONAL:
+		case ADDITION:
 			this.getInternal().putLong(value + 128);
 			break;
 
-		case NEGATED:
+		case INVERSION:
 			this.getInternal().putLong(-value);
 			break;
 
@@ -181,7 +181,7 @@ public final class PacketBuilder {
 			this.getInternal().putLong(value);
 			break;
 
-		case SUBTRACTED:
+		case SUBTRACTION:
 			this.getInternal().putLong(128 - value);
 			break;
 		}
@@ -218,11 +218,11 @@ public final class PacketBuilder {
 	public void putShort(long value, ByteValue modification) {
 		switch (modification) {
 
-		case ADDITIONAL:
+		case ADDITION:
 			this.getInternal().putShort((short) (value + 128));
 			break;
 
-		case NEGATED:
+		case INVERSION:
 			this.getInternal().putShort((short) -value);
 			break;
 
@@ -230,7 +230,7 @@ public final class PacketBuilder {
 			this.getInternal().putShort((short) value);
 			break;
 
-		case SUBTRACTED:
+		case SUBTRACTION:
 			this.getInternal().putShort((short) (128 - value));
 			break;
 		}

@@ -60,7 +60,7 @@ public class PacketSender {
 		out.allocate(string.length() + 6);
 		player.getContext().prepare(out);
 		out.putString(string);
-		out.putShort(widget, ByteValue.ADDITIONAL);
+		out.putShort(widget, ByteValue.ADDITION);
 		out.endVariableShortPacketHeader();	
 		player.write(out);
 		return this;
@@ -192,7 +192,7 @@ public class PacketSender {
 		out.allocate(5);
 		player.getContext().prepare(out);
 		out.putShort(player.getPosition().getRegionalX() + 6,
-				ByteValue.ADDITIONAL, ByteOrder.BIG);
+				ByteValue.ADDITION, ByteOrder.BIG);
 		out.putShort(player.getPosition().getRegionalY() + 6,
 				ByteValue.STANDARD);
 		player.setLastPosition(player.getPosition());
@@ -216,7 +216,7 @@ public class PacketSender {
 		out.allocate(4);
 		player.getContext().prepare(out);	
 		out.putShort(interfaceId);
-		out.put(tabId, ByteValue.ADDITIONAL);
+		out.put(tabId, ByteValue.ADDITION);
 		player.write(out);
 		return this;
 	}

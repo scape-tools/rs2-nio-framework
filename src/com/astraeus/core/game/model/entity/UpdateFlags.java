@@ -12,5 +12,8 @@ public enum UpdateFlags {
 	 */
 	UPDATE_APPEARANCE,
 	
+	/**
+	 * Updates a player's facing direction.
+	 */
 	FACE_POSITION;
 }

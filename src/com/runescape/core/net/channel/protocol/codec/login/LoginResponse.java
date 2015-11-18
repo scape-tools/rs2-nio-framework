@@ -1,4 +1,4 @@
-package com.runescape.core.net.channel.protocol.codec;
+package com.runescape.core.net.channel.protocol.codec.login;
 
 public enum LoginResponse {
 

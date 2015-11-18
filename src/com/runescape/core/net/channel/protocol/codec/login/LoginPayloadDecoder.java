@@ -1,4 +1,4 @@
-package com.runescape.core.net.channel.protocol.codec;
+package com.runescape.core.net.channel.protocol.codec.login;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -12,6 +12,7 @@ import com.runescape.core.net.channel.message.PacketBuilder;
 import com.runescape.core.net.channel.message.Packet.PacketHeader;
 import com.runescape.core.net.channel.protocol.ProtocolConstants;
 import com.runescape.core.net.channel.protocol.ProtocolStateDecoder;
+import com.runescape.core.net.channel.protocol.codec.game.GamePacketPayloadDecoder;
 import com.runescape.core.net.security.IsaacRandom;
 import com.runescape.core.net.security.IsaacRandomPair;
 
@@ -139,7 +140,7 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 				response.putByte(0, ByteValue.STANDARD);
 				context.execute(new WriteChannelEvent(PacketHeader.EMPTY, response));
 				context.getPlayer().getEventListener().add(context.getPlayer());
-				context.setProtocolDecoder(new PacketPayloadDecoder());
+				context.setProtocolDecoder(new GamePacketPayloadDecoder());
 			} else {
 				logger.log(Level.WARNING, "Invalid RSA key.");
 			}

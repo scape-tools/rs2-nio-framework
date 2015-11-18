@@ -2,6 +2,8 @@ package com.runescape.core.game.model.entity.mobile.player;
 
 import java.io.IOException;
 
+import com.runescape.core.game.content.dialogue.Dialogue;
+import com.runescape.core.game.content.dialogue.DialogueOption;
 import com.runescape.core.game.model.entity.EntityEventListener;
 import com.runescape.core.game.model.entity.mobile.MobileEntity;
 import com.runescape.core.game.model.entity.mobile.player.appearance.Appearance;
@@ -23,7 +25,17 @@ public final class Player extends MobileEntity {
 	 * The pair of cryptography algorithms for encoding and decoding.
 	 */
 	private IsaacRandomPair cryptographyPair;
+	
+	/**
+	 * The current dialogue state.
+	 */
+	private Dialogue dialogue;
 
+	/**
+	 * The listener for dialogue option selection.
+	 */
+	private DialogueOption dialogueOption;
+	
 	/**
 	 * The details of this player's account.
 	 */
@@ -76,6 +88,32 @@ public final class Player extends MobileEntity {
 	 */
 	public final void append(UpdateBlock block, PacketBuilder buffer, Player player) {
 		block.update(this, buffer);
+	}
+	
+	/**
+	 * Returns an encapsulated instance of the dialogue state.
+	 * 
+	 * @return The returned instance.
+	 */
+	public Dialogue getDialogue() {
+		return dialogue;
+	}
+
+	/**
+	 * Modifies the current instance of the dialogue state.
+	 * 
+	 * @param dialogue The new modification.
+	 */
+	public void setDialogue(Dialogue dialogue) {
+		this.dialogue = dialogue;
+	}
+
+	public DialogueOption getDialogueOption() {
+		return dialogueOption;
+	}
+
+	public void setDialogueOption(DialogueOption dialogueOption) {
+		this.dialogueOption = dialogueOption;
 	}
 
 	/**

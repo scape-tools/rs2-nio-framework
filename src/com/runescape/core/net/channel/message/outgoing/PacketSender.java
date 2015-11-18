@@ -55,6 +55,37 @@ public class PacketSender {
 		return this;
 	}
 	
+	public PacketSender sendString(String string, int widget) {
+		PacketBuilder out = new PacketBuilder(126, PacketHeader.VARIABLE_SHORT);
+		out.allocate(string.length() + 6);
+		player.getContext().prepare(out);
+		out.putString(string);
+		out.putShort(widget, ByteValue.ADDITIONAL);
+		out.endVariableShortPacketHeader();	
+		player.write(out);
+		return this;
+	}
+	
+	public PacketSender sendChatInterface(int interfaceId) {
+		PacketBuilder out = new PacketBuilder();
+		out.allocate(3);
+		player.getContext().prepare(out);
+		out.putShort(interfaceId, ByteOrder.LITTLE);
+		player.write(out);
+		return this;
+	}
+	
+	/**
+	 * The outgoing packet that closes a players opened interface.
+	 */
+	public PacketSender sendCloseInterface() {
+		PacketBuilder out = new PacketBuilder(219);
+		out.allocate(1);
+		player.getContext().prepare(out);
+		player.write(out);		
+		return this;
+	}
+	
 	/**
 	 * The outgoing packet that logs a player out of the game.
 	 */
@@ -156,17 +187,17 @@ public class PacketSender {
 	 * 
 	 * @param The instance of this encoder.
 	 */
-	public PacketBuilder sendRegionalUpdate() {
+	public PacketSender sendRegionalUpdate() {
 		PacketBuilder out = new PacketBuilder(73, PacketHeader.STANDARD);
 		out.allocate(5);
 		player.getContext().prepare(out);
 		out.putShort(player.getPosition().getRegionalX() + 6,
-				ByteValue.ADDITIONAL, ByteOrder.BIG_BYTE_ORDER);
+				ByteValue.ADDITIONAL, ByteOrder.BIG);
 		out.putShort(player.getPosition().getRegionalY() + 6,
 				ByteValue.STANDARD);
 		player.setLastPosition(player.getPosition());
 		player.write(out);
-		return out;
+		return this;
 	}
 
 	/**

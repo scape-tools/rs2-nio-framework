@@ -7,6 +7,7 @@ import com.runescape.core.game.model.entity.mobile.player.Player;
 import com.runescape.core.net.channel.message.incoming.IncomingPacketListener;
 import com.runescape.core.net.channel.message.incoming.impl.ButtonClickPacketListener;
 import com.runescape.core.net.channel.message.incoming.impl.CommandPacketListener;
+import com.runescape.core.net.channel.message.incoming.impl.DialoguePacketListener;
 import com.runescape.core.net.channel.message.incoming.impl.MovementPacketListener;
 
 /**
@@ -29,6 +30,7 @@ public final class IncomingPacketRegistration {
 		registerPacket(new ButtonClickPacketListener());
 		registerPacket(new CommandPacketListener());
 		registerPacket(new MovementPacketListener());
+		registerPacket(new DialoguePacketListener());
 	}
 
 	/**

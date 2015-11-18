@@ -3,7 +3,7 @@ package com.runescape.core.net.channel.message;
 import java.nio.ByteBuffer;
 
 /**
- * Represents a single packet.
+ * Represents a single game packet.
  * @author SeVen
  */
 public final class Packet {

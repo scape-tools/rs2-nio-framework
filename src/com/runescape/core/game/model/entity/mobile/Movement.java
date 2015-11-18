@@ -156,10 +156,8 @@ public final class Movement {
 				- ((MobileEntity) getEntity()).getLastPosition().getRegionalY() * 8;
 
 		if (entity instanceof Player) {
-
 			if (deltaX < 16 || deltaX >= 88 || deltaY < 16 || deltaY > 88) {
-
-				((Player) getEntity()).write(((Player) entity).getPacketSender().sendRegionalUpdate());
+				((Player) getEntity()).getPacketSender().sendRegionalUpdate();
 			}
 		}
 	}

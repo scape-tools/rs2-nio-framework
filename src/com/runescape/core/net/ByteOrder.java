@@ -5,20 +5,20 @@ public enum ByteOrder {
 	/**
 	 * Stores the least significant byte in the smallest memory address.
 	 */
-	LITTLE_BYTE_ORDER,
+	LITTLE,
 
 	/**
 	 * Stores the most significant byte in the smallest memory address.
 	 */
-	BIG_BYTE_ORDER,
+	BIG,
 
 	/**
 	 * Stores the most significant part in the second to last byte.
 	 */
-	MIDDLE_BYTE_ORDER,
+	MIDDLE,
 
 	/**
 	 * Stores the most significant part in the second byte.
 	 */
-	INVERSE_MIDDLE_BYTE_ORDER;
+	INVERSE;
 }

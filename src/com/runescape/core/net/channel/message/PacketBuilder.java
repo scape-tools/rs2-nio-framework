@@ -195,7 +195,15 @@ public final class PacketBuilder {
 	 * 		The value of this short.
 	 */
 	public void putShort(int value) {
-		putShort(value, ByteValue.STANDARD, ByteOrder.BIG_BYTE_ORDER);		
+		putShort(value, ByteValue.STANDARD, ByteOrder.BIG);		
+	}
+	
+	/**
+	 * Places a single short value into the internal buffer that has
+	 * a Standard {@link ByteValue}.
+	 */
+	public void putShort(int value, ByteOrder order) {
+		putShort(value, ByteValue.STANDARD, order);
 	}
 	
 	/**
@@ -243,12 +251,12 @@ public final class PacketBuilder {
 	 */
 	public final void putShort(int value, ByteValue modification, ByteOrder order) {
 		switch (order) {
-		case BIG_BYTE_ORDER:
+		case BIG:
 			putByte(value >> 8, ByteValue.STANDARD);
 			putByte(value, modification);
 			break;
 
-		case LITTLE_BYTE_ORDER:
+		case LITTLE:
 			putByte(value, modification);
 			putByte(value >> 8, ByteValue.STANDARD);
 			break;
@@ -370,6 +378,24 @@ public final class PacketBuilder {
 			builder.position((getPosition() + 7) / 8);
 			break;
 		}
+	}
+	
+	/**
+	 * Places a series of bytes into a buffer.
+	 * 
+	 * @param string
+	 * 		The string to place into the buffer.
+	 */
+	public final void putString(String string) {
+		builder.put(string.getBytes());
+		builder.put((byte) 10);
+	}
+	
+	/**
+	 * Completes the variable short packet header.
+	 */
+	public final void endVariableShortPacketHeader() {
+		builder.putShort(getLength(), (short) (getPosition() - getLength() - 2));
 	}
 
 	/**

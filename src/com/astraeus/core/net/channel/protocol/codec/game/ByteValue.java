@@ -1,4 +1,4 @@
-package com.astraeus.core.net;
+package com.astraeus.core.net.channel.protocol.codec.game;
 
 /**
  * Represent the Runescape's custom value types.

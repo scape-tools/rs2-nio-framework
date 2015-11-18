@@ -1,6 +1,29 @@
-package com.runescape.core.game.utility.cryption;
+package com.runescape.core.net.security;
 
-public final class CryptionAlgorithm {
+/**
+ * <p>
+ * An implementation of the <a href="http://www.burtleburtle.net/bob/rand/isaacafa.html">ISAAC</a> psuedorandom number
+ * generator.
+ * </p>
+ *
+ * <pre>
+ * ------------------------------------------------------------------------------
+ * Rand.java: By Bob Jenkins.  My random number generator, ISAAC.
+ *   rand.init() -- initialize
+ *   rand.val()  -- get a random value
+ * MODIFIED:
+ *   960327: Creation (addition of randinit, really)
+ *   970719: use context, not global variables, for internal state
+ *   980224: Translate to Java
+ * ------------------------------------------------------------------------------
+ * </pre>
+ * <p>
+ * This class has been changed to be more conformant to Java and javadoc conventions.
+ * </p>
+ *
+ * @author Bob Jenkins
+ */
+public final class IsaacRandom {
 
 	/**
 	 * The base ratio.
@@ -58,13 +81,10 @@ public final class CryptionAlgorithm {
 	 * 
 	 * @param seed The encryption seed.
 	 */
-	public CryptionAlgorithm(int[] seed) {
-
+	public IsaacRandom(int[] seed) {
 		for(int i = 0; i < seed.length; i++) {
-
 			results[i] = seed[i];
 		}
-
 		start(true);
 	}
 
@@ -74,14 +94,10 @@ public final class CryptionAlgorithm {
 	 * @return The next value.
 	 */
 	public int getNextValue() {
-
 		if(count-- == 0) {
-
 			generate();
-
 			count = SIZE - 1;
 		}
-
 		return results[count];
 	}
 
@@ -89,11 +105,8 @@ public final class CryptionAlgorithm {
 	 * Generates 256 results.
 	 */
 	public void generate() {
-
 		int i, j, x, y;
-
 		result += ++c;
-
 		for(i = 0, j = SIZE / 2; i < SIZE / 2;) {
 			x = memory[i];
 			accumulator ^= accumulator << 13;
@@ -152,7 +165,6 @@ public final class CryptionAlgorithm {
 	 * @param pass Determines if a secondary pass should be performed.
 	 */
 	public void start(boolean pass) {
-
 		int a, b, c, d, e, f, g, h, i;
 		a = b = c = d = e = f = g = h = GOLDEN_RATIO;
 		for(i = 0; i < 4; ++i) {
@@ -269,9 +281,7 @@ public final class CryptionAlgorithm {
 				memory[i + 7] = h;
 			}
 		}
-
 		generate();
-
 		count = SIZE;
 	}
 }

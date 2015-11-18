@@ -5,8 +5,6 @@ import java.nio.ByteBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.runescape.core.game.utility.cryption.CryptionAlgorithm;
-import com.runescape.core.game.utility.cryption.CryptionAlgorithmPair;
 import com.runescape.core.net.ByteValue;
 import com.runescape.core.net.channel.PlayerIO;
 import com.runescape.core.net.channel.events.WriteChannelEvent;
@@ -14,6 +12,8 @@ import com.runescape.core.net.channel.message.PacketBuilder;
 import com.runescape.core.net.channel.message.Packet.PacketHeader;
 import com.runescape.core.net.channel.protocol.ProtocolConstants;
 import com.runescape.core.net.channel.protocol.ProtocolStateDecoder;
+import com.runescape.core.net.security.IsaacRandom;
+import com.runescape.core.net.security.IsaacRandomPair;
 
 public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 	
@@ -99,7 +99,7 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 				/*
 				 * The cryptography algorithm for opcode encoding.
 				 */
-				final CryptionAlgorithm encoder = new CryptionAlgorithm(seeds);
+				final IsaacRandom encoder = new IsaacRandom(seeds);
 
 				for (int i = 0; i < seeds.length; i++) {
 					seeds[i] += 50;
@@ -108,9 +108,9 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 				/*
 				 * The cryptography algorithm for opcode decoding.
 				 */
-				final CryptionAlgorithm decoder = new CryptionAlgorithm(seeds);
+				final IsaacRandom decoder = new IsaacRandom(seeds);
 
-				context.getPlayer().setCryptographyPair(new CryptionAlgorithmPair(encoder, decoder));
+				context.getPlayer().setCryptographyPair(new IsaacRandomPair(encoder, decoder));
 
 				/*
 				 * The name of the player's account.

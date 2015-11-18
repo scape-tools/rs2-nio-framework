@@ -6,11 +6,11 @@ import com.runescape.core.game.model.entity.EntityEventListener;
 import com.runescape.core.game.model.entity.mobile.MobileEntity;
 import com.runescape.core.game.model.entity.mobile.player.appearance.Appearance;
 import com.runescape.core.game.model.entity.mobile.player.update.UpdateBlock;
-import com.runescape.core.game.utility.cryption.CryptionAlgorithmPair;
 import com.runescape.core.net.channel.PlayerIO;
 import com.runescape.core.net.channel.events.WriteChannelEvent;
 import com.runescape.core.net.channel.message.PacketBuilder;
 import com.runescape.core.net.channel.message.outgoing.PacketSender;
+import com.runescape.core.net.security.IsaacRandomPair;
 
 public final class Player extends MobileEntity {
 
@@ -22,7 +22,7 @@ public final class Player extends MobileEntity {
 	/**
 	 * The pair of cryptography algorithms for encoding and decoding.
 	 */
-	private CryptionAlgorithmPair cryptographyPair;
+	private IsaacRandomPair cryptographyPair;
 
 	/**
 	 * The details of this player's account.
@@ -93,7 +93,7 @@ public final class Player extends MobileEntity {
 	 *
 	 * @return The returned instance.
 	 */
-	public CryptionAlgorithmPair getCryptographyPair() {
+	public IsaacRandomPair getCryptographyPair() {
 		return cryptographyPair;
 	}
 
@@ -103,7 +103,7 @@ public final class Player extends MobileEntity {
 	 *
 	 * @param cryptographyPair The new modification.
 	 */
-	public void setCryptographyPair(CryptionAlgorithmPair cryptographyPair) {
+	public void setCryptographyPair(IsaacRandomPair cryptographyPair) {
 		this.cryptographyPair = cryptographyPair;
 	}
 

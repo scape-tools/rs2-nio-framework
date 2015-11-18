@@ -3,6 +3,7 @@ package com.runescape.core.game.model.entity.mobile.player.update.impl;
 import com.runescape.core.game.model.entity.UpdateFlags;
 import com.runescape.core.game.model.entity.mobile.player.Player;
 import com.runescape.core.game.model.entity.mobile.player.update.UpdateBlock;
+import com.runescape.core.game.utility.Utilities;
 import com.runescape.core.net.ByteValue;
 import com.runescape.core.net.channel.message.PacketBuilder;
 
@@ -76,7 +77,7 @@ public final class StatefulUpdateBlock extends UpdateBlock {
 				properties.putShort(0x335, ByteValue.STANDARD);
 				properties.putShort(0x336, ByteValue.STANDARD);
 				properties.putShort(0x338, ByteValue.STANDARD);
-				properties.putLong(0, ByteValue.STANDARD);
+				properties.putLong(Utilities.convertStringToLong(player.getDetails().getUsername()), ByteValue.STANDARD);
 				properties.putByte(3, ByteValue.STANDARD);
 				properties.putShort(0, ByteValue.STANDARD);
 				buffer.putByte(properties.getInternal().position(), ByteValue.NEGATED);

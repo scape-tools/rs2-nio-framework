@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import com.astraeus.core.Server;
 import com.astraeus.core.game.model.entity.EntityEventListener;
 import com.astraeus.core.game.model.entity.UpdateFlags;
+import com.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
+import com.astraeus.core.game.pulse.PulseScheduler;
 
 public final class PlayerEventListener extends EntityEventListener<Player> {
 
@@ -44,7 +46,17 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 
 	@Override
 	public void remove(Player player) {
+		
+		player.getAttributes().put(Attributes.WALK_TO_ACTION, false);
+		
+		player.getMovement().resetMovement();
+		
+		PulseScheduler.getInstance().destoryPulsesForOwner(player.getDetails().getUsername());
 
+		player.save();
+		
+		player.getPacketSender().sendLogout();
+		
 		/*
 		 * Removes the player from the processor's registry.
 		 */

@@ -10,7 +10,9 @@ import com.astraeus.core.game.model.entity.item.ItemContainer;
 import com.astraeus.core.game.model.entity.item.container.InventoryContainer;
 import com.astraeus.core.game.model.entity.mobile.MobileEntity;
 import com.astraeus.core.game.model.entity.mobile.player.appearance.Appearance;
+import com.astraeus.core.game.model.entity.mobile.player.event.file.PlayerSaveFileEvent;
 import com.astraeus.core.game.model.entity.mobile.player.update.UpdateBlock;
+import com.astraeus.core.game.utility.Writable;
 import com.astraeus.core.net.channel.PlayerIO;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.message.PacketBuilder;
@@ -112,6 +114,27 @@ public final class Player extends MobileEntity {
 	 */
 	public final void append(UpdateBlock block, PacketBuilder buffer, Player player) {
 		block.update(this, buffer);
+	}
+
+	/**
+	 * Executes a writable event.
+	 * 
+	 * @param event
+	 * 		The writable event to execute.
+	 * 
+	 * {@code true} If this operation can be performed, {@code false} otherwise.
+	 */
+	public final boolean executeWritableEvent(Writable event) {
+		return event.serialize();
+	}
+	
+	/**
+	 * Executes a save operation for a player.
+	 * 
+	 * {@code true} If this operation can be performed, {@code false} otherwise.
+	 */
+	public final boolean save() {
+		return executeWritableEvent(new PlayerSaveFileEvent(this));
 	}
 	
 	/**

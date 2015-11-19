@@ -133,11 +133,11 @@ public final class PacketBuilder {
 	 * @param value
 	 * 		The value of this integer.
 	 * 
-	 * @param modification
+	 * @param byteValue
 	 * 		The manipulation of this integer value.
 	 */
-	public void putInt(long value, ByteValue modification) {
-		switch (modification) {
+	public void putInt(long value, ByteValue byteValue) {
+		switch (byteValue) {
 		
 		case ADDITION:
 			this.getInternal().putInt((int) (value + 128));
@@ -154,6 +154,42 @@ public final class PacketBuilder {
 		case SUBTRACTION:
 			this.getInternal().putInt((int) (128 - value));
 			break;
+		}
+	}
+	
+	public void putInt(int value, ByteOrder order) {
+		putInt(value, ByteValue.STANDARD, order);
+	}
+	
+	public void putInt(int value, ByteValue byteValue, ByteOrder order) {
+		switch(order) {		
+		case BIG:
+            putByte(value >> 24);
+            putByte(value >> 16);
+            putByte(value >> 8);
+            putByte(value, byteValue);
+			break;
+			
+		case INVERSE:
+            putByte(value >> 16);
+            putByte(value >> 24);
+            putByte(value, byteValue);
+            putByte(value >> 8);
+			break;
+			
+		case LITTLE:
+            putByte(value, byteValue);
+            putByte(value >> 8);
+            putByte(value >> 16);
+            putByte(value >> 24);
+			break;
+			
+		case MIDDLE:
+            putByte(value >> 8);
+            putByte(value, byteValue);
+            putByte(value >> 24);
+            putByte(value >> 16);
+			break;	
 		}
 	}
 	
@@ -339,16 +375,25 @@ public final class PacketBuilder {
 	public final void putInt(int value, ByteValue definition) {
 		putInt(value, definition);
 	}
+	
+	/**
+	 * Places a single byte into the internal buffer.
+	 * 
+	 * @param value The value of the byte.
+	 */
+	public final void putByte(int value) {
+		put(value, ByteValue.STANDARD);
+	}
 
 	/**
 	 * Places a single byte into the internal buffer.
 	 * 
 	 * @param value The value of the byte.
 	 * 
-	 * @param definition The definition of any transformations performed on the byte.
+	 * @param byteValue The definition of any transformations performed on the byte.
 	 */
-	public final void putByte(int value, ByteValue definition) {
-		put(value, definition);
+	public final void putByte(int value, ByteValue byteValue) {
+		put(value, byteValue);
 	}
 
 	/**

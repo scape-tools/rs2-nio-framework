@@ -1,4 +1,4 @@
-package com.astraeus.core.game.model.item;
+package com.astraeus.core.game.model.entity.item;
 
 /**
  * Represents a single in-game entity that a player could potentially obtain.
@@ -15,7 +15,7 @@ public final class Item {
 	/**
 	 * The quantity of this item.
 	 */
-	private final int amount;
+	private int amount;
 
 	/**
 	 * The {@link Item} Constructor used to instantiate this class.
@@ -47,5 +47,9 @@ public final class Item {
 	 */
 	public int getAmount() {
 		return amount;
+	}
+	
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 }

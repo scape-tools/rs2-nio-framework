@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import com.astraeus.core.Server;
 import com.astraeus.core.game.GameConstants;
+import com.astraeus.core.game.model.entity.item.Item;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.mobile.player.update.impl.PlayerMovementBlock;
 import com.astraeus.core.game.model.entity.mobile.player.update.impl.RegionalMovementBlock;
@@ -62,6 +63,31 @@ public class PacketSender {
 		out.putString(string);
 		out.putShort(widget, ByteValue.ADDITION);
 		out.endVariableShortPacketHeader();	
+		player.write(out);
+		return this;
+	}
+	
+	public PacketSender sendItemsOnInterface(int interfaceId, Item[] items) {
+		PacketBuilder out = new PacketBuilder(53, PacketHeader.VARIABLE_SHORT);
+		out.allocate(2048);
+		player.getContext().prepare(out);
+		out.putShort(interfaceId);
+		out.putShort(items.length);
+		for(Item item : items) {
+			if (item != null) {
+			if(item.getAmount() > 254) {
+				out.putByte(255);
+				out.putInt(item.getAmount(), ByteOrder.INVERSE);				
+			} else {
+				out.putByte(item.getAmount());
+			}
+			out.putShort(item.getId() + 1, ByteValue.ADDITION, ByteOrder.LITTLE);
+			} else {
+				out.putByte(0);
+				out.putShort(0, ByteValue.ADDITION, ByteOrder.LITTLE);
+			}			
+		}
+		out.endVariableShortPacketHeader();
 		player.write(out);
 		return this;
 	}

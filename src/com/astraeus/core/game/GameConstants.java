@@ -8,6 +8,11 @@ package com.astraeus.core.game;
 public class GameConstants {
 	
 	/**
+	 * The number of items in a 474 deob.
+	 */
+	public static final int MAXIMUM_ITEMS = 11813;	
+	
+	/**
 	 * The directions for pedestrian X coordinate movement.
 	 */
 	public static final byte[] DIRECTION_DELTA_X = new byte[] { -1, 0, 1, -1, 1, -1, 0, 1 };

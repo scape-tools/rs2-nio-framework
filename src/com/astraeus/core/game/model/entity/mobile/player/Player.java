@@ -6,6 +6,8 @@ import java.util.EnumMap;
 import com.astraeus.core.game.content.dialogue.Dialogue;
 import com.astraeus.core.game.content.dialogue.DialogueOption;
 import com.astraeus.core.game.model.entity.EntityEventListener;
+import com.astraeus.core.game.model.entity.item.ItemContainer;
+import com.astraeus.core.game.model.entity.item.container.InventoryContainer;
 import com.astraeus.core.game.model.entity.mobile.MobileEntity;
 import com.astraeus.core.game.model.entity.mobile.player.appearance.Appearance;
 import com.astraeus.core.game.model.entity.mobile.player.update.UpdateBlock;
@@ -37,6 +39,11 @@ public final class Player extends MobileEntity {
 	 */
 	private DialogueOption dialogueOption;
 	
+	/**
+	 * The inventory container for this player.
+	 */
+	private final ItemContainer inventoryContainer = new InventoryContainer(this);
+
 	/**
 	 * The details of this player's account.
 	 */
@@ -174,6 +181,13 @@ public final class Player extends MobileEntity {
 	 */
 	public void setCryptographyPair(IsaacRandomPair cryptographyPair) {
 		this.cryptographyPair = cryptographyPair;
+	}
+	
+	/**
+	 * @return the inventoryContainer
+	 */
+	public ItemContainer getInventoryContainer() {
+		return inventoryContainer;
 	}
 
 	/**

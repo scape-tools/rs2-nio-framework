@@ -26,5 +26,9 @@ public class Configuration {
 	 * Displays server debug messages.
 	 */
 	public static boolean SERVER_DEBUG = true;
-
+	
+	/**
+	 * The path to the data folder.
+	 */
+	public static final String DATA = "./data/";
 }

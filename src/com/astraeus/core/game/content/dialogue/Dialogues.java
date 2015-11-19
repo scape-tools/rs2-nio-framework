@@ -1,5 +1,7 @@
 package com.astraeus.core.game.content.dialogue;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -7,17 +9,22 @@ import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.utility.Utilities;
 
 /**
- * The static utility class that holds methods for sending various dialogues.
+ * The static utility class that contains functions for sending dialogues.
  * 
- * @author SeVen
+ * @author SeVen <https://github.com/7winds>
  */
-public class DialogueContainer {
+public class Dialogues {
 	
 	/**
 	 * The single logger for this class.
 	 */
-	public static final Logger logger = Logger.getLogger(DialogueContainer.class.getName());
+	public static final Logger logger = Logger.getLogger(Dialogues.class.getName());
 
+    /**
+     * The maximum length of a single line of dialogue.
+     */
+    private static final int MAXIMUM_LENGTH = ("A string representing maximum dialogue text length!!").length();
+	
 	/**
 	 * Sends a player a dialogue.
 	 * 
@@ -54,9 +61,9 @@ public class DialogueContainer {
 	 * 		The lines in the option dialogue.
 	 */
 	public static final void sendOption(Player player, DialogueOption option, String... lines) {
-
+		validateLength(lines);
 		switch (lines.length) {
-		case 0:
+		case 1:
 			player.getPacketSender().sendString("Select an Option", 2460);
 			player.getPacketSender().sendString(lines[0], 2461);
 			player.getPacketSender().sendString(lines[1], 2462);
@@ -64,7 +71,7 @@ public class DialogueContainer {
 			player.setDialogueOption(option);
 			break;
 
-		case 1:
+		case 2:
 			player.getPacketSender().sendString("Select an Option", 2470);
 			player.getPacketSender().sendString(lines[0], 2471);
 			player.getPacketSender().sendString(lines[1], 2472);
@@ -73,7 +80,7 @@ public class DialogueContainer {
 			player.setDialogueOption(option);
 			break;
 
-		case 2:
+		case 3:
 			player.getPacketSender().sendString("Select an Option", 2481);
 			player.getPacketSender().sendString(lines[0], 2482);
 			player.getPacketSender().sendString(lines[1], 2483);
@@ -83,7 +90,7 @@ public class DialogueContainer {
 			player.setDialogueOption(option);
 			break;
 
-		case 3:
+		case 4:
 			player.getPacketSender().sendString("Select an Option", 2493);
 			player.getPacketSender().sendString(lines[0], 2494);
 			player.getPacketSender().sendString(lines[1], 2495);
@@ -97,7 +104,6 @@ public class DialogueContainer {
 		default:
 			logger.log(Level.SEVERE, String.format("Invalid dialogue option line length: %s", lines.length));
 			break;
-
 		}
 
 	}
@@ -121,12 +127,9 @@ public class DialogueContainer {
 	 * 		The lines of dialogue.
 	 */
 	public static final void sendNpcChat(Player player, String npcName, int npcId, Expression expression, String... lines) {
-		
-		int line = lines.length - 1;
-		
-		switch(line) {
-		
-		case 0:
+		validateLength(lines);
+		switch(lines.length) {		
+		case 1:
 			player.getPacketSender().sendDialogueAnimation(4883, expression.getId());
 			player.getPacketSender().sendString(npcName, 4884);
 			player.getPacketSender().sendString(lines[0], 4885);
@@ -134,7 +137,7 @@ public class DialogueContainer {
 			player.getPacketSender().sendChatInterface(4882);
 			break;
 			
-		case 1:
+		case 2:
 			player.getPacketSender().sendDialogueAnimation(4888, expression.getId());
 			player.getPacketSender().sendString(npcName, 4889);
 			player.getPacketSender().sendString(lines[0], 4890);
@@ -143,7 +146,7 @@ public class DialogueContainer {
 			player.getPacketSender().sendChatInterface(4887);
 			break;
 			
-		case 2:
+		case 3:
 			player.getPacketSender().sendDialogueAnimation(4894, expression.getId());
 			player.getPacketSender().sendString(npcName, 4895);
 			player.getPacketSender().sendString(lines[0], 4896);
@@ -153,7 +156,7 @@ public class DialogueContainer {
 			player.getPacketSender().sendChatInterface(4893);
 			break;
 			
-		case 3:
+		case 4:
 			player.getPacketSender().sendDialogueAnimation(4901, expression.getId());
 			player.getPacketSender().sendString(npcName, 4902);
 			player.getPacketSender().sendString(lines[0], 4903);
@@ -165,9 +168,8 @@ public class DialogueContainer {
 			break;
 			
 		default:
-			logger.log(Level.SEVERE, String.format("Invalid npc dialogue line length: %s", line));
-			break;
-		
+			logger.log(Level.SEVERE, String.format("Invalid npc dialogue line length: %s", lines.length));
+			break;		
 		}
 		
 	}
@@ -185,10 +187,8 @@ public class DialogueContainer {
 	 * 		The lines in this dialogue.
 	 */
 	public static void sendPlayerChat(Player player, Expression expression, String... lines) {
-		
-		int line = lines.length - 1;	
-		
-		switch(line) {		
+		validateLength(lines);
+		switch(lines.length) {		
 		case 0:
 			player.getPacketSender().sendDialogueAnimation(969,  expression.getId());
 			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 970);
@@ -228,11 +228,23 @@ public class DialogueContainer {
 			break;
 			
 		default:
-			logger.log(Level.SEVERE, String.format("Invalid player dialogue line length: %s", line));
+			logger.log(Level.SEVERE, String.format("Invalid player dialogue line length: %s", lines.length));
 			break;			
-			
 		}		
 
-	}	
+	}
+	
+    /**
+     * The method that validates the length of {@code text}.
+     *
+     * @param text
+     *            the text that will be validated.
+     * @throws IllegalStateException
+     *             if any lines of the text exceed a certain length.
+     */
+    private static void validateLength(String... text) {
+        if (Arrays.stream(text).filter(Objects::nonNull).anyMatch(s -> s.length() > MAXIMUM_LENGTH))
+            throw new IllegalStateException("Dialogue length too long, maximum length is: " + MAXIMUM_LENGTH);
+    }
 
 }

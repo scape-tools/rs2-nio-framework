@@ -33,6 +33,11 @@ public class Utilities {
 		return l;
 	}
 	
+	public static final String capitalizePlayerName(String name) {
+		String capitalizedName = name.substring(0,1).toUpperCase() + name.substring(1);
+		return capitalizedName;
+	}
+	
 	public static int parseDirection(int deltaX, int deltaY) {
 		if (deltaX < 0) {
 			if (deltaY < 0) {

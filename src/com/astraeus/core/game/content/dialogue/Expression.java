@@ -46,7 +46,7 @@ public enum Expression {
      * Creates a new {@link Expression}.
      *
      * @param expression
-     *		The identification for this expression.
+     *		The id for this expression.
      */
     private Expression(int expression) {
         this.expression = expression;
@@ -55,7 +55,7 @@ public enum Expression {
     /**
      * Gets the id for this expression.
      *
-     * @return the expression.
+     * @return The id of this expression.
      */
     public final int getId() {
         return expression;

@@ -4,9 +4,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.astraeus.core.game.model.entity.mobile.player.Player;
+import com.astraeus.core.game.utility.Utilities;
 
 /**
- * The container that holds all dialogue methods.
+ * The static utility class that holds methods for sending various dialogues.
  * 
  * @author SeVen
  */
@@ -52,7 +53,7 @@ public class DialogueContainer {
 	 * @param lines
 	 * 		The lines in the option dialogue.
 	 */
-	public static void sendOption(Player player, DialogueOption option, String... lines) {
+	public static final void sendOption(Player player, DialogueOption option, String... lines) {
 
 		switch (lines.length) {
 		case 0:
@@ -94,7 +95,7 @@ public class DialogueContainer {
 			break;
 
 		default:
-				logger.log(Level.SEVERE, String.format("Invalid dialogue option line length: %s", lines.length));
+			logger.log(Level.SEVERE, String.format("Invalid dialogue option line length: %s", lines.length));
 			break;
 
 		}
@@ -165,10 +166,73 @@ public class DialogueContainer {
 			
 		default:
 			logger.log(Level.SEVERE, String.format("Invalid npc dialogue line length: %s", line));
-		break;
+			break;
 		
 		}
 		
 	}
+	
+	/**
+	 * Sends a dialogue with a player talking.
+	 * 
+	 * @param player
+	 * 		The player that is talking.
+	 * 
+	 * @param expression
+	 * 		The expression of this player.
+	 * 
+	 * @param lines
+	 * 		The lines in this dialogue.
+	 */
+	public static void sendPlayerChat(Player player, Expression expression, String... lines) {
+		
+		int line = lines.length - 1;	
+		
+		switch(line) {		
+		case 0:
+			player.getPacketSender().sendDialogueAnimation(969,  expression.getId());
+			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 970);
+			player.getPacketSender().sendString(lines[0], 971);
+			player.getPacketSender().sendDialoguePlayerHead(969);
+			player.getPacketSender().sendChatInterface(976);
+			break;
+			
+		case 1:
+			player.getPacketSender().sendDialogueAnimation(974,  expression.getId());
+			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 975);
+			player.getPacketSender().sendString(lines[0], 976);
+			player.getPacketSender().sendString(lines[1], 977);
+			player.getPacketSender().sendDialoguePlayerHead(974);
+			player.getPacketSender().sendChatInterface(973);
+			break;
+			
+		case 2:
+			player.getPacketSender().sendDialogueAnimation(980,  expression.getId());
+			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 981);
+			player.getPacketSender().sendString(lines[0], 982);
+			player.getPacketSender().sendString(lines[1], 983);
+			player.getPacketSender().sendString(lines[2], 984);
+			player.getPacketSender().sendDialoguePlayerHead(980);
+			player.getPacketSender().sendChatInterface(979);
+			break;
+			
+		case 3:
+			player.getPacketSender().sendDialogueAnimation(987,  expression.getId());
+			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 988);
+			player.getPacketSender().sendString(lines[0], 989);
+			player.getPacketSender().sendString(lines[1], 990);
+			player.getPacketSender().sendString(lines[2], 991);
+			player.getPacketSender().sendString(lines[2], 992);
+			player.getPacketSender().sendDialoguePlayerHead(987);
+			player.getPacketSender().sendChatInterface(986);
+			break;
+			
+		default:
+			logger.log(Level.SEVERE, String.format("Invalid player dialogue line length: %s", line));
+			break;			
+			
+		}		
+
+	}	
 
 }

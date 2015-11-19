@@ -95,6 +95,15 @@ public class PacketSender {
 		return this;
 	}
 	
+	public PacketSender sendDialoguePlayerHead(int interfaceId) {
+		PacketBuilder out = new PacketBuilder(185);
+		out.allocate(10);
+		player.getContext().prepare(out);
+		out.putShort(interfaceId, ByteValue.ADDITION, ByteOrder.LITTLE);
+		player.write(out);		
+		return this;
+	}
+	
 	/**
 	 * The outgoing packet that closes a players opened interface.
 	 */

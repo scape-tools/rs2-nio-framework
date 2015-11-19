@@ -13,7 +13,7 @@ public abstract class DialogueOption {
 	 * @param button
 	 * 		The button to click on the option dialogue.
 	 * 
-	 * @return Returns true, if this can be performed, false if it can't.
+	 * @return {@code true} if this can be performed, {@code false} otherwise.
 	 */
 	public abstract boolean handle(Player player, int button);
 }

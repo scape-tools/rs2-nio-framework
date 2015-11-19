@@ -1,7 +1,7 @@
 package com.astraeus.core.game.model.entity.mobile.player;
 
 /**
- * The rights of a player.
+ * An enumeration of the type of rights for a player.
  * 
  * @author SeVen
  */

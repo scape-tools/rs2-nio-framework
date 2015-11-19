@@ -189,15 +189,15 @@ public class Dialogues {
 	public static void sendPlayerChat(Player player, Expression expression, String... lines) {
 		validateLength(lines);
 		switch(lines.length) {		
-		case 0:
+		case 1:
 			player.getPacketSender().sendDialogueAnimation(969,  expression.getId());
 			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 970);
 			player.getPacketSender().sendString(lines[0], 971);
 			player.getPacketSender().sendDialoguePlayerHead(969);
-			player.getPacketSender().sendChatInterface(976);
+			player.getPacketSender().sendChatInterface(968);
 			break;
 			
-		case 1:
+		case 2:
 			player.getPacketSender().sendDialogueAnimation(974,  expression.getId());
 			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 975);
 			player.getPacketSender().sendString(lines[0], 976);
@@ -206,7 +206,7 @@ public class Dialogues {
 			player.getPacketSender().sendChatInterface(973);
 			break;
 			
-		case 2:
+		case 3:
 			player.getPacketSender().sendDialogueAnimation(980,  expression.getId());
 			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 981);
 			player.getPacketSender().sendString(lines[0], 982);
@@ -216,7 +216,7 @@ public class Dialogues {
 			player.getPacketSender().sendChatInterface(979);
 			break;
 			
-		case 3:
+		case 4:
 			player.getPacketSender().sendDialogueAnimation(987,  expression.getId());
 			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 988);
 			player.getPacketSender().sendString(lines[0], 989);

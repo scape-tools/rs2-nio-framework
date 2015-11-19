@@ -15,7 +15,12 @@ public final class BankerDialogue extends Dialogue {
 		case 0:
 			Dialogues.sendNpcChat(player, "Banker", 494, Expression.HAPPY, "Good day. How may I help you?");
 			break;
-			
+
+		case 1:
+			Dialogues.sendPlayerChat(player, Expression.CALM, "Hello there!");
+			Dialogues.endDialogue(player);
+			break;
+
 		}
 	}
 }

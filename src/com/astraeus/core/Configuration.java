@@ -9,7 +9,7 @@ public class Configuration {
 	/**
 	 * The name of the server.
 	 */
-	public static final String SERVER_NAME = "RuneScape";
+	public static final String SERVER_NAME = "Astraeus";
 	
 	/**
 	 * The address to create the {@link InetSocketAddress} and to bind

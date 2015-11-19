@@ -1,5 +1,8 @@
 package com.astraeus.core.net.channel.message.incoming.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.net.channel.message.IncomingPacketOpcode;
 import com.astraeus.core.net.channel.message.Packet;
@@ -10,13 +13,35 @@ import com.astraeus.core.net.channel.message.incoming.IncomingPacketListener;
  * 
  * @author SeVen
  */
-@IncomingPacketOpcode(185)
+@IncomingPacketOpcode( 185 )
 public class ButtonClickPacketListener implements IncomingPacketListener {
+	
+	/**
+	 * The action button indexes of optional selections on a dialogue interface.
+	 */
+	public static final ArrayList<Integer> DIALOGUE_BUTTONS = new ArrayList<Integer>(Arrays.asList(2461, 2462, 2471, 2472, 2473));
 
+	/**
+	 * Checks if the button triggered is an optional dialogue button.
+	 * 
+	 * @param button The index of the button being checked.
+	 * 
+	 * @return The result of the operation.
+	 */
+	public final boolean isDialogueButton(int button) {
+		return DIALOGUE_BUTTONS.contains(button);
+	}
+	
 	@Override
 	public void handleMessage(Player player, Packet packet) {
 		final int button = packet.getBuffer().getShort();
 
+		if (isDialogueButton(button) && player.getDialogueOption() != null && player.getDialogueOption().handleSelection(player, button)) {
+
+		}
+		
+		System.out.println(button);
+		
 		switch (button) {
 
 		// walk

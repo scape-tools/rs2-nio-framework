@@ -15,5 +15,5 @@ public abstract class DialogueOption {
 	 * 
 	 * @return {@code true} if this can be performed, {@code false} otherwise.
 	 */
-	public abstract boolean handle(Player player, int button);
+	public abstract boolean handleSelection(Player player, int button);
 }

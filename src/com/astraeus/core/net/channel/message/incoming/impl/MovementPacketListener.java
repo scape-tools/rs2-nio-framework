@@ -9,7 +9,6 @@ import com.astraeus.core.net.channel.message.incoming.IncomingPacketListener;
  * The packet opcodes which this listener implementation handles.
  */
 @IncomingPacketOpcode ({ 248, 98, 164 })
-
 /**
  * @author Dylan Vicchiarelli
  *
@@ -21,6 +20,8 @@ public class MovementPacketListener implements IncomingPacketListener {
 	public void handleMessage(Player player, Packet packet) {
 		
 		int packetLength = packet.getLength();
+		
+		player.getPacketSender().sendCloseInterface();
 
 		if (packet.getOpcode() == 248) {
 			packetLength -= 14;

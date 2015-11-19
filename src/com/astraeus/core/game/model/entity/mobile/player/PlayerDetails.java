@@ -7,6 +7,11 @@ public final class PlayerDetails {
 	 */
 	private final Player player;
 	
+	/**
+	 * The known address of the player's computer.
+	 */
+	private String address;
+	
 	private String UUID;
 
 	/**
@@ -18,11 +23,6 @@ public final class PlayerDetails {
 	 * The password of the player's account.
 	 */
 	private String password;
-
-	/**
-	 * The known address of the player's computer.
-	 */
-	private String address;
 
 	/**
 	 * The overloaded class constructor used for the instantiation of

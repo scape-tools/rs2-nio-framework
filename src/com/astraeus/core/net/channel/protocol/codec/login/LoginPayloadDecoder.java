@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import com.astraeus.core.net.channel.PlayerIO;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.message.PacketBuilder;
-import com.astraeus.core.net.channel.message.Packet.PacketHeader;
 import com.astraeus.core.net.channel.protocol.ProtocolConstants;
 import com.astraeus.core.net.channel.protocol.ProtocolStateDecoder;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
@@ -130,7 +129,8 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 				
 				context.getPlayer().getDetails().setUsername(username);
 				context.getPlayer().getDetails().setPassword(password);
-				context.getPlayer().getDetails().setAddress(address);
+				context.getPlayer().getDetails().setAddress(address);			
+				
 				final PacketBuilder response = new PacketBuilder();
 				
 				response.allocate(3);
@@ -138,7 +138,7 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 				response.putByte(LoginResponse.SUCCESSFUL_LOGIN.getValue(), ByteValue.STANDARD);
 				response.putByte(0, ByteValue.STANDARD);
 				response.putByte(0, ByteValue.STANDARD);
-				context.execute(new WriteChannelEvent(PacketHeader.EMPTY, response));
+				context.execute(new WriteChannelEvent(response));
 				context.getPlayer().getEventListener().add(context.getPlayer());
 				context.setProtocolDecoder(new GamePacketPayloadDecoder());
 			} else {

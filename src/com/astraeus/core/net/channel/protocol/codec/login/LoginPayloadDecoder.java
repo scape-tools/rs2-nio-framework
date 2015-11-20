@@ -146,7 +146,7 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 					loginResponse = LoginResponse.ACCOUNT_IS_ALREADY_LOGGED_IN;
 				}				
 
-				context.execute(new WriteChannelEvent(writeResponseCode(loginResponse)));
+				context.execute(new WriteChannelEvent(sendResponseCode(loginResponse)));
 				
 				if (loginResponse != LoginResponse.SUCCESSFUL_LOGIN) {
 					context.getChannel().close();
@@ -164,7 +164,15 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 		}
 	}
 	
-	public PacketBuilder writeResponseCode(LoginResponse responseCode) {
+	/**
+	 * Writes a response code to the client.
+	 * 
+	 * @param responseCode
+	 * 		The response code to send.
+	 * 
+	 * @return The encoder of this outgoing packet.
+	 */
+	public PacketBuilder sendResponseCode(LoginResponse responseCode) {
 		final PacketBuilder response = new PacketBuilder();				
 		response.allocate(3);
 		

@@ -6,7 +6,7 @@ package com.astraeus.core.utility;
  * 
  * @author SeVen
  */
-public interface Writable {
+public interface WritableState {
 	
 	/**
 	 * Writes objects into a file.

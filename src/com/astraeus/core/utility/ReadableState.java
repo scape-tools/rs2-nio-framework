@@ -1,6 +1,6 @@
 package com.astraeus.core.utility;
 
-public interface Readable {
+public interface ReadableState {
 	
 	boolean deserialize();
 

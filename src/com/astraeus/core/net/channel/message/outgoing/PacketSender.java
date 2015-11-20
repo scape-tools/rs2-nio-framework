@@ -67,6 +67,26 @@ public class PacketSender {
 		return this;
 	}
 	
+    /**
+     * The outgoing packet that opens an interface and displays another interface over
+     * the inventory area.
+     *
+     * @param open
+     *            the interface to open.
+     * @param overlay
+     *            the interface to send on the inventory area.
+     * @return an instance of this encoder.
+     */
+	public PacketSender sendInventoryInterface(int open, int overlay) {
+		PacketBuilder out = new PacketBuilder(248);
+		out.allocate(5);
+		player.getContext().prepare(out);
+		out.putShort(open, ByteValue.ADDITION);
+		out.putShort(overlay);
+		player.write(out);
+		return this;
+	}
+	
 	public PacketSender sendItemsOnInterface(int interfaceId, Item[] items) {
 		PacketBuilder out = new PacketBuilder(53, PacketHeader.VARIABLE_SHORT);
 		out.allocate(2048);

@@ -24,7 +24,7 @@ public class World {
 			
 			if (player != null) {
 
-				if (player.getDetails().getUsername().equalsIgnoreCase(accountName)) {
+				if (player.getUsername().equalsIgnoreCase(accountName)) {
 					return true;
 				}
 			}

@@ -19,9 +19,7 @@ public final class IndexContainer {
 	 * @param size The maximum capacity of the container.
 	 */
 	public IndexContainer(int size) {
-
 		this.size = size;
-
 		this.indexes = new Integer[size];
 	}
 
@@ -32,7 +30,6 @@ public final class IndexContainer {
 	 * @param index The previously occupied index.
 	 */
 	public final void discardIndex(int index){
-
 		getIndexes()[index] = null;
 	}
 
@@ -42,7 +39,6 @@ public final class IndexContainer {
 	 * @return The returned instance.
 	 */
 	public final Integer[] getIndexes() {
-
 		return indexes;
 	}
 
@@ -52,7 +48,6 @@ public final class IndexContainer {
 	 * @return The returned capacity.
 	 */
 	public final int getSize() {
-
 		return size;
 	}
 
@@ -66,13 +61,10 @@ public final class IndexContainer {
 		for (int accumulator = 1; accumulator < getIndexes().length; accumulator ++){
 
 			if (getIndexes()[accumulator] == null) {
-
 				getIndexes()[accumulator] = accumulator;
-
 				return getIndexes()[accumulator];
 			}
 		}
-
 		return -1;
 	}
 }

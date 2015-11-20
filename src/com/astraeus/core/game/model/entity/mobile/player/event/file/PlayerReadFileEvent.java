@@ -7,7 +7,7 @@ import com.astraeus.core.game.model.entity.Position;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.mobile.player.Rights;
 import com.astraeus.core.game.model.entity.mobile.player.event.PlayerFileEvent;
-import com.astraeus.core.utility.Readable;
+import com.astraeus.core.utility.ReadableState;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
@@ -15,7 +15,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
-public class PlayerReadFileEvent extends PlayerFileEvent implements Readable {
+public class PlayerReadFileEvent extends PlayerFileEvent implements ReadableState {
 
 	public PlayerReadFileEvent(Player player) {
 		super(player);
@@ -30,11 +30,8 @@ public class PlayerReadFileEvent extends PlayerFileEvent implements Readable {
 		try {
 		
 		final JsonParser fileParser = new JsonParser();
-
-		final Object object = fileParser.parse(new FileReader(getFile()));
-		
-		final Gson builder = new GsonBuilder().create();
-		
+		final Object object = fileParser.parse(new FileReader(getFile()));		
+		final Gson builder = new GsonBuilder().create();		
 		final JsonObject reader = (JsonObject) object;
 		
 		if (reader.has("ip-address")) {

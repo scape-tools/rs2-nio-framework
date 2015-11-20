@@ -18,9 +18,9 @@ import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.message.outgoing.PacketSender;
 import com.astraeus.core.net.security.IsaacRandomPair;
-import com.astraeus.core.utility.Readable;
+import com.astraeus.core.utility.ReadableState;
 import com.astraeus.core.utility.Utilities;
-import com.astraeus.core.utility.Writable;
+import com.astraeus.core.utility.WritableState;
 
 public final class Player extends MobileEntity {
 
@@ -153,7 +153,7 @@ public final class Player extends MobileEntity {
 	 * 
 	 * {@code true} If this operation can be performed, {@code false} otherwise.
 	 */
-	public final boolean executeWritableEvent(Writable event) {
+	public final boolean executeWritableEvent(WritableState event) {
 		return event.serialize();
 	}
 	
@@ -165,7 +165,7 @@ public final class Player extends MobileEntity {
 	 * 
 	 * {@code true} If this operation can be performed, {@code false} otherwise.
 	 */
-	public final boolean executeReadableEvent(Readable event) {
+	public final boolean executeReadableEvent(ReadableState event) {
 		return event.deserialize();
 	}
 	

@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.astraeus.core.game.World;
 import com.astraeus.core.net.channel.PlayerIO;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.message.PacketBuilder;
@@ -129,24 +130,48 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 				
 				context.getPlayer().getDetails().setUsername(username);
 				context.getPlayer().getDetails().setPassword(password);
-				context.getPlayer().getDetails().setAddress(address);			
+				context.getPlayer().getDetails().setAddress(address);
 				
-				final PacketBuilder response = new PacketBuilder();
+				LoginResponse loginResponse = LoginResponse.SUCCESSFUL_LOGIN;
 				
-				response.allocate(3);
+				if (!context.getPlayer().load()) {
+					loginResponse = LoginResponse.INVALID_CREDENTIALS;
+				}
 				
-				response.putByte(LoginResponse.SUCCESSFUL_LOGIN.getValue(), ByteValue.STANDARD);
-				response.putByte(0, ByteValue.STANDARD);
-				response.putByte(0, ByteValue.STANDARD);
-				context.execute(new WriteChannelEvent(response));
+				if (context.getPlayer().getDetails().getUsername().length() > 12) {
+					loginResponse = LoginResponse.INVALID_CREDENTIALS;
+				}
+				
+				if (World.getSingleton().isLoggedIn(context.getPlayer().getDetails().getUsername())) {
+					loginResponse = LoginResponse.ACCOUNT_IS_ALREADY_LOGGED_IN;
+				}				
+
+				context.execute(new WriteChannelEvent(writeResponseCode(loginResponse)));
+				
+				if (loginResponse != LoginResponse.SUCCESSFUL_LOGIN) {
+					context.getChannel().close();
+					return;
+				}
+				
 				context.getPlayer().getEventListener().add(context.getPlayer());
-				context.setProtocolDecoder(new GamePacketPayloadDecoder());
+				context.setProtocolDecoder(new GamePacketPayloadDecoder());			
+				
 			} else {
 				logger.log(Level.WARNING, "Invalid RSA key.");
 			}
 		} else {
 			context.getBuffer().compact();
 		}
+	}
+	
+	public PacketBuilder writeResponseCode(LoginResponse responseCode) {
+		final PacketBuilder response = new PacketBuilder();				
+		response.allocate(3);
+		
+		response.putByte(responseCode.getValue(), ByteValue.STANDARD);
+		response.putByte(0, ByteValue.STANDARD); // player rights
+		response.putByte(0, ByteValue.STANDARD);
+		return response;
 	}
 
 	/**

@@ -41,7 +41,7 @@ public final class PeriodicalUpdateProcessor extends PeriodicalLogicProcessor {
 	 *            The instance of the new player.
 	 */
 	public final void addPlayer(Player player) {
-		players.put(0, player);
+		players.put(player.getIndex(), player);
 	}
 
 	/**

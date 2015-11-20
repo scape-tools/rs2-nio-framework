@@ -67,7 +67,7 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 
 			IncomingPacketRegistration.dispatchToListener(packet, context.getPlayer());
 			
-			if(Configuration.SERVER_DEBUG && packet.getOpcode() != 0)
+			if(Configuration.SERVER_DEBUG && context.getPlayer().isServerDebug() && packet.getOpcode() != 0)
 			logger.log(Level.INFO, String.format("[Packet] - Opcode: %d Length: %d", packet.getOpcode(), packet.getLength()));
 	
 			setOpcode(-1);

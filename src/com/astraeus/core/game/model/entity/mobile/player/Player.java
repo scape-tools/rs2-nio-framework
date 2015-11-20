@@ -19,6 +19,7 @@ import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.message.outgoing.PacketSender;
 import com.astraeus.core.net.security.IsaacRandomPair;
 import com.astraeus.core.utility.Readable;
+import com.astraeus.core.utility.Utilities;
 import com.astraeus.core.utility.Writable;
 
 public final class Player extends MobileEntity {
@@ -75,6 +76,11 @@ public final class Player extends MobileEntity {
 		CLICK_INDEX,
 		FACE_DIRECTION;
 	}
+	
+	/**
+	 * Displays server debug messages to admins and developers.
+	 */
+	private boolean serverDebug = false;
 
 	/**
 	 * The overloaded class constructor used for instantiation of this
@@ -84,6 +90,27 @@ public final class Player extends MobileEntity {
 	 */
 	public Player(PlayerIO context) {
 		this.context = context;
+	}
+	
+	/**
+	 * Sends a message into this players chatbox.
+	 */
+	public void sendMessage(String message) {
+		this.getPacketSender().sendMessage(message);
+	}
+	
+	/**
+	 * Gets this players username.
+	 */
+	public String getUsername() {
+		return this.getDetails().getUsername();
+	}
+	
+	/**
+	 * Gets this players rights.
+	 */
+	public Rights getRights() {
+		return this.getDetails().getRights();
 	}
 	
 	/**
@@ -253,7 +280,29 @@ public final class Player extends MobileEntity {
 	public Appearance getAppearance() {
 		return appearance;
 	}
-
+	
+	public PacketSender getPacketSender() {
+		return packetSender;
+	}
+	
+	/**
+	 * @return the serverDebug
+	 */
+	public boolean isServerDebug() {
+		return serverDebug;
+	}
+	
+	/**
+	 * Sets the server in debug mode for this player.
+	 * 
+	 * @param serverDebug
+	 * 
+	 * {@code true} debug mode on, {@code false} otherwise.
+	 */
+	public void setServerDebug(boolean serverDebug) {
+		this.serverDebug = serverDebug;
+	}
+	
 	@Override
 	public EntityEventListener<Player> getEventListener() {
 		return new PlayerEventListener();
@@ -261,11 +310,7 @@ public final class Player extends MobileEntity {
 
 	@Override
 	public String toString() {
-		return details.getUsername() + " " + details.getPassword() + " " + details.getAddress();
-	}
-	
-	public PacketSender getPacketSender() {
-		return packetSender;
+		return Utilities.capitalizePlayerName(details.getUsername()) + " " + details.getAddress();
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.astraeus.core.game.model.entity.mobile.player.Player;
+import com.astraeus.core.game.model.entity.mobile.player.Rights;
 import com.astraeus.core.net.channel.message.IncomingPacketOpcode;
 import com.astraeus.core.net.channel.message.Packet;
 import com.astraeus.core.net.channel.message.incoming.IncomingPacketListener;
@@ -40,8 +41,6 @@ public class ButtonClickPacketListener implements IncomingPacketListener {
 
 		}
 		
-		System.out.println(button);
-		
 		switch (button) {
 
 		// walk
@@ -63,7 +62,9 @@ public class ButtonClickPacketListener implements IncomingPacketListener {
 			break;
 
 		default:
+			if (player.getRights().greaterOrEqual(Rights.DEVELOPER) && player.isServerDebug()) {
 			player.getPacketSender().sendMessage("[ButtonClick] - ButtonId: " + button);
+			}
 			break;
 
 		}

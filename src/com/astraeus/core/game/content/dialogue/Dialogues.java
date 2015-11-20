@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.astraeus.core.game.model.entity.mobile.player.Player;
-import com.astraeus.core.game.utility.Utilities;
+import com.astraeus.core.utility.Utilities;
 
 /**
  * The static utility class that contains functions for sending dialogues.

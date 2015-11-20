@@ -30,7 +30,7 @@ public enum LoginResponse {
 	/*
 	 * Denotes that the virtual world has been updated.
 	 */
-	RUNESCAPE_HAS_BEEN_UPDATED(6),
+	SERVER_UPDATED(6),
 
 	/*
 	 * Denotes that the maximum amount of players has been reached.

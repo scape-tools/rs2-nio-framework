@@ -5,8 +5,9 @@ import java.io.FileReader;
 
 import com.astraeus.core.game.model.entity.Position;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
+import com.astraeus.core.game.model.entity.mobile.player.Rights;
 import com.astraeus.core.game.model.entity.mobile.player.event.PlayerFileEvent;
-import com.astraeus.core.game.utility.Readable;
+import com.astraeus.core.utility.Readable;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
@@ -36,6 +37,10 @@ public class PlayerReadFileEvent extends PlayerFileEvent implements Readable {
 		
 		final JsonObject reader = (JsonObject) object;
 		
+		if (reader.has("ip-address")) {
+			getPlayer().getDetails().setAddress(reader.get("ip-address").getAsString());
+		}
+		
 		String name = reader.get("username").getAsString();
 		
 		String password = reader.get("password").getAsString();
@@ -45,6 +50,10 @@ public class PlayerReadFileEvent extends PlayerFileEvent implements Readable {
 
 		if (reader.has("password"))
 			getPlayer().getDetails().setPassword(password);
+		
+		if (reader.has("rights")) {
+			getPlayer().getDetails().setRights(Rights.valueOf(reader.get("rights").getAsString()));
+		}
 		
 		if (reader.has("position"))
 			getPlayer().getPosition().setPosition(builder.fromJson(reader.get("position"), Position.class));

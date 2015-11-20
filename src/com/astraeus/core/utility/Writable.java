@@ -1,4 +1,4 @@
-package com.astraeus.core.game.utility;
+package com.astraeus.core.utility;
 
 /**
  * The writable interface, that allows any implementing class the

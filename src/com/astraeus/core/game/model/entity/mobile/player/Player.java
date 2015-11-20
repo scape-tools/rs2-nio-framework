@@ -13,13 +13,13 @@ import com.astraeus.core.game.model.entity.mobile.player.appearance.Appearance;
 import com.astraeus.core.game.model.entity.mobile.player.event.file.PlayerReadFileEvent;
 import com.astraeus.core.game.model.entity.mobile.player.event.file.PlayerSaveFileEvent;
 import com.astraeus.core.game.model.entity.mobile.player.update.UpdateBlock;
-import com.astraeus.core.game.utility.Writable;
-import com.astraeus.core.game.utility.Readable;
 import com.astraeus.core.net.channel.PlayerIO;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.message.outgoing.PacketSender;
 import com.astraeus.core.net.security.IsaacRandomPair;
+import com.astraeus.core.utility.Readable;
+import com.astraeus.core.utility.Writable;
 
 public final class Player extends MobileEntity {
 

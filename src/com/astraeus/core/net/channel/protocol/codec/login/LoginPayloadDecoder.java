@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.astraeus.core.Server;
 import com.astraeus.core.game.World;
 import com.astraeus.core.net.channel.PlayerIO;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
@@ -126,7 +127,7 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 				/*
 				 * The local address of the player's computer.
 				 */
-				final String address = context.getChannel().toString();
+				final String address = context.getChannel().getRemoteAddress().toString().replaceFirst("/", " ").trim();
 				
 				context.getPlayer().getDetails().setUsername(username);
 				context.getPlayer().getDetails().setPassword(password);
@@ -144,12 +145,17 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 				
 				if (World.getSingleton().isLoggedIn(context.getPlayer().getDetails().getUsername())) {
 					loginResponse = LoginResponse.ACCOUNT_IS_ALREADY_LOGGED_IN;
-				}				
+				}
+				
+				if (!Server.SERVER_STARTED) {
+					loginResponse = LoginResponse.SERVER_UPDATED;					
+				}
 
-				context.execute(new WriteChannelEvent(sendResponseCode(loginResponse)));
+				context.execute(new WriteChannelEvent(sendResponseCode(context, loginResponse)));
 				
 				if (loginResponse != LoginResponse.SUCCESSFUL_LOGIN) {
 					context.getChannel().close();
+					logger.log(Level.INFO, String.format("[LOGIN ATTEMPT FAILED] - User: %s  %s", context.getPlayer().getDetails().getUsername(), loginResponse.name()));
 					return;
 				}
 				
@@ -172,12 +178,12 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 	 * 
 	 * @return The encoder of this outgoing packet.
 	 */
-	public PacketBuilder sendResponseCode(LoginResponse responseCode) {
+	public PacketBuilder sendResponseCode(PlayerIO context, LoginResponse responseCode) {
 		final PacketBuilder response = new PacketBuilder();				
 		response.allocate(3);
 		
 		response.putByte(responseCode.getValue(), ByteValue.STANDARD);
-		response.putByte(0, ByteValue.STANDARD); // player rights
+		response.putByte(context.getPlayer().getDetails().getRights().getProtocolValue(), ByteValue.STANDARD); // player rights
 		response.putByte(0, ByteValue.STANDARD);
 		return response;
 	}

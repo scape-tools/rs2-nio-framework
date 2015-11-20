@@ -39,7 +39,6 @@ public abstract class PeriodicalLogicProcessor implements Runnable {
 	 * @param rate The rate in milliseconds at which the thread will be executed.
 	 */
 	public PeriodicalLogicProcessor(int rate) {
-
 		this.rate = rate;
 	}
 
@@ -50,7 +49,6 @@ public abstract class PeriodicalLogicProcessor implements Runnable {
 	 * to cancel it.
 	 */
 	public void cancel(boolean interrupt) {
-
 		future.cancel(interrupt);
 	}
 
@@ -61,7 +59,6 @@ public abstract class PeriodicalLogicProcessor implements Runnable {
 	 * before it starts.
 	 */
 	public void start(int delay) {
-
 		setFuture(service.scheduleAtFixedRate(this, delay, rate, TimeUnit.MILLISECONDS));
 	}
 
@@ -71,13 +68,11 @@ public abstract class PeriodicalLogicProcessor implements Runnable {
 	 * @param future The new modification.
 	 */
 	public void setFuture(ScheduledFuture<?> future) {
-
 		this.future = future;
 	}
 
 	@Override
 	public void run() {
-
 		execute();
 	}
 }

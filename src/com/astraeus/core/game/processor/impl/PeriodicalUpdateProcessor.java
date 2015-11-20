@@ -6,7 +6,7 @@ import com.astraeus.core.game.model.entity.UpdateFlags;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.processor.PeriodicalLogicProcessor;
 import com.astraeus.core.game.processor.PeriodicalLogicProcessorConstants;
-import com.astraeus.core.game.utility.IndexContainer;
+import com.astraeus.core.utility.IndexContainer;
 
 public final class PeriodicalUpdateProcessor extends PeriodicalLogicProcessor {
 

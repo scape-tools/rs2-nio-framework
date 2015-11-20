@@ -24,6 +24,11 @@ public final class Server {
 	 */
 	public static final Logger logger = Logger
 			.getLogger(Server.class.getName());
+	
+	/**
+	 * The flag to check if the server has successfully started.
+	 */
+	public static boolean SERVER_STARTED = false;
 
 	/**
 	 * A periodical processor for the concurrent updating of players in the
@@ -95,6 +100,7 @@ public final class Server {
 		 */
 		updateProcessor.start(0);
 		logger.info(Configuration.SERVER_NAME + " has bound to " + channel.socket().getInetAddress() + " on port " + channel.socket().getLocalPort() + ".");
+		SERVER_STARTED = true;
 	}
 
 	/**

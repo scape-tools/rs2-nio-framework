@@ -23,6 +23,11 @@ public final class PlayerDetails {
 	 * The password of the player's account.
 	 */
 	private String password;
+	
+	/**
+	 * The rights of this player.
+	 */
+	private Rights rights = Rights.PLAYER;
 
 	/**
 	 * The overloaded class constructor used for the instantiation of
@@ -83,6 +88,20 @@ public final class PlayerDetails {
 	public void setPassword(String password) {
 
 		this.password = password;
+	}
+	
+	/**
+	 * @return the rights
+	 */
+	public Rights getRights() {
+		return rights;
+	}
+
+	/**
+	 * @param rights the rights to set
+	 */
+	public void setRights(Rights rights) {
+		this.rights = rights;
 	}
 
 	/**

@@ -7,14 +7,17 @@ import com.astraeus.core.game.model.entity.mobile.player.Player;
 
 public class InventoryContainer extends ItemContainer {
 	
+	private final Player player;
+	
 	public InventoryContainer(Player player) {
-		super(player, 28);
+		super(28, StackType.NORMAL);
+		this.player = player;
 	}
 
 	@Override
 	public void addItem(Item item) {
 		
-		if (!canHoldItem(item.getId())) {
+		if (!canHoldItem(player, item.getId())) {
 			getPlayer().getPacketSender().sendMessage("You don't have the required inventory space to hold this item.");
 			return;
 		}
@@ -96,6 +99,13 @@ public class InventoryContainer extends ItemContainer {
 	@Override
 	public void update() {
 		getPlayer().getPacketSender().sendItemsOnInterface(3214, getItems());
+	}
+	
+	/**
+	 * @return the player
+	 */
+	public Player getPlayer() {
+		return player;
 	}
 
 }

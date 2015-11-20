@@ -1,29 +1,17 @@
 package com.astraeus.core.game.content.shop;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
-import com.astraeus.core.Configuration;
-import com.astraeus.core.game.model.entity.item.Item;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
-import com.astraeus.core.utility.ReadableState;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
 
 /**
  * A class that contains static utility methods for shops.
  * 
  *  @author SeVen
  */
-public class ShopManager implements ReadableState {
+public class ShopManager {
 	
 	/**
 	 * The singleton for this class.
@@ -33,7 +21,7 @@ public class ShopManager implements ReadableState {
 	/**
 	 * A collection of shops.
 	 */
-	private final static Set<Shop> shops = new HashSet<>();
+	public final static Set<Shop> shops = new HashSet<>();
 	
 	/**
 	 * The amount of items that can be contained in a single store.
@@ -82,34 +70,6 @@ public class ShopManager implements ReadableState {
 	 */
 	public Set<Shop> getShops() {
 		return shops;
-	}
-
-	@Override
-	public boolean deserialize() {
-		try {
-		final JsonParser fileParser = new JsonParser();
-		final Object object = fileParser.parse(new FileReader(Configuration.DATA + "json/shops.json"));
-		final Gson builder = new GsonBuilder().create();
-		final JsonObject reader = (JsonObject) object;
-		
-		int id = reader.get("id").getAsInt();
-		
-		String title = Objects.requireNonNull(reader.get("title")).getAsString();
-		
-		Currency currency = Currency.valueOf(reader.get("currency").getAsString());
-		
-		//final ItemContainer container = new ShopInterfaceContainer(null);
-		
-		Item[] items = builder.fromJson(reader.get("items"), Item[].class);
-		
-		} catch (JsonIOException e) {
-			e.printStackTrace();
-		} catch (JsonSyntaxException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return false;
 	}
 	
 }

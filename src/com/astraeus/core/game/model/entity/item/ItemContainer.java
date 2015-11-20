@@ -34,14 +34,33 @@ public abstract class ItemContainer {
 	}
 	
 	/**
-	 * The player that owns this container.
+	 * The size of this container.
 	 */
-	protected Player player;
+	private final int size;
 	
 	/**
 	 * The items of this container.
 	 */
 	private Item[] items;
+	
+	/**
+	 * The type of stack for this container.
+	 */
+	private StackType stackType;
+	
+	/**
+	 * Constructs a new {@link ItemContainer} with a default
+	 * {@link StackType} of {@code NORMAL}.
+	 * 
+	 * @param player
+	 * 		The player that owns this container.
+	 * 
+	 * @param size
+	 * 		The size of this container.
+	 */
+	public ItemContainer(int size) {
+		this(size, StackType.NORMAL);
+	}
 	
 	/**
 	 * Constructs a new {@link ItemContainer}.
@@ -52,15 +71,11 @@ public abstract class ItemContainer {
 	 * @param size
 	 * 		The size of this container.
 	 */
-	public ItemContainer(Player player, int size) {
+	public ItemContainer(int size, StackType stackType) {
 		this.size = size;
 		this.items = new Item[size];
+		this.stackType = stackType;		
 	}
-
-	/**
-	 * The size of this container.
-	 */
-	private final int size;
 	
 	/**
 	 * Adds a specified item into a container.
@@ -94,13 +109,13 @@ public abstract class ItemContainer {
 	 * 
 	 * {@code true} If there is enough space, {@code false} otherwise.
 	 */
-	public final boolean canHoldItem(int id) {
+	public final boolean canHoldItem(Player player, int id) {
 		
 		if (getFreeSlots() > 0) {
 			return true;
 		}
 
-		if (getPlayer().getInventoryContainer().containsItem(id) && ItemDefinition.getDefinitions()[id].isStackable()) {
+		if (player.getInventoryContainer().containsItem(id) && ItemDefinition.getDefinitions()[id].isStackable()) {
 			return true;
 		}
 		return false;
@@ -142,13 +157,6 @@ public abstract class ItemContainer {
 		}
 		return count;
 	}
-	
-	/**
-	 * @return the player
-	 */
-	public Player getPlayer() {
-		return player;
-	}
 
 	/**
 	 * @return the items
@@ -156,12 +164,29 @@ public abstract class ItemContainer {
 	public Item[] getItems() {
 		return items;
 	}
-
+	
+	/**
+	 * Sets the items for this container.
+	 * 
+	 * @param items
+	 * 		The array of items for this container.
+	 */
+	public final void setItems(Item[] items) {
+		this.items = items;
+	}
+	
 	/**
 	 * @return the size
 	 */
 	public int getSize() {
 		return size;
 	}
-
+	
+	/**
+	 * @return the stackType
+	 */
+	public StackType getStackType() {
+		return stackType;
+	}
+	
 }

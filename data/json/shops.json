@@ -1,0 +1,57 @@
+[
+  {
+    "id": 0,
+    "title": "General Store",
+	"currency": COINS,
+    "items": [
+      {
+        "id": 590,
+        "amount": 100
+      },
+      {
+        "id": 1755,
+        "amount": 100
+      },
+      {
+        "id": 2347,
+        "amount": 100
+      },
+      {
+        "id": 952,
+        "amount": 100
+      },
+      {
+        "id": 946,
+        "amount": 100
+      },
+      {
+        "id": 10010,
+        "amount": 100
+      },
+      {
+        "id": 5341,
+        "amount": 100
+      },
+      {
+        "id": 5343,
+        "amount": 100
+      },
+      {
+        "id": 5340,
+        "amount": 100
+      },
+      {
+        "id": 1540,
+        "amount": 100
+      },
+      {
+        "id": 1523,
+        "amount": 30
+      },
+      {
+        "id": 314,
+        "amount": 100000
+      }
+    ]
+  }
+]

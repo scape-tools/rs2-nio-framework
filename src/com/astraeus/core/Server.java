@@ -11,6 +11,7 @@ import com.astraeus.core.game.processor.PeriodicalLogicProcessor;
 import com.astraeus.core.game.processor.impl.PeriodicalNetworkProcessor;
 import com.astraeus.core.game.processor.impl.PeriodicalUpdateProcessor;
 import com.astraeus.core.net.channel.message.IncomingPacketRegistration;
+import com.astraeus.core.utility.startup.ShopLoader;
 
 /**
  * The core class for the server.
@@ -45,6 +46,8 @@ public final class Server {
 	public static void main(String... args) throws IOException {
 
 		new IncomingPacketRegistration();
+		
+		new ShopLoader().load();
 		
 		bind();
 	}

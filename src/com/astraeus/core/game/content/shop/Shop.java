@@ -3,6 +3,7 @@ package com.astraeus.core.game.content.shop;
 import com.astraeus.core.game.content.shop.Currency;
 import com.astraeus.core.game.model.entity.item.Item;
 import com.astraeus.core.game.model.entity.item.ItemContainer;
+import com.astraeus.core.game.model.entity.item.container.ShopContainer;
 
 /**
  * Represents a single in-game shop.
@@ -20,16 +21,16 @@ public final class Shop {
 	 * The currency of this shop.
 	 */
 	private final Currency currency;
-
-	/**
-	 * The current stock of the shop.
-	 */
-	private final ItemContainer stock;
-
+	
 	/**
 	 * The items present in the shop.
 	 */
 	private final Item[] items;
+
+	/**
+	 * The current stock of the shop.
+	 */
+	private final ItemContainer stock = new ShopContainer(null);
 
 	/**
 	 * The title displayed on the top bar of the shop interface.
@@ -45,15 +46,12 @@ public final class Shop {
 	 * 
 	 * @param title
 	 * 		The title of the shop.
-	 * 
-	 * @param stock
-	 * 		The stock of the shop to be set.
-	 * 
+	 *  
 	 * @param items
 	 * 		The items present in the shop.
 	 */
-	public Shop(int id, String title, ItemContainer stock, Item[] items) {
-		this(id, title, Currency.COINS, stock, items);
+	public Shop(int id, String title, Item[] items) {
+		this(id, title, Currency.COINS, items);
 	}
 
 	/**
@@ -68,17 +66,13 @@ public final class Shop {
 	 * @param currency
 	 * 		The currency of this shop.
 	 * 
-	 * @param stock
-	 * 		The stock of the shop to be set.
-	 * 
 	 * @param items
 	 * 		The items present in the shop.
 	 * 
 	 */
-	public Shop(int id, String title, Currency currency, ItemContainer stock, Item[] items) {
+	public Shop(int id, String title, Currency currency, Item[] items) {
 		this.id = id;
 		this.currency = currency;
-		this.stock = stock;
 		this.items = items;
 		this.title = title;
 	}

@@ -47,7 +47,7 @@ public final class Server {
 
 		new IncomingPacketRegistration();
 		
-		new ShopLoader().load();
+		new ShopLoader();
 		
 		bind();
 	}

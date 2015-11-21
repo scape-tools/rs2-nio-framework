@@ -40,6 +40,10 @@ public class CommandPacketListener implements IncomingPacketListener {
 			player.sendMessage(player.isServerDebug() ? "[DEBUG MODE] - ON" : "[DEBUG MODE] - OFF");
 			break;
 			
+		case "region":
+			player.getPacketSender().sendRegionalUpdate();
+			break;
+			
 		default:
 			logger.log(Level.INFO, String.format("Unknown command: %s", command[0]));
 			break;

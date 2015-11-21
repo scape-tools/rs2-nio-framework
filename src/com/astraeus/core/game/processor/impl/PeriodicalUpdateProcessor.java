@@ -66,41 +66,42 @@ public final class PeriodicalUpdateProcessor extends PeriodicalLogicProcessor {
 
 	@Override
 	public void execute() {
+		synchronized (this) {
 
-		for (final Player player : getPlayers().values()) {
+			for (final Player player : getPlayers().values()) {
 
-			if (player == null) {
+				if (player == null) {
+					continue;
+				}
 
-				continue;
+				player.prepare();
 			}
 
-			player.prepare();
-		}
+			for (final Player player : players.values()) {
+				if (player == null) {
+					continue;
+				}
 
-		for (final Player player : players.values()) {
-			if (player == null) {
-				continue;
+				/*
+				 * Determines if the update list contains a flag that denotes a
+				 * regional update.
+				 */
+				if (player.getUpdateFlags().contains(UpdateFlags.UPDATE_MAP_REGION)) {
+					player.getPacketSender().sendRegionalUpdate();
+				}
+				player.getEventListener().update(player);
 			}
 
-			/*
-			 * Determines if the update list contains a flag that denotes a
-			 * regional update.
-			 */
-			if (player.getUpdateFlags().contains(UpdateFlags.UPDATE_MAP_REGION)) {
-				player.getPacketSender().sendRegionalUpdate();
-			}
-			player.getEventListener().update(player);
-		}
+			for (final Player player : players.values()) {
+				if (player == null) {
+					continue;
+				}
 
-		for (final Player player : players.values()) {
-			if (player == null) {
-				continue;
+				/*
+				 * Clears any stray flags that didn't receive attention.
+				 */
+				player.getUpdateFlags().clear();
 			}
-
-			/*
-			 * Clears any stray flags that didn't receive attention.
-			 */
-			player.getUpdateFlags().clear();
 		}
 	}
 }

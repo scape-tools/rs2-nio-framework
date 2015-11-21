@@ -4,11 +4,14 @@ import java.util.Iterator;
 
 import com.astraeus.core.Server;
 import com.astraeus.core.game.GameConstants;
+import com.astraeus.core.game.model.entity.Position;
+import com.astraeus.core.game.model.entity.UpdateFlags;
 import com.astraeus.core.game.model.entity.item.Item;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.mobile.player.update.impl.PlayerMovementBlock;
 import com.astraeus.core.game.model.entity.mobile.player.update.impl.RegionalMovementBlock;
 import com.astraeus.core.game.model.entity.mobile.player.update.impl.StatefulUpdateBlock;
+import com.astraeus.core.game.model.entity.object.GameObject;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.message.Packet.PacketHeader;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteAccess;
@@ -52,6 +55,17 @@ public class PacketSender {
 		player.getContext().prepare(out);
 		out.getInternal().put(message.getBytes());
 		out.putByte(10, ByteValue.STANDARD);
+		player.write(out);
+		return this;
+	}
+	
+	public PacketSender sendCreateObject(GameObject object) {
+		PacketBuilder out = new PacketBuilder(151);
+		out.allocate(5);
+		player.getContext().prepare(out);
+		out.put(0, ByteValue.SUBTRACTION);
+		out.putShort(object.getId(), ByteOrder.LITTLE);
+		out.putByte((object.getType() << 2) + (object.getFacing().getDirection() & 3), ByteValue.SUBTRACTION);
 		player.write(out);
 		return this;
 	}
@@ -150,6 +164,16 @@ public class PacketSender {
 		return this;
 	}
 	
+	public PacketSender sendCreateCoordinate(Position position) {
+		PacketBuilder out = new PacketBuilder(85);
+		out.allocate(3);
+		player.getContext().prepare(out);
+		out.putByte(position.getY() -  8 * player.getLastPosition().getRegionalY() , ByteValue.INVERSION);
+		out.putByte(position.getX() -  8 * player.getLastPosition().getRegionalX() , ByteValue.INVERSION);
+		player.write(out);
+		return this;
+	}
+	
 	/**
 	 * The outgoing packet that closes a players opened interface.
 	 */
@@ -186,7 +210,11 @@ public class PacketSender {
 	 * 
 	 * @param The instance of this encoder.
 	 */
-	public PacketSender sendPlayerUpdate() {
+	public PacketSender sendPlayerUpdate() {		
+		if(player.getUpdateFlags().contains(UpdateFlags.UPDATE_MAP_REGION)) {
+			player.getPacketSender().sendRegionalUpdate();
+		}
+		
 		PacketBuilder update = new PacketBuilder();
 
 		update.allocate(8192);

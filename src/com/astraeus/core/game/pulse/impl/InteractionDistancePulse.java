@@ -126,8 +126,7 @@ public final class InteractionDistancePulse extends Pulse {
 
 		case RETREIVE_ITEM:
 			break;
-		default:
-			break;
+			
 		}
 	}
 }

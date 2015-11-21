@@ -1,11 +1,14 @@
 package com.astraeus.core.game.model.entity.item;
 
+import com.astraeus.core.game.model.entity.Entity;
+import com.astraeus.core.game.model.entity.EntityEventListener;
+
 /**
  * Represents a single in-game entity that a player could potentially obtain.
  * 
  * @author SeVen
  */
-public final class Item {
+public final class Item extends Entity {
 
 	/**
 	 * The id of this item.
@@ -49,7 +52,18 @@ public final class Item {
 		return amount;
 	}
 	
+	/**
+	 * Sets the quantity of this item.
+	 * 
+	 * @param amount
+	 * 		The amount to set.
+	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+
+	@Override
+	public EntityEventListener<? extends Entity> getEventListener() {
+		return null;
 	}
 }

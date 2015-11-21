@@ -141,7 +141,6 @@ public final class Movement {
 		walkingPoint = getNextPoint();
 
 		if (isRunning()) {
-
 			runningPoint = getNextPoint();
 		}
 
@@ -157,7 +156,7 @@ public final class Movement {
 
 		if (entity instanceof Player) {
 			if (deltaX < 16 || deltaX >= 88 || deltaY < 16 || deltaY > 88) {
-				((Player) getEntity()).getPacketSender().sendRegionalUpdate();
+				((Player) entity).getPacketSender().sendRegionalUpdate();
 			}
 		}
 	}

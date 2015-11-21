@@ -6,11 +6,25 @@ package com.astraeus.core.game.model.entity;
  * @author SeVen
  */
 public enum Facing {
-	NORTH,
 	
-	EAST,
+	NORTH(-1),
 	
-	SOUTH,
+	EAST(0),
 	
-	WEST;	
+	SOUTH(1),
+	
+	WEST(2);
+	
+	private int direction;
+	
+	private Facing(int direction) {
+		this.direction = direction;
+	}
+
+	/**
+	 * @return the direction
+	 */
+	public int getDirection() {
+		return direction;
+	}
 }

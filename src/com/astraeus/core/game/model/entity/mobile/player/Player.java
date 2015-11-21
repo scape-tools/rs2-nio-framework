@@ -32,7 +32,7 @@ public final class Player extends MobileEntity {
 	/**
 	 * The pair of cryptography algorithms for encoding and decoding.
 	 */
-	private IsaacRandomPair cryptographyPair;
+	private IsaacRandomPair isaacRandomPair;
 	
 	/**
 	 * The current dialogue state.
@@ -242,18 +242,18 @@ public final class Player extends MobileEntity {
 	 *
 	 * @return The returned instance.
 	 */
-	public IsaacRandomPair getCryptographyPair() {
-		return cryptographyPair;
+	public IsaacRandomPair getIsaacRandomPair() {
+		return isaacRandomPair;
 	}
 
 	/**
 	 * Modifies the instance of the pair of cryptography algorithms for 
 	 * encoding and decoding.
 	 *
-	 * @param cryptographyPair The new modification.
+	 * @param isaacRandomPair The new modification.
 	 */
-	public void setCryptographyPair(IsaacRandomPair cryptographyPair) {
-		this.cryptographyPair = cryptographyPair;
+	public void setCryptographyPair(IsaacRandomPair isaacRandomPair) {
+		this.isaacRandomPair = isaacRandomPair;
 	}
 	
 	/**

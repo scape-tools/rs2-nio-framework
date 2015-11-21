@@ -10,6 +10,7 @@ import com.astraeus.core.net.NetworkConstants;
 import com.astraeus.core.net.channel.PlayerIO;
 import com.astraeus.core.net.channel.message.IncomingPacketRegistration;
 import com.astraeus.core.net.channel.message.Packet;
+import com.astraeus.core.net.channel.protocol.ProtocolConstants;
 import com.astraeus.core.net.channel.protocol.ProtocolStateDecoder;
 
 /**
@@ -31,8 +32,12 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 
 	/**
 	 * The default length.
+	 * 
+	 * 0 or more Fixed byte length
+	 * -1 Variable byte length
+	 * -2 Variable short length
 	 */
-	private int length = -1;
+	private int length = ProtocolConstants.VARIABLE_BYTE;
 
 	/**
 	 * The state that this game packet decoder is in.
@@ -41,8 +46,8 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 
 	@Override
 	public void decode(PlayerIO context) throws IOException {
-		while (context.getBuffer().hasRemaining()) {			
-			switch (state) {			
+		while (context.getBuffer().hasRemaining()) {
+			switch (state) {
 			case OPCODE:
 				opcode(context);
 				break;
@@ -50,23 +55,23 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 			case SIZE:
 				size(context);
 				break;
-				
+
 			case PAYLOAD:
 				payload(context);
 				break;
 			}
 		}
 	}
-	
+
 	/**
 	 * The state that determines this packets opcode.
 	 * 
 	 * @param context
-	 * 		The channel that this packet is coming from.
+	 *            The channel that this packet is coming from.
 	 */
 	private void opcode(PlayerIO context) {
 		if (getOpcode() == -1) {
-			setOpcode(context.getBuffer().get() - context.getPlayer().getCryptographyPair().getEncoder().getNextValue()
+			setOpcode(context.getBuffer().get() - context.getPlayer().getIsaacRandomPair().getEncoder().getNextValue()
 					& 0xFF);
 			setLength(NetworkConstants.PACKET_SIZES[getOpcode()]);
 		}
@@ -77,7 +82,7 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 	 * The state that determines the type of packet.
 	 * 
 	 * @param context
-	 * 		The channel that this packet is coming from.
+	 *            The channel that this packet is coming from.
 	 */
 	private void size(PlayerIO context) {
 		if (getLength() == -1) {
@@ -95,36 +100,40 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 		}
 		state = GamePacketDecoderState.PAYLOAD;
 	}
-	
+
 	/**
 	 * The state that decodes the payload of this packet.
 	 * 
 	 * @param context
-	 * 		The session this packet is coming from.
+	 *            The session this packet is coming from.
 	 */
 	private void payload(PlayerIO context) {
-		byte[] payloadLength = new byte[getLength()];
-		context.getBuffer().get(payloadLength);
+		try {
+			byte[] payloadLength = new byte[getLength()];
+			context.getBuffer().get(payloadLength);
 
-		ByteBuffer packetPayload = ByteBuffer.allocate(getLength());
+			ByteBuffer packetPayload = ByteBuffer.allocate(getLength());
 
-		packetPayload.put(payloadLength);
-		packetPayload.flip();
+			packetPayload.put(payloadLength);
+			packetPayload.flip();
 
-		Packet packet = new Packet(packetPayload, getOpcode(), getLength());
+			Packet packet = new Packet(packetPayload, getOpcode(), getLength());
 
-		IncomingPacketRegistration.dispatchToListener(packet, context.getPlayer());
+			IncomingPacketRegistration.dispatchToListener(packet, context.getPlayer());
 
-		if (Configuration.SERVER_DEBUG && context.getPlayer().isServerDebug() && packet.getOpcode() != 0)
-			logger.log(Level.INFO, String.format("[Packet] - Opcode: %d Length: %d", packet.getOpcode(), packet.getLength()));
+			if (Configuration.SERVER_DEBUG && context.getPlayer().isServerDebug() && packet.getOpcode() != 0)
+				logger.log(Level.INFO,
+						String.format("[Packet] - Opcode: %d Length: %d", packet.getOpcode(), packet.getLength()));
 
-		state = GamePacketDecoderState.OPCODE;
-		setOpcode(-1);
-		setLength(-1);
+		} finally {
+			state = GamePacketDecoderState.OPCODE;
+			setOpcode(-1);
+			setLength(-1);
+		}
 	}
 
 	/**
-	 * Gets the length of a packet.
+	 * Gets the length this packet.
 	 * 
 	 * @return The returned length.
 	 */
@@ -133,10 +142,10 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 	}
 
 	/**
-	 * Sets the length of a packet.
+	 * Sets the length of this packet.
 	 * 
 	 * @param length
-	 *            The new length of this packet.
+	 *		The new length of this packet.
 	 */
 	public void setLength(int length) {
 		this.length = length;
@@ -155,7 +164,7 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 	 * Sets a new opcode value.
 	 * 
 	 * @param opcode
-	 *            The opcode to be set.
+	 *		The opcode to be set.
 	 */
 	public void setOpcode(int opcode) {
 		this.opcode = opcode;

@@ -14,7 +14,7 @@ import com.astraeus.core.game.model.entity.mobile.player.event.file.PlayerSaveFi
 import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.packet.OutgoingPacket;
-import com.astraeus.core.net.channel.packet.outgoing.PacketSender;
+import com.astraeus.core.net.channel.packet.outgoing.OutgoingPackets;
 import com.astraeus.core.net.channel.packet.outgoing.impl.ChatBoxMessagePacket;
 import com.astraeus.core.net.security.IsaacRandomPair;
 import com.astraeus.core.utility.Decodeable;
@@ -58,7 +58,7 @@ public final class Player extends MobileEntity {
 	 */
 	private final Appearance appearance = new Appearance(this);
 	
-	private PacketSender packetSender = new PacketSender(this);
+	private OutgoingPackets outgoingPackets = new OutgoingPackets(this);
 	
 	/**
 	 * The attributes a player can have.
@@ -265,8 +265,8 @@ public final class Player extends MobileEntity {
 		return appearance;
 	}
 	
-	public PacketSender getPacketSender() {
-		return packetSender;
+	public OutgoingPackets getOutgoingPackets() {
+		return outgoingPackets;
 	}
 	
 	/**

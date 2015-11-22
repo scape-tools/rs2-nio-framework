@@ -44,7 +44,7 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 			 */
 			player.write(new ChatBoxMessagePacket(PlayerConstants.WELCOME_MESSAGE));
 			
-			player.getPacketSender().sendTabs();
+			player.getOutgoingPackets().sendTabs();
 			
 			logger.log(Level.INFO, String.format("[%s] has successfully logged in.", player.toString()));
 

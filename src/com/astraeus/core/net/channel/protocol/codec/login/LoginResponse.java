@@ -20,7 +20,7 @@ public enum LoginResponse {
 	/*
 	 * Denotes that the account has been ban.
 	 */
-	ACCOUNT_IS_BAN(4),
+	ACCOUNT_IS_BANNED(4),
 
 	/*
 	 * Denotes that an account under the same name is already connected.

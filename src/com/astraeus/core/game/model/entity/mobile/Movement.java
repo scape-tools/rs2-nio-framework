@@ -178,7 +178,7 @@ public final class Movement {
 			((MobileEntity) getEntity()).getPosition().setPositionAdditional(
 					GameConstants.DIRECTION_DELTA_X[availableFocusPoint.getDirection()],
 					GameConstants.DIRECTION_DELTA_Y[availableFocusPoint.getDirection()],
-					getEntity().getPosition().getZ());
+					getEntity().getPosition().getHeight());
 
 			return availableFocusPoint;
 		}

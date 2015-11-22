@@ -1,101 +1,116 @@
 package com.astraeus.core.game.model.entity;
 
 public final class Position {
+	
+	/**
+	 * The maximum distance a mobile entity can see.
+	 */
+	public static final int VIEWING_DISTANCE = 15;
+	
+	/**
+	 * The number of height levels it takes to reach a new plane.
+	 */
+	public static final int HEIGHT_LEVELS = 4;
 
 	/**
-	 * The X coordinate of this point.
+	 * The x coordinate on a grid.
 	 */
 	private int x;
 
 	/**
-	 * The Y coordinate of this point.
+	 * The y coordinate on a grid.
 	 */
 	private int y;
 
 	/**
 	 * The height of this point.
 	 */
-	private int z;
+	private int height;
 	
 	/**
-	 * The Position of this entity, with a default height of 0.
+	 * Creates a new {@link Position} with a default
+	 * {@code height} of {@code 0}.
 	 * 
 	 * @param x
-	 * 		The X coordinate of this point.
+	 * 		The x coordinate on a grid.
 	 * @param y
-	 * 		The Y coordinate of this point.
+	 * 		The y coordinate on a grid.
 	 */
 	public Position(int x, int y) {
 		this(x, y, 0);
 	}
 
 	/**
-	 * The Position of this entity.
+	 * Creates a new {@link Position}.
 	 * 
-	 * @param x The X coordinate of this point.
-	 * 
-	 * @param y The Y coordinate of this point.
-	 * 
-	 * @param z The height of this point.
+	 * @param x
+	 * 		The x coordinate on a grid.
+	 * @param y
+	 * 		The y coordinate on a grid.
+	 * @param height
+	 * 		The height or plane.
 	 */
-	public Position(int x, int y, int z) {
+	public Position(int x, int y, int height) {
 		this.x = x;
 		this.y = y;
-		this.z = z;
+		this.height = height;
 	}
 
 	/**
-	 * Returns the X coordinate of this point.
+	 * Gets the {@code x} coordinate.
 	 * 
-	 * @return The returned coordinate.
+	 * @return The {@code x} coordinate.
 	 */
 	public int getX() {
 		return x;
 	}
 
 	/**
-	 * Modifies the X coordinate of this point.
+	 * Sets a new {@code x} value.
 	 * 
-	 * @param x The new modification.
+	 * @param x
+	 * 		The new value.
 	 */
 	public void setX(int x) {
 		this.x = x;
 	}
 
 	/**
-	 * Returns the Y coordinate of this point.
+	 * Gets a {@code y} coordinate.
 	 * 
-	 * @return The returned coordinate.
+	 * @return The {@code y} coordinate.
 	 */
 	public int getY() {
 		return y;
 	}
 
 	/**
-	 * Modifies the Y coordinate of this point.
-	 * 
-	 * @param y The new modification.
+	 * Sets a new {@code y} coordinate.
+	 *
+	 * @param y
+	 * 		The new value.
 	 */
 	public void setY(int y) {
 		this.y = y;
 	}
 
 	/**
-	 * Returns the dimensional plane of this coordinate.
+	 * Gets the {@code height level} on a plane.
 	 * 
-	 * @return The returned plane.
+	 * @return The {@code height}.
 	 */
-	public int getZ() {
-		return z;
+	public int getHeight() {
+		return height;
 	}
 
 	/**
-	 * Modifies the dimensional plane of this coordinate.
+	 * Sets a new {@code height} value.
 	 * 
-	 * @param plane The new modification.
+	 * @param height
+	 * 		The new value to set.
 	 */
-	public void setZ(int plane) {
-		this.z = plane;
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
 	/**
@@ -146,7 +161,7 @@ public final class Position {
 	public final void setPosition(Position other) {
 		this.x = other.getX();
 		this.y = other.getY();
-		this.z = other.getZ();
+		this.height = other.getHeight();
 	}
 	
 	/**
@@ -161,7 +176,7 @@ public final class Position {
 	public final void setPositionAdditional(int x, int y, int z) {
 		this.x += x;
 		this.y += y;
-		this.z += z;
+		this.height += z;
 	}
 	
 	/**
@@ -174,7 +189,7 @@ public final class Position {
 	 * @return The result of the operation.
 	 */
 	public final boolean coordinatesEqual(Position other) {
-		return other.getX() == this.getX() && other.getY() == this.getY() && other.getZ() == this.getZ();
+		return other.getX() == this.getX() && other.getY() == this.getY() && other.getHeight() == this.getHeight();
 	}
 
 	/**
@@ -188,7 +203,7 @@ public final class Position {
 	 * @return The result of the operation. <code> true </code> or <code> false </code>.
 	 */
 	public final boolean isWithinDistance(Position location, int distance) {
-		if (this.getZ() != location.getZ()) {
+		if (this.getHeight() != location.getHeight()) {
 			return false;
 		}
 		return Math.abs(location.getX() - this.getX()) <= distance && Math.abs(location.getY() - this.getY()) <= distance;
@@ -196,6 +211,6 @@ public final class Position {
 
 	@Override
 	public String toString() {
-		return x + " - " + y + " - " + z;
+		return x + " - " + y + " - " + height;
 	}
 }

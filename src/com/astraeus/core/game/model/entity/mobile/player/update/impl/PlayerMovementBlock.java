@@ -12,7 +12,7 @@ public final class PlayerMovementBlock extends UpdateBlock {
 		if (player.getUpdateFlags().contains(UpdateFlags.UPDATE_MAP_REGION)) {
 			buffer.putBits(1, 1);
 			buffer.putBits(2, 3);
-			buffer.putBits(2, player.getPosition().getZ());
+			buffer.putBits(2, player.getPosition().getHeight());
 			buffer.putBits(1, 1);
 			buffer.putBits(1, player.updateRequired() ? 1 : 0);
 			buffer.putBits(7, player.getPosition().getLocalY(player.getLastPosition()));

@@ -56,7 +56,7 @@ public final class InteractionDistancePulse extends Pulse {
 
 		this.interactionType = interaction;
 		this.player = player;
-		this.destination = new Position((Integer) player.getAttributes().get(Attributes.CLICK_X), (Integer) player.getAttributes().get(Attributes.CLICK_Y), player.getPosition().getZ());
+		this.destination = new Position((Integer) player.getAttributes().get(Attributes.CLICK_X), (Integer) player.getAttributes().get(Attributes.CLICK_Y), player.getPosition().getHeight());
 	}
 
 	@Override

@@ -12,7 +12,6 @@ import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.protocol.ProtocolConstants;
 import com.astraeus.core.net.channel.protocol.ProtocolStateDecoder;
-import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
 import com.astraeus.core.net.channel.protocol.codec.game.GamePacketPayloadDecoder;
 import com.astraeus.core.net.security.IsaacRandom;
 import com.astraeus.core.net.security.IsaacRandomPair;
@@ -182,9 +181,9 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 		final PacketBuilder response = new PacketBuilder();				
 		response.allocate(3);
 		
-		response.putByte(responseCode.getValue(), ByteValue.STANDARD);
-		response.putByte(context.getPlayer().getDetails().getRights().getProtocolValue(), ByteValue.STANDARD); // player rights
-		response.putByte(0, ByteValue.STANDARD);
+		response.putByte(responseCode.getValue());
+		response.putByte(context.getPlayer().getDetails().getRights().getProtocolValue()); // player rights
+		response.putByte(0);
 		return response;
 	}
 

@@ -28,14 +28,10 @@ public final class AcceptChannelEvent extends ChannelEvent {
 	}
 
 	@Override
-	public void execute(PlayerChannel context) throws IOException {
-
-		context.getChannel().configureBlocking(false);
-		
+	public void execute(PlayerChannel context) throws IOException {		
+		context.getChannel().configureBlocking(false);		
 		final SelectionKey selectedKey = context.getChannel().register(selector, SelectionKey.OP_READ, context);
-		
-		context.setSelectedKey(selectedKey);
-		
+		context.setSelectedKey(selectedKey);		
 		context.setProtocolDecoder(new LoginRequestDecoder());
 	}
 }

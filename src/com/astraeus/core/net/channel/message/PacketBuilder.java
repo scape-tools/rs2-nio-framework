@@ -194,6 +194,20 @@ public final class PacketBuilder {
 	}
 	
 	/**
+	 * Places a single long value into the internal buffer which has
+	 * a default {@link ByteValue} of {@code STANDARD}.
+	 * 
+	 * @param value
+	 * 		The value of this long.
+	 * 
+	 * @param modification
+	 * 		The manipulation of this long value.
+	 */
+	public void putLong(long value) {
+		putLong(value, ByteValue.STANDARD);
+	}
+	
+	/**
 	 * Places a single long value into the internal buffer.
 	 * 
 	 * @param value

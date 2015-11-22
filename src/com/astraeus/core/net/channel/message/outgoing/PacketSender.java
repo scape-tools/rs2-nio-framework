@@ -54,7 +54,7 @@ public class PacketSender {
 		out.allocate(message.length() + 3);
 		player.getContext().prepare(out);
 		out.getInternal().put(message.getBytes());
-		out.putByte(10, ByteValue.STANDARD);
+		out.putByte(10);
 		player.write(out);
 		return this;
 	}
@@ -296,8 +296,7 @@ public class PacketSender {
 		player.getContext().prepare(out);
 		out.putShort(player.getPosition().getRegionalX() + 6,
 				ByteValue.ADDITION, ByteOrder.BIG);
-		out.putShort(player.getPosition().getRegionalY() + 6,
-				ByteValue.STANDARD);
+		out.putShort(player.getPosition().getRegionalY() + 6);
 		player.setLastPosition(player.getPosition());
 		player.write(out);
 		return this;

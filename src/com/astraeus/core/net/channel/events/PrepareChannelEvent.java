@@ -6,7 +6,6 @@ import com.astraeus.core.net.channel.ChannelEvent;
 import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.message.Packet.Header;
 import com.astraeus.core.net.channel.message.PacketBuilder;
-import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
 
 public final class PrepareChannelEvent extends ChannelEvent {
 
@@ -68,14 +67,14 @@ public final class PrepareChannelEvent extends ChannelEvent {
 		 * defined as a byte or a short the length must be indicated by that primitive.
 		 */
 		if (!header.equals(Header.EMPTY)) {
-			buffer.putByte(opcode + context.getPlayer().getIsaacRandomPair().getDecoder().getNextValue(), ByteValue.STANDARD);
+			buffer.putByte(opcode + context.getPlayer().getIsaacRandomPair().getDecoder().getNextValue());
 			
 			if (header.equals(Header.VARIABLE_BYTE)) {
 				buffer.setLength(buffer.getInternal().position());
-				buffer.putByte(0, ByteValue.STANDARD);
+				buffer.putByte(0);
 			} else if (header.equals(Header.VARIABLE_SHORT)) {
 				buffer.setLength(buffer.getInternal().position());
-				buffer.putShort(0, ByteValue.STANDARD);
+				buffer.putShort(0);
 			}
 		}
 	}

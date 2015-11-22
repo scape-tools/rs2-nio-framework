@@ -70,18 +70,10 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 		synchronized (this) {
 
 			for (final Player player : getPlayers().values()) {
-
-				if (player == null) {
-					continue;
-				}
-
 				player.prepare();
 			}
 
 			for (final Player player : players.values()) {
-				if (player == null) {
-					continue;
-				}
 
 				/*
 				 * Determines if the update list contains a flag that denotes a
@@ -94,10 +86,6 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 			}
 
 			for (final Player player : players.values()) {
-				if (player == null) {
-					continue;
-				}
-
 				/*
 				 * Clears any stray flags that didn't receive attention.
 				 */

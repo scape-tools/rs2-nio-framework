@@ -53,17 +53,17 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 		player.getAttributes().put(Attributes.WALK_TO_ACTION, false);
 		
 		player.getMovement().resetMovement();
-		
-		PulseScheduler.getInstance().destoryPulsesForOwner(player.getDetails().getUsername());
 
 		player.save();
-		
-		player.getPacketSender().sendLogout();
 		
 		/*
 		 * Removes the player from the processor's registry.
 		 */
 		Server.getUpdateProcessor().removePlayer(player);
+		
+		PulseScheduler.getInstance().destoryPulsesForOwner(player.getDetails().getUsername());
+		
+		player.getPacketSender().sendLogout();
 		
 		logger.log(Level.INFO, String.format("[%s] has left the server.", player.toString()));
 	}

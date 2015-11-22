@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  * A simple processor for scheduling major logical procedures. This class
  * should not be used for execution of minor periodical processes.
  */
-public abstract class PeriodicalLogicProcessor implements Runnable {
+public abstract class ScheduledProcessor implements Runnable {
 
 	/**
 	 * Handles the creation, destruction, and periodical execution of threads 
@@ -38,7 +38,7 @@ public abstract class PeriodicalLogicProcessor implements Runnable {
 	 * 
 	 * @param rate The rate in milliseconds at which the thread will be executed.
 	 */
-	public PeriodicalLogicProcessor(int rate) {
+	public ScheduledProcessor(int rate) {
 		this.rate = rate;
 	}
 

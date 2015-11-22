@@ -1,6 +1,6 @@
 package com.astraeus.core.game.processor;
 
-public final class PeriodicalLogicProcessorConstants {
+public final class ProcessorConstants {
 
 	/**
 	 * The rate in milliseconds at which the network processes logic.

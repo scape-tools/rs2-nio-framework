@@ -7,9 +7,9 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.util.logging.Logger;
 
-import com.astraeus.core.game.processor.PeriodicalLogicProcessor;
-import com.astraeus.core.game.processor.impl.PeriodicalNetworkProcessor;
-import com.astraeus.core.game.processor.impl.PeriodicalUpdateProcessor;
+import com.astraeus.core.game.processor.ScheduledProcessor;
+import com.astraeus.core.game.processor.impl.ScheduledNetworkProcessor;
+import com.astraeus.core.game.processor.impl.ScheduledUpdateProcessor;
 import com.astraeus.core.net.channel.message.IncomingPacketRegistration;
 import com.astraeus.core.utility.startup.ShopLoader;
 
@@ -35,7 +35,7 @@ public final class Server {
 	 * A periodical processor for the concurrent updating of players in the
 	 * virtual world.
 	 */
-	private static final PeriodicalUpdateProcessor updateProcessor = new PeriodicalUpdateProcessor();
+	private static final ScheduledUpdateProcessor updateProcessor = new ScheduledUpdateProcessor();
 
 	/**
 	 * The main starting point of the server.
@@ -63,7 +63,7 @@ public final class Server {
 		channel.configureBlocking(false);
 		channel.register(selector, SelectionKey.OP_ACCEPT);
 
-		final PeriodicalLogicProcessor netProcessor = new PeriodicalNetworkProcessor(
+		final ScheduledProcessor netProcessor = new ScheduledNetworkProcessor(
 				selector, channel);
 
 		channel.bind(new InetSocketAddress(Configuration.ADDRESS,
@@ -77,13 +77,13 @@ public final class Server {
 	}
 
 	/**
-	 * Returns an instance of the {@link PeriodicalUpdateProcessor} that is
+	 * Returns an instance of the {@link ScheduledUpdateProcessor} that is
 	 * responsible for the concurrent updating of mobile actors in the virtual
 	 * world.
 	 * 
 	 * @return The returned instance.
 	 */
-	public static PeriodicalUpdateProcessor getUpdateProcessor() {
+	public static ScheduledUpdateProcessor getUpdateProcessor() {
 		return updateProcessor;
 	}
 }

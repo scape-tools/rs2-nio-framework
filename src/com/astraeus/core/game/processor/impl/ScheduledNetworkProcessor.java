@@ -7,13 +7,13 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
-import com.astraeus.core.game.processor.PeriodicalLogicProcessor;
-import com.astraeus.core.game.processor.PeriodicalLogicProcessorConstants;
+import com.astraeus.core.game.processor.ScheduledProcessor;
+import com.astraeus.core.game.processor.ProcessorConstants;
 import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.events.AcceptChannelEvent;
 import com.astraeus.core.net.channel.events.ReadChannelEvent;
 
-public final class PeriodicalNetworkProcessor extends PeriodicalLogicProcessor {
+public final class ScheduledNetworkProcessor extends ScheduledProcessor {
 
 	/**
 	 * A multiplexor for the validation and identification of key based
@@ -35,8 +35,8 @@ public final class PeriodicalNetworkProcessor extends PeriodicalLogicProcessor {
 	 * 
 	 * @param channel A channel for stream-oriented listening sockets.
 	 */
-	public PeriodicalNetworkProcessor(Selector selector, ServerSocketChannel channel) {
-		super(PeriodicalLogicProcessorConstants.NETWORK_PROCESSOR_RATE);
+	public ScheduledNetworkProcessor(Selector selector, ServerSocketChannel channel) {
+		super(ProcessorConstants.NETWORK_PROCESSOR_RATE);
 		this.selector = selector;
 		this.channel = channel;
 	}

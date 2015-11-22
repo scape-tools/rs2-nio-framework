@@ -56,51 +56,21 @@ public final class Server {
 	 * Binds the {@link ServerSocketChannel} to a specified address and port
 	 */
 	public static void bind() throws IOException {
-		/*
-		 * A selectable channel for stream-oriented listening sockets.
-		 */
+
 		final ServerSocketChannel channel = ServerSocketChannel.open();
-		/*
-		 * A multiplexor of SelectableChannel objects.
-		 */
 		final Selector selector = Selector.open();
-		/*
-		 * Configures this channels blocking mode
-		 * 
-		 * A Select-able channel is either in blocking mode or in non-blocking
-		 * mode.
-		 * 
-		 * In blocking mode, every I/O operation invoked upon the channel will
-		 * block until it completes. In non-blocking mode an I/O operation will
-		 * never block and may transfer fewer bytes than were requested or
-		 * possibly no bytes at all. The blocking mode of a selectable channel
-		 * may be determined by invoking its isBlocking method.
-		 */
+
 		channel.configureBlocking(false);
-		/*
-		 * Registers this channel with the given selector, returning a selection
-		 * key.
-		 */
 		channel.register(selector, SelectionKey.OP_ACCEPT);
 
 		final PeriodicalLogicProcessor netProcessor = new PeriodicalNetworkProcessor(
 				selector, channel);
 
-		/*
-		 * Fixes the channel to a specified end-point.
-		 */
 		channel.bind(new InetSocketAddress(Configuration.ADDRESS,
 				Configuration.PORT));
 
-		/*
-		 * Starts the processor responsible for processing network's IO logic.
-		 */
 		netProcessor.start(0);
 
-		/*
-		 * Starts the processor responsible for processing world's updating
-		 * logic.
-		 */
 		updateProcessor.start(0);
 		logger.info(Configuration.SERVER_NAME + " has bound to " + channel.socket().getInetAddress() + " on port " + channel.socket().getLocalPort() + ".");
 		SERVER_STARTED = true;

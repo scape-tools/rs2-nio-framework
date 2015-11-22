@@ -11,7 +11,7 @@ public final class Packet {
 		/**
 	 * The type of packet, also the header of a packet.
 	 */
-	public enum PacketHeader {
+	public enum Header {
 		/**
 		 * No packet header is to be placed on the message.
 		 */

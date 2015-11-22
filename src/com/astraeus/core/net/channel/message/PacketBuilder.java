@@ -3,7 +3,7 @@ package com.astraeus.core.net.channel.message;
 import java.nio.ByteBuffer;
 import java.util.stream.IntStream;
 
-import com.astraeus.core.net.channel.message.Packet.PacketHeader;
+import com.astraeus.core.net.channel.message.Packet.Header;
 import com.astraeus.core.net.channel.protocol.ProtocolConstants;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteAccess;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteOrder;
@@ -39,7 +39,7 @@ public final class PacketBuilder {
 	/**
 	 * The header or also known as the type of packet being sent.
 	 */
-	private PacketHeader header;
+	private Header header;
 	
 	/**
 	 * Constructs a new {@link PacketBuilder} with no opcode and
@@ -56,7 +56,7 @@ public final class PacketBuilder {
 	 * 		The id of the packet.
 	 */
 	public PacketBuilder(int opcode) {
-		this(opcode, PacketHeader.STANDARD);
+		this(opcode, Header.STANDARD);
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public final class PacketBuilder {
 	 * @param header
 	 * 		The header type of the packet.
 	 */
-	public PacketBuilder(int opcode, PacketHeader header) {
+	public PacketBuilder(int opcode, Header header) {
 		this.opcode = opcode;
 		this.header = header;
 	}
@@ -93,7 +93,7 @@ public final class PacketBuilder {
 	 * 
 	 * @return The header of the packet being created.
 	 */
-	public PacketHeader getHeader() {
+	public Header getHeader() {
 		return header;
 	}
 	

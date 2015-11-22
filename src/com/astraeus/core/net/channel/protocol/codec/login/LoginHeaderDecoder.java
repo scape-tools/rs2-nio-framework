@@ -6,8 +6,8 @@ import java.util.logging.Logger;
 
 import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
+import com.astraeus.core.net.channel.message.Packet.Header;
 import com.astraeus.core.net.channel.message.PacketBuilder;
-import com.astraeus.core.net.channel.message.Packet.PacketHeader;
 import com.astraeus.core.net.channel.protocol.ProtocolStateDecoder;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
 
@@ -34,7 +34,7 @@ public final class LoginHeaderDecoder extends ProtocolStateDecoder {
 		response.putByte(0, ByteValue.STANDARD);
 		response.putLong(0, ByteValue.STANDARD);		
 		response.putLong(random.nextLong(), ByteValue.STANDARD);
-		context.execute(new WriteChannelEvent(PacketHeader.EMPTY, response));
+		context.execute(new WriteChannelEvent(Header.EMPTY, response));
 		context.setProtocolDecoder(new LoginPayloadDecoder());
 	}
 

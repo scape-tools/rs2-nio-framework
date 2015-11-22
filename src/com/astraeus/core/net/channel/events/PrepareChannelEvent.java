@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import com.astraeus.core.net.channel.ChannelEvent;
 import com.astraeus.core.net.channel.PlayerChannel;
+import com.astraeus.core.net.channel.message.Packet.Header;
 import com.astraeus.core.net.channel.message.PacketBuilder;
-import com.astraeus.core.net.channel.message.Packet.PacketHeader;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
 
 public final class PrepareChannelEvent extends ChannelEvent {
@@ -13,7 +13,7 @@ public final class PrepareChannelEvent extends ChannelEvent {
 	/**
 	 * The header for this message.
 	 */
-	private final PacketHeader header;
+	private final Header header;
 
 	/**
 	 * The buffer for this message.
@@ -39,7 +39,7 @@ public final class PrepareChannelEvent extends ChannelEvent {
 	 * 		The opcode for this message.
 	 */
 	public PrepareChannelEvent(PacketBuilder buffer, int opcode) {
-		this(PacketHeader.EMPTY, buffer, opcode);
+		this(Header.EMPTY, buffer, opcode);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public final class PrepareChannelEvent extends ChannelEvent {
 	 * @param opcode
 	 * 		The opcode for this message.
 	 */
-	public PrepareChannelEvent(PacketHeader header, PacketBuilder buffer, int opcode) {
+	public PrepareChannelEvent(Header header, PacketBuilder buffer, int opcode) {
 		this.header = header;
 		this.buffer = buffer;
 		this.opcode = opcode;
@@ -67,13 +67,13 @@ public final class PrepareChannelEvent extends ChannelEvent {
 		 * with a cryptographic cipher. After the encryption if the packet's heading is
 		 * defined as a byte or a short the length must be indicated by that primitive.
 		 */
-		if (!header.equals(PacketHeader.EMPTY)) {
+		if (!header.equals(Header.EMPTY)) {
 			buffer.putByte(opcode + context.getPlayer().getIsaacRandomPair().getDecoder().getNextValue(), ByteValue.STANDARD);
 			
-			if (header.equals(PacketHeader.VARIABLE_BYTE)) {
+			if (header.equals(Header.VARIABLE_BYTE)) {
 				buffer.setLength(buffer.getInternal().position());
 				buffer.putByte(0, ByteValue.STANDARD);
-			} else if (header.equals(PacketHeader.VARIABLE_SHORT)) {
+			} else if (header.equals(Header.VARIABLE_SHORT)) {
 				buffer.setLength(buffer.getInternal().position());
 				buffer.putShort(0, ByteValue.STANDARD);
 			}

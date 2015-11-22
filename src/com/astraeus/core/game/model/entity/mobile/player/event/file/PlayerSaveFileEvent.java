@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.astraeus.core.game.model.entity.mobile.player.Player;
+import com.astraeus.core.game.model.entity.mobile.player.PlayerConstants;
 import com.astraeus.core.game.model.entity.mobile.player.event.PlayerFileEvent;
 import com.astraeus.core.utility.WritableState;
 import com.google.gson.Gson;
@@ -15,6 +16,8 @@ public class PlayerSaveFileEvent extends PlayerFileEvent implements WritableStat
 	public PlayerSaveFileEvent(Player player) {
 		super(player);
 	}
+	
+	private boolean newPlayerFlag = false;
 
 	@Override
 	public boolean serialize() {
@@ -22,6 +25,7 @@ public class PlayerSaveFileEvent extends PlayerFileEvent implements WritableStat
 			
 			if (!getFile().exists()) {
 				getFile().createNewFile();
+				newPlayerFlag = true;
 			}
 			
 			final Gson builder = new GsonBuilder().setPrettyPrinting().create();
@@ -31,7 +35,7 @@ public class PlayerSaveFileEvent extends PlayerFileEvent implements WritableStat
 			writer.addProperty("username", getPlayer().getDetails().getUsername());
 			writer.addProperty("password", getPlayer().getDetails().getPassword());
 			writer.addProperty("rights", getPlayer().getDetails().getRights().name());
-			writer.add("position", builder.toJsonTree(getPlayer().getPosition()));
+			writer.add("position", builder.toJsonTree(newPlayerFlag ? PlayerConstants.START_COORDINATES : getPlayer().getPosition()));
 
 			FileWriter fileWriter = new FileWriter(getFile());
 			fileWriter.write(builder.toJson(writer));

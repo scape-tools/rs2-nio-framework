@@ -23,15 +23,8 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 			 * Adds the player to the registry.
 			 */
 			Server.getUpdateProcessor().addPlayer(player);
-
-			if (player.load()) {
-				player.load();
-			} else {
-				/*
-				 * Sets an initial starting location.
-				 */
-				player.setPosition(PlayerConstants.START_COORDINATES);
-			}
+			
+			player.setPosition(player.load() ? player.getPosition() : PlayerConstants.START_COORDINATES);
 			
 			/*
 			 * Updates the player's region upon initial placement.

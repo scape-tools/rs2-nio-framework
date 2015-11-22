@@ -6,12 +6,12 @@ import java.io.IOException;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.mobile.player.PlayerConstants;
 import com.astraeus.core.game.model.entity.mobile.player.event.PlayerFileEvent;
-import com.astraeus.core.utility.WritableState;
+import com.astraeus.core.utility.Encodeable;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-public class PlayerSaveFileEvent extends PlayerFileEvent implements WritableState {
+public class PlayerSaveFileEvent extends PlayerFileEvent implements Encodeable {
 
 	public PlayerSaveFileEvent(Player player) {
 		super(player);

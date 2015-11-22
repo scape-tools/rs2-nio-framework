@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 
 /**
  * Represents a single game packet.
+ * 
  * @author SeVen
  */
 public final class Packet {
@@ -34,23 +35,31 @@ public final class Packet {
 	}
 
 	/**
-	 * The underlying buffer backing of the packet.
+	 * The internal buffer.
 	 */
 	private final ByteBuffer buffer;
 
 	/**
-	 * The opcode and length of the incoming packet.
+	 * The opcode of this packet.
 	 */
-	private final int opcode, length;
+	private final int opcode;
+	
+	/**
+	 * The length of this packet.
+	 */
+	private final int length;
 
 	/**
-	 * The default class constructor.
+	 * Constructs a new {@link Packet}.
 	 * 
-	 * @param buffer The backing.
+	 * @param buffer
+	 *		The internal buffer.
 	 * 
-	 * @param opcode The opcode.
+	 * @param opcode
+	 * 		The opcode of this packet.
 	 * 
-	 * @param length The length.
+	 * @param length
+	 * 		The length of this packet.
 	 */
 	public Packet(ByteBuffer buffer, int opcode, int length) {
 		this.buffer = buffer;
@@ -59,27 +68,27 @@ public final class Packet {
 	}
 
 	/**
-	 * Returns the underlying buffer backing.
+	 * Gets the internal buffer.
 	 * 
-	 * @return The returned backing.
+	 * @return The internal buffer.
 	 */
 	public ByteBuffer getBuffer() {
 		return buffer;
 	}
 
 	/**
-	 * Returns the numerical opcode.
+	 * Gets the opcode.
 	 * 
-	 * @return The returned opcode.
+	 * @return The opcode.
 	 */
 	public int getOpcode() {
 		return opcode;
 	}
 
 	/**
-	 * Returns the numerical length.
+	 * Gets the length.
 	 * 
-	 * @return The returned length.
+	 * @return The length.
 	 */
 	public int getLength() {
 		return length;
@@ -160,7 +169,7 @@ public final class Packet {
 	}
 
 	/**
-	 * Reads a little endian short with no modifiers.
+	 * Reads a little endian short with no modifications.
 	 * 
 	 * @return The little endian short that was read.
 	 */

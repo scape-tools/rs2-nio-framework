@@ -39,43 +39,9 @@ public final class PacketBuilder {
 	 * The header or also known as the type of packet being sent.
 	 */
 	private PacketHeader header;
-	
-	/**
-	 * Constructs a new {@link PacketBuilder} with no opcode and
-	 * a Standard PacketHeader.
-	 */
-	public PacketBuilder() {
-		this(-1);
-	}
-	
-	/**
-	 * Constructs a new {@link PacketBuilder} with a standard Packet Header.
-	 * 
-	 * @param opcode
-	 * 		The id of the packet.
-	 */
-	public PacketBuilder(int opcode) {
-		this(opcode, PacketHeader.STANDARD);
-	}
-	
-	/**
-	 * Constructs a new {@link PacketBuilder}
-	 * 
-	 * @param opcode
-	 * 		The id of the packet.
-	 * @param header
-	 * 		The header type of the packet.
-	 */
-	public PacketBuilder(int opcode, PacketHeader header) {
-		this.opcode = opcode;
-		this.header = header;
-	}
-	
-	/**
-	 * Allocates a new byte buffer. 
-	 */
-	public void allocate(int amount) {
-		this.builder  = ByteBuffer.allocate(amount);
+
+	public PacketBuilder(ByteBuffer builder) {
+		this.builder = builder;
 	}
 	
 	/**

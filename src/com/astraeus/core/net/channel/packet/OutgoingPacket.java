@@ -1,8 +1,9 @@
 package com.astraeus.core.net.channel.packet;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
-import com.astraeus.core.net.channel.PlayerChannel;
+import com.astraeus.core.game.model.entity.mobile.player.Player;
 
 /**
  * Represents a single outgoing packet.
@@ -22,11 +23,6 @@ public abstract class OutgoingPacket {
 	private final PacketHeader header;
 	
 	/**
-	 * The context of the channel that is sending the packet.
-	 */
-	protected PlayerChannel context;
-	
-	/**
 	 * The builder that will be used to build a buffer.
 	 */
 	protected PacketBuilder builder;
@@ -37,14 +33,59 @@ public abstract class OutgoingPacket {
 	 * @throws IOException
 	 * 		The exception thrown if an error occurs while building or dispensing the packet.
 	 */
-	public abstract PacketBuilder dispatch() throws IOException;
+	public abstract PacketBuilder dispatch(Player player);
 	
-	public OutgoingPacket(int opcode, PacketHeader header, PlayerChannel context, int allocate) {
+	/**
+	 * Creates a new {@link OutgoingPacket} with a default
+	 * {@link PacketHeader} of {@code STANDARD}.
+	 * 
+	 * @param opcode
+	 * 		The id of this packet.
+	 * 
+	 * @param allocate
+	 * 		The allocation of this buffer.
+	 */
+	public OutgoingPacket(int opcode, int allocate) {
+		this(opcode, PacketHeader.STANDARD, allocate);
+	}
+	
+	/**
+	 * Creates a new {@link OutgoingPacket}.
+	 * 
+	 * @param opcode
+	 * 		The id of this packet.
+	 * 
+	 * @param header
+	 * 		The header for this packet.
+	 * 
+	 * @param allocate
+	 * 		The allocation of this buffer.
+	 */
+	public OutgoingPacket(int opcode, PacketHeader header, int allocate) {
 		this.opcode = opcode;
 		this.header = header;
-		this.context = context;
-		//this.builder = builder;
-		//context.prepare(builder);
+		this.builder = new PacketBuilder(ByteBuffer.allocate(allocate));
+	}
+	
+	/**
+	 * @return the opcode
+	 */
+	public int getOpcode() {
+		return opcode;
+	}
+
+	/**
+	 * @return the header
+	 */
+	public PacketHeader getHeader() {
+		return header;
+	}
+
+	/**
+	 * @return the builder
+	 */
+	public PacketBuilder getBuilder() {
+		return builder;
 	}
 
 }

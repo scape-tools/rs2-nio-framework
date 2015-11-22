@@ -1,6 +1,7 @@
 package com.astraeus.core.net.channel.protocol.codec.login;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.security.SecureRandom;
 import java.util.logging.Logger;
 
@@ -26,10 +27,7 @@ public final class LoginHeaderDecoder extends ProtocolStateDecoder {
 	@Override
 	public void decode(PlayerChannel context) throws IOException {
 		
-		final PacketBuilder response = new PacketBuilder();
-		
-		response.allocate(17);
-		
+		final PacketBuilder response = new PacketBuilder(ByteBuffer.allocate(17));		
 		response.putByte(0);
 		response.putLong(0);		
 		response.putLong(random.nextLong());

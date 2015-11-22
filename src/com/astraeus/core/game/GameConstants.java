@@ -22,6 +22,12 @@ public class GameConstants {
 	 */
 	public static final byte[] DIRECTION_DELTA_Y = new byte[] { 1, 1, 1, 0, 0, -1, -1, -1 };
 	
+	/**
+	 * The side-bar interfaces for the player's game-frame.
+	 */
+	public static final int[] SIDE_BARS = { 2423, 3917, 638, 3213, 1644, 5608, 1151, -1, 5065, 5715, 2449, 904, 147, 962 };
+
+	
 	public static final int	ATTACK_TAB = 0,
 	SKILLS_TAB = 1, 
 	QUESTS_TAB = 2, 

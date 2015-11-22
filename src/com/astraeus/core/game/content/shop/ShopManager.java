@@ -41,10 +41,10 @@ public class ShopManager {
 		 for(Shop shop : shops) {
 			 if (shop.getId() == shopId) {
 				 player.getAttributes().put(Attributes.SHOPPING, true);
-				 player.getPacketSender().sendInventoryInterface(3824, 3822);
+				 //player.getPacketSender().sendInventoryInterface(3824, 3822);
 				 player.getInventoryContainer().update();
-				 player.getPacketSender().sendString(shop.getTitle(), 3901);
-				 player.getPacketSender().sendItemsOnInterface(3900, shop.getStock().getItems());
+				// player.getPacketSender().sendString(shop.getTitle(), 3901);
+				 //player.getPacketSender().sendItemsOnInterface(3900, shop.getStock().getItems());
 			 }
 		 }
 	}

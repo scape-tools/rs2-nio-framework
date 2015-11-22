@@ -1,6 +1,5 @@
 package com.astraeus.core.game.model.entity.mobile.player;
 
-import java.io.IOException;
 import java.util.EnumMap;
 
 import com.astraeus.core.game.content.dialogue.Dialogue;
@@ -12,11 +11,11 @@ import com.astraeus.core.game.model.entity.mobile.MobileEntity;
 import com.astraeus.core.game.model.entity.mobile.player.appearance.Appearance;
 import com.astraeus.core.game.model.entity.mobile.player.event.file.PlayerReadFileEvent;
 import com.astraeus.core.game.model.entity.mobile.player.event.file.PlayerSaveFileEvent;
-import com.astraeus.core.game.model.entity.mobile.player.update.UpdateBlock;
 import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
-import com.astraeus.core.net.channel.packet.PacketBuilder;
+import com.astraeus.core.net.channel.packet.OutgoingPacket;
 import com.astraeus.core.net.channel.packet.outgoing.PacketSender;
+import com.astraeus.core.net.channel.packet.outgoing.impl.ChatBoxMessagePacket;
 import com.astraeus.core.net.security.IsaacRandomPair;
 import com.astraeus.core.utility.Decodeable;
 import com.astraeus.core.utility.Utilities;
@@ -96,7 +95,7 @@ public final class Player extends MobileEntity {
 	 * Sends a message into this players chatbox.
 	 */
 	public void sendMessage(String message) {
-		this.getPacketSender().sendMessage(message);
+		write(new ChatBoxMessagePacket(message));
 	}
 	
 	/**
@@ -125,24 +124,9 @@ public final class Player extends MobileEntity {
 	 * 
 	 * @param packet A new instance of the {@link OutgoingPacket} being dispensed.
 	 * 
-	 * @throws IOException The exception thrown if an error occurs while dispensing
-	 * the packet.
 	 */
-	public final void write(PacketBuilder builder) {
-		getContext().execute(new WriteChannelEvent(builder.getHeader(), builder));
-	}
-	
-	/**
-	 * Appends an individual piece of the main updating block.
-	 * 
-	 * @param block The piece of the main updating block.
-	 * 
-	 * @param buffer The internal buffer.
-	 * 
-	 * @param player The player being updated.
-	 */
-	public final void append(UpdateBlock block, PacketBuilder buffer, Player player) {
-		block.update(this, buffer);
+	public final void write(OutgoingPacket packet) {
+		getContext().execute(new WriteChannelEvent(packet.getHeader(), packet.dispatch(this)));
 	}
 
 	/**

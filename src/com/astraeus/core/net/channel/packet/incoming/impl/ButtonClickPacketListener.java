@@ -8,6 +8,8 @@ import com.astraeus.core.game.model.entity.mobile.player.Rights;
 import com.astraeus.core.net.channel.packet.IncomingPacket;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketListener;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketOpcode;
+import com.astraeus.core.net.channel.packet.outgoing.impl.LogoutPacket;
+import com.astraeus.core.net.channel.packet.outgoing.impl.ChatBoxMessagePacket;
 
 /**
  * The packet responsible for clicking in-game buttons.
@@ -57,13 +59,13 @@ public class ButtonClickPacketListener implements IncomingPacketListener {
 
 		// logout
 		case 2458:
-			player.getPacketSender().sendLogout();
+			player.write(new LogoutPacket());
 			player.getContext().close();
 			break;
 
 		default:
 			if (player.getRights().greaterOrEqual(Rights.DEVELOPER) && player.isServerDebug()) {
-			player.getPacketSender().sendMessage("[ButtonClick] - ButtonId: " + button);
+			player.write(new ChatBoxMessagePacket("[ButtonClick] - ButtonId: " + button));
 			}
 			break;
 

@@ -4,6 +4,7 @@ import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.net.channel.packet.IncomingPacket;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketListener;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketOpcode;
+import com.astraeus.core.net.channel.packet.outgoing.impl.ClearScreenPacket;
 
 /**
  * The packet opcodes which this listener implementation handles.
@@ -21,7 +22,7 @@ public class MovementPacketListener implements IncomingPacketListener {
 		
 		int packetLength = packet.getLength();
 		
-		player.getPacketSender().sendCloseInterface();
+		player.write(new ClearScreenPacket());
 
 		if (packet.getOpcode() == 248) {
 			packetLength -= 14;

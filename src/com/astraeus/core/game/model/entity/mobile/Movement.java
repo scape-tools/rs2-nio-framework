@@ -7,6 +7,7 @@ import com.astraeus.core.game.GameConstants;
 import com.astraeus.core.game.model.entity.Entity;
 import com.astraeus.core.game.model.entity.mobile.player.MovementPoint;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
+import com.astraeus.core.net.channel.packet.outgoing.impl.RegionalUpdate;
 import com.astraeus.core.utility.Utilities;
 
 /**
@@ -156,7 +157,7 @@ public final class Movement {
 
 		if (entity instanceof Player) {
 			if (deltaX < 16 || deltaX >= 88 || deltaY < 16 || deltaY > 88) {
-				((Player) entity).getPacketSender().sendRegionalUpdate();
+				((Player) entity).write(new RegionalUpdate());
 			}
 		}
 	}

@@ -178,9 +178,7 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 	 * @return The encoder of this outgoing packet.
 	 */
 	public PacketBuilder sendResponseCode(PlayerChannel context, LoginResponse responseCode) {
-		final PacketBuilder response = new PacketBuilder();				
-		response.allocate(3);
-		
+		final PacketBuilder response = new PacketBuilder(ByteBuffer.allocate(3));		
 		response.putByte(responseCode.getValue());
 		response.putByte(context.getPlayer().getDetails().getRights().getProtocolValue()); // player rights
 		response.putByte(0);

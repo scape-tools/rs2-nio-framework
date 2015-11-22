@@ -63,47 +63,47 @@ public class Dialogues {
 	public static final void sendOption(Player player, DialogueOption option, String... lines) {
 		validateLength(lines);
 		switch (lines.length) {
-		case 1:
-			player.getPacketSender().sendString("Select an Option", 2460);
-			player.getPacketSender().sendString(lines[0], 2461);
-			player.getPacketSender().sendString(lines[1], 2462);
-			player.getPacketSender().sendChatInterface(2459);
-			player.setDialogueOption(option);
-			break;
-
-		case 2:
-			player.getPacketSender().sendString("Select an Option", 2470);
-			player.getPacketSender().sendString(lines[0], 2471);
-			player.getPacketSender().sendString(lines[1], 2472);
-			player.getPacketSender().sendString(lines[2], 2472);
-			player.getPacketSender().sendChatInterface(2469);
-			player.setDialogueOption(option);
-			break;
-
-		case 3:
-			player.getPacketSender().sendString("Select an Option", 2481);
-			player.getPacketSender().sendString(lines[0], 2482);
-			player.getPacketSender().sendString(lines[1], 2483);
-			player.getPacketSender().sendString(lines[2], 2484);
-			player.getPacketSender().sendString(lines[3], 2485);
-			player.getPacketSender().sendChatInterface(2480);
-			player.setDialogueOption(option);
-			break;
-
-		case 4:
-			player.getPacketSender().sendString("Select an Option", 2493);
-			player.getPacketSender().sendString(lines[0], 2494);
-			player.getPacketSender().sendString(lines[1], 2495);
-			player.getPacketSender().sendString(lines[2], 2496);
-			player.getPacketSender().sendString(lines[3], 2497);
-			player.getPacketSender().sendString(lines[4], 2498);
-			player.getPacketSender().sendChatInterface(2492);
-			player.setDialogueOption(option);
-			break;
-
-		default:
-			logger.log(Level.SEVERE, String.format("Invalid dialogue option line length: %s", lines.length));
-			break;
+//		case 1:
+//			player.getPacketSender().sendString("Select an Option", 2460);
+//			player.getPacketSender().sendString(lines[0], 2461);
+//			player.getPacketSender().sendString(lines[1], 2462);
+//			player.getPacketSender().sendChatInterface(2459);
+//			player.setDialogueOption(option);
+//			break;
+//
+//		case 2:
+//			player.getPacketSender().sendString("Select an Option", 2470);
+//			player.getPacketSender().sendString(lines[0], 2471);
+//			player.getPacketSender().sendString(lines[1], 2472);
+//			player.getPacketSender().sendString(lines[2], 2472);
+//			player.getPacketSender().sendChatInterface(2469);
+//			player.setDialogueOption(option);
+//			break;
+//
+//		case 3:
+//			player.getPacketSender().sendString("Select an Option", 2481);
+//			player.getPacketSender().sendString(lines[0], 2482);
+//			player.getPacketSender().sendString(lines[1], 2483);
+//			player.getPacketSender().sendString(lines[2], 2484);
+//			player.getPacketSender().sendString(lines[3], 2485);
+//			player.getPacketSender().sendChatInterface(2480);
+//			player.setDialogueOption(option);
+//			break;
+//
+//		case 4:
+//			player.getPacketSender().sendString("Select an Option", 2493);
+//			player.getPacketSender().sendString(lines[0], 2494);
+//			player.getPacketSender().sendString(lines[1], 2495);
+//			player.getPacketSender().sendString(lines[2], 2496);
+//			player.getPacketSender().sendString(lines[3], 2497);
+//			player.getPacketSender().sendString(lines[4], 2498);
+//			player.getPacketSender().sendChatInterface(2492);
+//			player.setDialogueOption(option);
+//			break;
+//
+//		default:
+//			logger.log(Level.SEVERE, String.format("Invalid dialogue option line length: %s", lines.length));
+//			break;
 		}
 
 	}
@@ -129,47 +129,47 @@ public class Dialogues {
 	public static final void sendNpcChat(Player player, String npcName, int npcId, Expression expression, String... lines) {
 		validateLength(lines);
 		switch(lines.length) {		
-		case 1:
-			player.getPacketSender().sendDialogueAnimation(4883, expression.getId());
-			player.getPacketSender().sendString(npcName, 4884);
-			player.getPacketSender().sendString(lines[0], 4885);
-			player.getPacketSender().sendDialogueNpcHead(npcId, 4883);
-			player.getPacketSender().sendChatInterface(4882);
-			break;
+//		case 1:
+//			player.getPacketSender().sendDialogueAnimation(4883, expression.getId());
+//			player.getPacketSender().sendString(npcName, 4884);
+//			player.getPacketSender().sendString(lines[0], 4885);
+//			player.getPacketSender().sendDialogueNpcHead(npcId, 4883);
+//			player.getPacketSender().sendChatInterface(4882);
+//			break;
+//			
+//		case 2:
+//			player.getPacketSender().sendDialogueAnimation(4888, expression.getId());
+//			player.getPacketSender().sendString(npcName, 4889);
+//			player.getPacketSender().sendString(lines[0], 4890);
+//			player.getPacketSender().sendString(lines[1], 4891);
+//			player.getPacketSender().sendDialogueNpcHead(npcId, 4888);
+//			player.getPacketSender().sendChatInterface(4887);
+//			break;
+//			
+//		case 3:
+//			player.getPacketSender().sendDialogueAnimation(4894, expression.getId());
+//			player.getPacketSender().sendString(npcName, 4895);
+//			player.getPacketSender().sendString(lines[0], 4896);
+//			player.getPacketSender().sendString(lines[1], 4897);
+//			player.getPacketSender().sendString(lines[2], 4898);
+//			player.getPacketSender().sendDialogueNpcHead(npcId, 4894);
+//			player.getPacketSender().sendChatInterface(4893);
+//			break;
+//			
+//		case 4:
+//			player.getPacketSender().sendDialogueAnimation(4901, expression.getId());
+//			player.getPacketSender().sendString(npcName, 4902);
+//			player.getPacketSender().sendString(lines[0], 4903);
+//			player.getPacketSender().sendString(lines[1], 4904);
+//			player.getPacketSender().sendString(lines[2], 4905);
+//			player.getPacketSender().sendString(lines[3], 4906);
+//			player.getPacketSender().sendDialogueNpcHead(npcId, 4901);
+//			player.getPacketSender().sendChatInterface(4900);
+//			break;
 			
-		case 2:
-			player.getPacketSender().sendDialogueAnimation(4888, expression.getId());
-			player.getPacketSender().sendString(npcName, 4889);
-			player.getPacketSender().sendString(lines[0], 4890);
-			player.getPacketSender().sendString(lines[1], 4891);
-			player.getPacketSender().sendDialogueNpcHead(npcId, 4888);
-			player.getPacketSender().sendChatInterface(4887);
-			break;
-			
-		case 3:
-			player.getPacketSender().sendDialogueAnimation(4894, expression.getId());
-			player.getPacketSender().sendString(npcName, 4895);
-			player.getPacketSender().sendString(lines[0], 4896);
-			player.getPacketSender().sendString(lines[1], 4897);
-			player.getPacketSender().sendString(lines[2], 4898);
-			player.getPacketSender().sendDialogueNpcHead(npcId, 4894);
-			player.getPacketSender().sendChatInterface(4893);
-			break;
-			
-		case 4:
-			player.getPacketSender().sendDialogueAnimation(4901, expression.getId());
-			player.getPacketSender().sendString(npcName, 4902);
-			player.getPacketSender().sendString(lines[0], 4903);
-			player.getPacketSender().sendString(lines[1], 4904);
-			player.getPacketSender().sendString(lines[2], 4905);
-			player.getPacketSender().sendString(lines[3], 4906);
-			player.getPacketSender().sendDialogueNpcHead(npcId, 4901);
-			player.getPacketSender().sendChatInterface(4900);
-			break;
-			
-		default:
-			logger.log(Level.SEVERE, String.format("Invalid npc dialogue line length: %s", lines.length));
-			break;		
+//		default:
+//			logger.log(Level.SEVERE, String.format("Invalid npc dialogue line length: %s", lines.length));
+//			break;		
 		}
 		
 	}
@@ -189,43 +189,43 @@ public class Dialogues {
 	public static void sendPlayerChat(Player player, Expression expression, String... lines) {
 		validateLength(lines);
 		switch(lines.length) {		
-		case 1:
-			player.getPacketSender().sendDialogueAnimation(969,  expression.getId());
-			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 970);
-			player.getPacketSender().sendString(lines[0], 971);
-			player.getPacketSender().sendDialoguePlayerHead(969);
-			player.getPacketSender().sendChatInterface(968);
-			break;
-			
-		case 2:
-			player.getPacketSender().sendDialogueAnimation(974,  expression.getId());
-			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 975);
-			player.getPacketSender().sendString(lines[0], 976);
-			player.getPacketSender().sendString(lines[1], 977);
-			player.getPacketSender().sendDialoguePlayerHead(974);
-			player.getPacketSender().sendChatInterface(973);
-			break;
-			
-		case 3:
-			player.getPacketSender().sendDialogueAnimation(980,  expression.getId());
-			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 981);
-			player.getPacketSender().sendString(lines[0], 982);
-			player.getPacketSender().sendString(lines[1], 983);
-			player.getPacketSender().sendString(lines[2], 984);
-			player.getPacketSender().sendDialoguePlayerHead(980);
-			player.getPacketSender().sendChatInterface(979);
-			break;
-			
-		case 4:
-			player.getPacketSender().sendDialogueAnimation(987,  expression.getId());
-			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 988);
-			player.getPacketSender().sendString(lines[0], 989);
-			player.getPacketSender().sendString(lines[1], 990);
-			player.getPacketSender().sendString(lines[2], 991);
-			player.getPacketSender().sendString(lines[2], 992);
-			player.getPacketSender().sendDialoguePlayerHead(987);
-			player.getPacketSender().sendChatInterface(986);
-			break;
+//		case 1:
+//			player.getPacketSender().sendDialogueAnimation(969,  expression.getId());
+//			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 970);
+//			player.getPacketSender().sendString(lines[0], 971);
+//			player.getPacketSender().sendDialoguePlayerHead(969);
+//			player.getPacketSender().sendChatInterface(968);
+//			break;
+//			
+//		case 2:
+//			player.getPacketSender().sendDialogueAnimation(974,  expression.getId());
+//			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 975);
+//			player.getPacketSender().sendString(lines[0], 976);
+//			player.getPacketSender().sendString(lines[1], 977);
+//			player.getPacketSender().sendDialoguePlayerHead(974);
+//			player.getPacketSender().sendChatInterface(973);
+//			break;
+//			
+//		case 3:
+//			player.getPacketSender().sendDialogueAnimation(980,  expression.getId());
+//			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 981);
+//			player.getPacketSender().sendString(lines[0], 982);
+//			player.getPacketSender().sendString(lines[1], 983);
+//			player.getPacketSender().sendString(lines[2], 984);
+//			player.getPacketSender().sendDialoguePlayerHead(980);
+//			player.getPacketSender().sendChatInterface(979);
+//			break;
+//			
+//		case 4:
+//			player.getPacketSender().sendDialogueAnimation(987,  expression.getId());
+//			player.getPacketSender().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 988);
+//			player.getPacketSender().sendString(lines[0], 989);
+//			player.getPacketSender().sendString(lines[1], 990);
+//			player.getPacketSender().sendString(lines[2], 991);
+//			player.getPacketSender().sendString(lines[2], 992);
+//			player.getPacketSender().sendDialoguePlayerHead(987);
+//			player.getPacketSender().sendChatInterface(986);
+//			break;
 			
 		default:
 			logger.log(Level.SEVERE, String.format("Invalid player dialogue line length: %s", lines.length));

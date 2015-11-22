@@ -8,6 +8,9 @@ import com.astraeus.core.game.model.entity.EntityEventListener;
 import com.astraeus.core.game.model.entity.UpdateFlags;
 import com.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import com.astraeus.core.game.pulse.PulseScheduler;
+import com.astraeus.core.net.channel.packet.outgoing.impl.LogoutPacket;
+import com.astraeus.core.net.channel.packet.outgoing.impl.PlayerUpdatePacket;
+import com.astraeus.core.net.channel.packet.outgoing.impl.ChatBoxMessagePacket;
 
 public final class PlayerEventListener extends EntityEventListener<Player> {
 
@@ -39,7 +42,7 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 			/*
 			 * Welcome message.
 			 */
-			player.getPacketSender().sendMessage(PlayerConstants.WELCOME_MESSAGE);
+			player.write(new ChatBoxMessagePacket(PlayerConstants.WELCOME_MESSAGE));
 			
 			player.getPacketSender().sendTabs();
 			
@@ -62,8 +65,8 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 		Server.getUpdateProcessor().removePlayer(player);
 		
 		PulseScheduler.getInstance().destoryPulsesForOwner(player.getDetails().getUsername());
-		
-		player.getPacketSender().sendLogout();
+
+		player.write(new LogoutPacket());
 		
 		logger.log(Level.INFO, String.format("[%s] has left the server.", player.toString()));
 	}
@@ -74,6 +77,7 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 			/*
 			 * Dispenses the updating packet.
 			 */
-			player.getPacketSender().sendPlayerUpdate();
+			
+			player.write(new PlayerUpdatePacket());
 	}
 }

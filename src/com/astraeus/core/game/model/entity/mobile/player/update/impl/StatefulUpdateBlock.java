@@ -1,5 +1,7 @@
 package com.astraeus.core.game.model.entity.mobile.player.update.impl;
 
+import java.nio.ByteBuffer;
+
 import com.astraeus.core.game.model.entity.UpdateFlags;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.mobile.player.update.UpdateBlock;
@@ -42,10 +44,8 @@ public final class StatefulUpdateBlock extends UpdateBlock {
 				buffer.putByte((mask));
 			}
 			if (player.getUpdateFlags().contains(UpdateFlags.UPDATE_APPEARANCE) || forceful) {
-				final PacketBuilder properties = new PacketBuilder();
 				
-				properties.allocate(128);
-				
+				final PacketBuilder properties = new PacketBuilder(ByteBuffer.allocate(128));				
 				properties.putByte(player.getAppearance().getGender().getIndicator());
 				properties.putByte(0);
 				properties.putByte(0);

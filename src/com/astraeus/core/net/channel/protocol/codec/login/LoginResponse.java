@@ -49,7 +49,6 @@ public enum LoginResponse {
 	 * @param value The value the response holds.
 	 */
 	private LoginResponse(int value) {
-
 		this.value = value;
 	}
 
@@ -59,7 +58,6 @@ public enum LoginResponse {
 	 * @return The returned value.
 	 */
 	public final int getValue() {
-
 		return value;
 	}
 }

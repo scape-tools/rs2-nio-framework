@@ -142,7 +142,7 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 					loginResponse = LoginResponse.INVALID_CREDENTIALS;
 				}
 				
-				if (World.getSingleton().isLoggedIn(context.getPlayer().getDetails().getUsername())) {
+				if (World.isLoggedIn(context.getPlayer().getDetails().getUsername())) {
 					loginResponse = LoginResponse.ACCOUNT_IS_ALREADY_LOGGED_IN;
 				}
 				

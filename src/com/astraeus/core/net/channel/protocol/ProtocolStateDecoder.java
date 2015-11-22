@@ -2,7 +2,7 @@ package com.astraeus.core.net.channel.protocol;
 
 import java.io.IOException;
 
-import com.astraeus.core.net.channel.PlayerIO;
+import com.astraeus.core.net.channel.PlayerChannel;
 
 public abstract class ProtocolStateDecoder {
 
@@ -15,5 +15,5 @@ public abstract class ProtocolStateDecoder {
 	 * @throws IOException The exception thrown if an error occurs while performing
 	 * an input or output operation.
 	 */
-	public abstract void decode(PlayerIO context) throws IOException;
+	public abstract void decode(PlayerChannel context) throws IOException;
 }

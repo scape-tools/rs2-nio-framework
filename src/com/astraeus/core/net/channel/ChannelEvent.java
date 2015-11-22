@@ -12,5 +12,5 @@ public abstract class ChannelEvent {
 	 * @throws IOException The exception thrown if an error occurs while performing
 	 * an input or output operation involving the channel.
 	 */
-	public abstract void execute(PlayerIO context) throws IOException;
+	public abstract void execute(PlayerChannel context) throws IOException;
 }

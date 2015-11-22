@@ -3,7 +3,7 @@ package com.astraeus.core.net.channel.events;
 import java.io.IOException;
 
 import com.astraeus.core.net.channel.ChannelEvent;
-import com.astraeus.core.net.channel.PlayerIO;
+import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.message.Packet.PacketHeader;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
@@ -61,7 +61,7 @@ public final class PrepareChannelEvent extends ChannelEvent {
 	}
 
 	@Override
-	public void execute(PlayerIO context) throws IOException {
+	public void execute(PlayerChannel context) throws IOException {
 		/*
 		 * If a packet does not have an empty heading then the opcode must be encrypted
 		 * with a cryptographic cipher. After the encryption if the packet's heading is

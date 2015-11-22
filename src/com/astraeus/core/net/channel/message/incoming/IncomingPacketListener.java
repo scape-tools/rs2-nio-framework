@@ -5,7 +5,7 @@ import com.astraeus.core.net.channel.message.Packet;
 
 /**
  * An interface which provides any Packet that implements this the ability
- * to be intercepted through the {@link SocketChannel} by the {@link PlayerIO} class
+ * to be intercepted through the {@link SocketChannel} by the {@link PlayerChannel} class
  * as a message.
  * 
  * @author SeVen

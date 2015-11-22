@@ -3,7 +3,7 @@ package com.astraeus.core.net.channel.events;
 import java.io.IOException;
 
 import com.astraeus.core.net.channel.ChannelEvent;
-import com.astraeus.core.net.channel.PlayerIO;
+import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.message.Packet.PacketHeader;
 
@@ -45,7 +45,7 @@ public final class WriteChannelEvent extends ChannelEvent {
 	}
 
 	@Override
-	public void execute(PlayerIO context) throws IOException {
+	public void execute(PlayerChannel context) throws IOException {
 		if (header.equals(PacketHeader.VARIABLE_BYTE)) {
 			buffer.getInternal().put(buffer.getLength(), (byte) (buffer.getInternal().position() - buffer.getLength() - 1));
 		} else if (header.equals(PacketHeader.VARIABLE_SHORT)) {

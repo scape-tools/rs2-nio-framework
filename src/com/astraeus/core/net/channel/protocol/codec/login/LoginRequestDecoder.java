@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.astraeus.core.net.channel.PlayerIO;
+import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.protocol.ProtocolConstants;
 import com.astraeus.core.net.channel.protocol.ProtocolStateDecoder;
 
@@ -16,7 +16,7 @@ public final class LoginRequestDecoder extends ProtocolStateDecoder {
 	public static final Logger logger = Logger.getLogger(LoginRequestDecoder.class.getName());
 
 	@Override
-	public void decode(PlayerIO context) throws IOException {
+	public void decode(PlayerChannel context) throws IOException {
 		/*
 		 * Denotes the appropriate server.
 		 */

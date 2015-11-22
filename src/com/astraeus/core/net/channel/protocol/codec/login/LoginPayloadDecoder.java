@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import com.astraeus.core.Server;
 import com.astraeus.core.game.World;
-import com.astraeus.core.net.channel.PlayerIO;
+import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.protocol.ProtocolConstants;
@@ -25,7 +25,7 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 	public static final Logger logger = Logger.getLogger(LoginPayloadDecoder.class.getName());
 
 	@Override
-	public void decode(PlayerIO context) throws IOException {
+	public void decode(PlayerChannel context) throws IOException {
 
 		if (!(context.getBuffer().remaining() < 2)) {
 
@@ -178,7 +178,7 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 	 * 
 	 * @return The encoder of this outgoing packet.
 	 */
-	public PacketBuilder sendResponseCode(PlayerIO context, LoginResponse responseCode) {
+	public PacketBuilder sendResponseCode(PlayerChannel context, LoginResponse responseCode) {
 		final PacketBuilder response = new PacketBuilder();				
 		response.allocate(3);
 		

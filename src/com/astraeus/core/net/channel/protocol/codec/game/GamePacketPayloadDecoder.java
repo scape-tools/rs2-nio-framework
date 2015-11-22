@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import com.astraeus.core.Configuration;
 import com.astraeus.core.net.NetworkConstants;
-import com.astraeus.core.net.channel.PlayerIO;
+import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.message.IncomingPacketRegistration;
 import com.astraeus.core.net.channel.message.Packet;
 import com.astraeus.core.net.channel.protocol.ProtocolConstants;
@@ -45,7 +45,7 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 	private GamePacketDecoderState state = GamePacketDecoderState.OPCODE;
 
 	@Override
-	public void decode(PlayerIO context) throws IOException {
+	public void decode(PlayerChannel context) throws IOException {
 		while (context.getBuffer().hasRemaining()) {
 			switch (state) {
 			case OPCODE:
@@ -69,7 +69,7 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 	 * @param context
 	 *            The channel that this packet is coming from.
 	 */
-	private void opcode(PlayerIO context) {
+	private void opcode(PlayerChannel context) {
 		if (getOpcode() == -1) {
 			setOpcode(context.getBuffer().get() - context.getPlayer().getIsaacRandomPair().getEncoder().getNextValue()
 					& 0xFF);
@@ -84,7 +84,7 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 	 * @param context
 	 *            The channel that this packet is coming from.
 	 */
-	private void size(PlayerIO context) {
+	private void size(PlayerChannel context) {
 		if (getLength() == -1) {
 			if (context.getBuffer().remaining() < 1) {
 				context.getBuffer().clear();
@@ -107,7 +107,7 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 	 * @param context
 	 *            The session this packet is coming from.
 	 */
-	private void payload(PlayerIO context) {
+	private void payload(PlayerChannel context) {
 		try {
 			byte[] payloadLength = new byte[getLength()];
 			context.getBuffer().get(payloadLength);

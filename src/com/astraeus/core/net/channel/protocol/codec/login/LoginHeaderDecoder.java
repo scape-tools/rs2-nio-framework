@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.logging.Logger;
 
-import com.astraeus.core.net.channel.PlayerIO;
+import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.message.Packet.PacketHeader;
@@ -25,7 +25,7 @@ public final class LoginHeaderDecoder extends ProtocolStateDecoder {
 	private final SecureRandom random = new SecureRandom();
 
 	@Override
-	public void decode(PlayerIO context) throws IOException {
+	public void decode(PlayerChannel context) throws IOException {
 		
 		final PacketBuilder response = new PacketBuilder();
 		

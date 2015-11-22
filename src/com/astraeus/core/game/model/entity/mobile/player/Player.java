@@ -13,7 +13,7 @@ import com.astraeus.core.game.model.entity.mobile.player.appearance.Appearance;
 import com.astraeus.core.game.model.entity.mobile.player.event.file.PlayerReadFileEvent;
 import com.astraeus.core.game.model.entity.mobile.player.event.file.PlayerSaveFileEvent;
 import com.astraeus.core.game.model.entity.mobile.player.update.UpdateBlock;
-import com.astraeus.core.net.channel.PlayerIO;
+import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.message.PacketBuilder;
 import com.astraeus.core.net.channel.message.outgoing.PacketSender;
@@ -27,7 +27,7 @@ public final class Player extends MobileEntity {
 	/**
 	 * The context of this player's channel.
 	 */
-	private final PlayerIO context;	
+	private final PlayerChannel context;	
 
 	/**
 	 * The pair of cryptography algorithms for encoding and decoding.
@@ -88,7 +88,7 @@ public final class Player extends MobileEntity {
 	 * 
 	 * @param context The context of this player's channel.
 	 */
-	public Player(PlayerIO context) {
+	public Player(PlayerChannel context) {
 		this.context = context;
 	}
 	
@@ -232,7 +232,7 @@ public final class Player extends MobileEntity {
 	 * 
 	 * @return The returned instance.
 	 */
-	public PlayerIO getContext() {
+	public PlayerChannel getContext() {
 		return context;
 	}
 

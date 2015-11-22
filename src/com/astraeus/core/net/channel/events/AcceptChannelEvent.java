@@ -5,7 +5,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 
 import com.astraeus.core.net.channel.ChannelEvent;
-import com.astraeus.core.net.channel.PlayerIO;
+import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.protocol.codec.login.LoginRequestDecoder;
 
 public final class AcceptChannelEvent extends ChannelEvent {
@@ -28,7 +28,7 @@ public final class AcceptChannelEvent extends ChannelEvent {
 	}
 
 	@Override
-	public void execute(PlayerIO context) throws IOException {
+	public void execute(PlayerChannel context) throws IOException {
 
 		context.getChannel().configureBlocking(false);
 		

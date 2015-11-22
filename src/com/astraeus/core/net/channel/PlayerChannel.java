@@ -17,12 +17,12 @@ import com.astraeus.core.net.channel.protocol.ProtocolStateDecoder;
  * 
  * @author SeVen
  */
-public final class PlayerIO {
+public final class PlayerChannel {
 	
 	/**
 	 * The single logger for this class.
 	 */
-	public static final Logger logger = Logger.getLogger(PlayerIO.class.getName());
+	public static final Logger logger = Logger.getLogger(PlayerChannel.class.getName());
 	
 	/**
 	 * A token representing the registration of a channel.
@@ -55,7 +55,7 @@ public final class PlayerIO {
 	 * 
 	 * @param channel A selected channel for stream-oriented connecting sockets.
 	 */
-	public PlayerIO(SocketChannel channel) {
+	public PlayerChannel(SocketChannel channel) {
 		this.channel = channel;
 	}
 

@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 import com.astraeus.core.game.processor.PeriodicalLogicProcessor;
 import com.astraeus.core.game.processor.PeriodicalLogicProcessorConstants;
-import com.astraeus.core.net.channel.PlayerIO;
+import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.events.AcceptChannelEvent;
 import com.astraeus.core.net.channel.events.ReadChannelEvent;
 
@@ -56,13 +56,13 @@ public final class PeriodicalNetworkProcessor extends PeriodicalLogicProcessor {
 						final SocketChannel selectedChannel = channel.accept();
 
 						if (selectedChannel != null) {
-							final PlayerIO context = new PlayerIO(selectedChannel);
+							final PlayerChannel context = new PlayerChannel(selectedChannel);
 							context.execute(new AcceptChannelEvent(selector));
 						}
 					}
 
 					if (selection.isReadable()) {
-						final PlayerIO attachment = (PlayerIO) selection.attachment();
+						final PlayerChannel attachment = (PlayerChannel) selection.attachment();
 						if (attachment != null && attachment.getChannel().isOpen()) {
 							attachment.execute(new ReadChannelEvent());
 						}

@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import com.astraeus.core.game.processor.ScheduledProcessor;
 import com.astraeus.core.game.processor.impl.ScheduledNetworkProcessor;
 import com.astraeus.core.game.processor.impl.ScheduledUpdateProcessor;
-import com.astraeus.core.net.channel.message.IncomingPacketRegistration;
+import com.astraeus.core.net.channel.packet.incoming.IncomingPacketRegistration;
 import com.astraeus.core.utility.startup.ShopLoader;
 
 /**

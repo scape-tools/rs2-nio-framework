@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.net.channel.events.PrepareChannelEvent;
-import com.astraeus.core.net.channel.message.PacketBuilder;
+import com.astraeus.core.net.channel.packet.PacketBuilder;
 import com.astraeus.core.net.channel.protocol.ProtocolStateDecoder;
 
 /**

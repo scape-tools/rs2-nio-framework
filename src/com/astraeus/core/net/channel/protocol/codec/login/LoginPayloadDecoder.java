@@ -9,7 +9,7 @@ import com.astraeus.core.Server;
 import com.astraeus.core.game.World;
 import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
-import com.astraeus.core.net.channel.message.PacketBuilder;
+import com.astraeus.core.net.channel.packet.PacketBuilder;
 import com.astraeus.core.net.channel.protocol.ProtocolConstants;
 import com.astraeus.core.net.channel.protocol.ProtocolStateDecoder;
 import com.astraeus.core.net.channel.protocol.codec.game.GamePacketPayloadDecoder;

@@ -1,4 +1,4 @@
-package com.astraeus.core.net.channel.message.incoming;
+package com.astraeus.core.net.channel.packet.incoming;
 
 /**
  * Class which contains incoming packet-related constants

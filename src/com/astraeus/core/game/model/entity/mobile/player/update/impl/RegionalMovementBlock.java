@@ -3,7 +3,7 @@ package com.astraeus.core.game.model.entity.mobile.player.update.impl;
 import com.astraeus.core.game.model.entity.UpdateFlags;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.mobile.player.update.UpdateBlock;
-import com.astraeus.core.net.channel.message.PacketBuilder;
+import com.astraeus.core.net.channel.packet.PacketBuilder;
 
 public final class RegionalMovementBlock extends UpdateBlock {
 

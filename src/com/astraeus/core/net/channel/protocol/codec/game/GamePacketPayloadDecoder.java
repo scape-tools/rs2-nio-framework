@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 import com.astraeus.core.Configuration;
 import com.astraeus.core.net.NetworkConstants;
 import com.astraeus.core.net.channel.PlayerChannel;
-import com.astraeus.core.net.channel.message.IncomingPacketRegistration;
-import com.astraeus.core.net.channel.message.Packet;
+import com.astraeus.core.net.channel.packet.IncomingPacket;
+import com.astraeus.core.net.channel.packet.incoming.IncomingPacketRegistration;
 import com.astraeus.core.net.channel.protocol.ProtocolConstants;
 import com.astraeus.core.net.channel.protocol.ProtocolStateDecoder;
 
@@ -117,7 +117,7 @@ public final class GamePacketPayloadDecoder extends ProtocolStateDecoder {
 			packetPayload.put(payloadLength);
 			packetPayload.flip();
 
-			Packet packet = new Packet(packetPayload, getOpcode(), getLength());
+			IncomingPacket packet = new IncomingPacket(packetPayload, getOpcode(), getLength());
 
 			IncomingPacketRegistration.dispatchToListener(packet, context.getPlayer());
 

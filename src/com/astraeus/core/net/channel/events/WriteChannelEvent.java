@@ -4,15 +4,15 @@ import java.io.IOException;
 
 import com.astraeus.core.net.channel.ChannelEvent;
 import com.astraeus.core.net.channel.PlayerChannel;
-import com.astraeus.core.net.channel.message.PacketBuilder;
-import com.astraeus.core.net.channel.message.Packet.Header;
+import com.astraeus.core.net.channel.packet.PacketBuilder;
+import com.astraeus.core.net.channel.packet.PacketHeader;
 
 public final class WriteChannelEvent extends ChannelEvent {
 
 	/**
 	 * The header for the packet.
 	 */
-	private final Header header;
+	private final PacketHeader header;
 
 	/**
 	 * The buffer being used.
@@ -27,7 +27,7 @@ public final class WriteChannelEvent extends ChannelEvent {
 	 * 		The buffer being used.
 	 */
 	public WriteChannelEvent(PacketBuilder buffer) {
-		this(Header.EMPTY, buffer);
+		this(PacketHeader.EMPTY, buffer);
 	}
 
 	/**
@@ -39,16 +39,16 @@ public final class WriteChannelEvent extends ChannelEvent {
 	 * @param buffer
 	 * 		The buffer being used.
 	 */
-	public WriteChannelEvent(Header header, PacketBuilder buffer) {
+	public WriteChannelEvent(PacketHeader header, PacketBuilder buffer) {
 		this.header = header;
 		this.buffer = buffer;
 	}
 
 	@Override
 	public void execute(PlayerChannel context) throws IOException {
-		if (header.equals(Header.VARIABLE_BYTE)) {
+		if (header.equals(PacketHeader.VARIABLE_BYTE)) {
 			buffer.getInternal().put(buffer.getLength(), (byte) (buffer.getInternal().position() - buffer.getLength() - 1));
-		} else if (header.equals(Header.VARIABLE_SHORT)) {
+		} else if (header.equals(PacketHeader.VARIABLE_SHORT)) {
 			buffer.getInternal().putShort(buffer.getLength(), (short) (buffer.getInternal().position() - buffer.getLength() - 2));
 		}
 		/*

@@ -1,15 +1,15 @@
-package com.astraeus.core.net.channel.message.incoming.impl;
+package com.astraeus.core.net.channel.packet.incoming.impl;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.astraeus.core.game.model.entity.mobile.player.Player;
-import com.astraeus.core.net.channel.message.IncomingPacketOpcode;
-import com.astraeus.core.net.channel.message.Packet;
-import com.astraeus.core.net.channel.message.incoming.IncomingPacketListener;
+import com.astraeus.core.net.channel.packet.IncomingPacket;
+import com.astraeus.core.net.channel.packet.incoming.IncomingPacketListener;
+import com.astraeus.core.net.channel.packet.incoming.IncomingPacketOpcode;
 
 /**
- * The incoming {@link Packet} responsible for handling user commands send from the client.
+ * The incoming {@link IncomingPacket} responsible for handling user commands send from the client.
  * 
  * @author SeVen
  */
@@ -22,7 +22,7 @@ public class CommandPacketListener implements IncomingPacketListener {
 	public static final Logger logger = Logger.getLogger(CommandPacketListener.class.getName());
 	
 	@Override
-	public void handleMessage(Player player, Packet packet) {
+	public void handleMessage(Player player, IncomingPacket packet) {
 		final int messageLength = packet.getLength() - 1;
 
 		byte message[] = packet.readBytes(messageLength);

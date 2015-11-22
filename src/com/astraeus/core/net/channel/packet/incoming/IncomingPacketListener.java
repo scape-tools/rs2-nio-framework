@@ -1,7 +1,7 @@
-package com.astraeus.core.net.channel.message.incoming;
+package com.astraeus.core.net.channel.packet.incoming;
 
 import com.astraeus.core.game.model.entity.mobile.player.Player;
-import com.astraeus.core.net.channel.message.Packet;
+import com.astraeus.core.net.channel.packet.IncomingPacket;
 
 /**
  * An interface which provides any Packet that implements this the ability
@@ -20,6 +20,6 @@ public interface IncomingPacketListener {
 	 * @param packet
 	 * 		The packet that has been received.
 	 */
-	void handleMessage(Player player, Packet packet);
+	void handleMessage(Player player, IncomingPacket packet);
 
 }

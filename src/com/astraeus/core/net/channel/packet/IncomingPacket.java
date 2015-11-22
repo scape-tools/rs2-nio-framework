@@ -1,38 +1,13 @@
-package com.astraeus.core.net.channel.message;
+package com.astraeus.core.net.channel.packet;
 
 import java.nio.ByteBuffer;
 
 /**
- * Represents a single game packet.
+ * Represents a single incoming packet.
  * 
  * @author SeVen
  */
-public final class Packet {
-	
-		/**
-	 * The type of packet, also the header of a packet.
-	 */
-	public enum Header {
-		/**
-		 * No packet header is to be placed on the message.
-		 */
-		EMPTY,
-
-		/**
-		 * A standard packet header.
-		 */
-		STANDARD,
-
-		/**
-		 * A header where the packet's length is written as a byte.
-		 */
-		VARIABLE_BYTE,
-
-		/**
-		 * A header where the packet's length is written as a short.
-		 */
-		VARIABLE_SHORT;
-	}
+public final class IncomingPacket {
 
 	/**
 	 * The internal buffer.
@@ -50,7 +25,7 @@ public final class Packet {
 	private final int length;
 
 	/**
-	 * Constructs a new {@link Packet}.
+	 * Constructs a new {@link IncomingPacket}.
 	 * 
 	 * @param buffer
 	 *		The internal buffer.
@@ -61,7 +36,7 @@ public final class Packet {
 	 * @param length
 	 * 		The length of this packet.
 	 */
-	public Packet(ByteBuffer buffer, int opcode, int length) {
+	public IncomingPacket(ByteBuffer buffer, int opcode, int length) {
 		this.buffer = buffer;
 		this.opcode = opcode;
 		this.length = length;

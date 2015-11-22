@@ -1,6 +1,6 @@
 package com.astraeus.core.net;
 
-import com.astraeus.core.net.channel.message.incoming.IncomingPacketListener;
+import com.astraeus.core.net.channel.packet.incoming.IncomingPacketListener;
 
 /**
  * Class which contains network-related constants.

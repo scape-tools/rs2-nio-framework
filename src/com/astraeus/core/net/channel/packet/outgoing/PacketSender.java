@@ -1,4 +1,4 @@
-package com.astraeus.core.net.channel.message.outgoing;
+package com.astraeus.core.net.channel.packet.outgoing;
 
 import java.util.Iterator;
 
@@ -12,8 +12,8 @@ import com.astraeus.core.game.model.entity.mobile.player.update.impl.PlayerMovem
 import com.astraeus.core.game.model.entity.mobile.player.update.impl.RegionalMovementBlock;
 import com.astraeus.core.game.model.entity.mobile.player.update.impl.StatefulUpdateBlock;
 import com.astraeus.core.game.model.entity.object.GameObject;
-import com.astraeus.core.net.channel.message.PacketBuilder;
-import com.astraeus.core.net.channel.message.Packet.Header;
+import com.astraeus.core.net.channel.packet.PacketBuilder;
+import com.astraeus.core.net.channel.packet.PacketHeader;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteAccess;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteOrder;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
@@ -50,7 +50,7 @@ public class PacketSender {
 	 * @param The instance of this encoder.
 	 */
 	public PacketSender sendMessage(String message) {
-		PacketBuilder out = new PacketBuilder(253, Header.VARIABLE_BYTE);
+		PacketBuilder out = new PacketBuilder(253, PacketHeader.VARIABLE_BYTE);
 		out.allocate(message.length() + 3);
 		player.getContext().prepare(out);
 		out.getInternal().put(message.getBytes());
@@ -71,7 +71,7 @@ public class PacketSender {
 	}
 	
 	public PacketSender sendString(String string, int widget) {
-		PacketBuilder out = new PacketBuilder(126, Header.VARIABLE_SHORT);
+		PacketBuilder out = new PacketBuilder(126, PacketHeader.VARIABLE_SHORT);
 		out.allocate(string.length() + 6);
 		player.getContext().prepare(out);
 		out.putString(string);
@@ -102,7 +102,7 @@ public class PacketSender {
 	}
 	
 	public PacketSender sendItemsOnInterface(int interfaceId, Item[] items) {
-		PacketBuilder out = new PacketBuilder(53, Header.VARIABLE_SHORT);
+		PacketBuilder out = new PacketBuilder(53, PacketHeader.VARIABLE_SHORT);
 		out.allocate(2048);
 		player.getContext().prepare(out);
 		out.putShort(interfaceId);
@@ -219,7 +219,7 @@ public class PacketSender {
 
 		update.allocate(8192);
 		
-		PacketBuilder out = new PacketBuilder(81, Header.VARIABLE_SHORT);
+		PacketBuilder out = new PacketBuilder(81, PacketHeader.VARIABLE_SHORT);
 		
 		out.allocate(16384);
 		
@@ -291,7 +291,7 @@ public class PacketSender {
 	 * @param The instance of this encoder.
 	 */
 	public PacketSender sendRegionalUpdate() {
-		PacketBuilder out = new PacketBuilder(73, Header.STANDARD);
+		PacketBuilder out = new PacketBuilder(73, PacketHeader.STANDARD);
 		out.allocate(5);
 		player.getContext().prepare(out);
 		out.putShort(player.getPosition().getRegionalX() + 6,

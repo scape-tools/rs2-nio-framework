@@ -15,8 +15,8 @@ import com.astraeus.core.game.model.entity.mobile.player.event.file.PlayerSaveFi
 import com.astraeus.core.game.model.entity.mobile.player.update.UpdateBlock;
 import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
-import com.astraeus.core.net.channel.message.PacketBuilder;
-import com.astraeus.core.net.channel.message.outgoing.PacketSender;
+import com.astraeus.core.net.channel.packet.PacketBuilder;
+import com.astraeus.core.net.channel.packet.outgoing.PacketSender;
 import com.astraeus.core.net.security.IsaacRandomPair;
 import com.astraeus.core.utility.Decodeable;
 import com.astraeus.core.utility.Utilities;

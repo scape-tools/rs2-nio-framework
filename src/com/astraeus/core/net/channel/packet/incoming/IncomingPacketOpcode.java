@@ -1,4 +1,4 @@
-package com.astraeus.core.net.channel.message;
+package com.astraeus.core.net.channel.packet.incoming;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

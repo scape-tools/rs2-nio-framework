@@ -1,17 +1,17 @@
-package com.astraeus.core.net.channel.message;
+package com.astraeus.core.net.channel.packet.incoming;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.astraeus.core.game.model.entity.mobile.player.Player;
-import com.astraeus.core.net.channel.message.incoming.IncomingPacketListener;
-import com.astraeus.core.net.channel.message.incoming.impl.ButtonClickPacketListener;
-import com.astraeus.core.net.channel.message.incoming.impl.CommandPacketListener;
-import com.astraeus.core.net.channel.message.incoming.impl.DialoguePacketListener;
-import com.astraeus.core.net.channel.message.incoming.impl.MovementPacketListener;
-import com.astraeus.core.net.channel.message.incoming.impl.ObjectActionPacketListener;
-import com.astraeus.core.net.channel.message.incoming.impl.RegionalUpdatePacketListener;
-import com.astraeus.core.net.channel.message.incoming.impl.SilentPacketListener;
+import com.astraeus.core.net.channel.packet.IncomingPacket;
+import com.astraeus.core.net.channel.packet.incoming.impl.ButtonClickPacketListener;
+import com.astraeus.core.net.channel.packet.incoming.impl.CommandPacketListener;
+import com.astraeus.core.net.channel.packet.incoming.impl.DialoguePacketListener;
+import com.astraeus.core.net.channel.packet.incoming.impl.MovementPacketListener;
+import com.astraeus.core.net.channel.packet.incoming.impl.ObjectActionPacketListener;
+import com.astraeus.core.net.channel.packet.incoming.impl.RegionalUpdatePacketListener;
+import com.astraeus.core.net.channel.packet.incoming.impl.SilentPacketListener;
 
 /**
  * @author Dylan Vicchiarelli
@@ -61,7 +61,7 @@ public final class IncomingPacketRegistration {
 	 * 
 	 * @param player The player association.
 	 */
-	public static final void dispatchToListener(Packet packet, Player player) {
+	public static final void dispatchToListener(IncomingPacket packet, Player player) {
 		IncomingPacketListener listener = INCOMING_PACKETS.get(packet.getOpcode());
 		if (listener != null) {
 			listener.handleMessage(player, packet);

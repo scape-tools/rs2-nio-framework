@@ -2,7 +2,7 @@ package com.astraeus.core.net.channel.protocol.codec.game;
 
 /**
  * The enumerated types that represent the states at which
- * an incoming {@link Packet} is decoded.
+ * an incoming {@link IncomingPacket} is decoded.
  * 
  * @author SeVen
  */

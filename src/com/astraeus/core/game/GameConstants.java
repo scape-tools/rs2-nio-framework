@@ -13,6 +13,11 @@ public class GameConstants {
 	public static final int MAXIMUM_ITEMS = 11813;	
 	
 	/**
+	 * The number of npcs in a 474 deob.
+	 */
+	public static final int MAX_LISTED_NPCS = 6102;
+	
+	/**
 	 * The directions for pedestrian X coordinate movement.
 	 */
 	public static final byte[] DIRECTION_DELTA_X = new byte[] { -1, 0, 1, -1, 1, -1, 0, 1 };

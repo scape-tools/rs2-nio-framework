@@ -86,7 +86,7 @@ public final class Player extends MobileEntity {
 		CLICK_Y,
 		WALK_TO_ACTION,
 		CLICK_INDEX,
-		FACE_DIRECTION;
+		FACE_COORDINATE;
 	}
 	
 	/**

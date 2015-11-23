@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import com.astraeus.core.Server;
 import com.astraeus.core.game.model.entity.EntityEventListener;
-import com.astraeus.core.game.model.entity.UpdateFlags;
+import com.astraeus.core.game.model.entity.UpdateFlags.UpdateFlag;
 import com.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import com.astraeus.core.game.pulse.PulseScheduler;
 import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
@@ -33,12 +33,12 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 			/*
 			 * Updates the player's region upon initial placement.
 			 */
-			player.getUpdateFlags().add(UpdateFlags.UPDATE_MAP_REGION);
+			player.getUpdateFlags().flag(UpdateFlag.REGION_CHANGING);
 
 			/*
 			 * Updates the player's appearance.
 			 */
-			player.getUpdateFlags().add(UpdateFlags.UPDATE_APPEARANCE);
+			player.getUpdateFlags().flag(UpdateFlag.APPEARANCE);
 
 			/*
 			 * Welcome message.

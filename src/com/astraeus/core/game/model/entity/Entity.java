@@ -1,36 +1,21 @@
 package com.astraeus.core.game.model.entity;
 
 import java.util.EnumMap;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.astraeus.core.game.model.entity.mobile.Movement;
 import com.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 
 public abstract class Entity {
 	
 	/**
-	 * The map of a players attributes.
+	 * The map of attributes for a player.
 	 */
-	protected EnumMap<Attributes, Object> attributes = new EnumMap<>(Attributes.class);
-	
-	/**
-	 * The update flags held by the entity.
-	 */
-	private final List<UpdateFlags> updateFlags = new LinkedList<UpdateFlags>();
+	protected EnumMap<Attributes, Object> attributes = new EnumMap<>(Attributes.class);	
 
 	/**
 	 * @return the attributes
 	 */
 	public EnumMap<Attributes, Object> getAttributes() {
 		return attributes;
-	}
-
-	/**
-	 * @return the updateFlags
-	 */
-	public List<UpdateFlags> getUpdateFlags() {
-		return updateFlags;
 	}
 
 	/**
@@ -55,17 +40,7 @@ public abstract class Entity {
 	 * @return The returned instance. 
 	 */
 	public abstract EntityEventListener<? extends Entity> getEventListener();
-	
-	/**
-	 * Faces a coordinate point.
-	 * 
-	 * @param coordinate The point to be faced.
-	 */
-	public final void faceDirection(Position position) {
-		attributes.put(Attributes.FACE_DIRECTION, position);
-		updateFlags.add(UpdateFlags.FACE_POSITION);
-	}
-	
+		
 	/**
 	 * Returns the current coordinate point of the entity.
 	 * 

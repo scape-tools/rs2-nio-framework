@@ -1,6 +1,6 @@
 package com.astraeus.core.game.model.entity.mobile.player.update.impl;
 
-import com.astraeus.core.game.model.entity.UpdateFlags;
+import com.astraeus.core.game.model.entity.UpdateFlags.UpdateFlag;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.mobile.player.update.UpdateBlock;
 import com.astraeus.core.net.channel.packet.PacketBuilder;
@@ -9,17 +9,17 @@ public final class PlayerMovementBlock extends UpdateBlock {
 
 	@Override
 	public void update(Player player, PacketBuilder buffer) {
-		if (player.getUpdateFlags().contains(UpdateFlags.UPDATE_MAP_REGION)) {
+		if (player.getUpdateFlags().get(UpdateFlag.REGION_CHANGING)) {
 			buffer.putBits(1, 1);
 			buffer.putBits(2, 3);
 			buffer.putBits(2, player.getPosition().getHeight());
 			buffer.putBits(1, 1);
-			buffer.putBits(1, player.updateRequired() ? 1 : 0);
+			buffer.putBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 			buffer.putBits(7, player.getPosition().getLocalY(player.getLastPosition()));
 			buffer.putBits(7, player.getPosition().getLocalX(player.getLastPosition()));
 		} else {
 			if (player.getWalkingDirection() == -1) {
-				if (player.updateRequired()) {
+				if (player.getUpdateFlags().isUpdateRequired()) {
 					buffer.putBits(1, 1);
 					buffer.putBits(2, 0);
 				} else {
@@ -30,13 +30,13 @@ public final class PlayerMovementBlock extends UpdateBlock {
 					buffer.putBits(1, 1);
 					buffer.putBits(2, 1);
 					buffer.putBits(3, player.getWalkingDirection());
-					buffer.putBits(1, player.updateRequired() ? 1 : 0);
+					buffer.putBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 				} else {
 					buffer.putBits(1, 1);
 					buffer.putBits(2, 2);
 					buffer.putBits(3, player.getWalkingDirection());
 					buffer.putBits(3, player.getRunningDirection());
-					buffer.putBits(1, player.updateRequired() ? 1 : 0);
+					buffer.putBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 				}
 			}
 		}

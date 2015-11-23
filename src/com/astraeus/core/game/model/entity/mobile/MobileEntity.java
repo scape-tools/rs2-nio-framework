@@ -6,7 +6,9 @@ import java.util.List;
 import com.astraeus.core.game.model.entity.Entity;
 import com.astraeus.core.game.model.entity.Position;
 import com.astraeus.core.game.model.entity.UpdateFlags;
+import com.astraeus.core.game.model.entity.UpdateFlags.UpdateFlag;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
+import com.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 
 public abstract class MobileEntity extends Entity {
 
@@ -16,10 +18,10 @@ public abstract class MobileEntity extends Entity {
 	private Position lastPosition = new Position(0, 0, 0);
 
 	/**
-	 * An ordered collection or sequence of {@link UpdateFlags} which signify an update block.
+	 * The update flags held by the entity.
 	 */
-	private final List<UpdateFlags> updateFlags = new LinkedList<UpdateFlags>();
-
+	private UpdateFlags updateFlags = new UpdateFlags();
+	
 	/**
 	 * The players in the surrounding region of this entity.
 	 */
@@ -36,6 +38,16 @@ public abstract class MobileEntity extends Entity {
 	private int runningDirection = -1;
 
 	/**
+	 * Faces a coordinate point.
+	 * 
+	 * @param coordinate The point to be faced.
+	 */
+	public final void faceDirection(Position position) {
+		attributes.put(Attributes.FACE_COORDINATE, position);
+		updateFlags.flag(UpdateFlag.FACE_COORDINATE);
+	}
+	
+	/**
 	 * Returns an instance of the entity's last known coordinate point.
 	 * 
 	 * @return The returned instance.
@@ -51,24 +63,6 @@ public abstract class MobileEntity extends Entity {
 	 */
 	public void setLastPosition(Position lastLocation) {
 		this.lastPosition = lastLocation;
-	}
-
-	/**
-	 * Returns the collection of flags which signify an update block.
-	 * 
-	 * @return The returned collection.
-	 */
-	public List<UpdateFlags> getUpdateFlags() {
-		return updateFlags;
-	}
-
-	/**
-	 * Determines if an update block is required to be handled.
-	 * 
-	 * @return The determination.
-	 */
-	public boolean updateRequired() {
-		return !updateFlags.isEmpty();
 	}
 
 	/**
@@ -115,5 +109,12 @@ public abstract class MobileEntity extends Entity {
 	 */
 	public List<Player> getLocalPlayers() {
 		return localPlayers;
+	}
+	
+	/**
+	 * @return the updateFlags
+	 */
+	public UpdateFlags getUpdateFlags() {
+		return updateFlags;
 	}
 }

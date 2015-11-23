@@ -2,7 +2,7 @@ package com.astraeus.core.game.model.entity.mobile.player.update.impl;
 
 import java.nio.ByteBuffer;
 
-import com.astraeus.core.game.model.entity.UpdateFlags;
+import com.astraeus.core.game.model.entity.UpdateFlags.UpdateFlag;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.mobile.player.update.UpdateBlock;
 import com.astraeus.core.net.channel.packet.PacketBuilder;
@@ -33,7 +33,7 @@ public final class StatefulUpdateBlock extends UpdateBlock {
 			 * The mask to denote specific updates.
 			 */
 			int mask = 0x0;
-			if (player.getUpdateFlags().contains(UpdateFlags.UPDATE_APPEARANCE) || forceful) {
+			if (player.getUpdateFlags().get(UpdateFlag.APPEARANCE) || forceful) {
 				mask |= 0x10;
 			}
 			if (mask >= 0x100) {
@@ -43,7 +43,7 @@ public final class StatefulUpdateBlock extends UpdateBlock {
 			} else {
 				buffer.putByte((mask));
 			}
-			if (player.getUpdateFlags().contains(UpdateFlags.UPDATE_APPEARANCE) || forceful) {
+			if (player.getUpdateFlags().get(UpdateFlag.APPEARANCE) || forceful) {
 				
 				final PacketBuilder properties = new PacketBuilder(ByteBuffer.allocate(128));				
 				properties.putByte(player.getAppearance().getGender().getIndicator());

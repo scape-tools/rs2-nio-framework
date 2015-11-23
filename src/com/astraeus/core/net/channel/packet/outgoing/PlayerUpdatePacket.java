@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.Iterator;
 
 import com.astraeus.core.Server;
-import com.astraeus.core.game.model.entity.UpdateFlags;
+import com.astraeus.core.game.model.entity.UpdateFlags.UpdateFlag;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.mobile.player.update.UpdateBlock;
 import com.astraeus.core.game.model.entity.mobile.player.update.impl.PlayerMovementBlock;
@@ -27,7 +27,7 @@ public final class PlayerUpdatePacket extends OutgoingPacket {
 
 	@Override
 	public PacketBuilder dispatch(Player player) {		
-		if(player.getUpdateFlags().contains(UpdateFlags.UPDATE_MAP_REGION)) {
+		if(player.getUpdateFlags().get(UpdateFlag.REGION_CHANGING)) {
 			player.sendRegionalUpdate();
 		}
 		
@@ -39,7 +39,7 @@ public final class PlayerUpdatePacket extends OutgoingPacket {
 
 		append(new PlayerMovementBlock(), builder, player);
 
-		if (player.updateRequired()) {
+		if (player.getUpdateFlags().isUpdateRequired()) {
 
 			append(new StatefulUpdateBlock(false), update, player);
 		}
@@ -54,7 +54,7 @@ public final class PlayerUpdatePacket extends OutgoingPacket {
 
 				append(new RegionalMovementBlock(), builder, other);
 
-				if (other.updateRequired()) {
+				if (other.getUpdateFlags().isUpdateRequired()) {
 
 					append(new StatefulUpdateBlock(false), update, other);
 

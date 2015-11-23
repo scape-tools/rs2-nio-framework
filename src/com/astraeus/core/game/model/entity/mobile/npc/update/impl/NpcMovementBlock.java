@@ -9,7 +9,7 @@ public class NpcMovementBlock extends UpdateBlock {
 	@Override
 	public void update(Npc npc, PacketBuilder builder) {
 		if (npc.getWalkingDirection() == -1) {			
-			if(npc.updateRequired()) {
+			if(npc.getUpdateFlags().isUpdateRequired()) {
 				builder.putBits(1, 1);
 				builder.putBits(2, 0);
 				builder.putBits(1, 0);

@@ -21,6 +21,7 @@ import com.astraeus.core.net.channel.packet.OutgoingPacket;
 import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
 import com.astraeus.core.net.channel.packet.outgoing.ChatInterfacePacket;
 import com.astraeus.core.net.channel.packet.outgoing.InterfaceAnimationPacket;
+import com.astraeus.core.net.channel.packet.outgoing.LogoutPacket;
 import com.astraeus.core.net.channel.packet.outgoing.NpcDialogueHeadPacket;
 import com.astraeus.core.net.channel.packet.outgoing.PlayerDialogueHeadPacket;
 import com.astraeus.core.net.channel.packet.outgoing.RegionalUpdatePacket;
@@ -348,6 +349,11 @@ public final class Player extends MobileEntity {
 	@Override
 	public String toString() {
 		return Utilities.capitalizePlayerName(details.getUsername()) + " " + details.getAddress();
+	}
+
+	@Override
+	public void dispose() {
+		write(new LogoutPacket());
 	}
 	
 }

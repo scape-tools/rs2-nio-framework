@@ -3,6 +3,7 @@ package com.astraeus.core.game.processor.impl;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.astraeus.core.game.model.entity.mobile.EntityList;
 import com.astraeus.core.game.model.entity.mobile.npc.Npc;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.processor.ScheduledProcessor;
@@ -23,11 +24,7 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	 */
 	private final Map<Integer, Npc> npcs = new ConcurrentHashMap<Integer, Npc>();
 	
-	/**
-	 * A container for the assignment and organization of the player
-	 * identification numbers.
-	 */
-	private final IndexContainer playerIndexes = new IndexContainer(2000);
+	private final EntityList<Player> playerList = new EntityList<>(2000);
 
 	/**
 	 * The index of npcs in the game world.
@@ -52,7 +49,8 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	 *            The instance of the new player.
 	 */
 	public final void addPlayer(Player player) {
-		players.put(0, player);
+		System.out.println("adding player");
+		playerList.add(player);
 	}
 
 	/**
@@ -63,7 +61,7 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	 */
 	public final void removePlayer(Player player) {
 		players.remove(player.getIndex());
-		playerIndexes.discardIndex(player.getIndex());
+		playerList.remove(player);
 	}
 
 	@Override
@@ -102,13 +100,6 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	
 	public Map<Integer, Npc> getNpcs() {
 		return npcs;
-	}
-	
-	/**
-	 * @return the playerIndexes
-	 */
-	public IndexContainer getPlayerIndexes() {
-		return playerIndexes;
 	}
 
 	/**

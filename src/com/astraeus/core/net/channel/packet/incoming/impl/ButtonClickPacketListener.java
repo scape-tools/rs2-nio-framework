@@ -60,7 +60,6 @@ public class ButtonClickPacketListener implements IncomingPacketListener {
 		// logout
 		case 2458:
 			player.write(new LogoutPacket());
-			player.getContext().close();
 			break;
 
 		default:

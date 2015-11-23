@@ -55,4 +55,10 @@ public class Npc extends MobileEntity {
 		return listener;
 	}
 
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

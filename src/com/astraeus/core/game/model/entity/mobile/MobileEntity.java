@@ -26,6 +26,8 @@ public abstract class MobileEntity extends Entity {
 	 * The players in the surrounding region of this entity.
 	 */
 	private final List<Player> localPlayers = new LinkedList<Player>();
+	
+	private boolean registered = false;
 
 	/**
 	 * The direction the entity is walking.
@@ -37,6 +39,8 @@ public abstract class MobileEntity extends Entity {
 	 */
 	private int runningDirection = -1;
 
+	public abstract void dispose();
+	
 	/**
 	 * Faces a coordinate point.
 	 * 
@@ -116,5 +120,19 @@ public abstract class MobileEntity extends Entity {
 	 */
 	public UpdateFlags getUpdateFlags() {
 		return updateFlags;
+	}
+	
+	/**
+	 * @return the registered
+	 */
+	public boolean isRegistered() {
+		return registered;
+	}
+
+	/**
+	 * @param registered the registered to set
+	 */
+	public void setRegistered(boolean registered) {
+		this.registered = registered;
 	}
 }

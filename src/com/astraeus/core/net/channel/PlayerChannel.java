@@ -153,7 +153,8 @@ public final class PlayerChannel {
 	 * Forces an existing channel's connection to close.
 	 */
 	public void close() {
-		try {
+		try {			
+			if(player.getContext().getSelectedKey().isValid()) {
 			
 			/*
 			 * Requests that the registration of this key's channel with its selector be cancelled.
@@ -169,7 +170,7 @@ public final class PlayerChannel {
 			 * Informs the user of the removal of the channel's connection.
 			 */
 			logger.log(Level.INFO, "Closed : " + channel.getLocalAddress() + ".");
-
+			}
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

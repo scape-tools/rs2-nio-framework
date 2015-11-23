@@ -60,12 +60,12 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 
 		player.save();
 		
+		PulseScheduler.getInstance().destoryPulsesForOwner(player.getDetails().getUsername());
+		
 		/*
 		 * Removes the player from the processor's registry.
 		 */
 		Server.getUpdateProcessor().removePlayer(player);
-		
-		PulseScheduler.getInstance().destoryPulsesForOwner(player.getDetails().getUsername());
 
 		player.write(new LogoutPacket());
 		

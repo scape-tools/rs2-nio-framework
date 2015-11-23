@@ -20,6 +20,7 @@ import com.astraeus.core.net.channel.packet.outgoing.ChatInterfacePacket;
 import com.astraeus.core.net.channel.packet.outgoing.InterfaceAnimationPacket;
 import com.astraeus.core.net.channel.packet.outgoing.NpcDialogueHeadPacket;
 import com.astraeus.core.net.channel.packet.outgoing.PlayerDialogueHeadPacket;
+import com.astraeus.core.net.channel.packet.outgoing.RegionalUpdatePacket;
 import com.astraeus.core.net.channel.packet.outgoing.SendStringPacket;
 import com.astraeus.core.net.channel.packet.outgoing.SideBarInterfacePacket;
 import com.astraeus.core.net.security.IsaacRandomPair;
@@ -113,6 +114,10 @@ public final class Player extends MobileEntity {
 	
 	public void sendDialoguePlayerHead(int interfaceId) {
 		write(new PlayerDialogueHeadPacket(interfaceId));
+	}
+	
+	public void sendRegionalUpdate() {
+		write(new RegionalUpdatePacket());
 	}
 
 	/**

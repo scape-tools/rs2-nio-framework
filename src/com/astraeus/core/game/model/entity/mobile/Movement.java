@@ -7,7 +7,6 @@ import com.astraeus.core.game.GameConstants;
 import com.astraeus.core.game.model.entity.Entity;
 import com.astraeus.core.game.model.entity.mobile.player.MovementPoint;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
-import com.astraeus.core.net.channel.packet.outgoing.RegionalUpdatePacket;
 import com.astraeus.core.utility.Utilities;
 
 /**
@@ -149,15 +148,17 @@ public final class Movement {
 
 		((MobileEntity) getEntity()).setRunningDirection(runningPoint == null ? -1 : runningPoint.getDirection());
 
-		int deltaX = getEntity().getPosition().getX()
+		int deltaX = ((MobileEntity) getEntity()).getPosition().getX()
 				- ((MobileEntity) getEntity()).getLastPosition().getRegionalX() * 8;
 
-		int deltaY = getEntity().getPosition().getY()
-				- ((MobileEntity) getEntity()).getLastPosition().getRegionalY() * 8;
-
+		int deltaY = ((MobileEntity) getEntity()).getPosition().getY()
+				- ((MobileEntity)getEntity()).getLastPosition().getRegionalY() * 8;
+		
 		if (entity instanceof Player) {
+			System.out.println("DeltaX: " + deltaX + " DeltaY: " + deltaY);
 			if (deltaX < 16 || deltaX >= 88 || deltaY < 16 || deltaY > 88) {
-				((Player) entity).write(new RegionalUpdatePacket());
+				System.out.println("2");
+				((Player) getEntity()).sendRegionalUpdate();
 			}
 		}
 	}
@@ -197,7 +198,6 @@ public final class Movement {
 	public final void addExternalStep(int x, int y) {
 
 		if (isFocusPointsEmpty()) {
-
 			resetMovement();
 		}
 

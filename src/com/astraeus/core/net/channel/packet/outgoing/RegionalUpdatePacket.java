@@ -26,7 +26,7 @@ public class RegionalUpdatePacket extends OutgoingPacket {
 		builder.putShort(player.getPosition().getRegionalX() + 6,
 				ByteValue.ADDITION, ByteOrder.BIG);
 		builder.putShort(player.getPosition().getRegionalY() + 6);
-		player.setLastPosition(player.getPosition());
+		player.getLastPosition().setPosition(player.getPosition());
 		return builder;
 	}
 

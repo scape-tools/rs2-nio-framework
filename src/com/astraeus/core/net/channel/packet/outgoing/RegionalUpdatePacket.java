@@ -3,14 +3,21 @@ package com.astraeus.core.net.channel.packet.outgoing;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.net.channel.packet.OutgoingPacket;
 import com.astraeus.core.net.channel.packet.PacketBuilder;
-import com.astraeus.core.net.channel.packet.PacketHeader;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteOrder;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteValue;
 
-public class RegionalUpdate extends OutgoingPacket {
+/**
+ * The {@link OutgoingPacket} that updates a region for a player.
+ * 
+ * @author SeVen
+ */
+public class RegionalUpdatePacket extends OutgoingPacket {
 
-	public RegionalUpdate() {
-		super(73, PacketHeader.STANDARD, 5);
+	/**
+	 * Creates a new {@link RegionalUpdatePacket}.
+	 */
+	public RegionalUpdatePacket() {
+		super(73, 5);
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.net.channel.packet.IncomingPacket;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketListener;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketOpcode;
-import com.astraeus.core.net.channel.packet.outgoing.RegionalUpdate;
+import com.astraeus.core.net.channel.packet.outgoing.RegionalUpdatePacket;
 
 /**
  * The incoming {@link IncomingPacket} responsible for handling user commands send from the client.
@@ -42,7 +42,7 @@ public class CommandPacketListener implements IncomingPacketListener {
 			break;
 			
 		case "region":
-			player.write(new RegionalUpdate());
+			player.write(new RegionalUpdatePacket());
 			break;
 			
 		default:

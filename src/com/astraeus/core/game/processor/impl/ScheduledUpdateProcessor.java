@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.astraeus.core.game.model.entity.UpdateFlags;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.processor.ScheduledProcessor;
-import com.astraeus.core.net.channel.packet.outgoing.RegionalUpdate;
+import com.astraeus.core.net.channel.packet.outgoing.RegionalUpdatePacket;
 import com.astraeus.core.game.processor.ProcessorConstants;
 import com.astraeus.core.utility.IndexContainer;
 
@@ -80,7 +80,7 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 				 * regional update.
 				 */
 				if (player.getUpdateFlags().contains(UpdateFlags.UPDATE_MAP_REGION)) {
-					player.write(new RegionalUpdate());
+					player.write(new RegionalUpdatePacket());
 				}
 				player.getEventListener().update(player);
 			}

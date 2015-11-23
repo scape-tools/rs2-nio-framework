@@ -22,65 +22,35 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 	
 	@Override
 	public void add(Player player) {
-
-			/*
-			 * Adds the player to the registry.
-			 */
-			Server.getUpdateProcessor().addPlayer(player);
+			Server.getUpdateProcessor().addPlayer(player);	
 			
 			player.setPosition(player.load() ? player.getPosition() : PlayerConstants.START_COORDINATES);
-			
-			/*
-			 * Updates the player's region upon initial placement.
-			 */
 			player.getUpdateFlags().flag(UpdateFlag.REGION_CHANGING);
-
-			/*
-			 * Updates the player's appearance.
-			 */
 			player.getUpdateFlags().flag(UpdateFlag.APPEARANCE);
-
-			/*
-			 * Welcome message.
-			 */
 			player.write(new ChatBoxMessagePacket(PlayerConstants.WELCOME_MESSAGE));
-			
-			player.sendTabs();
-			
+			player.sendTabs();			
 			logger.log(Level.INFO, String.format("[%s] has successfully logged in.", player.toString()));
-
 	}
 
 	@Override
-	public void remove(Player player) {
-		
-		player.getAttributes().put(Attributes.WALK_TO_ACTION, false);
-		
+	public void remove(Player player) {		
+		player.getAttributes().put(Attributes.WALK_TO_ACTION, false);		
 		player.getMovement().resetMovement();
-
 		player.save();
 		
-		PulseScheduler.getInstance().destoryPulsesForOwner(player.getDetails().getUsername());
-		
+		PulseScheduler.getInstance().destoryPulsesForOwner(player.getDetails().getUsername());		
 		/*
 		 * Removes the player from the processor's registry.
 		 */
 		Server.getUpdateProcessor().removePlayer(player);
-
-		player.write(new LogoutPacket());
-		
+		player.write(new LogoutPacket());		
 		logger.log(Level.INFO, String.format("[%s] has left the server.", player.toString()));
 	}
 
 	@Override
 	public void update(Player player) {
-
-			/*
-			 * Dispenses the updating packet.
-			 */
-			
-			player.write(new PlayerUpdatePacket());
-			
+		
+			player.write(new PlayerUpdatePacket());			
 			player.write(new NpcUpdatePacket());
 	}
 }

@@ -8,7 +8,6 @@ import com.astraeus.core.game.model.entity.mobile.npc.Npc;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.processor.ScheduledProcessor;
 import com.astraeus.core.game.processor.ProcessorConstants;
-import com.astraeus.core.utility.IndexContainer;
 
 public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 
@@ -25,11 +24,6 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	private final Map<Integer, Npc> npcs = new ConcurrentHashMap<Integer, Npc>();
 	
 	private final EntityList<Player> playerList = new EntityList<>(2000);
-
-	/**
-	 * The index of npcs in the game world.
-	 */
-	private final IndexContainer npcIndexes = new IndexContainer(2000);
 
 	/**
 	 * The overloaded class constructor used for instantiation of this class
@@ -100,12 +94,5 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	
 	public Map<Integer, Npc> getNpcs() {
 		return npcs;
-	}
-
-	/**
-	 * @return the npcIndexes
-	 */
-	public IndexContainer getNpcIndexes() {
-		return npcIndexes;
 	}
 }

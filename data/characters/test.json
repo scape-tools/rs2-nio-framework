@@ -1,0 +1,11 @@
+{
+  "ip-address": "127.0.0.1:61656",
+  "username": "test",
+  "password": "testing",
+  "rights": "PLAYER",
+  "position": {
+    "x": 3093,
+    "y": 3491,
+    "height": 0
+  }
+}

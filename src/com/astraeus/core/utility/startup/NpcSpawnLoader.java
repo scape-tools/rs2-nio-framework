@@ -6,7 +6,6 @@ import com.astraeus.core.Configuration;
 import com.astraeus.core.Server;
 import com.astraeus.core.game.model.entity.Facing;
 import com.astraeus.core.game.model.entity.Position;
-import com.astraeus.core.game.model.entity.mobile.npc.Npc;
 import com.astraeus.core.game.model.entity.mobile.npc.NpcSpawn;
 import com.astraeus.core.utility.JsonLoader;
 import com.google.gson.Gson;
@@ -27,13 +26,6 @@ public class NpcSpawnLoader extends JsonLoader {
 		boolean randomWalk = reader.get("randomWalk").getAsBoolean();
 		String facing = Objects.requireNonNull(reader.get("facing").getAsString());
 		NpcSpawn spawn = new NpcSpawn(id, position, randomWalk, Facing.valueOf(facing));
-		createNpc(spawn);
-	}
-	
-	public final Npc createNpc(NpcSpawn spawn) {
-		final Npc register = new Npc(spawn.getId(), spawn.getPosition(), Server.getUpdateProcessor().getNpcIndexes().calculateIndex());
-		Server.getUpdateProcessor().getNpcs().put(register.getId(), register);
-		return register;
 	}
 
 }

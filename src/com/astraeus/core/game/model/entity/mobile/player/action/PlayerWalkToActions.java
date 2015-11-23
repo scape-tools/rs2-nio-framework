@@ -4,7 +4,7 @@ import com.astraeus.core.game.content.dialogue.Dialogues;
 import com.astraeus.core.game.content.dialogue.impl.BankerDialogue;
 import com.astraeus.core.game.model.entity.Position;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
-import com.astraeus.core.net.channel.packet.outgoing.impl.ChatBoxMessagePacket;
+import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
 
 public final class PlayerWalkToActions {
 

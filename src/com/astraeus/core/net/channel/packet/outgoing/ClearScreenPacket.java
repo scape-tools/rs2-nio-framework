@@ -1,4 +1,4 @@
-package com.astraeus.core.net.channel.packet.outgoing.impl;
+package com.astraeus.core.net.channel.packet.outgoing;
 
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.net.channel.packet.OutgoingPacket;
@@ -6,17 +6,17 @@ import com.astraeus.core.net.channel.packet.PacketBuilder;
 import com.astraeus.core.net.channel.packet.PacketHeader;
 
 /**
- * The {@link OutgoingPacket} that logs a player out of the game.
+ * The {@link OutgoingPacket} that clears a players screen of all open interfaces.
  * 
  * @author SeVen
  */
-public class LogoutPacket extends OutgoingPacket {
+public class ClearScreenPacket extends OutgoingPacket {
 
 	/**
-	 * Creates a new {@link LogoutPacket}.
+	 * Creates a new {@link ClearScreenPacket}.
 	 */
-	public LogoutPacket() {
-		super(109, PacketHeader.STANDARD,  1);
+	public ClearScreenPacket() {
+		super(219, PacketHeader.STANDARD, 1);
 	}
 
 	@Override

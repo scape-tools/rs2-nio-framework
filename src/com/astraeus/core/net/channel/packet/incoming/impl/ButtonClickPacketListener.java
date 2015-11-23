@@ -8,8 +8,8 @@ import com.astraeus.core.game.model.entity.mobile.player.Rights;
 import com.astraeus.core.net.channel.packet.IncomingPacket;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketListener;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketOpcode;
-import com.astraeus.core.net.channel.packet.outgoing.impl.LogoutPacket;
-import com.astraeus.core.net.channel.packet.outgoing.impl.ChatBoxMessagePacket;
+import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
+import com.astraeus.core.net.channel.packet.outgoing.LogoutPacket;
 
 /**
  * The packet responsible for clicking in-game buttons.

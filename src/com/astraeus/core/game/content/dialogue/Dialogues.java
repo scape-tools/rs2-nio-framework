@@ -64,40 +64,40 @@ public class Dialogues {
 		validateLength(lines);
 		switch (lines.length) {
 		case 1:
-			player.getOutgoingPackets().sendString("Select an Option", 2460);
-			player.getOutgoingPackets().sendString(lines[0], 2461);
-			player.getOutgoingPackets().sendString(lines[1], 2462);
-			player.getOutgoingPackets().sendChatBoxInterface(2459);
+			player.sendString("Select an Option", 2460);
+			player.sendString(lines[0], 2461);
+			player.sendString(lines[1], 2462);
+			player.sendChatBoxInterface(2459);
 			player.setDialogueOption(option);
 			break;
 
 		case 2:
-			player.getOutgoingPackets().sendString("Select an Option", 2470);
-			player.getOutgoingPackets().sendString(lines[0], 2471);
-			player.getOutgoingPackets().sendString(lines[1], 2472);
-			player.getOutgoingPackets().sendString(lines[2], 2472);
-			player.getOutgoingPackets().sendChatBoxInterface(2469);
+			player.sendString("Select an Option", 2470);
+			player.sendString(lines[0], 2471);
+			player.sendString(lines[1], 2472);
+			player.sendString(lines[2], 2472);
+			player.sendChatBoxInterface(2469);
 			player.setDialogueOption(option);
 			break;
 
 		case 3:
-			player.getOutgoingPackets().sendString("Select an Option", 2481);
-			player.getOutgoingPackets().sendString(lines[0], 2482);
-			player.getOutgoingPackets().sendString(lines[1], 2483);
-			player.getOutgoingPackets().sendString(lines[2], 2484);
-			player.getOutgoingPackets().sendString(lines[3], 2485);
-			player.getOutgoingPackets().sendChatBoxInterface(2480);
+			player.sendString("Select an Option", 2481);
+			player.sendString(lines[0], 2482);
+			player.sendString(lines[1], 2483);
+			player.sendString(lines[2], 2484);
+			player.sendString(lines[3], 2485);
+			player.sendChatBoxInterface(2480);
 			player.setDialogueOption(option);
 			break;
 
 		case 4:
-			player.getOutgoingPackets().sendString("Select an Option", 2493);
-			player.getOutgoingPackets().sendString(lines[0], 2494);
-			player.getOutgoingPackets().sendString(lines[1], 2495);
-			player.getOutgoingPackets().sendString(lines[2], 2496);
-			player.getOutgoingPackets().sendString(lines[3], 2497);
-			player.getOutgoingPackets().sendString(lines[4], 2498);
-			player.getOutgoingPackets().sendChatBoxInterface(2492);
+			player.sendString("Select an Option", 2493);
+			player.sendString(lines[0], 2494);
+			player.sendString(lines[1], 2495);
+			player.sendString(lines[2], 2496);
+			player.sendString(lines[3], 2497);
+			player.sendString(lines[4], 2498);
+			player.sendChatBoxInterface(2492);
 			player.setDialogueOption(option);
 			break;
 
@@ -130,41 +130,41 @@ public class Dialogues {
 		validateLength(lines);
 		switch(lines.length) {		
 		case 1:
-			player.getOutgoingPackets().sendInterfaceAnimation(4883, expression.getId());
-			player.getOutgoingPackets().sendString(npcName, 4884);
-			player.getOutgoingPackets().sendString(lines[0], 4885);
-			player.getOutgoingPackets().sendDialogueNpcHead(npcId, 4883);
-			player.getOutgoingPackets().sendChatBoxInterface(4882);
+			player.sendInterfaceAnimation(4883, expression.getId());
+			player.sendString(npcName, 4884);
+			player.sendString(lines[0], 4885);
+			player.sendDialogueNpcHead(npcId, 4883);
+			player.sendChatBoxInterface(4882);
 			break;
 			
 		case 2:
-			player.getOutgoingPackets().sendInterfaceAnimation(4888, expression.getId());
-			player.getOutgoingPackets().sendString(npcName, 4889);
-			player.getOutgoingPackets().sendString(lines[0], 4890);
-			player.getOutgoingPackets().sendString(lines[1], 4891);
-			player.getOutgoingPackets().sendDialogueNpcHead(npcId, 4888);
-			player.getOutgoingPackets().sendChatBoxInterface(4887);
+			player.sendInterfaceAnimation(4888, expression.getId());
+			player.sendString(npcName, 4889);
+			player.sendString(lines[0], 4890);
+			player.sendString(lines[1], 4891);
+			player.sendDialogueNpcHead(npcId, 4888);
+			player.sendChatBoxInterface(4887);
 			break;
 			
 		case 3:
-			player.getOutgoingPackets().sendInterfaceAnimation(4894, expression.getId());
-			player.getOutgoingPackets().sendString(npcName, 4895);
-			player.getOutgoingPackets().sendString(lines[0], 4896);
-			player.getOutgoingPackets().sendString(lines[1], 4897);
-			player.getOutgoingPackets().sendString(lines[2], 4898);
-			player.getOutgoingPackets().sendDialogueNpcHead(npcId, 4894);
-			player.getOutgoingPackets().sendChatBoxInterface(4893);
+			player.sendInterfaceAnimation(4894, expression.getId());
+			player.sendString(npcName, 4895);
+			player.sendString(lines[0], 4896);
+			player.sendString(lines[1], 4897);
+			player.sendString(lines[2], 4898);
+			player.sendDialogueNpcHead(npcId, 4894);
+			player.sendChatBoxInterface(4893);
 			break;
 			
 		case 4:
-			player.getOutgoingPackets().sendInterfaceAnimation(4901, expression.getId());
-			player.getOutgoingPackets().sendString(npcName, 4902);
-			player.getOutgoingPackets().sendString(lines[0], 4903);
-			player.getOutgoingPackets().sendString(lines[1], 4904);
-			player.getOutgoingPackets().sendString(lines[2], 4905);
-			player.getOutgoingPackets().sendString(lines[3], 4906);
-			player.getOutgoingPackets().sendDialogueNpcHead(npcId, 4901);
-			player.getOutgoingPackets().sendChatBoxInterface(4900);
+			player.sendInterfaceAnimation(4901, expression.getId());
+			player.sendString(npcName, 4902);
+			player.sendString(lines[0], 4903);
+			player.sendString(lines[1], 4904);
+			player.sendString(lines[2], 4905);
+			player.sendString(lines[3], 4906);
+			player.sendDialogueNpcHead(npcId, 4901);
+			player.sendChatBoxInterface(4900);
 			break;
 			
 		default:
@@ -190,41 +190,41 @@ public class Dialogues {
 		validateLength(lines);
 		switch(lines.length) {		
 		case 1:
-			player.getOutgoingPackets().sendInterfaceAnimation(969,  expression.getId());
-			player.getOutgoingPackets().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 970);
-			player.getOutgoingPackets().sendString(lines[0], 971);
-			player.getOutgoingPackets().sendDialoguePlayerHead(969);
-			player.getOutgoingPackets().sendChatBoxInterface(968);
+			player.sendInterfaceAnimation(969,  expression.getId());
+			player.sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 970);
+			player.sendString(lines[0], 971);
+			player.sendDialoguePlayerHead(969);
+			player.sendChatBoxInterface(968);
 			break;
 			
 		case 2:
-			player.getOutgoingPackets().sendInterfaceAnimation(974,  expression.getId());
-			player.getOutgoingPackets().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 975);
-			player.getOutgoingPackets().sendString(lines[0], 976);
-			player.getOutgoingPackets().sendString(lines[1], 977);
-			player.getOutgoingPackets().sendDialoguePlayerHead(974);
-			player.getOutgoingPackets().sendChatBoxInterface(973);
+			player.sendInterfaceAnimation(974,  expression.getId());
+			player.sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 975);
+			player.sendString(lines[0], 976);
+			player.sendString(lines[1], 977);
+			player.sendDialoguePlayerHead(974);
+			player.sendChatBoxInterface(973);
 			break;
 			
 		case 3:
-			player.getOutgoingPackets().sendInterfaceAnimation(980,  expression.getId());
-			player.getOutgoingPackets().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 981);
-			player.getOutgoingPackets().sendString(lines[0], 982);
-			player.getOutgoingPackets().sendString(lines[1], 983);
-			player.getOutgoingPackets().sendString(lines[2], 984);
-			player.getOutgoingPackets().sendDialoguePlayerHead(980);
-			player.getOutgoingPackets().sendChatBoxInterface(979);
+			player.sendInterfaceAnimation(980,  expression.getId());
+			player.sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 981);
+			player.sendString(lines[0], 982);
+			player.sendString(lines[1], 983);
+			player.sendString(lines[2], 984);
+			player.sendDialoguePlayerHead(980);
+			player.sendChatBoxInterface(979);
 			break;
 			
 		case 4:
-			player.getOutgoingPackets().sendInterfaceAnimation(987,  expression.getId());
-			player.getOutgoingPackets().sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 988);
-			player.getOutgoingPackets().sendString(lines[0], 989);
-			player.getOutgoingPackets().sendString(lines[1], 990);
-			player.getOutgoingPackets().sendString(lines[2], 991);
-			player.getOutgoingPackets().sendString(lines[2], 992);
-			player.getOutgoingPackets().sendDialoguePlayerHead(987);
-			player.getOutgoingPackets().sendChatBoxInterface(986);
+			player.sendInterfaceAnimation(987,  expression.getId());
+			player.sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 988);
+			player.sendString(lines[0], 989);
+			player.sendString(lines[1], 990);
+			player.sendString(lines[2], 991);
+			player.sendString(lines[2], 992);
+			player.sendDialoguePlayerHead(987);
+			player.sendChatBoxInterface(986);
 			break;
 			
 		default:

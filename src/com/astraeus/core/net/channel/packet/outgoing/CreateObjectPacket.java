@@ -1,4 +1,4 @@
-package com.astraeus.core.net.channel.packet.outgoing.impl;
+package com.astraeus.core.net.channel.packet.outgoing;
 
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.model.entity.object.GameObject;

@@ -4,8 +4,8 @@ import com.astraeus.core.game.model.entity.item.Item;
 import com.astraeus.core.game.model.entity.item.ItemContainer;
 import com.astraeus.core.game.model.entity.item.ItemDefinition;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
-import com.astraeus.core.net.channel.packet.outgoing.impl.ItemOnInterfacePacket;
-import com.astraeus.core.net.channel.packet.outgoing.impl.ChatBoxMessagePacket;
+import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
+import com.astraeus.core.net.channel.packet.outgoing.ItemOnInterfacePacket;
 
 public class InventoryContainer extends ItemContainer {
 	

@@ -1,4 +1,4 @@
-package com.astraeus.core.net.channel.packet.outgoing.impl;
+package com.astraeus.core.net.channel.packet.outgoing;
 
 import java.nio.ByteBuffer;
 import java.util.Iterator;

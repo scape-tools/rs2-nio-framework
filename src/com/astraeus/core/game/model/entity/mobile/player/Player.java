@@ -2,6 +2,7 @@ package com.astraeus.core.game.model.entity.mobile.player;
 
 import java.util.EnumMap;
 
+import com.astraeus.core.game.GameConstants;
 import com.astraeus.core.game.content.dialogue.Dialogue;
 import com.astraeus.core.game.content.dialogue.DialogueOption;
 import com.astraeus.core.game.model.entity.EntityEventListener;
@@ -14,8 +15,13 @@ import com.astraeus.core.game.model.entity.mobile.player.event.file.PlayerSaveFi
 import com.astraeus.core.net.channel.PlayerChannel;
 import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.packet.OutgoingPacket;
-import com.astraeus.core.net.channel.packet.outgoing.OutgoingPackets;
-import com.astraeus.core.net.channel.packet.outgoing.impl.ChatBoxMessagePacket;
+import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
+import com.astraeus.core.net.channel.packet.outgoing.ChatInterfacePacket;
+import com.astraeus.core.net.channel.packet.outgoing.InterfaceAnimationPacket;
+import com.astraeus.core.net.channel.packet.outgoing.NpcDialogueHeadPacket;
+import com.astraeus.core.net.channel.packet.outgoing.PlayerDialogueHeadPacket;
+import com.astraeus.core.net.channel.packet.outgoing.SendStringPacket;
+import com.astraeus.core.net.channel.packet.outgoing.SideBarInterfacePacket;
 import com.astraeus.core.net.security.IsaacRandomPair;
 import com.astraeus.core.utility.Decodeable;
 import com.astraeus.core.utility.Utilities;
@@ -56,9 +62,7 @@ public final class Player extends MobileEntity {
 	/**
 	 * The visual appearance of the player in the virtual world.
 	 */
-	private final Appearance appearance = new Appearance(this);
-	
-	private OutgoingPackets outgoingPackets = new OutgoingPackets(this);
+	private final Appearance appearance = new Appearance(this);	
 	
 	/**
 	 * The attributes a player can have.
@@ -89,6 +93,37 @@ public final class Player extends MobileEntity {
 	 */
 	public Player(PlayerChannel context) {
 		this.context = context;
+	}
+	
+	public void sendString(String string, int widget) {
+		write(new SendStringPacket(string, widget));
+	}
+	
+	public void sendChatBoxInterface(int interfaceId) {
+		write(new ChatInterfacePacket(interfaceId));
+	}
+	
+	public void sendInterfaceAnimation(int interfaceId, int animationId) {
+		write(new InterfaceAnimationPacket(interfaceId, animationId));
+	}
+	
+	public void sendDialogueNpcHead(int npcId, int interfaceId) {
+		write(new NpcDialogueHeadPacket(npcId, interfaceId));
+	}
+	
+	public void sendDialoguePlayerHead(int interfaceId) {
+		write(new PlayerDialogueHeadPacket(interfaceId));
+	}
+
+	/**
+	 * Creates all the in-game tabs for a player.
+	 * 
+	 * @param The instance of this encoder.
+	 */
+	public void sendTabs() {		
+		for(int index = 0; index < GameConstants.SIDE_BARS.length; index++) {
+			write(new SideBarInterfacePacket(index, GameConstants.SIDE_BARS[index]));
+		}
 	}
 	
 	/**
@@ -263,10 +298,6 @@ public final class Player extends MobileEntity {
 	 */
 	public Appearance getAppearance() {
 		return appearance;
-	}
-	
-	public OutgoingPackets getOutgoingPackets() {
-		return outgoingPackets;
 	}
 	
 	/**

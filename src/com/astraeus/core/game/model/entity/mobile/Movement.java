@@ -7,7 +7,7 @@ import com.astraeus.core.game.GameConstants;
 import com.astraeus.core.game.model.entity.Entity;
 import com.astraeus.core.game.model.entity.mobile.player.MovementPoint;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
-import com.astraeus.core.net.channel.packet.outgoing.impl.RegionalUpdate;
+import com.astraeus.core.net.channel.packet.outgoing.RegionalUpdate;
 import com.astraeus.core.utility.Utilities;
 
 /**

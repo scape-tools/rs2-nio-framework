@@ -8,9 +8,9 @@ import com.astraeus.core.game.model.entity.EntityEventListener;
 import com.astraeus.core.game.model.entity.UpdateFlags;
 import com.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import com.astraeus.core.game.pulse.PulseScheduler;
-import com.astraeus.core.net.channel.packet.outgoing.impl.LogoutPacket;
-import com.astraeus.core.net.channel.packet.outgoing.impl.PlayerUpdatePacket;
-import com.astraeus.core.net.channel.packet.outgoing.impl.ChatBoxMessagePacket;
+import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
+import com.astraeus.core.net.channel.packet.outgoing.LogoutPacket;
+import com.astraeus.core.net.channel.packet.outgoing.PlayerUpdatePacket;
 
 public final class PlayerEventListener extends EntityEventListener<Player> {
 
@@ -44,7 +44,7 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 			 */
 			player.write(new ChatBoxMessagePacket(PlayerConstants.WELCOME_MESSAGE));
 			
-			player.getOutgoingPackets().sendTabs();
+			player.sendTabs();
 			
 			logger.log(Level.INFO, String.format("[%s] has successfully logged in.", player.toString()));
 

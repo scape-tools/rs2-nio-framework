@@ -1,13 +1,58 @@
 package com.astraeus.core.game.model.entity.mobile.npc;
 
-import com.astraeus.core.game.model.entity.Entity;
 import com.astraeus.core.game.model.entity.EntityEventListener;
+import com.astraeus.core.game.model.entity.Position;
+import com.astraeus.core.game.model.entity.mobile.MobileEntity;
 
-public class Npc extends Entity {
+public class Npc extends MobileEntity {
+	
+	/**
+	 * The id of this npc.
+	 */
+	private int id;
+	
+	private Position position;
+	
+	private int spawnIndex;
+	
+	private final NpcEventListener listener = new NpcEventListener();
+
+	public Npc(int id, Position position, int spawnIndex) {
+		this.id = id;
+		this.position = position;
+		this.spawnIndex = spawnIndex;
+	}
+
+	public void prepare() {
+		getMovement().handleEntityMovement();
+	}
+	
+	/**
+	 * Gets the id of this npc.
+	 * 
+	 * @return id
+	 */
+	public int getId() {
+		return id;
+	}
+	
+	/**
+	 * @return the position
+	 */
+	public Position getPosition() {
+		return position;
+	}
+	
+	/**
+	 * @return the spawnIndex
+	 */
+	public int getSpawnIndex() {
+		return spawnIndex;
+	}
 
 	@Override
-	public EntityEventListener<? extends Entity> getEventListener() {
-		return null;
+	public EntityEventListener<Npc> getEventListener() {
+		return listener;
 	}
 
 }

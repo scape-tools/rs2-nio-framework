@@ -22,5 +22,4 @@ public class World {
 		}
 		return false;
 	}
-
 }

@@ -222,7 +222,7 @@ public class Dialogues {
 			player.sendString(lines[0], 989);
 			player.sendString(lines[1], 990);
 			player.sendString(lines[2], 991);
-			player.sendString(lines[2], 992);
+			player.sendString(lines[3], 992);
 			player.sendDialoguePlayerHead(987);
 			player.sendChatBoxInterface(986);
 			break;

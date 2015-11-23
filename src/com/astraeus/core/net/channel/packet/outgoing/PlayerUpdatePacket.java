@@ -26,10 +26,7 @@ public final class PlayerUpdatePacket extends OutgoingPacket {
 	}
 
 	@Override
-	public PacketBuilder dispatch(Player player) {
-		
-		System.out.println(player.getUpdateFlags().contains(UpdateFlags.UPDATE_MAP_REGION));
-		
+	public PacketBuilder dispatch(Player player) {		
 		if(player.getUpdateFlags().contains(UpdateFlags.UPDATE_MAP_REGION)) {
 			player.sendRegionalUpdate();
 		}
@@ -104,13 +101,13 @@ public final class PlayerUpdatePacket extends OutgoingPacket {
 			}
 		}
 
-		if (update.getInternal().position() > 0) {
+		if (update.getBuffer().position() > 0) {
 
 			builder.putBits(11, 2047);
 
 			builder.setAccessType(ByteAccess.BYTE_ACCESS);
 
-			builder.putBytes(update.getInternal());
+			builder.putBytes(update.getBuffer());
 
 		} else {
 

@@ -31,7 +31,7 @@ public class ChatBoxMessagePacket extends OutgoingPacket {
 	@Override
 	public PacketBuilder dispatch(Player player) {
 		player.getContext().prepare(this, builder);
-		builder.getInternal().put(message.getBytes());
+		builder.getBuffer().put(message.getBytes());
 		builder.putByte(10);
 		return builder;
 	}

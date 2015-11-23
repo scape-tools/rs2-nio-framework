@@ -1,6 +1,8 @@
 package com.astraeus.core.game.model.entity.mobile.player;
 
 import java.util.EnumMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.astraeus.core.game.GameConstants;
 import com.astraeus.core.game.content.dialogue.Dialogue;
@@ -9,6 +11,7 @@ import com.astraeus.core.game.model.entity.EntityEventListener;
 import com.astraeus.core.game.model.entity.item.ItemContainer;
 import com.astraeus.core.game.model.entity.item.container.InventoryContainer;
 import com.astraeus.core.game.model.entity.mobile.MobileEntity;
+import com.astraeus.core.game.model.entity.mobile.npc.Npc;
 import com.astraeus.core.game.model.entity.mobile.player.appearance.Appearance;
 import com.astraeus.core.game.model.entity.mobile.player.event.file.PlayerReadFileEvent;
 import com.astraeus.core.game.model.entity.mobile.player.event.file.PlayerSaveFileEvent;
@@ -29,6 +32,11 @@ import com.astraeus.core.utility.Utilities;
 import com.astraeus.core.utility.Encodeable;
 
 public final class Player extends MobileEntity {
+	
+	/**
+	 * The mobs local to our player.
+	 */
+	private final List<Npc> localNpcs = new LinkedList<Npc>();
 
 	/**
 	 * The context of this player's channel.
@@ -209,6 +217,15 @@ public final class Player extends MobileEntity {
 	 */
 	public final boolean load() {
 		return executeReadableEvent(new PlayerReadFileEvent(this));
+	}
+	
+	/**
+	 * Returns the collection of local mobs.
+	 * 
+	 * @return The returned collection.
+	 */
+	public final List<Npc> getLocalNpcs() {
+		return localNpcs;
 	}
 	
 	/**

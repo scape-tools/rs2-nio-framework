@@ -70,10 +70,10 @@ public final class PrepareChannelEvent extends ChannelEvent {
 			buffer.putByte(opcode + context.getPlayer().getIsaacRandomPair().getDecoder().getNextValue());
 			
 			if (header.equals(PacketHeader.VARIABLE_BYTE)) {
-				buffer.setLength(buffer.getInternal().position());
+				buffer.setLength(buffer.getBuffer().position());
 				buffer.putByte(0);
 			} else if (header.equals(PacketHeader.VARIABLE_SHORT)) {
-				buffer.setLength(buffer.getInternal().position());
+				buffer.setLength(buffer.getBuffer().position());
 				buffer.putShort(0);
 			}
 		}

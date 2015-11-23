@@ -18,6 +18,14 @@ public final class BankerDialogue extends Dialogue {
 
 		case 1:
 			Dialogues.sendPlayerChat(player, Expression.CALM, "Hello there!");
+			break;
+			
+		case 2:
+			Dialogues.sendPlayerChat(player, Expression.CALM, "Hello there!", "Test two");
+			break;
+			
+		case 3:
+			Dialogues.sendPlayerChat(player, Expression.CALM, "Hello there!", "Test two", "Test three");
 			Dialogues.endDialogue(player);
 			break;
 

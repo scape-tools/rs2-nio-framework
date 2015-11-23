@@ -49,6 +49,8 @@ public final class Server {
 		
 		new ShopLoader();
 		
+		//new NpcSpawnLoader();
+		
 		bind();
 	}
 

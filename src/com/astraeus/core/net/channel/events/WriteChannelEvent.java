@@ -47,23 +47,23 @@ public final class WriteChannelEvent extends ChannelEvent {
 	@Override
 	public void execute(PlayerChannel context) throws IOException {
 		if (header.equals(PacketHeader.VARIABLE_BYTE)) {
-			buffer.getInternal().put(buffer.getLength(), (byte) (buffer.getInternal().position() - buffer.getLength() - 1));
+			buffer.getBuffer().put(buffer.getLength(), (byte) (buffer.getBuffer().position() - buffer.getLength() - 1));
 		} else if (header.equals(PacketHeader.VARIABLE_SHORT)) {
-			buffer.getInternal().putShort(buffer.getLength(), (short) (buffer.getInternal().position() - buffer.getLength() - 2));
+			buffer.getBuffer().putShort(buffer.getLength(), (short) (buffer.getBuffer().position() - buffer.getLength() - 2));
 		}
 		/*
 		 * The limit is set to the current position and then the position is set to zero.
 		 */
-		buffer.getInternal().flip();
+		buffer.getBuffer().flip();
 
 		/*
 		 * Writes a sequence of bytes to the specified channel.
 		 */
-		context.getChannel().write(buffer.getInternal());
+		context.getChannel().write(buffer.getBuffer());
 
 		/*
 		 * Clears this buffer. The position is set to zero, the limit is set to the capacity.
 		 */
-		buffer.getInternal().clear();
+		buffer.getBuffer().clear();
 	}
 }

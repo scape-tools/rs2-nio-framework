@@ -18,7 +18,7 @@ public final class PacketBuilder {
 	/**
 	 * The internal buffer.
 	 */
-	private ByteBuffer builder;
+	private ByteBuffer buffer;
 
 	/**
 	 * The message's length, indicated by the buffer's current position.
@@ -40,8 +40,14 @@ public final class PacketBuilder {
 	 */
 	private PacketHeader header;
 
-	public PacketBuilder(ByteBuffer builder) {
-		this.builder = builder;
+	/**
+	 * Creates a new {@link PacketBuilder}.
+	 * 
+	 * @param buffer
+	 * 		The buffer being used. 		
+	 */	
+	public PacketBuilder(ByteBuffer buffer) {
+		this.buffer = buffer;
 	}
 	
 	/**
@@ -75,19 +81,19 @@ public final class PacketBuilder {
 		switch (modification) {
 
 		case ADDITION:
-			this.getInternal().put((byte) (value + 128));
+			buffer.put((byte) (value + 128));
 			break;
 
 		case INVERSION:
-			this.getInternal().put((byte) -value);
+			buffer.put((byte) -value);
 			break;
 
 		case STANDARD:
-			this.getInternal().put((byte) value);
+			buffer.put((byte) value);
 			break;
 
 		case SUBTRACTION:
-			this.getInternal().put((byte) (128 - value));
+			buffer.put((byte) (128 - value));
 			break;
 		}
 	}
@@ -101,31 +107,52 @@ public final class PacketBuilder {
 	 * @param byteValue
 	 * 		The manipulation of this integer value.
 	 */
-	public void putInt(long value, ByteValue byteValue) {
+	public void putInt(int value, ByteValue byteValue) {
 		switch (byteValue) {
 		
 		case ADDITION:
-			this.getInternal().putInt((int) (value + 128));
+			buffer.putInt(value + 128);
 			break;
 
 		case INVERSION:
-			this.getInternal().putInt((int) -value);
+			buffer.putInt(-value);
 			break;
 
 		case STANDARD:
-			this.getInternal().putInt((int) value);
+			buffer.putInt(value);
 			break;
 
 		case SUBTRACTION:
-			this.getInternal().putInt((int) (128 - value));
+			buffer.putInt(128 - value);
 			break;
 		}
 	}
 	
+	/**
+	 * Places a single integer value into the internal buffer.
+	 * 
+	 * @param value
+	 * 		The value of this integer.
+	 * 
+	 * @param order
+	 * 		The order in which the bytes are written.
+	 */
 	public void putInt(int value, ByteOrder order) {
 		putInt(value, ByteValue.STANDARD, order);
 	}
 	
+	/**
+	 * Places a single integer value into the internal buffer.
+	 * 
+	 * @param value
+	 * 		The value of this integer.
+	 * 
+	 * @param byteValue
+	 * 		The manipulations of this integer value.
+	 * 
+	 * @param order
+	 * 		The order in which the bytes are written.
+	 */
 	public void putInt(int value, ByteValue byteValue, ByteOrder order) {
 		switch(order) {		
 		case BIG:
@@ -185,19 +212,19 @@ public final class PacketBuilder {
 		switch (modification) {
 
 		case ADDITION:
-			this.getInternal().putLong(value + 128);
+			buffer.putLong(value + 128);
 			break;
 
 		case INVERSION:
-			this.getInternal().putLong(-value);
+			buffer.putLong(-value);
 			break;
 
 		case STANDARD:
-			this.getInternal().putLong(value);
+			buffer.putLong(value);
 			break;
 
 		case SUBTRACTION:
-			this.getInternal().putLong(128 - value);
+			buffer.putLong(128 - value);
 			break;
 		}
 	}
@@ -234,19 +261,19 @@ public final class PacketBuilder {
 		switch (modification) {
 
 		case ADDITION:
-			this.getInternal().putShort((short) (value + 128));
+			buffer.putShort((short) (value + 128));
 			break;
 
 		case INVERSION:
-			this.getInternal().putShort((short) -value);
+			buffer.putShort((short) -value);
 			break;
 
 		case STANDARD:
-			this.getInternal().putShort((short) value);
+			buffer.putShort((short) value);
 			break;
 
 		case SUBTRACTION:
-			this.getInternal().putShort((short) (128 - value));
+			buffer.putShort((short) (128 - value));
 			break;
 		}
 	}
@@ -300,36 +327,36 @@ public final class PacketBuilder {
 
 		this.setPosition(this.getPosition() + amount);
 
-		int requiredSpace = bytePosition - this.getInternal().position() + 1;
+		int requiredSpace = bytePosition - buffer.position() + 1;
 		requiredSpace += (amount + 7) / 8;
 
-		if (this.getInternal().remaining() < requiredSpace) {
+		if (buffer.remaining() < requiredSpace) {
 
-			ByteBuffer old = this.getInternal();
-			this.setInternal(ByteBuffer.allocate(old.capacity() + requiredSpace));
+			ByteBuffer old = buffer;
+			setBuffer(ByteBuffer.allocate(old.capacity() + requiredSpace));
 			old.flip();
-			this.getInternal().put(old);
+			buffer.put(old);
 		}
 		for (; amount > bitOffset; bitOffset = 8) {
 
-			byte temporary = this.getInternal().get(bytePosition);
+			byte temporary = buffer.get(bytePosition);
 			temporary &= ~ProtocolConstants.BIT_MASKS[bitOffset];
 			temporary |= (value >> (amount - bitOffset)) & ProtocolConstants.BIT_MASKS[bitOffset];
-			this.getInternal().put(bytePosition++, temporary);
+			buffer.put(bytePosition++, temporary);
 			amount -= bitOffset;
 		}
 		if (amount == bitOffset) {
 
-			byte temporary = this.getInternal().get(bytePosition);
+			byte temporary = buffer.get(bytePosition);
 			temporary &= ~ProtocolConstants.BIT_MASKS[bitOffset];
 			temporary |= value & ProtocolConstants.BIT_MASKS[bitOffset];
-			this.getInternal().put(bytePosition, temporary);
+			buffer.put(bytePosition, temporary);
 		} else {
 
-			byte temporary = this.getInternal().get(bytePosition);
+			byte temporary = buffer.get(bytePosition);
 			temporary &= ~(ProtocolConstants.BIT_MASKS[amount] << (bitOffset - amount));
 			temporary |= (value & ProtocolConstants.BIT_MASKS[amount]) << (bitOffset - amount);
-			this.getInternal().put(bytePosition, temporary);
+			buffer.put(bytePosition, temporary);
 		}
 	}
 
@@ -342,17 +369,6 @@ public final class PacketBuilder {
 		IntStream.range(0, source.position()).forEach(index -> {
 			putByte(source.get(index), ByteValue.STANDARD);
 		});
-	}
-
-	/**
-	 * Places a single integer into the internal buffer.
-	 * 
-	 * @param value The value of the integer.
-	 * 
-	 * @param definition The definition of any transformations performed on the integer.
-	 */
-	public final void putInt(int value, ByteValue definition) {
-		putInt(value, definition);
 	}
 	
 	/**
@@ -395,11 +411,11 @@ public final class PacketBuilder {
 		switch (access) {
 
 		case BIT_ACCESS:
-			setPosition(builder.position() * 8);
+			setPosition(buffer.position() * 8);
 			break;
 
 		case BYTE_ACCESS:
-			builder.position((getPosition() + 7) / 8);
+			buffer.position((getPosition() + 7) / 8);
 			break;
 		}
 	}
@@ -411,15 +427,15 @@ public final class PacketBuilder {
 	 * 		The string to place into the buffer.
 	 */
 	public final void putString(String string) {
-		builder.put(string.getBytes());
-		builder.put((byte) 10);
+		buffer.put(string.getBytes());
+		buffer.put((byte) 10);
 	}
 	
 	/**
 	 * Completes the variable short packet header.
 	 */
 	public final void endVariableShortPacketHeader() {
-		builder.putShort(getLength(), (short) (getPosition() - getLength() - 2));
+		buffer.putShort(getLength(), (short) (getPosition() - getLength() - 2));
 	}
 
 	/**
@@ -427,8 +443,8 @@ public final class PacketBuilder {
 	 * 
 	 * @return The returned instance.
 	 */
-	public final ByteBuffer getInternal() {
-		return builder;
+	public final ByteBuffer getBuffer() {
+		return buffer;
 	}
 
 	/**
@@ -472,7 +488,7 @@ public final class PacketBuilder {
 	 * 
 	 * @param buffer The new modification.
 	 */
-	public void setInternal(ByteBuffer buffer) {
-		this.builder = buffer;
+	public void setBuffer(ByteBuffer buffer) {
+		this.buffer = buffer;
 	}
 }

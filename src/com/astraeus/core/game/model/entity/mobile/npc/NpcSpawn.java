@@ -1,6 +1,7 @@
 package com.astraeus.core.game.model.entity.mobile.npc;
 
 import com.astraeus.core.game.model.entity.Facing;
+import com.astraeus.core.game.model.entity.Position;
 
 /**
  * A class which represents a single npc spawn in the virtual world.
@@ -15,19 +16,9 @@ public final class NpcSpawn {
 	private int id;
 	
 	/**
-	 * The x coordinate of this npc.
+	 * The position of this npc.
 	 */
-	private int x;
-
-	/**
-	 * The y coordinate of this npc.
-	 */
-	private int y;
-
-	/**
-	 * The height of this npc on a plane.
-	 */
-	private int height;
+	private Position position;
 
 	/**
 	 * The Walking type for the npc.
@@ -46,20 +37,14 @@ public final class NpcSpawn {
 	 * @param id
 	 * 		The id of the npc.
 	 * 
-	 * @param x
-	 * 		The x coordinate of this npc.
-	 * 
-	 * @param y
-	 * 		The y coordinate of this npc.
-	 * 
-	 * @param height
-	 * 		The height of this npc on a plane.
+	 * @param position
+	 * 		The position of this npc. 
 	 * 
 	 * @param randomWalk
 	 * 		The npc walks in a random direction.
 	 */
-	public NpcSpawn(int id, int x, int y, int height, boolean randomWalk) {
-		this(id, x, y, height, randomWalk, Facing.SOUTH);
+	public NpcSpawn(int id, Position position, boolean randomWalk) {
+		this(id, position, randomWalk, Facing.SOUTH);
 	}
 
 	/**
@@ -68,14 +53,8 @@ public final class NpcSpawn {
 	 * @param id
 	 * 		The id of the npc.
 	 * 
-	 * @param x
-	 * 		The x coordinate of this npc.
-	 * 
-	 * @param y
-	 * 		The y coordinate of this npc.
-	 * 
-	 * @param height
-	 * 		The height of this npc on a plane.
+	 * @param position
+	 * 		The position of this npc. 
 	 * 
 	 * @param randomWalk
 	 * 		The npc walks in a random direction.
@@ -83,11 +62,9 @@ public final class NpcSpawn {
 	 * @param facing
 	 * 		The npcs facing direction.
 	 */
-	public NpcSpawn(int id, int x, int y, int height, boolean randomWalk, Facing facing) {
+	public NpcSpawn(int id, Position position, boolean randomWalk, Facing facing) {
 		this.id = id;
-		this.x = x;
-		this.y = y;
-		this.height = height;
+		this.position = position;
 		this.randomWalk = randomWalk;
 		this.facing = facing;
 	}
@@ -100,24 +77,10 @@ public final class NpcSpawn {
 	}
 
 	/**
-	 * @return the x
+	 * @return the position
 	 */
-	public int getX() {
-		return x;
-	}
-
-	/**
-	 * @return the y
-	 */
-	public int getY() {
-		return y;
-	}
-
-	/**
-	 * @return the height
-	 */
-	public int getHeight() {
-		return height;
+	public Position getPosition() {
+		return position;
 	}
 
 	/**

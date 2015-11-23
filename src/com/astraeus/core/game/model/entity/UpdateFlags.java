@@ -15,5 +15,10 @@ public enum UpdateFlags {
 	/**
 	 * Updates a player's facing direction.
 	 */
-	FACE_POSITION;
+	FACE_POSITION,
+	
+	/**
+	 * Denotes an npc is added to a players local list.
+	 */
+	REGISTERED_LOCALLY;
 }

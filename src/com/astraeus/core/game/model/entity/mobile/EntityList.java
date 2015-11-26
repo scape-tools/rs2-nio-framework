@@ -76,7 +76,6 @@ public class EntityList<E extends MobileEntity> {
 		Server.getUpdateProcessor().getPlayers().put(e.getIndex(), (Player) e);
 		}
 		size++;
-		System.out.println("Size after adding: " + size);
 		return true;
 		}
 		return false;
@@ -98,7 +97,6 @@ public class EntityList<E extends MobileEntity> {
 			entities[e.getIndex()] = null;
 			slotQueue.add(e.getIndex());
 			size--;
-			System.out.println("Size after removing: " + size);
 			return true;
 		}
 		return false;

@@ -3,6 +3,8 @@ package com.astraeus.core.net.channel.packet.incoming.impl;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.astraeus.core.game.model.entity.item.Item;
+import com.astraeus.core.game.model.entity.item.ItemDefinition;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.net.channel.packet.IncomingPacket;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketListener;
@@ -31,6 +33,30 @@ public class CommandPacketListener implements IncomingPacketListener {
 		String command[] = new String(message).split(" ");
 		
 		switch(command[0]) {
+		
+		case "item":
+			try {
+				int itemId = Integer.parseInt(command[1]);
+				int itemAmount = Integer.parseInt(command[2]);
+				
+				if (itemId < 0 || itemAmount <= 0) {
+					player.sendMessage("Invalid input: " + command[1] + " " + command[2]);
+					return;
+				}
+
+
+				if (player.getInventoryContainer().getFreeSlots() < itemAmount && !ItemDefinition.getDefinitions()[itemId].isStackable()) {
+					player.sendMessage("You don't have enough inventory space to spawn this item..");
+					return;
+				}
+
+				player.getInventoryContainer().addItem(new Item(itemId, itemAmount));
+				player.sendMessage("You have successfully spawned " + itemAmount + "X " + ItemDefinition.getDefinitions()[itemId].getName() + ".");
+
+			} catch (Exception exception) {
+				player.sendMessage("Invalid syntax: " + command[0] + " " + command[1] + " " + command[2] + ".");
+			}
+			break;
 		
 		case "test":
 			player.sendMessage("This worked!");

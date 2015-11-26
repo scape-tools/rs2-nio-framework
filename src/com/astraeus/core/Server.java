@@ -11,6 +11,7 @@ import com.astraeus.core.game.processor.ScheduledProcessor;
 import com.astraeus.core.game.processor.impl.ScheduledNetworkProcessor;
 import com.astraeus.core.game.processor.impl.ScheduledUpdateProcessor;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketRegistration;
+import com.astraeus.core.utility.startup.ItemDefinitionLoader;
 import com.astraeus.core.utility.startup.ShopLoader;
 
 /**
@@ -46,8 +47,10 @@ public final class Server {
 	public static void main(String... args) throws IOException {
 
 		new IncomingPacketRegistration();
-		
+			
 		new ShopLoader();
+		
+		new ItemDefinitionLoader();
 		
 		//new NpcSpawnLoader();
 		

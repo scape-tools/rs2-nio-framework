@@ -4,11 +4,8 @@ import java.nio.ByteBuffer;
 import java.util.Iterator;
 
 import com.astraeus.core.Server;
-import com.astraeus.core.game.model.entity.UpdateFlags.UpdateFlag;
 import com.astraeus.core.game.model.entity.mobile.npc.Npc;
-import com.astraeus.core.game.model.entity.mobile.npc.update.UpdateBlock;
-import com.astraeus.core.game.model.entity.mobile.npc.update.impl.NpcMovementBlock;
-import com.astraeus.core.game.model.entity.mobile.npc.update.impl.StatefulUpdateBlock;
+import com.astraeus.core.game.model.entity.mobile.npc.update.NpcUpdating;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.net.channel.packet.OutgoingPacket;
 import com.astraeus.core.net.channel.packet.PacketBuilder;
@@ -28,22 +25,6 @@ public class NpcUpdatePacket extends OutgoingPacket {
 	public NpcUpdatePacket() {
 		super(65, PacketHeader.VARIABLE_SHORT, 16384);
 	}
-	
-	/**
-	 * Appends an update to the main update block.
-	 * 
-	 * @param block
-	 * 		The block to append.
-	 * 
-	 * @param builder
-	 * 		The builder to create a buffer.
-	 * 
-	 * @param npc
-	 * 		The npc to update.
-	 */
-	public final void append(UpdateBlock block, PacketBuilder builder, Npc npc) {
-		block.update(npc, builder);
-	}
 
 	@Override
 	public PacketBuilder dispatch(Player player) {
@@ -56,9 +37,9 @@ public class NpcUpdatePacket extends OutgoingPacket {
 			Npc npc = iterator.next();
 			
 			if(npc.getPosition().isWithinDistance(player.getPosition(), 15) && Server.getUpdateProcessor().getNpcs().containsKey(npc.getIndex())) {
-				append(new NpcMovementBlock(), builder, npc);
+				NpcUpdating.updateMovement(npc, builder);
 				if (npc.getUpdateFlags().isUpdateRequired()) {
-					append(new StatefulUpdateBlock(), update, npc);
+					NpcUpdating.appendUpdates(npc, update);
 				}
 			} else {
 				iterator.remove();
@@ -73,15 +54,9 @@ public class NpcUpdatePacket extends OutgoingPacket {
 			}
 			if (npc.getPosition().isWithinDistance(player.getPosition(), 15)) {
 				player.getLocalNpcs().add(npc);
-				npc.getUpdateFlags().flag(UpdateFlag.REGISTERED_LOCALLY);
-				builder.putBits(14,  npc.getIndex());
-				builder.putBits(5,  npc.getPosition().getY() - player.getPosition().getY());
-				builder.putBits(5, npc.getPosition().getX() - player.getPosition().getY());
-				builder.putBits(1, 1);
-				builder.putBits(12, npc.getId());
-				builder.putBits(1, 1);
+				NpcUpdating.addNPC(npc, player, update);
 				if(npc.getUpdateFlags().isUpdateRequired()) {
-					append(new StatefulUpdateBlock(), update, npc);
+					NpcUpdating.appendUpdates(npc, update);
 				}
 			}
 		}

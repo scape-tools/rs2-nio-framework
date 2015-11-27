@@ -69,7 +69,6 @@ public class EntityList<E extends MobileEntity> {
 		if(!e.isRegistered()) {
 		int slot = slotQueue.remove();
 		e.setRegistered(true);
-		System.out.println("assigning slot: " + slot);
 		e.setIndex(slot);
 		entities[slot] = e;
 		if (e instanceof Player) {

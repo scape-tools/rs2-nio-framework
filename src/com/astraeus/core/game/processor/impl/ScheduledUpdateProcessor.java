@@ -43,7 +43,6 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	 *            The instance of the new player.
 	 */
 	public final void addPlayer(Player player) {
-		System.out.println("adding player");
 		playerList.add(player);
 	}
 
@@ -64,10 +63,6 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 			for (final Player player : getPlayers().values()) {
 				player.prepare();
 			}
-			
-			for(final Npc npc : getNpcs().values()) {
-				npc.prepare();
-			}
 
 			for (final Player player : players.values()) {
 				player.getEventListener().update(player);
@@ -77,9 +72,6 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 				player.getUpdateFlags().clear();
 			}
 			
-			for(final Npc npc : getNpcs().values()) {
-				npc.getUpdateFlags().clear();
-			}
 		}
 	}
 	

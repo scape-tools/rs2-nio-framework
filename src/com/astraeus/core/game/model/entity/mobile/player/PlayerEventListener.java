@@ -10,7 +10,6 @@ import com.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import com.astraeus.core.game.pulse.PulseScheduler;
 import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
 import com.astraeus.core.net.channel.packet.outgoing.LogoutPacket;
-import com.astraeus.core.net.channel.packet.outgoing.NpcUpdatePacket;
 import com.astraeus.core.net.channel.packet.outgoing.PlayerUpdatePacket;
 
 public final class PlayerEventListener extends EntityEventListener<Player> {
@@ -51,6 +50,6 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 	public void update(Player player) {
 		
 			player.write(new PlayerUpdatePacket());			
-			player.write(new NpcUpdatePacket());
+			//player.write(new NpcUpdatePacket());
 	}
 }

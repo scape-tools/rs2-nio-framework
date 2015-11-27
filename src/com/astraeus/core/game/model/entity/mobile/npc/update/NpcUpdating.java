@@ -32,13 +32,13 @@ public class NpcUpdating {
 				builder.putBits(2, 0);
 				builder.putBits(1, 0);
 			} else {
-				builder.putBits(1, 0);
+				builder.putBit(false);
 			}			
 		} else {
-			builder.putBits(1, 1);
+			builder.putBit(true);
 			builder.putBits(2, 1);
 			builder.putBits(3, npc.getWalkingDirection());
-			builder.putBits(1, 1);
+			builder.putBit(npc.getUpdateFlags().isUpdateRequired() ? true : false);
 		}
 	}
 	
@@ -60,9 +60,9 @@ public class NpcUpdating {
 		builder.putBits(14,  npc.getIndex());
 		builder.putBits(5,  npc.getPosition().getY() - player.getPosition().getY());
 		builder.putBits(5, npc.getPosition().getX() - player.getPosition().getY());
-		builder.putBits(1, 1); //movement queue?
+		builder.putBit(npc.getUpdateFlags().isUpdateRequired()); //movement queue?
 		builder.putBits(12, npc.getId());
-		builder.putBits(1, npc.getUpdateFlags().isUpdateRequired() ? 1 : 0);
+		builder.putBit(true);
 	}
 	
 	/**

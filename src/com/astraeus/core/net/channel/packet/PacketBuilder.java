@@ -359,6 +359,16 @@ public final class PacketBuilder {
 			buffer.put(bytePosition, temporary);
 		}
 	}
+	
+	/**
+	 * Places a flag into the buffer.
+	 * 
+	 * @param flag
+	 * 		The flag to place into the buffer.
+	 */
+	public void putBit(boolean flag) {
+		putBits(1, flag ? 1 : 0);
+	}
 
 	/**
 	 * Writes a series of bytes derived from the internal buffer.

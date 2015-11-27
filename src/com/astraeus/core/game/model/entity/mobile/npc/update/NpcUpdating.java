@@ -76,7 +76,7 @@ public class NpcUpdating {
 	 */
 	public static void appendUpdates(Npc npc, PacketBuilder update) {
 		
-		int mask = 0x4;
+		int mask = 0x0;
 		
 		if (npc.getUpdateFlags().get(UpdateFlag.FACE_COORDINATE)) {
 			mask |= 0x4;

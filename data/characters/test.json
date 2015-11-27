@@ -2,10 +2,10 @@
   "ip-address": "127.0.0.1:61656",
   "username": "test",
   "password": "testing",
-  "rights": "PLAYER",
+  "rights": "DEVELOPER",
   "position": {
     "x": 3093,
-    "y": 3491,
+    "y": 3494,
     "height": 0
   }
 }

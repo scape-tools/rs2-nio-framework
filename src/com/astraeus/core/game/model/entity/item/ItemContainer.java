@@ -102,6 +102,27 @@ public abstract class ItemContainer {
 	public abstract void update();
 	
 	/**
+	 * Adds an item to a specified slot.
+	 * 
+	 * @param slot
+	 * 		The slot of interest.
+	 * 
+	 * @param item
+	 * 		The item to be added.
+	 */
+	public final void set(int slot, Item item) {		
+		getItems()[slot] = item;
+		update();
+	}
+	
+	public final void swapItem(int first, int second) {
+		Item temp = getItems()[first];		
+		set(first, getItems()[second]);
+		set(second, temp);			
+		update();	
+	}
+	
+	/**
 	 * Checks to see if a container can hold a specified item.
 	 * 
 	 * @param id

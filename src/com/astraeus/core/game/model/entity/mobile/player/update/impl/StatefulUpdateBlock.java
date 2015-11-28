@@ -47,6 +47,8 @@ public final class StatefulUpdateBlock extends UpdateBlock {
 				
 				final PacketBuilder properties = new PacketBuilder(ByteBuffer.allocate(128));				
 				properties.putByte(player.getAppearance().getGender().getIndicator());
+				properties.putByte(-1); //headicon
+				properties.putByte(-1); // skull
 				properties.putByte(0);
 				properties.putByte(0);
 				properties.putByte(0);

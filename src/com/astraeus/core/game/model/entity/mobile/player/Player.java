@@ -20,6 +20,7 @@ import com.astraeus.core.net.channel.events.WriteChannelEvent;
 import com.astraeus.core.net.channel.packet.OutgoingPacket;
 import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
 import com.astraeus.core.net.channel.packet.outgoing.ChatInterfacePacket;
+import com.astraeus.core.net.channel.packet.outgoing.ClearScreenPacket;
 import com.astraeus.core.net.channel.packet.outgoing.InterfaceAnimationPacket;
 import com.astraeus.core.net.channel.packet.outgoing.LogoutPacket;
 import com.astraeus.core.net.channel.packet.outgoing.NpcDialogueHeadPacket;
@@ -105,8 +106,21 @@ public final class Player extends MobileEntity {
 		this.context = context;
 	}
 	
+	public boolean isBusy() {
+		if(((Boolean) getAttributes().get(Attributes.BANKING))
+				|| (Boolean) getAttributes().get(Attributes.SHOPPING)
+				|| (Boolean) getAttributes().get(Attributes.TRADING)) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void sendString(String string, int widget) {
 		write(new SendStringPacket(string, widget));
+	}
+	
+	public void sendClearScreen() {
+		write(new ClearScreenPacket());
 	}
 	
 	public void sendChatBoxInterface(int interfaceId) {

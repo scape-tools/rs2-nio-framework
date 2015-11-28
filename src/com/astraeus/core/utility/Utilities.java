@@ -2,6 +2,15 @@ package com.astraeus.core.utility;
 
 public class Utilities {
 	
+	public static <T> int findFreeIndex(T[] t) {
+		for(int index = 0; index < t.length; index++) {
+			if(t[index] == null) {
+				return index;
+			}
+		}
+		return -1;
+	}
+	
 	/**
 	 * Converts a string into a long value. This is used for
 	 * the player appearance updating to update a players username.

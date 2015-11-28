@@ -9,7 +9,7 @@ import com.astraeus.core.Server;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 
 /**
- * A collection that provides functions for storing and manipulating entities. 
+ * A collection that provides functions for storing and manipulating entities.
  * This list does not support the storage of elements with a value of
  * {@code null}, and maintains an extremely strict ordering of the elements.
  * This list for storing characters will be much faster than typical
@@ -31,22 +31,22 @@ public class EntityList<E extends MobileEntity> {
 	 */
 	private E[] entities;
 
-    /**
-     * The queue containing all of the cached slots that can be assigned to
-     * {@link MobileEntity}s to prevent expensive lookups.
-     */
+	/**
+	 * The queue containing all of the cached slots that can be assigned to
+	 * {@link MobileEntity}s to prevent expensive lookups.
+	 */
 	private Queue<Integer> slotQueue = new ArrayDeque<>();
-	
+
 	/**
 	 * The capacity of this collection.
 	 */
-	private final int capacity;	
-	
+	private final int capacity;
+
 	/**
 	 * The size of this collection.
 	 */
 	private int size;
-	
+
 	@SuppressWarnings("unchecked")
 	public EntityList(int capacity) {
 		this.capacity = capacity;
@@ -54,43 +54,43 @@ public class EntityList<E extends MobileEntity> {
 		this.size = 0;
 		IntStream.rangeClosed(1, capacity).forEach(slotQueue::add);
 	}
-	
-    /**
-     * Adds an element to this collection.
-     *
-     * @param e
-     *            the element to add to this collection.
-     * @return {@code true} if the element was successfully added, {@code false}
-     *         otherwise.
-     */
+
+	/**
+	 * Adds an element to this collection.
+	 *
+	 * @param e
+	 *            the element to add to this collection.
+	 * @return {@code true} if the element was successfully added, {@code false}
+	 *         otherwise.
+	 */
 	public boolean add(E e) {
 		Objects.requireNonNull(e);
-		
-		if(!e.isRegistered()) {
-		int slot = slotQueue.remove();
-		e.setRegistered(true);
-		e.setIndex(slot);
-		entities[slot] = e;
-		if (e instanceof Player) {
-		Server.getUpdateProcessor().getPlayers().put(e.getIndex(), (Player) e);
-		}
-		size++;
-		return true;
+
+		if (!e.isRegistered()) {
+			int slot = slotQueue.remove();
+			e.setRegistered(true);
+			e.setIndex(slot);
+			entities[slot] = e;
+			if (e instanceof Player) {
+				Server.getUpdateProcessor().getPlayers().put(e.getIndex(), (Player) e);
+			}
+			size++;
+			return true;
 		}
 		return false;
 	}
-	
-    /**
-     * Removes an element from this collection.
-     *
-     * @param e
-     *            the element to remove from this collection.
-     * @return {@code true} if the element was successfully removed,
-     *         {@code false} otherwise.
-     */
+
+	/**
+	 * Removes an element from this collection.
+	 *
+	 * @param e
+	 *            the element to remove from this collection.
+	 * @return {@code true} if the element was successfully removed,
+	 *         {@code false} otherwise.
+	 */
 	public boolean remove(E e) {
 		Objects.requireNonNull(e);
-		if(e.isRegistered() && entities[e.getIndex()] != null) {
+		if (e.isRegistered() && entities[e.getIndex()] != null) {
 			e.setRegistered(false);
 			e.dispose();
 			entities[e.getIndex()] = null;
@@ -114,5 +114,5 @@ public class EntityList<E extends MobileEntity> {
 	public int getCapacity() {
 		return capacity;
 	}
-	
+
 }

@@ -23,6 +23,8 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	 */
 	private final Map<Integer, Npc> npcs = new ConcurrentHashMap<Integer, Npc>();
 	
+	
+	
 	private final EntityList<Player> playerList = new EntityList<>(2000);
 
 	/**
@@ -60,17 +62,31 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	@Override
 	public void execute() {
 		synchronized (this) {
+			
+			//updating procedure
+			
 			for (final Player player : getPlayers().values()) {
-				player.prepare();
+				player.prepare(); //movement
 			}
-
+			
+//			for(final Npc npc : getNpcs().values()) {
+//				npc.prepare(); //movement
+//			}
+			
+			// sends player and npc update packet
 			for (final Player player : players.values()) {
 				player.getEventListener().update(player);
 			}
-
+			
+			// npc flag-based updates
 			for (final Player player : players.values()) {
-				player.getUpdateFlags().clear();
+				player.getUpdateFlags().clear(); // clears the flags
 			}
+			
+//			//npc flag-based updates
+//			for(final Npc npc : getNpcs().values()) {
+//				npc.getUpdateFlags().clear(); //clears the flags
+//			}
 			
 		}
 	}

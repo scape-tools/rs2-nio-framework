@@ -33,6 +33,9 @@ public class NpcUpdatePacket extends OutgoingPacket {
 		
 		builder.setAccessType(ByteAccess.BIT_ACCESS);
 		builder.putBits(8, player.getLocalNpcs().size());
+		
+		System.out.println("Position: " + builder.getPosition() + " Packet Size: " + builder.getLength());
+		
 		for(Iterator<Npc> iterator = player.getLocalNpcs().iterator(); iterator.hasNext();) {
 			Npc npc = iterator.next();
 			

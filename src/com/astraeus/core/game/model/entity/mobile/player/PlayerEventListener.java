@@ -10,6 +10,7 @@ import com.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import com.astraeus.core.game.pulse.PulseScheduler;
 import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
 import com.astraeus.core.net.channel.packet.outgoing.LogoutPacket;
+import com.astraeus.core.net.channel.packet.outgoing.NpcUpdatePacket;
 import com.astraeus.core.net.channel.packet.outgoing.PlayerUpdatePacket;
 
 public final class PlayerEventListener extends EntityEventListener<Player> {

@@ -11,15 +11,14 @@ public class Npc extends MobileEntity {
 	 */
 	private int id;
 	
-	private Position position;
+	private Position initialPosition;
 	
 	private int spawnIndex;
 	
 	private final NpcEventListener listener = new NpcEventListener();
 
-	public Npc(int id, Position position, int spawnIndex) {
+	public Npc(int id, int spawnIndex) {
 		this.id = id;
-		this.position = position;
 		this.spawnIndex = spawnIndex;
 	}
 
@@ -36,11 +35,15 @@ public class Npc extends MobileEntity {
 		return id;
 	}
 	
+	public void setInitialPosition(Position initialPosition) {
+		this.initialPosition = initialPosition;
+	}
+	
 	/**
 	 * @return the position
 	 */
 	public Position getPosition() {
-		return position;
+		return initialPosition;
 	}
 	
 	/**

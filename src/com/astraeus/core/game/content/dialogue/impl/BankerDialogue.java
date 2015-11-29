@@ -13,19 +13,23 @@ public final class BankerDialogue extends Dialogue {
 		switch (getDialogueStage()) {
 
 		case 0:
-			Dialogues.sendNpcChat(player, "Banker", 494, Expression.HAPPY, "Good day. How may I help you?");
+			Dialogues.sendNpcChat(player, "Banker", 494, Expression.HAPPY, "Npc dialogue works.");
+			break;
+			
+		case 1:
+			Dialogues.sendNpcChat(player, "Banker", 494, Expression.HAPPY, "But player dialogue does not.", "Lets find out...");
 			break;
 
-		case 1:
+		case 2:
 			Dialogues.sendPlayerChat(player, Expression.CALM, "Hello there!");
 			break;
 			
-		case 2:
-			Dialogues.sendPlayerChat(player, Expression.CALM, "Hello there!", "Test two");
+		case 3:
+			Dialogues.sendPlayerChat(player, Expression.CALM, "Helloooo!", "Helloooo");
 			break;
 			
-		case 3:
-			Dialogues.sendPlayerChat(player, Expression.CALM, "Hello there!", "Test two", "Test three");
+		case 4:
+			Dialogues.sendPlayerChat(player, Expression.CALM, "Testing..", "Test two", "Test three");
 			Dialogues.endDialogue(player);
 			break;
 

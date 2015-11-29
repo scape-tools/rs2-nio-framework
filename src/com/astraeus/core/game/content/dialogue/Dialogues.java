@@ -191,27 +191,27 @@ public class Dialogues {
 		switch(lines.length) {		
 		case 1:
 			player.sendInterfaceAnimation(969,  expression.getId());
-			player.sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 970);
-			player.sendString(lines[0], 971);
+			player.sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 714);
+			player.sendString(lines[0], 715);
 			player.sendDialoguePlayerHead(969);
 			player.sendChatBoxInterface(968);
 			break;
 			
 		case 2:
 			player.sendInterfaceAnimation(974,  expression.getId());
-			player.sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 975);
-			player.sendString(lines[0], 976);
-			player.sendString(lines[1], 977);
+			player.sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 719);
+			player.sendString(lines[0], 720);
+			player.sendString(lines[1], 721);
 			player.sendDialoguePlayerHead(974);
 			player.sendChatBoxInterface(973);
 			break;
 			
 		case 3:
 			player.sendInterfaceAnimation(980,  expression.getId());
-			player.sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 981);
-			player.sendString(lines[0], 982);
-			player.sendString(lines[1], 983);
-			player.sendString(lines[2], 984);
+			player.sendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 725);
+			player.sendString(lines[0], 726);
+			player.sendString(lines[1], 727);
+			player.sendString(lines[2], 728);
 			player.sendDialoguePlayerHead(980);
 			player.sendChatBoxInterface(979);
 			break;

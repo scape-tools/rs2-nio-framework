@@ -3,7 +3,6 @@ package com.astraeus.core.net.channel.packet.outgoing;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.net.channel.packet.OutgoingPacket;
 import com.astraeus.core.net.channel.packet.PacketBuilder;
-import com.astraeus.core.net.channel.packet.PacketHeader;
 import com.astraeus.core.net.channel.protocol.codec.game.ByteOrder;
 
 /**
@@ -25,7 +24,7 @@ public class ChatInterfacePacket extends OutgoingPacket {
 	 * 		The id of the interface to show in the chat-box.
 	 */
 	public ChatInterfacePacket(int interfaceId) {
-		super(164, PacketHeader.STANDARD, 3);
+		super(164, 3);
 		this.interfaceId = interfaceId;
 	}
 

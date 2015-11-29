@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import com.astraeus.core.game.model.entity.item.Item;
 import com.astraeus.core.game.model.entity.item.ItemDefinition;
+import com.astraeus.core.game.model.entity.item.container.DepositContainer;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.net.channel.packet.IncomingPacket;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketListener;
@@ -33,6 +34,14 @@ public class CommandPacketListener implements IncomingPacketListener {
 		String command[] = new String(message).split(" ");
 		
 		switch(command[0]) {
+		
+		case "interface":
+			try {
+			player.sendDisplayInterface(Integer.parseInt(command[1]));
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+			break;
 		
 		case "sendstring":
 			int index = Integer.parseInt(command[1]);
@@ -66,7 +75,7 @@ public class CommandPacketListener implements IncomingPacketListener {
 			break;
 		
 		case "test":
-			player.sendMessage("This worked!");
+			DepositContainer.openDepositBox(player);
 			break;
 			
 		case "debug":

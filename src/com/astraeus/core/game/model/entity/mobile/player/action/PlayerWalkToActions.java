@@ -3,6 +3,7 @@ package com.astraeus.core.game.model.entity.mobile.player.action;
 import com.astraeus.core.game.content.dialogue.Dialogues;
 import com.astraeus.core.game.content.dialogue.impl.BankerDialogue;
 import com.astraeus.core.game.model.entity.Position;
+import com.astraeus.core.game.model.entity.item.container.DepositContainer;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 
 public final class PlayerWalkToActions {
@@ -13,6 +14,10 @@ public final class PlayerWalkToActions {
 		
 		case 2213:
 			Dialogues.sendDialogue(player, new BankerDialogue());
+			break;
+			
+		case 9398:
+			DepositContainer.openDepositBox(player);
 			break;
 
 		default:

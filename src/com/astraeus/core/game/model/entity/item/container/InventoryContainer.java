@@ -34,7 +34,7 @@ public class InventoryContainer extends ItemContainer {
 
 				if (ItemDefinition.getDefinitions()[item.getId()].isStackable()) {
 					getItems()[slot].setAmount(getItems()[slot].getAmount() + item.getAmount());
-					update();
+					updateContainer();
 					return;
 				}
 			}
@@ -54,7 +54,7 @@ public class InventoryContainer extends ItemContainer {
 					}
 				}
 			}
-			update();
+			updateContainer();
 			return;
 		}
 
@@ -62,7 +62,7 @@ public class InventoryContainer extends ItemContainer {
 
 			if (getItems()[slot] == null) {
 				getItems()[slot] = item;
-				update();
+				updateContainer();
 				break;
 			}
 		}	
@@ -87,19 +87,19 @@ public class InventoryContainer extends ItemContainer {
 
 				if (getItems()[slot].getAmount() > amount && ItemDefinition.getDefinitions()[id].isStackable()) {
 					getItems()[slot].setAmount(getItems()[slot].getAmount() - amount);
-					update();
+					updateContainer();
 					break;
 				}
 				getItems()[slot] = new Item(-1, 0);
 				getItems()[slot] = null;
-				update();
+				updateContainer();
 				deleteCount ++;
 			}
 		}
 	}
 	
 	@Override
-	public void update() {
+	public void updateContainer() {
 		getPlayer().write(new ItemOnInterfacePacket(3214, getItems()));
 	}
 	

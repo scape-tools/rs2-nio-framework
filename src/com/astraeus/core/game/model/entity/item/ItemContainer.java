@@ -99,7 +99,7 @@ public abstract class ItemContainer {
 	/**
 	 * Updates a container.
 	 */
-	public abstract void update();
+	public abstract void updateContainer();
 	
 	/**
 	 * Adds an item to a specified slot.
@@ -112,14 +112,14 @@ public abstract class ItemContainer {
 	 */
 	public final void set(int slot, Item item) {		
 		getItems()[slot] = item;
-		update();
+		updateContainer();
 	}
 	
 	public final void swapItem(int first, int second) {
 		Item temp = getItems()[first];		
 		set(first, getItems()[second]);
 		set(second, temp);			
-		update();	
+		updateContainer();	
 	}
 	
 	/**

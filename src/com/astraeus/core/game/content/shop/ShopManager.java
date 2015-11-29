@@ -42,7 +42,7 @@ public class ShopManager {
 			 if (shop.getId() == shopId) {
 				 player.getAttributes().put(Attributes.SHOPPING, true);
 				 //player.getPacketSender().sendInventoryInterface(3824, 3822);
-				 player.getInventoryContainer().update();
+				 player.getInventoryContainer().updateContainer();
 				// player.getPacketSender().sendString(shop.getTitle(), 3901);
 				 //player.getPacketSender().sendItemsOnInterface(3900, shop.getStock().getItems());
 			 }

@@ -3,13 +3,14 @@ package com.astraeus.core.game.model.entity.item.container;
 import com.astraeus.core.game.model.entity.item.Item;
 import com.astraeus.core.game.model.entity.item.ItemContainer;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
+import com.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 
-public class ShopContainer extends ItemContainer {
+public class BankContainer extends ItemContainer {
 
 	private final Player player;
 	
-	public ShopContainer(Player player) {
-		super(40, StackType.ALWAYS_STACK);
+	public BankContainer(Player player) {
+		super(352, StackType.ALWAYS_STACK);
 		this.player = player;
 	}
 
@@ -28,11 +29,15 @@ public class ShopContainer extends ItemContainer {
 		
 	}
 	
-	/**
-	 * @return the player
-	 */
+	public static void openBank(Player player) {
+		player.getAttributes().put(Attributes.BANKING, true);
+		player.sendInventoryInterface(5292, 5063);
+		//player.sendItemOnInterface(5064, new Item[]{new Item(4151, 1), new Item(995, 1000000)});
+		//player.sendItemOnInterface(5382, new Item[]{new Item(6585, 4)});
+	}
+	
 	public Player getPlayer() {
 		return player;
 	}
-
+	
 }

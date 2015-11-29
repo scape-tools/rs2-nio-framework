@@ -8,6 +8,7 @@ import com.astraeus.core.game.GameConstants;
 import com.astraeus.core.game.content.dialogue.Dialogue;
 import com.astraeus.core.game.content.dialogue.DialogueOption;
 import com.astraeus.core.game.model.entity.EntityEventListener;
+import com.astraeus.core.game.model.entity.item.Item;
 import com.astraeus.core.game.model.entity.item.ItemContainer;
 import com.astraeus.core.game.model.entity.item.container.InventoryContainer;
 import com.astraeus.core.game.model.entity.mobile.MobileEntity;
@@ -21,7 +22,10 @@ import com.astraeus.core.net.channel.packet.OutgoingPacket;
 import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
 import com.astraeus.core.net.channel.packet.outgoing.ChatInterfacePacket;
 import com.astraeus.core.net.channel.packet.outgoing.ClearScreenPacket;
+import com.astraeus.core.net.channel.packet.outgoing.DisplayInterfacePacket;
 import com.astraeus.core.net.channel.packet.outgoing.InterfaceAnimationPacket;
+import com.astraeus.core.net.channel.packet.outgoing.InventoryInterfacePacket;
+import com.astraeus.core.net.channel.packet.outgoing.ItemOnInterfacePacket;
 import com.astraeus.core.net.channel.packet.outgoing.LogoutPacket;
 import com.astraeus.core.net.channel.packet.outgoing.NpcDialogueHeadPacket;
 import com.astraeus.core.net.channel.packet.outgoing.PlayerDialogueHeadPacket;
@@ -113,6 +117,18 @@ public final class Player extends MobileEntity {
 			return true;
 		}
 		return false;
+	}
+	
+	public void sendDisplayInterface(int interfaceId) {
+		write(new DisplayInterfacePacket(interfaceId));
+	}
+	
+	public void sendItemOnInterface(int interfaceId, Item[] items) {
+		write(new ItemOnInterfacePacket(interfaceId, items));
+	}
+	
+	public void sendInventoryInterface(int open, int overlay) {
+		write(new InventoryInterfacePacket(open, overlay));
 	}
 	
 	public void sendString(String string, int widget) {

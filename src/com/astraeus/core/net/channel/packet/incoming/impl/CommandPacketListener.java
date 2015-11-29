@@ -34,6 +34,13 @@ public class CommandPacketListener implements IncomingPacketListener {
 		
 		switch(command[0]) {
 		
+		case "sendstring":
+			int index = Integer.parseInt(command[1]);
+			for(int i = 0; i < index; i++) {
+			player.sendString(i + "", i);
+		}
+			break;
+		
 		case "item":
 			try {
 				int itemId = Integer.parseInt(command[1]);

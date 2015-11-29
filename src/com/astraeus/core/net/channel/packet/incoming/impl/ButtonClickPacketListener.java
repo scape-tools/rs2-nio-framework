@@ -8,7 +8,6 @@ import com.astraeus.core.game.model.entity.mobile.player.Rights;
 import com.astraeus.core.net.channel.packet.IncomingPacket;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketListener;
 import com.astraeus.core.net.channel.packet.incoming.IncomingPacketOpcode;
-import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
 import com.astraeus.core.net.channel.packet.outgoing.LogoutPacket;
 
 /**
@@ -39,8 +38,12 @@ public class ButtonClickPacketListener implements IncomingPacketListener {
 	public void handleMessage(Player player, IncomingPacket packet) {
 		final int button = packet.getBuffer().getShort();
 
-		if (isDialogueButton(button) && player.getDialogueOption() != null && player.getDialogueOption().handleSelection(player, button)) {
+		if (isDialogueButton(button) && player.getDialogueOption() != null && player.getDialogueOption().handleSelection(player, button)); {
 
+		}
+		
+		if (player.getRights().greaterOrEqual(Rights.DEVELOPER) && player.isServerDebug()) {
+			player.sendMessage("[ButtonClick] - ButtonId: " + button);
 		}
 		
 		switch (button) {
@@ -64,7 +67,7 @@ public class ButtonClickPacketListener implements IncomingPacketListener {
 
 		default:
 			if (player.getRights().greaterOrEqual(Rights.DEVELOPER) && player.isServerDebug()) {
-			player.write(new ChatBoxMessagePacket("[ButtonClick] - ButtonId: " + button));
+			player.sendMessage("[ButtonClick] - Unhandled ButtonId: " + button);
 			}
 			break;
 

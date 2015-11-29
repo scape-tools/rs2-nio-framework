@@ -47,65 +47,46 @@ public class Dialogues {
 	public static final void endDialogue(Player player) {
 		player.getDialogue().setDialogueStage(-1);
 	}
-
+	
 	/**
-	 * Sends a dialogue option.
 	 * 
-	 * @param player
-	 * 		The player that is receiving the dialogue option.
-	 * 
-	 * @param option
-	 * 		The option dialogue.
-	 * 
-	 * @param lines
-	 * 		The lines in the option dialogue.
 	 */
-	public static final void sendOption(Player player, DialogueOption option, String... lines) {
-		validateLength(lines);
-		switch (lines.length) {
-		case 1:
-			player.sendString("Select an Option", 2460);
-			player.sendString(lines[0], 2461);
-			player.sendString(lines[1], 2462);
-			player.sendChatBoxInterface(2459);
-			player.setDialogueOption(option);
-			break;
-
-		case 2:
-			player.sendString("Select an Option", 2470);
-			player.sendString(lines[0], 2471);
-			player.sendString(lines[1], 2472);
-			player.sendString(lines[2], 2472);
-			player.sendChatBoxInterface(2469);
-			player.setDialogueOption(option);
-			break;
-
-		case 3:
-			player.sendString("Select an Option", 2481);
-			player.sendString(lines[0], 2482);
-			player.sendString(lines[1], 2483);
-			player.sendString(lines[2], 2484);
-			player.sendString(lines[3], 2485);
-			player.sendChatBoxInterface(2480);
-			player.setDialogueOption(option);
-			break;
-
-		case 4:
-			player.sendString("Select an Option", 2493);
-			player.sendString(lines[0], 2494);
-			player.sendString(lines[1], 2495);
-			player.sendString(lines[2], 2496);
-			player.sendString(lines[3], 2497);
-			player.sendString(lines[4], 2498);
-			player.sendChatBoxInterface(2492);
-			player.setDialogueOption(option);
-			break;
-
-		default:
-			logger.log(Level.SEVERE, String.format("Invalid dialogue option line length: %s", lines.length));
-			break;
-		}
-
+	public static void sendOption(Player player, String option1, String option2, DialogueOption option) {
+		player.sendString("Select an Option", 2460);
+		player.sendString(option1, 2505);
+		player.sendString(option2, 2206);
+		player.sendChatBoxInterface(2459);
+		player.setDialogueOption(option);
+	}
+	
+	public static void sendOption(Player player, String option1, String option2, String option3, DialogueOption option) {
+		player.sendString("Select an Option", 2470);
+		player.sendString(option1, 2215);
+		player.sendString(option2, 2216);
+		player.sendString(option3, 2217);
+		player.sendChatBoxInterface(2469);
+		player.setDialogueOption(option);
+	}
+	
+	public static void sendOption(Player player, String option1, String option2, String option3, String option4, DialogueOption option) {
+		player.sendString("Select an Option", 2481);
+		player.sendString(option1, 2226);
+		player.sendString(option2, 2227);
+		player.sendString(option3, 2228);
+		player.sendString(option4, 2229);
+		player.sendChatBoxInterface(2480);
+		player.setDialogueOption(option);
+	}
+	
+	public static void sendOption(Player player, String option1, String option2, String option3, String option4, String option5, DialogueOption option) {
+		player.sendString("Select an Option", 2493);
+		player.sendString(option1, 2238);
+		player.sendString(option2, 2239);
+		player.sendString(option3, 2240);
+		player.sendString(option4, 2241);
+		player.sendString(option5, 2242);
+		player.sendChatBoxInterface(2492);
+		player.setDialogueOption(option);
 	}
 	
 	/**

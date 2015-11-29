@@ -1,6 +1,7 @@
 package com.astraeus.core.game.content.dialogue.impl;
 
 import com.astraeus.core.game.content.dialogue.Dialogue;
+import com.astraeus.core.game.content.dialogue.DialogueOption;
 import com.astraeus.core.game.content.dialogue.Dialogues;
 import com.astraeus.core.game.content.dialogue.Expression;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
@@ -13,26 +14,73 @@ public final class BankerDialogue extends Dialogue {
 		switch (getDialogueStage()) {
 
 		case 0:
-			Dialogues.sendNpcChat(player, "Banker", 494, Expression.HAPPY, "Npc dialogue works.");
+			Dialogues.sendNpcChat(player, "Banker", 494, Expression.HAPPY, "Good day. How may I help you?");
 			break;
 			
 		case 1:
-			Dialogues.sendNpcChat(player, "Banker", 494, Expression.HAPPY, "But player dialogue does not.", "Lets find out...");
-			break;
+			Dialogues.sendOption(player, "I'd like to access my bank account, please.", "I'd like to check my PIN settings.", "I don't need anything.", new DialogueOption() {
 
-		case 2:
-			Dialogues.sendPlayerChat(player, Expression.CALM, "Hello there!");
-			break;
-			
-		case 3:
-			Dialogues.sendPlayerChat(player, Expression.CALM, "Helloooo!", "Helloooo");
-			break;
-			
-		case 4:
-			Dialogues.sendPlayerChat(player, Expression.CALM, "Testing..", "Test two", "Test three");
-			Dialogues.endDialogue(player);
-			break;
+				@Override
+				public boolean handleSelection(Player player, int buttonId) {
 
+					switch(buttonId) {
+					case FIRST_OPTION:
+						Dialogues.sendDialogue(player, new Dialogue() {
+
+							@Override
+							public void sendDialogues(Player player) {
+								switch(getDialogueStage()) {
+								
+								case 0:
+									Dialogues.sendPlayerChat(player, Expression.CALM, "I'd like to access my bank account, please.");
+									Dialogues.endDialogue(player);
+									break;
+								}
+							}
+							
+						});
+						break;
+					case SECOND_OPTION:						
+						Dialogues.sendDialogue(player, new Dialogue() {
+
+							@Override
+							public void sendDialogues(Player player) {
+							
+								switch(getDialogueStage()) {
+								case 0:
+									Dialogues.sendPlayerChat(player, Expression.CALM, "I'd like to check my PIN settings.");
+									break;
+									
+								case 1:
+									Dialogues.sendNpcChat(player, "Banker", 494, Expression.CALM, "Sorry, this feature is currently unavailable.");
+									Dialogues.endDialogue(player);
+									break;
+								}
+							}
+							
+						});						
+						break;
+					case THIRD_OPTION:
+						Dialogues.sendDialogue(player, new Dialogue() {
+
+							@Override
+							public void sendDialogues(Player player) {
+								switch(getDialogueStage()) {
+								case 0:
+									Dialogues.sendPlayerChat(player, Expression.CALM, "I don't need anything.");
+									Dialogues.endDialogue(player);
+									break;
+								}
+							}							
+						});
+						break;		
+					}			
+					
+					return false;
+				}
+				
+			});
+			break;
 		}
 	}
 }

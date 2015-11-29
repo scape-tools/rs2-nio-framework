@@ -4,7 +4,6 @@ import com.astraeus.core.game.content.dialogue.Dialogues;
 import com.astraeus.core.game.content.dialogue.impl.BankerDialogue;
 import com.astraeus.core.game.model.entity.Position;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
-import com.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
 
 public final class PlayerWalkToActions {
 
@@ -28,7 +27,7 @@ public final class PlayerWalkToActions {
 		switch (index) {
 		
 		default:
-			player.write(new ChatBoxMessagePacket("[Second Click Object] - Unhandled click: ObjectId: " + index));
+			player.sendMessage("[Second Click Object] - Unhandled click: ObjectId: " + index);
 			break;
 			
 		}

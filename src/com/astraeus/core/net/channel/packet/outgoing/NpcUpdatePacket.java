@@ -3,7 +3,7 @@ package com.astraeus.core.net.channel.packet.outgoing;
 import java.nio.ByteBuffer;
 import java.util.Iterator;
 
-import com.astraeus.core.Server;
+import com.astraeus.core.game.World;
 import com.astraeus.core.game.model.entity.mobile.npc.Npc;
 import com.astraeus.core.game.model.entity.mobile.npc.update.NpcUpdating;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
@@ -34,12 +34,10 @@ public class NpcUpdatePacket extends OutgoingPacket {
 		builder.setAccessType(ByteAccess.BIT_ACCESS);
 		builder.putBits(8, player.getLocalNpcs().size());
 		
-		System.out.println("Position: " + builder.getPosition() + " Packet Size: " + builder.getLength());
-		
 		for(Iterator<Npc> iterator = player.getLocalNpcs().iterator(); iterator.hasNext();) {
 			Npc npc = iterator.next();
 			
-			if(npc.getPosition().isWithinDistance(player.getPosition(), 15) && Server.getUpdateProcessor().getNpcs().containsKey(npc.getIndex())) {
+			if(npc.getPosition().isWithinDistance(player.getPosition(), 15) && World.getNpcList().getSize() > 0) {
 				NpcUpdating.updateMovement(npc, builder);
 				if (npc.getUpdateFlags().isUpdateRequired()) {
 					NpcUpdating.appendUpdates(npc, update);
@@ -51,7 +49,7 @@ public class NpcUpdatePacket extends OutgoingPacket {
 			}
 		}
 		
-		for(Npc npc : Server.getUpdateProcessor().getNpcs().values()) {
+		for(Npc npc : (Npc[]) World.getNpcList().getIndexes()) {
 			if (player.getLocalNpcs().contains(npc)) {
 				continue;
 			}

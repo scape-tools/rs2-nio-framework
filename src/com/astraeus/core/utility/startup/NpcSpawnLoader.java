@@ -3,7 +3,7 @@ package com.astraeus.core.utility.startup;
 import java.util.Objects;
 
 import com.astraeus.core.Configuration;
-import com.astraeus.core.Server;
+import com.astraeus.core.game.World;
 import com.astraeus.core.game.model.entity.Facing;
 import com.astraeus.core.game.model.entity.Position;
 import com.astraeus.core.game.model.entity.mobile.npc.NpcSpawn;
@@ -17,7 +17,7 @@ public class NpcSpawnLoader extends JsonLoader {
 	public NpcSpawnLoader() {
 		super(Configuration.DATA + "json/npc_spawns.json");
 		load();
-		System.out.println("Loaded: " + Server.getUpdateProcessor().getNpcs().size() + " npc spawn.");
+		System.out.println("Loaded: " + World.getNpcList().getSize() + " npc spawn.");
 	}
 
 	@Override

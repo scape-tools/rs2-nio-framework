@@ -3,7 +3,7 @@ package com.astraeus.core.game.processor.impl;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.astraeus.core.game.model.entity.mobile.EntityList;
+import com.astraeus.core.game.model.entity.mobile.CharacterList;
 import com.astraeus.core.game.model.entity.mobile.npc.Npc;
 import com.astraeus.core.game.model.entity.mobile.player.Player;
 import com.astraeus.core.game.processor.ScheduledProcessor;
@@ -17,15 +17,8 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	 * in a index to instance relationship.
 	 */
 	private final ConcurrentHashMap<Integer, Player> players = new ConcurrentHashMap<Integer, Player>();
-
-	/**
-	 * A collection of the active mobs in the virtual world.
-	 */
-	private final Map<Integer, Npc> npcs = new ConcurrentHashMap<Integer, Npc>();
 	
-	
-	
-	private final EntityList<Player> playerList = new EntityList<>(2000);
+	private final CharacterList<Player> playerList = new CharacterList<>(2000);
 
 	/**
 	 * The overloaded class constructor used for instantiation of this class
@@ -100,7 +93,4 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 		return players;
 	}
 	
-	public Map<Integer, Npc> getNpcs() {
-		return npcs;
-	}
 }

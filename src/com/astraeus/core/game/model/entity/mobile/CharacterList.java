@@ -24,7 +24,7 @@ import com.astraeus.core.game.model.entity.mobile.player.Player;
  * @param <E>
  *            the type of character being managed with this collection.
  */
-public class EntityList<E extends MobileEntity> {
+public class CharacterList<E extends MobileEntity> {
 
 	/**
 	 * The array of {@link MobileEntity}s.
@@ -48,7 +48,7 @@ public class EntityList<E extends MobileEntity> {
 	private int size;
 
 	@SuppressWarnings("unchecked")
-	public EntityList(int capacity) {
+	public CharacterList(int capacity) {
 		this.capacity = capacity;
 		this.entities = (E[]) new MobileEntity[capacity];
 		this.size = 0;

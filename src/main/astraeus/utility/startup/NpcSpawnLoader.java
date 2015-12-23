@@ -6,11 +6,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import main.astraeus.core.Configuration;
-import main.astraeus.core.game.World;
-import main.astraeus.core.game.model.entity.Facing;
+import main.astraeus.core.game.model.Direction;
 import main.astraeus.core.game.model.entity.Position;
 import main.astraeus.core.game.model.entity.mobile.npc.NpcSpawn;
-import main.astraeus.core.game.model.entity.mobile.npc.Npcs;
 import main.astraeus.utility.JsonLoader;
 
 public class NpcSpawnLoader extends JsonLoader {
@@ -18,7 +16,7 @@ public class NpcSpawnLoader extends JsonLoader {
 	public NpcSpawnLoader() {
 		super(Configuration.DATA + "json/npc_spawns.json");
 		load();
-		System.out.println("Loaded: " + World.getNpcList().getSize() + " npc spawn.");
+		//System.out.println("Loaded: " + World.getNpcList().getSize() + " npc spawn.");
 	}
 
 	@Override
@@ -27,7 +25,7 @@ public class NpcSpawnLoader extends JsonLoader {
 		Position position = builder.fromJson(reader.get("position"), Position.class);
 		boolean randomWalk = reader.get("randomWalk").getAsBoolean();
 		String facing = Objects.requireNonNull(reader.get("facing").getAsString());
-		NpcSpawn spawn = new NpcSpawn(id, position, randomWalk, Facing.valueOf(facing));
+		NpcSpawn spawn = new NpcSpawn(id, position, randomWalk, Direction.valueOf(facing));
 		//Npcs.createNpc(spawn);
 	}
 

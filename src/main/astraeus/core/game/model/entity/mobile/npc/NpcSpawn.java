@@ -1,6 +1,6 @@
 package main.astraeus.core.game.model.entity.mobile.npc;
 
-import main.astraeus.core.game.model.entity.Facing;
+import main.astraeus.core.game.model.Direction;
 import main.astraeus.core.game.model.entity.Position;
 
 /**
@@ -23,7 +23,7 @@ public final class NpcSpawn {
 	/**
 	 * The Walking type for the npc.
 	 */
-	private Facing facing;
+	private Direction facing;
 	
 	/**
 	 * The npcs ability to walk in random directions.
@@ -44,7 +44,7 @@ public final class NpcSpawn {
 	 * 		The npc walks in a random direction.
 	 */
 	public NpcSpawn(int id, Position position, boolean randomWalk) {
-		this(id, position, randomWalk, Facing.SOUTH);
+		this(id, position, randomWalk, Direction.SOUTH);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public final class NpcSpawn {
 	 * @param facing
 	 * 		The npcs facing direction.
 	 */
-	public NpcSpawn(int id, Position position, boolean randomWalk, Facing facing) {
+	public NpcSpawn(int id, Position position, boolean randomWalk, Direction facing) {
 		this.id = id;
 		this.position = position;
 		this.randomWalk = randomWalk;
@@ -86,7 +86,7 @@ public final class NpcSpawn {
 	/**
 	 * @return the facing
 	 */
-	public Facing getFacing() {
+	public Direction getFacingDirection() {
 		return facing;
 	}
 

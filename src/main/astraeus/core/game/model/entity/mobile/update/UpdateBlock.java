@@ -1,6 +1,6 @@
 package main.astraeus.core.game.model.entity.mobile.update;
 
-import main.astraeus.core.game.model.entity.mobile.MobileEntity;
+import main.astraeus.core.game.model.entity.mobile.Character;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.core.net.channel.packet.PacketBuilder;
 
@@ -9,7 +9,7 @@ import main.astraeus.core.net.channel.packet.PacketBuilder;
  * 
  * @author SeVen
  */
-public abstract class UpdateBlock<E extends MobileEntity>{
+public abstract class UpdateBlock<E extends Character>{
 	
 	/**
 	 * The enumerated update type.

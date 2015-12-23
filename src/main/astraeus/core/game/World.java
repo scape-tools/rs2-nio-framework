@@ -1,13 +1,9 @@
 package main.astraeus.core.game;
 
 import main.astraeus.core.Server;
-import main.astraeus.core.game.model.entity.EntityList;
-import main.astraeus.core.game.model.entity.mobile.npc.Npc;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 
 public class World {
-	
-	private static EntityList<Npc> npcList = new EntityList<>(2000);
 
 	/**
 	 * Checks if a player with a specific name is registered in the virtual world.
@@ -26,15 +22,5 @@ public class World {
 		}
 		return false;
 	}
-	
-	/**
-	 * @return the npcList
-	 */
-	public static EntityList<Npc> getNpcList() {
-		return npcList;
-	}
-	
-	public static Npc[] getNpcs() {
-		return npcList.getIndexes();
-	}
+
 }

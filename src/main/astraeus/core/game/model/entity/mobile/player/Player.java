@@ -11,7 +11,7 @@ import main.astraeus.core.game.model.entity.EntityEventListener;
 import main.astraeus.core.game.model.entity.item.Item;
 import main.astraeus.core.game.model.entity.item.ItemContainer;
 import main.astraeus.core.game.model.entity.item.container.InventoryContainer;
-import main.astraeus.core.game.model.entity.mobile.MobileEntity;
+import main.astraeus.core.game.model.entity.mobile.Character;
 import main.astraeus.core.game.model.entity.mobile.npc.Npc;
 import main.astraeus.core.game.model.entity.mobile.player.appearance.Appearance;
 import main.astraeus.core.game.model.entity.mobile.player.event.file.PlayerReadFileEvent;
@@ -37,7 +37,7 @@ import main.astraeus.utility.Decodeable;
 import main.astraeus.utility.Encodeable;
 import main.astraeus.utility.Utilities;
 
-public final class Player extends MobileEntity {
+public final class Player extends Character {
 	
 	/**
 	 * The mobs local to our player.
@@ -384,6 +384,11 @@ public final class Player extends MobileEntity {
 	@Override
 	public void dispose() {
 		write(new LogoutPacket());
+	}
+
+	@Override
+	public int getCurrentHealth() {
+		return 0;
 	}
 	
 }

@@ -1,9 +1,5 @@
 package main.astraeus.core.net.channel.packet.outgoing;
 
-import java.nio.ByteBuffer;
-import java.util.Iterator;
-
-import main.astraeus.core.game.World;
 import main.astraeus.core.game.model.entity.Position;
 import main.astraeus.core.game.model.entity.mobile.npc.Npc;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
@@ -12,7 +8,6 @@ import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag
 import main.astraeus.core.net.channel.packet.OutgoingPacket;
 import main.astraeus.core.net.channel.packet.PacketBuilder;
 import main.astraeus.core.net.channel.packet.PacketHeader;
-import main.astraeus.core.net.channel.protocol.codec.game.ByteAccess;
 import main.astraeus.core.net.channel.protocol.codec.game.ByteOrder;
 
 /**
@@ -31,52 +26,7 @@ public class NpcUpdatePacket extends OutgoingPacket {
 
 	@Override
 	public PacketBuilder dispatch(Player player) {
-		player.getContext().prepare(this, builder);
-		PacketBuilder update = new PacketBuilder(ByteBuffer.allocate(8192));
 
-		builder.setAccessType(ByteAccess.BIT_ACCESS);
-		builder.putBits(8, player.getLocalNpcs().size());
-
-		for (Iterator<Npc> iterator = player.getLocalNpcs().iterator(); iterator.hasNext();) {
-			
-			Npc npc = iterator.next();
-
-			if (World.getNpcs()[npc.getIndex()] != null && npc.getPosition().isWithinDistance(player.getPosition(), Position.VIEWING_DISTANCE)) {
-				updateMovement(npc, builder);
-				if (npc.getUpdateFlags().isUpdateRequired()) {
-					appendUpdates(npc, update);
-				}
-			} else {
-				iterator.remove();
-				builder.putBits(1, 1);
-				builder.putBits(2, 3);
-			}
-		}
-
-		for (Npc npc : World.getNpcs()) {
-			
-			if (player.getLocalNpcs().size() >= 255) {
-				break;
-			}
-			
-			if (npc == null || player.getLocalNpcs().contains(npc)) {
-				continue;
-			}
-			if (npc.getPosition().isWithinDistance(player.getPosition(), Position.VIEWING_DISTANCE)) {
-				addNPC(npc, player, update);
-				if (npc.getUpdateFlags().isUpdateRequired()) {
-					appendUpdates(npc, update);
-				}
-			}
-		}
-		if (update.getPosition() > 0) {
-			builder.putBits(14, 16383);
-			builder.setAccessType(ByteAccess.BYTE_ACCESS);
-			builder.putBytes(update.getBuffer());
-		} else {
-			builder.setAccessType(ByteAccess.BYTE_ACCESS);
-		}
-		builder.endVariableShortPacketHeader();
 		return builder;
 	}
 

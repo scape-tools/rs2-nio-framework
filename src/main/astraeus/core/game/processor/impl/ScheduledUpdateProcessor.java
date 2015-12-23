@@ -54,30 +54,18 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	public void execute() {
 		synchronized (this) {
 			
-			//updating procedure
-			
 			for (final Player player : getPlayers().values()) {
 				player.prepare(); //movement
 			}
 			
-//			for(final Npc npc : getNpcs().values()) {
-//				npc.prepare(); //movement
-//			}
-			
-			// sends player and npc update packet
 			for (final Player player : players.values()) {
 				player.getEventListener().update(player);
 			}
 			
-			// npc flag-based updates
+			
 			for (final Player player : players.values()) {
 				player.getUpdateFlags().clear(); // clears the flags
 			}
-			
-//			//npc flag-based updates
-//			for(final Npc npc : getNpcs().values()) {
-//				npc.getUpdateFlags().clear(); //clears the flags
-//			}
 			
 		}
 	}

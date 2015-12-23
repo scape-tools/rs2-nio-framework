@@ -36,7 +36,7 @@ public class CreateObjectPacket extends OutgoingPacket {
 		player.getContext().prepare(this, builder);
 		builder.put(0, ByteValue.SUBTRACTION);
 		builder.putShort(object.getId(), ByteOrder.LITTLE);
-		builder.putByte((object.getType() << 2) + (object.getFacing().getDirection() & 3), ByteValue.SUBTRACTION);
+		builder.putByte((object.getType() << 2) + (object.getFacingDirection().getDirection() & 3), ByteValue.SUBTRACTION);
 		return builder;
 	}
 

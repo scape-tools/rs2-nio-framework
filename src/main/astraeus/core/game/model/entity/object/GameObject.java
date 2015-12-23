@@ -1,8 +1,8 @@
 package main.astraeus.core.game.model.entity.object;
 
+import main.astraeus.core.game.model.Direction;
 import main.astraeus.core.game.model.entity.Entity;
 import main.astraeus.core.game.model.entity.EntityEventListener;
-import main.astraeus.core.game.model.entity.Facing;
 import main.astraeus.core.game.model.entity.Position;
 
 /**
@@ -30,7 +30,7 @@ public final class GameObject extends Entity {
 	/**
 	 * The facing direction of this object.
 	 */
-	private final Facing facing;
+	private final Direction facing;
 
 	/**
 	 * Constructs a new {@link GameObject}.
@@ -47,7 +47,7 @@ public final class GameObject extends Entity {
 	 * @param facing
 	 * 		The facing direction of this object.
 	 */
-	public GameObject(int id, Position position, int type, Facing facing) {
+	public GameObject(int id, Position position, int type, Direction facing) {
 		this.id = id;
 		this.position = position;
 		this.type = type;
@@ -78,7 +78,7 @@ public final class GameObject extends Entity {
 	/**
 	 * @return the facing
 	 */
-	public Facing getFacing() {
+	public Direction getFacingDirection() {
 		return facing;
 	}
 

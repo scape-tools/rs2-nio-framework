@@ -10,7 +10,7 @@ import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 
-public abstract class MobileEntity extends Entity {
+public abstract class Character extends Entity {
 
 	/**
 	 * The entity's last known coordinate point.
@@ -38,6 +38,8 @@ public abstract class MobileEntity extends Entity {
 	 * The direction the entity is running.
 	 */
 	private int runningDirection = -1;
+	
+	public abstract int getCurrentHealth();
 
 	public abstract void dispose();
 	

@@ -47,9 +47,8 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 	}
 
 	@Override
-	public void update(Player player) {
-		
-			player.write(new PlayerUpdatePacket());			
-			//player.write(new NpcUpdatePacket());
+	public void update(Player player) {		
+			player.write(new PlayerUpdatePacket());	
+			
 	}
 }

@@ -2,9 +2,9 @@ package main.astraeus.core.game.model.entity.mobile.npc;
 
 import main.astraeus.core.game.model.entity.EntityEventListener;
 import main.astraeus.core.game.model.entity.Position;
-import main.astraeus.core.game.model.entity.mobile.MobileEntity;
+import main.astraeus.core.game.model.entity.mobile.Character;
 
-public class Npc extends MobileEntity {
+public class Npc extends Character {
 	
 	/**
 	 * The id of this npc.
@@ -60,8 +60,12 @@ public class Npc extends MobileEntity {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int getCurrentHealth() {
+		return 0;
 	}
 
 }

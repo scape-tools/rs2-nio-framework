@@ -146,14 +146,12 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 	}
 	
 	public void append(PlayerUpdateBlock block, Player player, PacketBuilder buffer) {
-		block.write(player, buffer);
+		block.encode(player, buffer);
 	}
 	
 	public void appendUpdates(Player player, PacketBuilder buffer, boolean forceful) {		
 		synchronized(player) {
-			/*
-			 * The mask to denote specific updates.
-			 */
+			
 			int mask = 0x0;
 			if (player.getUpdateFlags().get(UpdateFlag.APPEARANCE) || forceful) {
 				mask |= 0x10;

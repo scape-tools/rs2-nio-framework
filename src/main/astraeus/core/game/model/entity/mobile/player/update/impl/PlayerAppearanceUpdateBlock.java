@@ -12,11 +12,11 @@ import main.astraeus.utility.Utilities;
 public class PlayerAppearanceUpdateBlock extends PlayerUpdateBlock {
 
 	public PlayerAppearanceUpdateBlock() {
-		super(UpdateFlag.APPEARANCE);
+		super(0x10, UpdateFlag.APPEARANCE);
 	}
 
 	@Override
-	public void write(Player entity, PacketBuilder buffer) {
+	public void encode(Player entity, PacketBuilder buffer) {
 		final PacketBuilder properties = new PacketBuilder(ByteBuffer.allocate(128));				
 		properties.putByte(entity.getAppearance().getGender().getIndicator());
 		properties.putByte(-1); //headicon
@@ -54,7 +54,7 @@ public class PlayerAppearanceUpdateBlock extends PlayerUpdateBlock {
 		properties.putLong(Utilities.convertStringToLong(entity.getDetails().getUsername()));
 		properties.putByte(3);
 		properties.putShort(0);
-		buffer.putByte(properties.getBuffer().position(), ByteValue.INVERSION);
+		buffer.putByte(properties.getBuffer().position(), ByteValue.NEGATION);
 		buffer.putBytes(properties.getBuffer());		
 	}
 

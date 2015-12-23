@@ -8,11 +8,11 @@ import main.astraeus.core.net.channel.packet.PacketBuilder;
 public class NpcFaceCoordinateUpdateBlock extends NpcUpdateBlock {
 
 	public NpcFaceCoordinateUpdateBlock() {
-		super(UpdateFlag.FACE_COORDINATE);
+		super(2, UpdateFlag.FACE_COORDINATE);
 	}
 
 	@Override
-	public void write(Npc entity, PacketBuilder builder) {
+	public void encode(Npc entity, PacketBuilder builder) {
 		
 	}
 

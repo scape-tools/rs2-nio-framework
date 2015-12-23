@@ -8,11 +8,11 @@ import main.astraeus.core.net.channel.packet.PacketBuilder;
 public class NpcSingleHitUpdateBlock extends NpcUpdateBlock {
 
 	public NpcSingleHitUpdateBlock() {
-		super(UpdateFlag.SINGLE_HIT);
+		super(0x20, UpdateFlag.SINGLE_HIT);
 	}
 
 	@Override
-	public void write(Npc entity, PacketBuilder builder) {
+	public void encode(Npc entity, PacketBuilder builder) {
 		
 	}
 

@@ -2,7 +2,7 @@ package main.astraeus.core.game.model.entity.mobile;
 
 /**
  * The class that represents a single animation that can be performed by
- * a {@link Character}.
+ * a {@link MobileEntity}.
  * 
  * @author SeVen
  */

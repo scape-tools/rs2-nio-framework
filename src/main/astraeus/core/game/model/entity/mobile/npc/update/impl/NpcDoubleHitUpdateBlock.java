@@ -8,11 +8,11 @@ import main.astraeus.core.net.channel.packet.PacketBuilder;
 public class NpcDoubleHitUpdateBlock extends NpcUpdateBlock {
 
 	public NpcDoubleHitUpdateBlock() {
-		super(UpdateFlag.DOUBLE_HIT);
+		super(0x200, UpdateFlag.DOUBLE_HIT);
 	}
 
 	@Override
-	public void write(Npc entity, PacketBuilder buffer) {
+	public void encode(Npc entity, PacketBuilder buffer) {
 		
 	}
 

@@ -8,11 +8,11 @@ import main.astraeus.core.net.channel.packet.PacketBuilder;
 public class NpcForceChatUpdateBlock extends NpcUpdateBlock {
 
 	public NpcForceChatUpdateBlock() {
-		super(UpdateFlag.FORCED_CHAT);
+		super(4, UpdateFlag.FORCED_CHAT);
 	}
 
 	@Override
-	public void write(Npc entity, PacketBuilder builder) {
+	public void encode(Npc entity, PacketBuilder builder) {
 		
 	}
 

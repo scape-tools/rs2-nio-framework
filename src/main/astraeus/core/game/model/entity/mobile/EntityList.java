@@ -24,16 +24,16 @@ import main.astraeus.core.game.model.entity.mobile.player.Player;
  * @param <E>
  *            the type of character being managed with this collection.
  */
-public class CharacterList<E extends Character> {
+public class EntityList<E extends MobileEntity> {
 
 	/**
-	 * The array of {@link Character}s.
+	 * The array of {@link MobileEntity}s.
 	 */
 	private E[] entities;
 
 	/**
 	 * The queue containing all of the cached slots that can be assigned to
-	 * {@link Character}s to prevent expensive lookups.
+	 * {@link MobileEntity}s to prevent expensive lookups.
 	 */
 	private Queue<Integer> slotQueue = new ArrayDeque<>();
 
@@ -48,9 +48,9 @@ public class CharacterList<E extends Character> {
 	private int size;
 
 	@SuppressWarnings("unchecked")
-	public CharacterList(int capacity) {
+	public EntityList(int capacity) {
 		this.capacity = capacity;
-		this.entities = (E[]) new Character[capacity];
+		this.entities = (E[]) new MobileEntity[capacity];
 		this.size = 0;
 		IntStream.rangeClosed(1, capacity).forEach(slotQueue::add);
 	}

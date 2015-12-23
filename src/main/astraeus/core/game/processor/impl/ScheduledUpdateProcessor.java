@@ -2,7 +2,7 @@ package main.astraeus.core.game.processor.impl;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import main.astraeus.core.game.model.entity.mobile.CharacterList;
+import main.astraeus.core.game.model.entity.mobile.EntityList;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.processor.ProcessorConstants;
 import main.astraeus.core.game.processor.ScheduledProcessor;
@@ -16,7 +16,7 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	 */
 	private final ConcurrentHashMap<Integer, Player> players = new ConcurrentHashMap<Integer, Player>();
 	
-	private final CharacterList<Player> playerList = new CharacterList<>(2000);
+	private final EntityList<Player> playerList = new EntityList<>(2000);
 
 	/**
 	 * The overloaded class constructor used for instantiation of this class

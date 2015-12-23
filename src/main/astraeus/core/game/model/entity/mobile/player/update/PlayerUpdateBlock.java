@@ -17,8 +17,8 @@ public abstract class PlayerUpdateBlock extends UpdateBlock<Player> {
 	 * @param flag
 	 * 		The enumerated update block.
 	 */
-	public PlayerUpdateBlock(UpdateFlag flag) {
-		super(flag);
+	public PlayerUpdateBlock(int mask, UpdateFlag flag) {
+		super(mask, flag);
 	}
 
 }

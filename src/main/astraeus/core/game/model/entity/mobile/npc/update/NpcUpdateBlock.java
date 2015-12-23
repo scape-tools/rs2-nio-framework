@@ -6,8 +6,8 @@ import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag
 
 public abstract class NpcUpdateBlock extends UpdateBlock<Npc> {
 
-	public NpcUpdateBlock(UpdateFlag flag) {
-		super(flag);
+	public NpcUpdateBlock(int mask, UpdateFlag flag) {
+		super(mask, flag);
 	}
 
 }

@@ -10,7 +10,7 @@ import main.astraeus.core.game.GameConstants;
 import main.astraeus.core.game.model.entity.EntityEventListener;
 import main.astraeus.core.game.model.entity.item.ItemContainer;
 import main.astraeus.core.game.model.entity.item.container.InventoryContainer;
-import main.astraeus.core.game.model.entity.mobile.Character;
+import main.astraeus.core.game.model.entity.mobile.MobileEntity;
 import main.astraeus.core.game.model.entity.mobile.npc.Npc;
 import main.astraeus.core.game.model.entity.mobile.player.appearance.Appearance;
 import main.astraeus.core.game.model.entity.mobile.player.event.file.PlayerReadFileEvent;
@@ -26,7 +26,7 @@ import main.astraeus.utility.Decodeable;
 import main.astraeus.utility.Encodeable;
 import main.astraeus.utility.Utilities;
 
-public final class Player extends Character {
+public final class Player extends MobileEntity {
 	
 	/**
 	 * The mobs local to our player.

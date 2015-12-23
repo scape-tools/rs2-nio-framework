@@ -18,44 +18,21 @@ public class UpdateFlags {
 	 * The enumerated types of updates that can be updated.
 	 */
 	public enum UpdateFlag {
-
-		APPEARANCE(0x10),
-
-		CHAT(0x80),
-
-		TELEPORTING(0), // not a real mask...
-
-		REGION_CHANGING(0), // not a real mask...
-
-		GRAPHICS(0x100),
-
-		ANIMATION(0x8),
-
-		FORCED_CHAT(0x4),
-
-		FACE_ENTITY(0x1),
-
-		FACE_COORDINATE(0x2),
-
-		SINGLE_HIT(0x20),
-
-		DOUBLE_HIT(0x200),
-
-		TRANSFORM(0), // not a real mask...
-
-		FORCE_MOVEMENT(0x400),
 		
-		REGISTERED_ENTITY(0); // not a real mask...
-
-		private final int mask;
-
-		UpdateFlag(int mask) {
-			this.mask = mask;
-		}
-
-		public int getMask() {
-			return mask;
-		}
+		APPEARANCE,
+		CHAT,
+		TELEPORTING, // not a real mask...
+		REGION_CHANGING, // not a real mask...
+		GRAPHICS,
+		ANIMATION,
+		FORCED_CHAT,
+		FACE_ENTITY,
+		FACE_COORDINATE,
+		SINGLE_HIT,
+		DOUBLE_HIT,
+		TRANSFORM,
+		FORCE_MOVEMENT;
+		
 	}
 
 	/**

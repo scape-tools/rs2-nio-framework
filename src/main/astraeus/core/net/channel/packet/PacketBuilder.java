@@ -84,7 +84,7 @@ public final class PacketBuilder {
 			buffer.put((byte) (value + 128));
 			break;
 
-		case INVERSION:
+		case NEGATION:
 			buffer.put((byte) -value);
 			break;
 
@@ -114,7 +114,7 @@ public final class PacketBuilder {
 			buffer.putInt(value + 128);
 			break;
 
-		case INVERSION:
+		case NEGATION:
 			buffer.putInt(-value);
 			break;
 
@@ -215,7 +215,7 @@ public final class PacketBuilder {
 			buffer.putLong(value + 128);
 			break;
 
-		case INVERSION:
+		case NEGATION:
 			buffer.putLong(-value);
 			break;
 
@@ -264,7 +264,7 @@ public final class PacketBuilder {
 			buffer.putShort((short) (value + 128));
 			break;
 
-		case INVERSION:
+		case NEGATION:
 			buffer.putShort((short) -value);
 			break;
 

@@ -10,7 +10,7 @@ import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 
-public abstract class Character extends Entity {
+public abstract class MobileEntity extends Entity {
 
 	/**
 	 * The entity's last known coordinate point.

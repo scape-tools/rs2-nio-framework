@@ -1,6 +1,6 @@
 package main.astraeus.core.game.model.entity.mobile.update;
 
-import main.astraeus.core.game.model.entity.mobile.Character;
+import main.astraeus.core.game.model.entity.mobile.MobileEntity;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.core.net.channel.packet.PacketBuilder;
 
@@ -9,7 +9,12 @@ import main.astraeus.core.net.channel.packet.PacketBuilder;
  * 
  * @author SeVen
  */
-public abstract class UpdateBlock<E extends Character>{
+public abstract class UpdateBlock<E extends MobileEntity>{
+	
+	/**
+	 * The mask to identify the update. 
+	 */
+	private final int mask;
 	
 	/**
 	 * The enumerated update type.
@@ -22,12 +27,13 @@ public abstract class UpdateBlock<E extends Character>{
 	 * @param flag
 	 * 		The enumerated update type.
 	 */
-	public UpdateBlock(UpdateFlag flag) {
+	public UpdateBlock(int mask, UpdateFlag flag) {
+		this.mask = mask;
 		this.flag = flag;
 	}
 	
 	/**
-	 * Writes the update to a buffer to be later appended to the main update block.
+	 * Encodes an update to a buffer to be later appended to the main update block.
 	 * 
 	 * @param entity
 	 * 		The entity to write.
@@ -35,7 +41,7 @@ public abstract class UpdateBlock<E extends Character>{
 	 * @param buffer
 	 * 		The buffer that will store the data.
 	 */
-	public abstract void write(E entity, PacketBuilder builder);
+	public abstract void encode(E entity, PacketBuilder builder);
 	
 	/**
 	 * Gets the mask.
@@ -43,7 +49,7 @@ public abstract class UpdateBlock<E extends Character>{
 	 * @return mask
 	 */
 	public int getMask() {
-		return flag.getMask();
+		return mask;
 	}
 
 	/**

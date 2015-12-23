@@ -2,9 +2,9 @@ package main.astraeus.core.game.model.entity.mobile.npc;
 
 import main.astraeus.core.game.model.entity.EntityEventListener;
 import main.astraeus.core.game.model.entity.Position;
-import main.astraeus.core.game.model.entity.mobile.Character;
+import main.astraeus.core.game.model.entity.mobile.MobileEntity;
 
-public class Npc extends Character {
+public class Npc extends MobileEntity {
 	
 	/**
 	 * The id of this npc.

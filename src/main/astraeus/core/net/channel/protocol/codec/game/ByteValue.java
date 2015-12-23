@@ -15,9 +15,9 @@ public enum ByteValue {
      */
     ADDITION,
     /**
-     * Invert the value.
+     * Places a negative sign on the value.
      */
-    INVERSION,
+    NEGATION,
     /**
      * Subtract the value from 128.
      */

@@ -8,11 +8,11 @@ import main.astraeus.core.net.channel.packet.PacketBuilder;
 public class NpcGraphicsUpdateBlock extends NpcUpdateBlock {
 
 	public NpcGraphicsUpdateBlock() {
-		super(UpdateFlag.GRAPHICS);
+		super(0x100, UpdateFlag.GRAPHICS);
 	}
 
 	@Override
-	public void write(Npc entity, PacketBuilder builder) {
+	public void encode(Npc entity, PacketBuilder builder) {
 		
 	}
 

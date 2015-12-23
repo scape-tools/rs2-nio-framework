@@ -145,15 +145,15 @@ public final class Movement {
 			runningPoint = getNextPoint();
 		}
 
-		((Character) getEntity()).setWalkingDirection(walkingPoint == null ? -1 : walkingPoint.getDirection());
+		((MobileEntity) getEntity()).setWalkingDirection(walkingPoint == null ? -1 : walkingPoint.getDirection());
 
-		((Character) getEntity()).setRunningDirection(runningPoint == null ? -1 : runningPoint.getDirection());
+		((MobileEntity) getEntity()).setRunningDirection(runningPoint == null ? -1 : runningPoint.getDirection());
 
-		int deltaX = ((Character) getEntity()).getPosition().getX()
-				- ((Character) getEntity()).getLastPosition().getRegionalX() * 8;
+		int deltaX = ((MobileEntity) getEntity()).getPosition().getX()
+				- ((MobileEntity) getEntity()).getLastPosition().getRegionalX() * 8;
 
-		int deltaY = ((Character) getEntity()).getPosition().getY()
-				- ((Character)getEntity()).getLastPosition().getRegionalY() * 8;
+		int deltaY = ((MobileEntity) getEntity()).getPosition().getY()
+				- ((MobileEntity)getEntity()).getLastPosition().getRegionalY() * 8;
 		
 		if (entity instanceof Player) {
 			if (deltaX < 16 || deltaX >= 88 || deltaY < 16 || deltaY > 88) {
@@ -176,7 +176,7 @@ public final class Movement {
 			return null;
 		} else {
 
-			((Character) getEntity()).getPosition().setPositionAdditional(
+			((MobileEntity) getEntity()).getPosition().setPositionAdditional(
 					GameConstants.DIRECTION_DELTA_X[availableFocusPoint.getDirection()],
 					GameConstants.DIRECTION_DELTA_Y[availableFocusPoint.getDirection()],
 					getEntity().getPosition().getHeight());

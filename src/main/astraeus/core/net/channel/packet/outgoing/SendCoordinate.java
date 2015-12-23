@@ -33,8 +33,8 @@ public class SendCoordinate extends OutgoingPacket {
 	@Override
 	public PacketBuilder dispatch(Player player) {		
 		player.getContext().prepare(this, builder);
-		builder.putByte(coordinate.getY() -  8 * player.getLastPosition().getRegionalY() , ByteValue.INVERSION);
-		builder.putByte(coordinate.getX() -  8 * player.getLastPosition().getRegionalX() , ByteValue.INVERSION);
+		builder.putByte(coordinate.getY() -  8 * player.getLastPosition().getRegionalY() , ByteValue.NEGATION);
+		builder.putByte(coordinate.getX() -  8 * player.getLastPosition().getRegionalX() , ByteValue.NEGATION);
 		return builder;
 	}
 

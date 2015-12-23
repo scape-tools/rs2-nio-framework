@@ -15,12 +15,12 @@ import main.astraeus.core.net.channel.protocol.codec.game.ByteOrder;
  * 
  * @author SeVen
  */
-public class NpcUpdatePacket extends OutgoingPacket {
+public class SendNPCUpdate extends OutgoingPacket {
 
 	/**
-	 * Creates a new {@link NpcUpdatePacket}.
+	 * Creates a new {@link SendNPCUpdate}.
 	 */
-	public NpcUpdatePacket() {
+	public SendNPCUpdate() {
 		super(65, PacketHeader.VARIABLE_SHORT, 16384);
 	}
 

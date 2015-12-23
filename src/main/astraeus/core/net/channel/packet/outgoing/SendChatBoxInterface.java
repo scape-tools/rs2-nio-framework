@@ -10,7 +10,7 @@ import main.astraeus.core.net.channel.protocol.codec.game.ByteOrder;
  * 
  * @author SeVen
  */
-public class ChatInterfacePacket extends OutgoingPacket {
+public class SendChatBoxInterface extends OutgoingPacket {
 	
 	/**
 	 * The id of the interface to display in the chat-box.
@@ -18,12 +18,12 @@ public class ChatInterfacePacket extends OutgoingPacket {
 	private final int interfaceId;
 
 	/**
-	 * Creates a new {@link ChatInterfacePacket}.
+	 * Creates a new {@link SendChatBoxInterface}.
 	 * 
 	 * @param interfaceId
 	 * 		The id of the interface to show in the chat-box.
 	 */
-	public ChatInterfacePacket(int interfaceId) {
+	public SendChatBoxInterface(int interfaceId) {
 		super(164, 3);
 		this.interfaceId = interfaceId;
 	}

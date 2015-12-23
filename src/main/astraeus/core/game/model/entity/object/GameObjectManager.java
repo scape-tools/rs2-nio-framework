@@ -5,7 +5,7 @@ import java.util.Set;
 
 import main.astraeus.core.Server;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.net.channel.packet.outgoing.CreateObjectPacket;
+import main.astraeus.core.net.channel.packet.outgoing.SendCreateObject;
 
 public final class GameObjectManager {
 
@@ -41,10 +41,10 @@ public final class GameObjectManager {
 	 */
 	public final void createObject(GameObject object) {
 
-		for (Player players : Server.getUpdateProcessor().getPlayers().values()) {
+		for (Player player : Server.getUpdateProcessor().getPlayers().values()) {
 
-			if (players.getPosition().isWithinDistance(object.getPosition(), 30)) {
-				players.write(new CreateObjectPacket(object));
+			if (player.getPosition().isWithinDistance(object.getPosition(), 30)) {
+				player.send(new SendCreateObject(object));
 			}
 		}
 
@@ -61,7 +61,7 @@ public final class GameObjectManager {
 		for (GameObject object : GameObjectManager.getSingleton().getObjects()) {
 
 			if (player.getPosition().isWithinDistance(object.getPosition(), 50)) {
-				player.write(new CreateObjectPacket(object));
+				player.send(new SendCreateObject(object));
 			}
 		}
 	}

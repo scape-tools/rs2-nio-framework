@@ -10,7 +10,7 @@ import main.astraeus.core.net.channel.protocol.codec.game.ByteValue;
  * 
  * @author SeVen
  */
-public class InventoryInterfacePacket extends OutgoingPacket {
+public class SendInventoryInterface extends OutgoingPacket {
 	
 	/**
 	 * The interface to open.
@@ -23,7 +23,7 @@ public class InventoryInterfacePacket extends OutgoingPacket {
 	private final int overlay;
 
 	/**
-	 * Creates a new {@link InventoryInterfacePacket}.
+	 * Creates a new {@link SendInventoryInterface}.
 	 * 
 	 * @param open
 	 * 		The interface to open.
@@ -31,7 +31,7 @@ public class InventoryInterfacePacket extends OutgoingPacket {
 	 * @param overlay
 	 * 		The interface to send on the inventory area.
 	 */
-	public InventoryInterfacePacket(int open, int overlay) {
+	public SendInventoryInterface(int open, int overlay) {
 		super(248, 5);
 		this.open = open;
 		this.overlay = overlay;

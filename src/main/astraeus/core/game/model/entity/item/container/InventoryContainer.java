@@ -4,8 +4,8 @@ import main.astraeus.core.game.model.entity.item.Item;
 import main.astraeus.core.game.model.entity.item.ItemContainer;
 import main.astraeus.core.game.model.entity.item.ItemDefinition;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
-import main.astraeus.core.net.channel.packet.outgoing.ItemOnInterfacePacket;
+import main.astraeus.core.net.channel.packet.outgoing.SendMessage;
+import main.astraeus.core.net.channel.packet.outgoing.SendItemOnInterface;
 
 public class InventoryContainer extends ItemContainer {
 	
@@ -20,7 +20,7 @@ public class InventoryContainer extends ItemContainer {
 	public void addItem(Item item) {
 		
 		if (!canHoldItem(player, item.getId())) {
-			getPlayer().write(new ChatBoxMessagePacket("You don't have the required inventory space to hold this item."));
+			getPlayer().send(new SendMessage("You don't have the required inventory space to hold this item."));
 			return;
 		}
 
@@ -100,7 +100,7 @@ public class InventoryContainer extends ItemContainer {
 	
 	@Override
 	public void updateContainer() {
-		getPlayer().write(new ItemOnInterfacePacket(3214, getItems()));
+		getPlayer().send(new SendItemOnInterface(3214, getItems()));
 	}
 	
 	/**

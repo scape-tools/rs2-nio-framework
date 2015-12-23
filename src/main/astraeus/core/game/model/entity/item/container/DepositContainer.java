@@ -4,6 +4,8 @@ import main.astraeus.core.Configuration;
 import main.astraeus.core.game.model.entity.item.Item;
 import main.astraeus.core.game.model.entity.item.ItemContainer;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
+import main.astraeus.core.net.channel.packet.outgoing.SendInventoryInterface;
+import main.astraeus.core.net.channel.packet.outgoing.SendString;
 
 public class DepositContainer extends ItemContainer {
 
@@ -30,8 +32,8 @@ public class DepositContainer extends ItemContainer {
 	}
 	
 	public static void openDepositBox(Player player) {
-		player.sendString("The Bank of " + Configuration.SERVER_NAME + " - Deposit Box", 7165);
-		player.sendInventoryInterface(4465, 197);
+		player.send(new SendString("The Bank of " + Configuration.SERVER_NAME + " - Deposit Box", 7165));
+		player.send(new SendInventoryInterface(4465, 197));
 	}
 	
 	public Player getPlayer() {

@@ -12,7 +12,7 @@ import main.astraeus.core.net.channel.protocol.codec.game.ByteValue;
  * 
  * @author SeVen
  */
-public class NpcDialogueHeadPacket extends OutgoingPacket {
+public class SendNpcDialogueHead extends OutgoingPacket {
 	
 	/**
 	 * The id of the npc to display.
@@ -25,7 +25,7 @@ public class NpcDialogueHeadPacket extends OutgoingPacket {
 	private final int interfaceId;
 
 	/**
-	 * Creates a new {@link NpcDialogueHeadPacket}.
+	 * Creates a new {@link SendNpcDialogueHead}.
 	 * 
 	 * @param npcId
 	 * 		The id of the npc to display.
@@ -33,7 +33,7 @@ public class NpcDialogueHeadPacket extends OutgoingPacket {
 	 * @param interfaceId
 	 * 		The id of the interface to show the head model on.
 	 */
-	public NpcDialogueHeadPacket(int npcId, int interfaceId) {
+	public SendNpcDialogueHead(int npcId, int interfaceId) {
 		super(75, PacketHeader.STANDARD, 15);
 		this.npcId = npcId;
 		this.interfaceId = interfaceId;

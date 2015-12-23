@@ -13,7 +13,7 @@ import main.astraeus.core.net.channel.protocol.codec.game.ByteValue;
  * 
  * @author SeVen
  */
-public class CreateObjectPacket extends OutgoingPacket {
+public class SendCreateObject extends OutgoingPacket {
 
 	/**
 	 * The object to create in the game world.
@@ -21,12 +21,12 @@ public class CreateObjectPacket extends OutgoingPacket {
 	private final GameObject object;
 	
 	/**
-	 * Creates a new {@link CreateObjectPacket}.
+	 * Creates a new {@link SendCreateObject}.
 	 * 
 	 * @param object
 	 * 		The object create.
 	 */
-	public CreateObjectPacket(GameObject object) {
+	public SendCreateObject(GameObject object) {
 		super(151, PacketHeader.STANDARD, 5);
 		this.object = object;
 	}

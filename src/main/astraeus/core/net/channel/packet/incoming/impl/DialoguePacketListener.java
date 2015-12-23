@@ -4,6 +4,7 @@ import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.channel.packet.IncomingPacket;
 import main.astraeus.core.net.channel.packet.incoming.IncomingPacketListener;
 import main.astraeus.core.net.channel.packet.incoming.IncomingPacketOpcode;
+import main.astraeus.core.net.channel.packet.outgoing.SendClearScreen;
 
 @IncomingPacketOpcode( 40 )
 public final class DialoguePacketListener implements IncomingPacketListener {
@@ -15,7 +16,7 @@ public final class DialoguePacketListener implements IncomingPacketListener {
 			player.getDialogue().sendDialogues(player);
 			System.out.println(player.getDialogue().getDialogueStage());
 		} else {
-			player.sendClearScreen();
+			player.send(new SendClearScreen());
 		}		
 	}
 

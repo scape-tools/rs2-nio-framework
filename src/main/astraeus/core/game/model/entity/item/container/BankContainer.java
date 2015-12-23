@@ -4,6 +4,7 @@ import main.astraeus.core.game.model.entity.item.Item;
 import main.astraeus.core.game.model.entity.item.ItemContainer;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
+import main.astraeus.core.net.channel.packet.outgoing.SendInventoryInterface;
 
 public class BankContainer extends ItemContainer {
 
@@ -31,7 +32,7 @@ public class BankContainer extends ItemContainer {
 	
 	public static void openBank(Player player) {
 		player.getAttributes().put(Attributes.BANKING, true);
-		player.sendInventoryInterface(5292, 5063);
+		player.send(new SendInventoryInterface(5292, 5063));
 		//player.sendItemOnInterface(5064, new Item[]{new Item(4151, 1), new Item(995, 1000000)});
 		//player.sendItemOnInterface(5382, new Item[]{new Item(6585, 4)});
 	}

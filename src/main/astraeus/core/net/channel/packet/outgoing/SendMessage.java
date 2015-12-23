@@ -10,7 +10,7 @@ import main.astraeus.core.net.channel.packet.PacketHeader;
  * 
  * @author SeVen
  */
-public class ChatBoxMessagePacket extends OutgoingPacket {
+public class SendMessage extends OutgoingPacket {
 
 	/**
 	 * The message to be displayed on a players chat-box.
@@ -18,12 +18,12 @@ public class ChatBoxMessagePacket extends OutgoingPacket {
 	private final String message;
 	
 	/**
-	 * Creates a new {@link ChatBoxMessagePacket}.
+	 * Creates a new {@link SendMessage}.
 	 * 
 	 * @param message
 	 * 		The message to display.
 	 */
-	public ChatBoxMessagePacket(String message) {
+	public SendMessage(String message) {
 		super(253, PacketHeader.VARIABLE_BYTE, message.length() + 3);
 		this.message = message;
 	}

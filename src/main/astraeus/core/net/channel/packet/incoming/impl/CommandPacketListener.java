@@ -10,7 +10,9 @@ import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.channel.packet.IncomingPacket;
 import main.astraeus.core.net.channel.packet.incoming.IncomingPacketListener;
 import main.astraeus.core.net.channel.packet.incoming.IncomingPacketOpcode;
-import main.astraeus.core.net.channel.packet.outgoing.RegionalUpdatePacket;
+import main.astraeus.core.net.channel.packet.outgoing.SendDisplayInterface;
+import main.astraeus.core.net.channel.packet.outgoing.SendRegionUpdate;
+import main.astraeus.core.net.channel.packet.outgoing.SendString;
 
 /**
  * The incoming {@link IncomingPacket} responsible for handling user commands send from the client.
@@ -41,7 +43,7 @@ public class CommandPacketListener implements IncomingPacketListener {
 		
 		case "interface":
 			try {
-			player.sendDisplayInterface(Integer.parseInt(command[1]));
+			player.send(new SendDisplayInterface(Integer.parseInt(command[1])));
 			} catch(Exception ex) {
 				ex.printStackTrace();
 			}
@@ -50,7 +52,7 @@ public class CommandPacketListener implements IncomingPacketListener {
 		case "sendstring":
 			int index = Integer.parseInt(command[1]);
 			for(int i = 0; i < index; i++) {
-			player.sendString(i + "", i);
+			player.send(new SendString(i + "", i));
 		}
 			break;
 		
@@ -84,7 +86,7 @@ public class CommandPacketListener implements IncomingPacketListener {
 			break;
 			
 		case "region":
-			player.write(new RegionalUpdatePacket());
+			player.send(new SendRegionUpdate());
 			break;
 			
 		default:

@@ -10,7 +10,7 @@ import main.astraeus.core.net.channel.protocol.codec.game.ByteValue;
  * 
  * @author SeVen
  */
-public class SideBarInterfacePacket extends OutgoingPacket {
+public class SendSideBarInterface extends OutgoingPacket {
 	
 	/**
 	 * The id of the interface to add as a side-bar interface.
@@ -23,7 +23,7 @@ public class SideBarInterfacePacket extends OutgoingPacket {
 	private final int tabId;
 	
 	/**
-	 * Creates a new {@link SideBarInterfacePacket}.
+	 * Creates a new {@link SendSideBarInterface}.
 	 * 
 	 * @param tabId
 	 * 		The tab to display the interface on.
@@ -31,7 +31,7 @@ public class SideBarInterfacePacket extends OutgoingPacket {
 	 * @param interfaceId
 	 * 		The interface that will be displayed.
 	 */
-	public SideBarInterfacePacket(int tabId, int interfaceId) {
+	public SendSideBarInterface(int tabId, int interfaceId) {
 		super(71, 4);
 		this.interfaceId = interfaceId;
 		this.tabId = tabId;

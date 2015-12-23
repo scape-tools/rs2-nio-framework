@@ -13,16 +13,16 @@ import main.astraeus.core.net.channel.packet.PacketBuilder;
 import main.astraeus.core.net.channel.packet.PacketHeader;
 import main.astraeus.core.net.channel.protocol.codec.game.ByteAccess;
 
-public final class PlayerUpdatePacket extends OutgoingPacket {
+public final class SendPlayerUpdate extends OutgoingPacket {
 
-	public PlayerUpdatePacket() {
+	public SendPlayerUpdate() {
 		super(81, PacketHeader.VARIABLE_SHORT, 16384);
 	}
 
 	@Override
 	public PacketBuilder dispatch(Player player) {		
 		if(player.getUpdateFlags().get(UpdateFlag.REGION_CHANGING)) {
-			player.sendRegionalUpdate();
+			player.send(new SendRegionUpdate());
 		}
 		
 		PacketBuilder update = new PacketBuilder(ByteBuffer.allocate(8192));

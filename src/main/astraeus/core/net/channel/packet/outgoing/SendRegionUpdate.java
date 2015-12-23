@@ -11,12 +11,12 @@ import main.astraeus.core.net.channel.protocol.codec.game.ByteValue;
  * 
  * @author SeVen
  */
-public class RegionalUpdatePacket extends OutgoingPacket {
+public class SendRegionUpdate extends OutgoingPacket {
 
 	/**
-	 * Creates a new {@link RegionalUpdatePacket}.
+	 * Creates a new {@link SendRegionUpdate}.
 	 */
-	public RegionalUpdatePacket() {
+	public SendRegionUpdate() {
 		super(73, 5);
 	}
 

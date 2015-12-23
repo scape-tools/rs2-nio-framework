@@ -8,7 +8,6 @@ import main.astraeus.content.dialogue.Dialogue;
 import main.astraeus.content.dialogue.DialogueOption;
 import main.astraeus.core.game.GameConstants;
 import main.astraeus.core.game.model.entity.EntityEventListener;
-import main.astraeus.core.game.model.entity.item.Item;
 import main.astraeus.core.game.model.entity.item.ItemContainer;
 import main.astraeus.core.game.model.entity.item.container.InventoryContainer;
 import main.astraeus.core.game.model.entity.mobile.Character;
@@ -19,19 +18,9 @@ import main.astraeus.core.game.model.entity.mobile.player.event.file.PlayerSaveF
 import main.astraeus.core.net.channel.PlayerChannel;
 import main.astraeus.core.net.channel.events.WriteChannelEvent;
 import main.astraeus.core.net.channel.packet.OutgoingPacket;
-import main.astraeus.core.net.channel.packet.outgoing.ChatBoxMessagePacket;
-import main.astraeus.core.net.channel.packet.outgoing.ChatInterfacePacket;
-import main.astraeus.core.net.channel.packet.outgoing.ClearScreenPacket;
-import main.astraeus.core.net.channel.packet.outgoing.DisplayInterfacePacket;
-import main.astraeus.core.net.channel.packet.outgoing.InterfaceAnimationPacket;
-import main.astraeus.core.net.channel.packet.outgoing.InventoryInterfacePacket;
-import main.astraeus.core.net.channel.packet.outgoing.ItemOnInterfacePacket;
-import main.astraeus.core.net.channel.packet.outgoing.LogoutPacket;
-import main.astraeus.core.net.channel.packet.outgoing.NpcDialogueHeadPacket;
-import main.astraeus.core.net.channel.packet.outgoing.PlayerDialogueHeadPacket;
-import main.astraeus.core.net.channel.packet.outgoing.RegionalUpdatePacket;
-import main.astraeus.core.net.channel.packet.outgoing.SendStringPacket;
-import main.astraeus.core.net.channel.packet.outgoing.SideBarInterfacePacket;
+import main.astraeus.core.net.channel.packet.outgoing.SendMessage;
+import main.astraeus.core.net.channel.packet.outgoing.SendLogout;
+import main.astraeus.core.net.channel.packet.outgoing.SendSideBarInterface;
 import main.astraeus.core.net.security.IsaacRandomPair;
 import main.astraeus.utility.Decodeable;
 import main.astraeus.utility.Encodeable;
@@ -117,47 +106,7 @@ public final class Player extends Character {
 			return true;
 		}
 		return false;
-	}
-	
-	public void sendDisplayInterface(int interfaceId) {
-		write(new DisplayInterfacePacket(interfaceId));
-	}
-	
-	public void sendItemOnInterface(int interfaceId, Item[] items) {
-		write(new ItemOnInterfacePacket(interfaceId, items));
-	}
-	
-	public void sendInventoryInterface(int open, int overlay) {
-		write(new InventoryInterfacePacket(open, overlay));
-	}
-	
-	public void sendString(String string, int widget) {
-		write(new SendStringPacket(string, widget));
-	}
-	
-	public void sendClearScreen() {
-		write(new ClearScreenPacket());
-	}
-	
-	public void sendChatBoxInterface(int interfaceId) {
-		write(new ChatInterfacePacket(interfaceId));
-	}
-	
-	public void sendInterfaceAnimation(int interfaceId, int animationId) {
-		write(new InterfaceAnimationPacket(interfaceId, animationId));
-	}
-	
-	public void sendDialogueNpcHead(int npcId, int interfaceId) {
-		write(new NpcDialogueHeadPacket(npcId, interfaceId));
-	}
-	
-	public void sendDialoguePlayerHead(int interfaceId) {
-		write(new PlayerDialogueHeadPacket(interfaceId));
-	}
-	
-	public void sendRegionalUpdate() {
-		write(new RegionalUpdatePacket());
-	}
+	}	
 
 	/**
 	 * Creates all the in-game tabs for a player.
@@ -166,7 +115,7 @@ public final class Player extends Character {
 	 */
 	public void sendTabs() {		
 		for(int index = 0; index < GameConstants.SIDE_BARS.length; index++) {
-			write(new SideBarInterfacePacket(index, GameConstants.SIDE_BARS[index]));
+			send(new SendSideBarInterface(index, GameConstants.SIDE_BARS[index]));
 		}
 	}
 	
@@ -174,7 +123,7 @@ public final class Player extends Character {
 	 * Sends a message into this players chatbox.
 	 */
 	public void sendMessage(String message) {
-		write(new ChatBoxMessagePacket(message));
+		send(new SendMessage(message));
 	}
 	
 	/**
@@ -204,7 +153,7 @@ public final class Player extends Character {
 	 * @param packet A new instance of the {@link OutgoingPacket} being dispensed.
 	 * 
 	 */
-	public final void write(OutgoingPacket packet) {
+	public final void send(OutgoingPacket packet) {
 		getContext().execute(new WriteChannelEvent(packet.getHeader(), packet.dispatch(this)));
 	}
 
@@ -383,7 +332,7 @@ public final class Player extends Character {
 
 	@Override
 	public void dispose() {
-		write(new LogoutPacket());
+		send(new SendLogout());
 	}
 
 	@Override

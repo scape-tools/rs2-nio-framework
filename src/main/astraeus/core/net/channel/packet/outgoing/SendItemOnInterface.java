@@ -13,7 +13,7 @@ import main.astraeus.core.net.channel.protocol.codec.game.ByteValue;
  * 
  * @author SeVen
  */
-public class ItemOnInterfacePacket extends OutgoingPacket {
+public class SendItemOnInterface extends OutgoingPacket {
 
 	/**
 	 * The id of the interface to display the items on.
@@ -26,7 +26,7 @@ public class ItemOnInterfacePacket extends OutgoingPacket {
 	private final Item[] items;
 	
 	/**
-	 * Creates a new {@link ItemOnInterfacePacket}.
+	 * Creates a new {@link SendItemOnInterface}.
 	 * 
 	 * @param interfaceId
 	 * 		The id of the interface to display the items on.
@@ -34,7 +34,7 @@ public class ItemOnInterfacePacket extends OutgoingPacket {
 	 * @param items
 	 * 		The items to display.
 	 */
-	public ItemOnInterfacePacket(int interfaceId, Item[] items) {
+	public SendItemOnInterface(int interfaceId, Item[] items) {
 		super(53, PacketHeader.VARIABLE_SHORT, 2048);
 		this.interfaceId = interfaceId;
 		this.items = items;

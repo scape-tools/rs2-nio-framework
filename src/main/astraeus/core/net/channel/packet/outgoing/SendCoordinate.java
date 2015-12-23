@@ -12,7 +12,7 @@ import main.astraeus.core.net.channel.protocol.codec.game.ByteValue;
  * 
  * @author SeVen
  */
-public class CreateCoordinatePacket extends OutgoingPacket {
+public class SendCoordinate extends OutgoingPacket {
 	
 	/**
 	 * The coordinate to create.
@@ -20,12 +20,12 @@ public class CreateCoordinatePacket extends OutgoingPacket {
 	private final Position coordinate;
 
 	/**
-	 * Creates a new {@link CreateCoordinatePacket}.
+	 * Creates a new {@link SendCoordinate}.
 	 * 
 	 * @param coordinate
 	 * 		The new coordinate.
 	 */
-	public CreateCoordinatePacket(Position coordinate) {
+	public SendCoordinate(Position coordinate) {
 		super(85, PacketHeader.STANDARD, 3);
 		this.coordinate = coordinate;
 	}

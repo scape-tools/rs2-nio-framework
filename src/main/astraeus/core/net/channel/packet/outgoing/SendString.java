@@ -11,7 +11,7 @@ import main.astraeus.core.net.channel.protocol.codec.game.ByteValue;
  * 
  * @author SeVen
  */
-public class SendStringPacket extends OutgoingPacket {
+public class SendString extends OutgoingPacket {
 
 	/**
 	 * The string that will be displayed on the interface.
@@ -24,7 +24,7 @@ public class SendStringPacket extends OutgoingPacket {
 	private final int widget;
 	
 	/**
-	 * Creates a new {@link SendStringPacket}.
+	 * Creates a new {@link SendString}.
 	 * 
 	 * @param string
 	 * 		The string to send.
@@ -32,7 +32,7 @@ public class SendStringPacket extends OutgoingPacket {
 	 * @param widget
 	 * 		The interface to display on.
 	 */
-	public SendStringPacket(String string, int widget) {
+	public SendString(String string, int widget) {
 		super(126, PacketHeader.VARIABLE_SHORT, string.length() + 6);
 		this.string = string;
 		this.widget = widget;

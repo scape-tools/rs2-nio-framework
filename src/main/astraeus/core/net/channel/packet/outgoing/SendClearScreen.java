@@ -9,12 +9,12 @@ import main.astraeus.core.net.channel.packet.PacketBuilder;
  * 
  * @author SeVen
  */
-public class ClearScreenPacket extends OutgoingPacket {
+public class SendClearScreen extends OutgoingPacket {
 
 	/**
-	 * Creates a new {@link ClearScreenPacket}.
+	 * Creates a new {@link SendClearScreen}.
 	 */
-	public ClearScreenPacket() {
+	public SendClearScreen() {
 		super(219, 1);
 	}
 

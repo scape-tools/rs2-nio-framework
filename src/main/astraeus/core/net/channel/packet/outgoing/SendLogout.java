@@ -3,20 +3,25 @@ package main.astraeus.core.net.channel.packet.outgoing;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.channel.packet.OutgoingPacket;
 import main.astraeus.core.net.channel.packet.PacketBuilder;
+import main.astraeus.core.net.channel.packet.PacketHeader;
 
-public class DisplayInterfacePacket extends OutgoingPacket {
+/**
+ * The {@link OutgoingPacket} that logs a player out of the game.
+ * 
+ * @author SeVen
+ */
+public class SendLogout extends OutgoingPacket {
 
-	private final int interfaceId;
-	
-	public DisplayInterfacePacket(int interfaceId) {
-		super(97, 3);
-		this.interfaceId = interfaceId;		
+	/**
+	 * Creates a new {@link SendLogout}.
+	 */
+	public SendLogout() {
+		super(109, PacketHeader.STANDARD,  1);
 	}
 
 	@Override
 	public PacketBuilder dispatch(Player player) {
 		player.getContext().prepare(this, builder);
-		builder.putShort(interfaceId);
 		return builder;
 	}
 

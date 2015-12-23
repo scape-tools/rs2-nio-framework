@@ -11,7 +11,7 @@ import main.astraeus.core.net.channel.protocol.codec.game.ByteValue;
  * 
  * @author SeVen
  */
-public class PlayerDialogueHeadPacket extends OutgoingPacket {
+public class SendPlayerDialogueHead extends OutgoingPacket {
 
 	/**
 	 * The id of the interface to display the head model on.
@@ -19,12 +19,12 @@ public class PlayerDialogueHeadPacket extends OutgoingPacket {
 	private final int interfaceId;
 	
 	/**
-	 * Creates a new {@link PlayerDialogueHeadPacket}.
+	 * Creates a new {@link SendPlayerDialogueHead}.
 	 * 
 	 * @param interfaceId
 	 * 		The id of the interface to display the head model on.
 	 */
-	public PlayerDialogueHeadPacket(int interfaceId) {
+	public SendPlayerDialogueHead(int interfaceId) {
 		super(185, 10);
 		this.interfaceId = interfaceId;
 	}

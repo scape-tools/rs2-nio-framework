@@ -9,7 +9,7 @@ import main.astraeus.core.net.channel.packet.PacketBuilder;
  * 
  * @author SeVen
  */
-public class InterfaceAnimationPacket extends OutgoingPacket {
+public class SendInterfaceAnimation extends OutgoingPacket {
 	
 	/**
 	 * The id of the interface that is showing the animation.
@@ -22,7 +22,7 @@ public class InterfaceAnimationPacket extends OutgoingPacket {
 	private final int animationId;
 
 	/**
-	 * Creates a new {@link InterfaceAnimationPacket}.
+	 * Creates a new {@link SendInterfaceAnimation}.
 	 * 
 	 * @param interfaceId
 	 * 		The id of the interface that is showing the animation.
@@ -30,7 +30,7 @@ public class InterfaceAnimationPacket extends OutgoingPacket {
 	 * @param animationId
 	 * 		The id of the animation that is showing.
 	 */
-	public InterfaceAnimationPacket(int interfaceId, int animationId) {
+	public SendInterfaceAnimation(int interfaceId, int animationId) {
 		super(200, 10);
 		this.interfaceId = interfaceId;
 		this.animationId = animationId;

@@ -1,4 +1,4 @@
-package main.astraeus.core.game.model.entity;
+package main.astraeus.core.game.model;
 
 public final class Position {
 	

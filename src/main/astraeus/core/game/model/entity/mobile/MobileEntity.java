@@ -3,8 +3,8 @@ package main.astraeus.core.game.model.entity.mobile;
 import java.util.LinkedList;
 import java.util.List;
 
+import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.Entity;
-import main.astraeus.core.game.model.entity.Position;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags;

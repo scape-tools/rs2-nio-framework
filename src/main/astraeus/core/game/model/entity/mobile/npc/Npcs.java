@@ -1,6 +1,6 @@
 package main.astraeus.core.game.model.entity.mobile.npc;
 
-import main.astraeus.core.game.model.entity.Position;
+import main.astraeus.core.game.model.Position;
 
 public class Npcs {
 	

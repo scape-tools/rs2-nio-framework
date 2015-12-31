@@ -1,9 +1,9 @@
 package main.astraeus.core.game.model.entity.object;
 
 import main.astraeus.core.game.model.Direction;
+import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.Entity;
 import main.astraeus.core.game.model.entity.EntityEventListener;
-import main.astraeus.core.game.model.entity.Position;
 
 /**
  * The class that represents an object in the game world.

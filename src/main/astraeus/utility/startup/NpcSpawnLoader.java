@@ -7,7 +7,7 @@ import com.google.gson.JsonObject;
 
 import main.astraeus.core.Configuration;
 import main.astraeus.core.game.model.Direction;
-import main.astraeus.core.game.model.entity.Position;
+import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.mobile.npc.NpcSpawn;
 import main.astraeus.utility.JsonLoader;
 

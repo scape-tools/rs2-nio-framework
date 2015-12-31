@@ -1,6 +1,6 @@
 package main.astraeus.core.net.channel.packet.outgoing;
 
-import main.astraeus.core.game.model.entity.Position;
+import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.channel.packet.OutgoingPacket;
 import main.astraeus.core.net.channel.packet.PacketBuilder;

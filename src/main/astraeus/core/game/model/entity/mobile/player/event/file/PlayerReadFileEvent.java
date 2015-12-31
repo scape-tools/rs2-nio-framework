@@ -12,7 +12,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
-import main.astraeus.core.game.model.entity.Position;
+import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.Rights;
 import main.astraeus.core.game.model.entity.mobile.player.event.PlayerFileEvent;

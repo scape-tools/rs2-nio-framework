@@ -2,6 +2,7 @@ package main.astraeus.core.game.model.entity;
 
 import java.util.EnumMap;
 
+import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.mobile.Movement;
 import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 

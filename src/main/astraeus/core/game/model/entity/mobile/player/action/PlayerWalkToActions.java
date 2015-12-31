@@ -2,7 +2,7 @@ package main.astraeus.core.game.model.entity.mobile.player.action;
 
 import main.astraeus.content.dialogue.Dialogues;
 import main.astraeus.content.dialogue.impl.BankerDialogue;
-import main.astraeus.core.game.model.entity.Position;
+import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.item.container.DepositContainer;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 

@@ -1,6 +1,6 @@
 package main.astraeus.core.game.pulse.impl;
 
-import main.astraeus.core.game.model.entity.Position;
+import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import main.astraeus.core.game.model.entity.mobile.player.action.PlayerWalkToActions;

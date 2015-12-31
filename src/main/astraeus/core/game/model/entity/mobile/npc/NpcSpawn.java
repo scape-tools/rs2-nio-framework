@@ -1,7 +1,7 @@
 package main.astraeus.core.game.model.entity.mobile.npc;
 
 import main.astraeus.core.game.model.Direction;
-import main.astraeus.core.game.model.entity.Position;
+import main.astraeus.core.game.model.Position;
 
 /**
  * A class which represents a single npc spawn in the virtual world.

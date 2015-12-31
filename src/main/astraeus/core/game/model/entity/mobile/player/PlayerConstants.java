@@ -1,7 +1,7 @@
 package main.astraeus.core.game.model.entity.mobile.player;
 
 import main.astraeus.core.Configuration;
-import main.astraeus.core.game.model.entity.Position;
+import main.astraeus.core.game.model.Position;
 
 public final class PlayerConstants {
 

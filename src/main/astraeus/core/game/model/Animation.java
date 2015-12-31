@@ -1,4 +1,6 @@
-package main.astraeus.core.game.model.entity.mobile;
+package main.astraeus.core.game.model;
+
+import main.astraeus.core.game.model.entity.mobile.MobileEntity;
 
 /**
  * The class that represents a single animation that can be performed by

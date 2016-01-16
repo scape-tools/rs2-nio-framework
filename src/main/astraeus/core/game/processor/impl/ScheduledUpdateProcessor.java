@@ -65,6 +65,7 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 			
 			for (final Player player : players.values()) {
 				player.getUpdateFlags().clear(); // clears the flags
+				player.setRegionChange(false);				
 			}
 			
 		}

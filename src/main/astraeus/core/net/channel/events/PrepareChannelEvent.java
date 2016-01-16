@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import main.astraeus.core.net.channel.ChannelEvent;
 import main.astraeus.core.net.channel.PlayerChannel;
-import main.astraeus.core.net.channel.packet.PacketBuilder;
-import main.astraeus.core.net.channel.packet.PacketHeader;
+import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketHeader;
 
 public final class PrepareChannelEvent extends ChannelEvent {
 

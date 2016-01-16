@@ -4,8 +4,8 @@ import main.astraeus.core.game.model.entity.item.Item;
 import main.astraeus.core.game.model.entity.item.ItemContainer;
 import main.astraeus.core.game.model.entity.item.ItemDefinition;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.net.channel.packet.outgoing.SendMessage;
-import main.astraeus.core.net.channel.packet.outgoing.SendItemOnInterface;
+import main.astraeus.core.net.packet.outgoing.impl.SendItemOnInterface;
+import main.astraeus.core.net.packet.outgoing.impl.SendMessage;
 
 public class InventoryContainer extends ItemContainer {
 	

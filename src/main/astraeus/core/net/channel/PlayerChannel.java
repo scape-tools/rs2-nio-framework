@@ -9,9 +9,9 @@ import java.util.logging.Logger;
 
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.channel.events.PrepareChannelEvent;
-import main.astraeus.core.net.channel.packet.OutgoingPacket;
-import main.astraeus.core.net.channel.packet.PacketBuilder;
-import main.astraeus.core.net.channel.protocol.ProtocolStateDecoder;
+import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
+import main.astraeus.core.net.protocol.ProtocolStateDecoder;
 
 /**
  * A session handler that will maintain input and output operations for a player.

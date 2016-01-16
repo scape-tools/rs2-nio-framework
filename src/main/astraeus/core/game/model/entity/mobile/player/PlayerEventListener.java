@@ -8,9 +8,9 @@ import main.astraeus.core.game.model.entity.EntityEventListener;
 import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.core.game.pulse.PulseScheduler;
-import main.astraeus.core.net.channel.packet.outgoing.SendMessage;
-import main.astraeus.core.net.channel.packet.outgoing.SendLogout;
-import main.astraeus.core.net.channel.packet.outgoing.SendPlayerUpdate;
+import main.astraeus.core.net.packet.outgoing.impl.SendLogout;
+import main.astraeus.core.net.packet.outgoing.impl.SendMessage;
+import main.astraeus.core.net.packet.outgoing.impl.SendPlayerUpdate;
 
 public final class PlayerEventListener extends EntityEventListener<Player> {
 

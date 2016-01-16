@@ -2,7 +2,7 @@ package main.astraeus.core.game.model.entity.mobile.update;
 
 import main.astraeus.core.game.model.entity.mobile.MobileEntity;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
-import main.astraeus.core.net.channel.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketBuilder;
 
 /**
  * Represents an update block of the entity updating procedure.

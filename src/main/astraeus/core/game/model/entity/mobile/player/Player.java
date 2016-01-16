@@ -17,11 +17,11 @@ import main.astraeus.core.game.model.entity.mobile.player.event.file.PlayerReadF
 import main.astraeus.core.game.model.entity.mobile.player.event.file.PlayerSaveFileEvent;
 import main.astraeus.core.net.channel.PlayerChannel;
 import main.astraeus.core.net.channel.events.WriteChannelEvent;
-import main.astraeus.core.net.channel.packet.OutgoingPacket;
-import main.astraeus.core.net.channel.packet.outgoing.SendMessage;
-import main.astraeus.core.net.channel.packet.outgoing.SendLogout;
-import main.astraeus.core.net.channel.packet.outgoing.SendSideBarInterface;
-import main.astraeus.core.net.security.IsaacRandomPair;
+import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
+import main.astraeus.core.net.packet.outgoing.impl.SendLogout;
+import main.astraeus.core.net.packet.outgoing.impl.SendMessage;
+import main.astraeus.core.net.packet.outgoing.impl.SendSideBarInterface;
+import main.astraeus.core.net.protocol.codec.IsaacRandomPair;
 import main.astraeus.utility.Decodeable;
 import main.astraeus.utility.Encodeable;
 import main.astraeus.utility.Utilities;
@@ -154,7 +154,7 @@ public final class Player extends MobileEntity {
 	 * 
 	 */
 	public final void send(OutgoingPacket packet) {
-		getContext().execute(new WriteChannelEvent(packet.getHeader(), packet.dispatch(this)));
+		getContext().execute(new WriteChannelEvent(packet.getHeader(), packet.encode(this)));
 	}
 
 	/**

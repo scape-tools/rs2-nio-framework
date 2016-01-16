@@ -5,7 +5,7 @@ import java.util.Set;
 
 import main.astraeus.core.Server;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.net.channel.packet.outgoing.SendCreateObject;
+import main.astraeus.core.net.packet.outgoing.impl.SendCreateObject;
 
 public final class GameObjectManager {
 

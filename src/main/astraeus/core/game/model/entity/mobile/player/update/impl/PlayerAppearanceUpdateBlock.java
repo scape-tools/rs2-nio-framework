@@ -5,8 +5,8 @@ import java.nio.ByteBuffer;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.update.PlayerUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
-import main.astraeus.core.net.channel.packet.PacketBuilder;
-import main.astraeus.core.net.channel.protocol.codec.game.ByteValue;
+import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.protocol.codec.ByteValue;
 import main.astraeus.utility.Utilities;
 
 public class PlayerAppearanceUpdateBlock extends PlayerUpdateBlock {

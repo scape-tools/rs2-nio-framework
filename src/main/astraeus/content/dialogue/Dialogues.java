@@ -6,11 +6,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.net.channel.packet.outgoing.SendChatBoxInterface;
-import main.astraeus.core.net.channel.packet.outgoing.SendInterfaceAnimation;
-import main.astraeus.core.net.channel.packet.outgoing.SendNpcDialogueHead;
-import main.astraeus.core.net.channel.packet.outgoing.SendPlayerDialogueHead;
-import main.astraeus.core.net.channel.packet.outgoing.SendString;
+import main.astraeus.core.net.packet.outgoing.impl.SendChatBoxInterface;
+import main.astraeus.core.net.packet.outgoing.impl.SendInterfaceAnimation;
+import main.astraeus.core.net.packet.outgoing.impl.SendNpcDialogueHead;
+import main.astraeus.core.net.packet.outgoing.impl.SendPlayerDialogueHead;
+import main.astraeus.core.net.packet.outgoing.impl.SendString;
 import main.astraeus.utility.Utilities;
 
 /**

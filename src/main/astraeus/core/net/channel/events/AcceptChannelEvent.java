@@ -6,7 +6,7 @@ import java.nio.channels.Selector;
 
 import main.astraeus.core.net.channel.ChannelEvent;
 import main.astraeus.core.net.channel.PlayerChannel;
-import main.astraeus.core.net.channel.protocol.codec.login.LoginRequestDecoder;
+import main.astraeus.core.net.protocol.codec.login.LoginRequestDecoder;
 
 public final class AcceptChannelEvent extends ChannelEvent {
 

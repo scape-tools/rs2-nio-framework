@@ -4,7 +4,7 @@ import main.astraeus.core.game.model.entity.item.Item;
 import main.astraeus.core.game.model.entity.item.ItemContainer;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
-import main.astraeus.core.net.channel.packet.outgoing.SendInventoryInterface;
+import main.astraeus.core.net.packet.outgoing.impl.SendInventoryInterface;
 
 public class BankContainer extends ItemContainer {
 

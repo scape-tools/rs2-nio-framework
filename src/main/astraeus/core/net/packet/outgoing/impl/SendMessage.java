@@ -32,7 +32,7 @@ public class SendMessage extends OutgoingPacket {
 	public PacketBuilder encode(Player player) {
 		player.getContext().prepare(this, builder);
 		builder.getBuffer().put(message.getBytes());
-		builder.putByte(10);
+		builder.put(10);
 		return builder;
 	}
 

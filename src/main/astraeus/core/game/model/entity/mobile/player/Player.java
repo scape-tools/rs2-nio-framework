@@ -7,6 +7,7 @@ import java.util.List;
 import main.astraeus.content.dialogue.Dialogue;
 import main.astraeus.content.dialogue.DialogueOption;
 import main.astraeus.core.game.GameConstants;
+import main.astraeus.core.game.model.ChatMessage;
 import main.astraeus.core.game.model.entity.EntityEventListener;
 import main.astraeus.core.game.model.entity.item.ItemContainer;
 import main.astraeus.core.game.model.entity.item.container.InventoryContainer;
@@ -27,6 +28,8 @@ import main.astraeus.utility.Encodeable;
 import main.astraeus.utility.Utilities;
 
 public final class Player extends MobileEntity {
+	
+	private ChatMessage chatMessage = new ChatMessage();
 	
 	/**
 	 * The mobs local to our player.
@@ -96,7 +99,9 @@ public final class Player extends MobileEntity {
 		CLICK_Y,
 		WALK_TO_ACTION,
 		CLICK_INDEX,
-		FACE_COORDINATE;
+		FACE_COORDINATE,
+		FACING_COORDINATE_X,
+		FACING_COORDINATE_Y;
 	}
 	
 	/**
@@ -395,6 +400,20 @@ public final class Player extends MobileEntity {
 	 */
 	public void setDisconnected(boolean disconnected) {
 		this.disconnected = disconnected;
+	}
+
+	/**
+	 * @return the chatMessage
+	 */
+	public ChatMessage getChatMessage() {
+		return chatMessage;
+	}
+
+	/**
+	 * @param chatMessage the chatMessage to set
+	 */
+	public void setChatMessage(ChatMessage chatMessage) {
+		this.chatMessage = chatMessage;
 	}	
 	
 }

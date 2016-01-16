@@ -21,6 +21,11 @@ public abstract class Entity {
 	}
 	
 	private transient int id;
+	
+	/**
+	 * The index of an entity in an array.
+	 */
+	private int slot;
 
 	/**
 	 * The current coordinate point the entity is residing on.
@@ -78,6 +83,20 @@ public abstract class Entity {
 	 */
 	public void setId(int id) {
 		this.id = id;
-	}	
+	}
+	
+	/**
+	 * @return the slot
+	 */
+	public int getSlot() {
+		return slot;
+	}
+
+	/**
+	 * @param slot the slot to set
+	 */
+	public void setSlot(int slot) {
+		this.slot = slot;
+	}
 	
 }

@@ -48,14 +48,14 @@ public class SendItemOnInterface extends OutgoingPacket {
 		for(Item item : items) {
 			if (item != null) {
 			if(item.getAmount() > 254) {
-				builder.putByte(255);
+				builder.put(255);
 				builder.putInt(item.getAmount(), ByteOrder.INVERSE);				
 			} else {
-				builder.putByte(item.getAmount());
+				builder.put(item.getAmount());
 			}
 			builder.putShort(item.getId() + 1, ByteValue.ADDITION, ByteOrder.LITTLE);
 			} else {
-				builder.putByte(0);
+				builder.put(0);
 				builder.putShort(0, ByteValue.ADDITION, ByteOrder.LITTLE);
 			}			
 		}

@@ -200,7 +200,7 @@ public class SendNPCUpdate extends OutgoingPacket {
 			updateMask |= 0x4;
 		}
 
-		builder.putByte(updateMask);
+		builder.put(updateMask);
 
 		if (npc.getUpdateFlags().get(UpdateFlag.ANIMATION)) {
 			append(new NpcAnimationUpdateBlock(), npc, builder);

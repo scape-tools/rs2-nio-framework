@@ -28,7 +28,7 @@ public final class LoginHeaderDecoder extends ProtocolStateDecoder {
 	public void decode(PlayerChannel context) throws IOException {
 		
 		final PacketBuilder response = new PacketBuilder(ByteBuffer.allocate(17));		
-		response.putByte(0);
+		response.put(0);
 		response.putLong(0);		
 		response.putLong(random.nextLong());
 		context.execute(new WriteChannelEvent(PacketHeader.EMPTY, response));

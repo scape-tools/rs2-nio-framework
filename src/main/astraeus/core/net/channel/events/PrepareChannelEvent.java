@@ -67,11 +67,11 @@ public final class PrepareChannelEvent extends ChannelEvent {
 		 * defined as a byte or a short the length must be indicated by that primitive.
 		 */
 		if (!header.equals(PacketHeader.EMPTY)) {
-			buffer.putByte(opcode + context.getPlayer().getIsaacRandomPair().getDecoder().getNextValue());
+			buffer.put(opcode + context.getPlayer().getIsaacRandomPair().getDecoder().getNextValue());
 			
 			if (header.equals(PacketHeader.VARIABLE_BYTE)) {
 				buffer.setLength(buffer.getBuffer().position());
-				buffer.putByte(0);
+				buffer.put(0);
 			} else if (header.equals(PacketHeader.VARIABLE_SHORT)) {
 				buffer.setLength(buffer.getBuffer().position());
 				buffer.putShort(0);

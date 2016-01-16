@@ -145,6 +145,31 @@ public final class PacketBuilder {
 		return this;
 	}
 	
+    /**
+     * Writes the bytes from the argued byte array into this buffer, in reverse.
+     *
+     * @param data
+     *            the data to write to this buffer.
+     */
+    public PacketBuilder putBytesReverse(byte[] data) {
+	for (int i = data.length - 1; i >= 0; i--) {
+	    put(data[i]);
+	}
+	return this;
+    }
+	
+    /**
+     * Writes a value as a standard big-endian {@code int}.
+     *
+     * @param value
+     *            the value to write.
+     * @return an instance of this message builder.
+     */
+	public PacketBuilder putInt(int value) {
+		putInt(value, ByteValue.STANDARD, ByteOrder.BIG);
+		return this;
+	}
+	
 	/**
 	 * Places a single integer value into the internal buffer.
 	 * 
@@ -205,31 +230,31 @@ public final class PacketBuilder {
 	public PacketBuilder putInt(int value, ByteValue byteValue, ByteOrder order) {
 		switch(order) {		
 		case BIG:
-            putByte(value >> 24);
-            putByte(value >> 16);
-            putByte(value >> 8);
+            put(value >> 24);
+            put(value >> 16);
+            put(value >> 8);
             putByte(value, byteValue);
 			break;
 			
 		case INVERSE:
-            putByte(value >> 16);
-            putByte(value >> 24);
+            put(value >> 16);
+            put(value >> 24);
             putByte(value, byteValue);
-            putByte(value >> 8);
+            put(value >> 8);
 			break;
 			
 		case LITTLE:
             putByte(value, byteValue);
-            putByte(value >> 8);
-            putByte(value >> 16);
-            putByte(value >> 24);
+            put(value >> 8);
+            put(value >> 16);
+            put(value >> 24);
 			break;
 			
 		case MIDDLE:
-            putByte(value >> 8);
+            put(value >> 8);
             putByte(value, byteValue);
-            putByte(value >> 24);
-            putByte(value >> 16);
+            put(value >> 24);
+            put(value >> 16);
 			break;	
 		}
 		return this;
@@ -435,8 +460,8 @@ public final class PacketBuilder {
 	 * 
 	 * @param value The value of the byte.
 	 */
-	public final PacketBuilder putByte(int value) {
-		put(value, ByteValue.STANDARD);
+	public final PacketBuilder put(int value) {
+		put(value, ByteValue.STANDARD);		
 		return this;
 	}
 

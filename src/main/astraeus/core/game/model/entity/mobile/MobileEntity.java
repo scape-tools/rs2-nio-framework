@@ -2,7 +2,13 @@ package main.astraeus.core.game.model.entity.mobile;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
+import main.astraeus.core.game.model.Animation;
+import main.astraeus.core.game.model.ForceMovement;
+import main.astraeus.core.game.model.Graphic;
+import main.astraeus.core.game.model.Hit;
 import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.Entity;
 import main.astraeus.core.game.model.entity.mobile.npc.Npc;
@@ -22,11 +28,12 @@ public abstract class MobileEntity extends Entity {
 	 * The update flags held by the entity.
 	 */
 	private UpdateFlags updateFlags = new UpdateFlags();
+	private final Queue<Animation> animations = new PriorityQueue<>();
+	private final Queue<Graphic> graphics = new PriorityQueue<>();	
+	private Hit primaryHit;	
+	private Hit secondaryHit;
 	
-	/**
-	 * The index of an entity in an array.
-	 */
-	private int slot;
+	private ForceMovement forceMovement;
 	
 	/**
 	 * The players in the surrounding region of this entity.
@@ -36,6 +43,11 @@ public abstract class MobileEntity extends Entity {
 	private boolean registered = false;
 	
 	private String forcedChat = "";
+	
+	/**
+	 * The entity interacting with the current entity
+	 */
+	private transient Entity interactingEntity;
 
 	/**
 	 * The direction the entity is walking.
@@ -50,6 +62,51 @@ public abstract class MobileEntity extends Entity {
 	public abstract int getCurrentHealth();
 
 	public abstract void dispose();
+	
+	public void startAnimation(final Animation animation) {
+		if (animation != null) {
+			animations.add(animation);
+			getUpdateFlags().flag(UpdateFlag.ANIMATION);
+		}
+	}
+	
+	public Animation getAnimation() {
+		return animations.peek() == null ? new Animation(65535) : animations.peek();
+	}
+	
+	public Queue<Animation> getAnimations() {
+		return animations;
+	}
+	
+	public void startGraphic(Graphic graphic) {
+		if (graphic != null) {
+			graphics.add(graphic);
+			getUpdateFlags().flag(UpdateFlag.GRAPHICS);
+		}
+	}
+	
+	public Graphic getGraphic() {
+		return graphics.peek() == null ? new Graphic(65535) : graphics.peek();
+	}
+	
+	public Queue<Graphic> getGraphics() {
+		return graphics;
+	}
+	
+	public Hit getPrimaryHit() {
+		return primaryHit;
+	}
+	
+	public Hit getSecondaryHit() {
+		return secondaryHit;
+	}
+	
+	/**
+	 * @return the forceMovement
+	 */
+	public ForceMovement getForceMovement() {
+		return forceMovement;
+	}
 	
 	/**
 	 * Faces a coordinate point.
@@ -159,19 +216,24 @@ public abstract class MobileEntity extends Entity {
 	public void setForcedChat(String forcedChat) {
 		this.forcedChat = forcedChat;
 	}
-
+	
 	/**
-	 * @return the slot
+	 * Sets the interacting entity
+	 * 
+	 * @param entity
 	 */
-	public int getSlot() {
-		return slot;
+	public void setInteractingEntity(Entity entity) {
+		this.interactingEntity = entity;
+		getUpdateFlags().flag(UpdateFlag.ENTITY_INTERACTION);
 	}
-
+	
 	/**
-	 * @param slot the slot to set
+	 * Returns the entity interacting with the current entity
+	 * 
+	 * @return
 	 */
-	public void setSlot(int slot) {
-		this.slot = slot;
+	public Entity getInteractingEntity() {
+		return interactingEntity;
 	}
 	
 	public boolean isNpc() {		

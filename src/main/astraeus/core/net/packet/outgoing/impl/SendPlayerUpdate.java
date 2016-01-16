@@ -7,7 +7,16 @@ import main.astraeus.core.game.World;
 import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.update.PlayerUpdateBlock;
-import main.astraeus.core.game.model.entity.mobile.player.update.impl.PlayerAppearanceUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerAnimationUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerAppearanceUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerChatUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerDoubleHitUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerFaceCoordinateUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerForceChatUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerForceMovementUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerGraphicUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerInteractionUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerSingleHitUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.core.net.packet.PacketBuilder;
 import main.astraeus.core.net.packet.PacketHeader;
@@ -48,7 +57,7 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 		updateMovement(player, builder);
 
 		if (player.getUpdateFlags().isUpdateRequired()) {
-			appendUpdates(player, update, false);
+			appendUpdates(player, update, false, true);
 		}
 
 		builder.putBits(8, player.getLocalPlayers().size());
@@ -61,7 +70,7 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 				updatePlayerMovement(other, builder);
 				
 				if (other.getUpdateFlags().isUpdateRequired()) {
-					appendUpdates(other, update, false);
+				    appendUpdates(other, update, false, false);
 				}
 			} else {
 				iterator.remove();
@@ -74,28 +83,22 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 
 		for (Player other : World.getPlayers()) {
 			
-			if (other == null || !other.isRegistered()) {
+		    if (other == null || !other.isRegistered() || other == player || player.getLocalPlayers().contains(other)) {
 				continue;
 			}
 
 			if (other.getLocalPlayers().size() >= 79 || playersAdded > MAX_NEW_PLAYERS_PER_CYCLE) {
 				break;
 			}
-
-			if (other == player || player.getLocalPlayers().contains(other)) {
-				continue;
-			}
 			
 			if (other.getPosition().isWithinDistance(player.getPosition(), 15)) {
 				addPlayer(player, other, builder);
-				appendUpdates(other, update, true);
+				appendUpdates(other, update, true, false);
 				playersAdded++;
-			}
-			
+			}			
 		}
-
+		
 		if (update.getBuffer().position() > 0) {
-
 			builder.putBits(11, 2047)
 			.setAccessType(ByteAccess.BYTE_ACCESS)
 			.putBytes(update.getBuffer());
@@ -119,11 +122,10 @@ public final class SendPlayerUpdate extends OutgoingPacket {
      *            The builder used to write and store data.
      */
 	public void addPlayer(Player player, Player other, PacketBuilder builder) {
-		player.getLocalPlayers().add(other);
-		
+		player.getLocalPlayers().add(other);		
 		builder.putBits(11, other.getSlot())
-		.putBits(1, 1)
-		.putBits(1, 1)
+		.putBit(true)
+		.putBit(true)
 		.putBits(5, other.getPosition().getY() - player.getPosition().getY())
 		.putBits(5, other.getPosition().getX() - player.getPosition().getX());
 	}
@@ -353,25 +355,108 @@ public final class SendPlayerUpdate extends OutgoingPacket {
      * @param builder
      *            The builder that constructs a packet and stores the data.
      *            
-     * @param forceful
+     * @param forceAppearance
      * 		The flag that determines if this player should be forcefully updated.
      */
-	public void appendUpdates(Player player, PacketBuilder buffer, boolean forceful) {		
+	public void appendUpdates(Player player, PacketBuilder buffer, boolean forceAppearance, boolean noChat) {		
 		synchronized(player) {
 			
+			if (!player.getUpdateFlags().isUpdateRequired() && !forceAppearance) {	    
+			    return;
+			}
+			
 			int mask = 0x0;
-			if (player.getUpdateFlags().get(UpdateFlag.APPEARANCE) || forceful) {
+			
+			if (player.getUpdateFlags().get(UpdateFlag.APPEARANCE) || forceAppearance) {
 				mask |= 0x10;
 			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.GRAPHICS)) {
+			    mask |= 0x100;
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.ANIMATION)) {
+			    mask |= 0x8;
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.FORCED_CHAT) && player.getForcedChat().length() > 0) {
+			    mask |= 0x4;
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.CHAT) && !noChat) {
+			    mask |= 0x80;
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.ENTITY_INTERACTION)) {
+			    mask |= 0x1;
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.FACE_COORDINATE)) {
+			    mask |= 0x2;
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.SINGLE_HIT)) {
+			    mask |= 0x20;
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.SINGLE_HIT)) {
+			    mask |= 0x20;
+			}
+
+			if (player.getUpdateFlags().get(UpdateFlag.DOUBLE_HIT)) {
+			    mask |= 0x200;
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.FORCE_MOVEMENT)) {
+			    mask |= 0x400;
+			}
+			
 			if (mask >= 0x100) {
 				mask |= 0x40;
-				buffer.putByte((mask & 0xFF));
-				buffer.putByte((mask >> 8));
+				buffer.put((mask & 0xFF))
+				.put((mask >> 8));
 			} else {
-				buffer.putByte((mask));
+				buffer.put(mask);
 			}
-			if (player.getUpdateFlags().get(UpdateFlag.APPEARANCE) || forceful) {				
+			
+			if (player.getUpdateFlags().get(UpdateFlag.GRAPHICS)) {
+			    append(new PlayerGraphicUpdateBlock(), player, builder);
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.ANIMATION)) {
+			    append(new PlayerAnimationUpdateBlock(), player, builder);
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.FORCED_CHAT) && player.getForcedChat().length() > 0) {
+			    append(new PlayerForceChatUpdateBlock(), player, builder);
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.CHAT) && !noChat) {
+			    append(new PlayerChatUpdateBlock(), player, builder);
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.ENTITY_INTERACTION)) {
+			    append(new PlayerInteractionUpdateBlock(), player, builder);
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.APPEARANCE) || forceAppearance) {				
 				append(new PlayerAppearanceUpdateBlock(), player, buffer);
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.FORCE_MOVEMENT)) {
+			    append(new PlayerForceMovementUpdateBlock(), player, builder);
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.FACE_COORDINATE)) {
+			    append(new PlayerFaceCoordinateUpdateBlock(), player, builder);
+			}
+			
+			if (player.getUpdateFlags().get(UpdateFlag.SINGLE_HIT)) {
+			    append(new PlayerSingleHitUpdateBlock(), player, builder);
+			}
+
+			if (player.getUpdateFlags().get(UpdateFlag.DOUBLE_HIT)) {
+			    append(new PlayerDoubleHitUpdateBlock(), player, builder);
 			}
 		}
 	}

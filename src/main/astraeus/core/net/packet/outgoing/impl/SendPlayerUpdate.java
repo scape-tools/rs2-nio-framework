@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.Iterator;
 
 import main.astraeus.core.game.World;
+import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.update.PlayerUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.player.update.impl.PlayerAppearanceUpdateBlock;
@@ -19,6 +20,11 @@ import main.astraeus.core.net.protocol.codec.ByteAccess;
  * @author SeVen
  */
 public final class SendPlayerUpdate extends OutgoingPacket {
+	
+    /**
+     * The max amount of players that can be added per cycle.
+     */
+    private static final int MAX_NEW_PLAYERS_PER_CYCLE = 25;
 
     /**
      * Creates a new {@link SendPlayerUpdate}.
@@ -42,7 +48,6 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 		updateMovement(player, builder);
 
 		if (player.getUpdateFlags().isUpdateRequired()) {
-
 			appendUpdates(player, update, false);
 		}
 
@@ -52,25 +57,20 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 
 			final Player other = iterator.next();
 
-			if (other.getPosition().isWithinDistance(player.getPosition(), 15)) {
-
-				updateMovement(other, builder);
-
+			if (World.getPlayers()[other.getSlot()] != null && other.isRegistered() && other.getPosition().isWithinDistance(player.getPosition(), Position.VIEWING_DISTANCE)) {
+				updatePlayerMovement(other, builder);
+				
 				if (other.getUpdateFlags().isUpdateRequired()) {
-
 					appendUpdates(other, update, false);
-
 				}
-
 			} else {
-
 				iterator.remove();
-
-				builder.putBits(1, 1);
-
+				builder.putBit(true);
 				builder.putBits(2, 3);
 			}
 		}
+		
+		int playersAdded = 0;
 
 		for (Player other : World.getPlayers()) {
 			
@@ -78,7 +78,7 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 				continue;
 			}
 
-			if (other.getLocalPlayers().size() >= 255) {
+			if (other.getLocalPlayers().size() >= 79 || playersAdded > MAX_NEW_PLAYERS_PER_CYCLE) {
 				break;
 			}
 
@@ -87,19 +87,18 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 			}
 			
 			if (other.getPosition().isWithinDistance(player.getPosition(), 15)) {
+				addPlayer(player, other, builder);
 				appendUpdates(other, update, true);
+				playersAdded++;
 			}
 			
 		}
 
 		if (update.getBuffer().position() > 0) {
 
-			builder.putBits(11, 2047);
-
-			builder.setAccessType(ByteAccess.BYTE_ACCESS);
-
-			builder.putBytes(update.getBuffer());
-
+			builder.putBits(11, 2047)
+			.setAccessType(ByteAccess.BYTE_ACCESS)
+			.putBytes(update.getBuffer());
 		} else {
 			builder.setAccessType(ByteAccess.BYTE_ACCESS);
 		}
@@ -247,6 +246,87 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 			}
 		}
 	}
+	
+    /**
+     * Updates a non-this player's movement.
+     * 
+     * @param builder
+     *            The packet.
+     * @param otherPlayer
+     *            The player.
+     */
+    public static void updatePlayerMovement(Player player, PacketBuilder builder) {
+	/*
+	 * Check which type of movement took place.
+	 */
+	if (player.getWalkingDirection() == -1) {
+	    /*
+	     * If no movement did, check if an update is required.
+	     */
+	    if (player.getUpdateFlags().isUpdateRequired()) {
+		/*
+		 * Signify that an update happened.
+		 */
+		builder.putBit(true);
+
+		/*
+		 * Signify that there was no movement.
+		 */
+		builder.putBits(2, 0);
+	    } else {
+		/*
+		 * Signify that nothing changed.
+		 */
+		builder.putBit(false);
+	    }
+	} else if (player.getRunningDirection() == -1) {
+	    /*
+	     * The player moved but didn't run. Signify that an update is
+	     * required.
+	     */
+	    builder.putBit(true);
+
+	    /*
+	     * Signify we moved one tile.
+	     */
+	    builder.putBits(2, 1);
+
+	    /*
+	     * Write the primary sprite (i.e. walk direction).
+	     */
+	    builder.putBits(3, player.getWalkingDirection());
+
+	    /*
+	     * Write a flag indicating if a block update happened.
+	     */
+	    builder.putBit(player.getUpdateFlags().isUpdateRequired());
+	} else {
+	    /*
+	     * The player ran. Signify that an update happened.
+	     */
+	    builder.putBit(true);
+
+	    /*
+	     * Signify that we moved two tiles.
+	     */
+	    builder.putBits(2, 2);
+
+	    /*
+	     * Write the primary sprite (i.e. walk direction).
+	     */
+	    builder.putBits(3, player.getWalkingDirection());
+
+	    /*
+	     * Write the secondary sprite (i.e. run direction).
+	     */
+	    builder.putBits(3, player.getRunningDirection());
+
+	    /*
+	     * Write a flag indicating if a block update happened.
+	     */
+	    builder.putBit(player.getUpdateFlags().isUpdateRequired());
+	}
+    }
 	
     /**
      * Appends pieces of a players update block to the main player update block.

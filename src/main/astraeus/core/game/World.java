@@ -1,9 +1,12 @@
 package main.astraeus.core.game;
 
 import main.astraeus.core.Server;
+import main.astraeus.core.game.model.entity.mobile.npc.Npc;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 
 public class World {
+	
+	private static final Npc[] npcs = new Npc[3000];
 
 	/**
 	 * Checks if a player with a specific name is registered in the virtual world.
@@ -22,5 +25,12 @@ public class World {
 		}
 		return false;
 	}
+
+	/**
+	 * @return the npcs
+	 */
+	public static Npc[] getNpcs() {
+		return npcs;
+	}	
 
 }

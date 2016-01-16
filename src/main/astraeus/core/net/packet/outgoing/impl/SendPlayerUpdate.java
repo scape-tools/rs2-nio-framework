@@ -102,7 +102,6 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 			builder.putBytes(update.getBuffer());
 
 		} else {
-
 			builder.setAccessType(ByteAccess.BYTE_ACCESS);
 		}
 

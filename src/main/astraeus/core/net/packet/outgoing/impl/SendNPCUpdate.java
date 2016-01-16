@@ -5,14 +5,20 @@ import java.util.Iterator;
 import main.astraeus.core.game.World;
 import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.mobile.npc.Npc;
+import main.astraeus.core.game.model.entity.mobile.npc.update.NpcUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.npc.update.impl.NpcAnimationUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.npc.update.impl.NpcDoubleHitUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.npc.update.impl.NpcFaceCoordinateUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.npc.update.impl.NpcForceChatUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.npc.update.impl.NpcGraphicsUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.npc.update.impl.NpcInteractionUpdateBlock;
+import main.astraeus.core.game.model.entity.mobile.npc.update.impl.NpcSingleHitUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.core.net.packet.PacketBuilder;
 import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteAccess;
-import main.astraeus.core.net.protocol.codec.ByteOrder;
 
 /**
  * The {@link OutgoingPacket} that updates a non-player character.
@@ -132,6 +138,22 @@ public class SendNPCUpdate extends OutgoingPacket {
 		.putBits(12, npc.getId())
 		.putBit(true);
 	}
+	
+	/**
+	 * Appends a single {@link Mob}s update block to the main update block.
+	 * 
+	 * @param block
+	 *            The block to append.
+	 * 
+	 * @param npc
+	 *            The mob to update.
+	 * 
+	 * @param buffer
+	 *            The buffer to store data.
+	 */
+	public void append(NpcUpdateBlock block, Npc npc, PacketBuilder builder) {
+		block.encode(npc, builder);		
+	}
 
 	/**
 	 * Appends a mask update for an npc.
@@ -142,20 +164,70 @@ public class SendNPCUpdate extends OutgoingPacket {
 	 * @param update
 	 *            The update buffer to place data in.
 	 */
-	public static void appendUpdates(Npc npc, PacketBuilder update) {
-
-		int mask = 0x0;
-
-		if (npc.getUpdateFlags().get(UpdateFlag.FACE_COORDINATE)) {
-			mask |= 0x4;
+	public void appendUpdates(Npc npc, PacketBuilder update) {
+		
+		int updateMask = 0x0;
+		
+		if (npc.getUpdateFlags().get(UpdateFlag.ANIMATION)) {
+			updateMask |= 0x10;
 		}
 
-		update.putByte(mask);
+		if (npc.getUpdateFlags().get(UpdateFlag.DOUBLE_HIT)) {
+			updateMask |= 0x8;
+		}
+
+		if (npc.getUpdateFlags().get(UpdateFlag.GRAPHICS)) {
+			updateMask |= 0x80;
+		}
+
+		if (npc.getUpdateFlags().get(UpdateFlag.ENTITY_INTERACTION)) {
+			updateMask |= 0x20;
+		}
+
+		if (npc.getUpdateFlags().get(UpdateFlag.FORCED_CHAT) && npc.getForcedChat().length() > 0) {
+			updateMask |= 0x1;
+		}
+
+		if (npc.getUpdateFlags().get(UpdateFlag.SINGLE_HIT)) {
+			updateMask |= 0x40;
+		}
+
+		if (npc.getUpdateFlags().get(UpdateFlag.TRANSFORM)) {
+			updateMask |= 0x2;
+		}
 
 		if (npc.getUpdateFlags().get(UpdateFlag.FACE_COORDINATE)) {
-			final Position position = (Position) npc.getAttributes().get(Attributes.FACE_COORDINATE);
-			update.putShort(position.getX() * 2 + 1, ByteOrder.LITTLE);
-			update.putShort(position.getY() * 2 + 1, ByteOrder.LITTLE);
+			updateMask |= 0x4;
+		}
+
+		builder.putByte(updateMask);
+
+		if (npc.getUpdateFlags().get(UpdateFlag.ANIMATION)) {
+			append(new NpcAnimationUpdateBlock(), npc, builder);
+		}
+
+		if (npc.getUpdateFlags().get(UpdateFlag.DOUBLE_HIT)) {
+			append(new NpcDoubleHitUpdateBlock(), npc, builder);
+		}
+
+		if (npc.getUpdateFlags().get(UpdateFlag.GRAPHICS)) {
+			append(new NpcGraphicsUpdateBlock(), npc, builder);
+		}
+
+		if (npc.getUpdateFlags().get(UpdateFlag.ENTITY_INTERACTION)) {
+			append(new NpcInteractionUpdateBlock(), npc, builder);
+		}
+
+		if (npc.getUpdateFlags().get(UpdateFlag.FORCED_CHAT) && npc.getForcedChat().length() > 0) {
+			append(new NpcForceChatUpdateBlock(), npc, builder);
+		}
+
+		if (npc.getUpdateFlags().get(UpdateFlag.SINGLE_HIT)) {
+			append(new NpcSingleHitUpdateBlock(), npc, builder);
+		}
+
+		if (npc.getUpdateFlags().get(UpdateFlag.FACE_COORDINATE)) {
+			append(new NpcFaceCoordinateUpdateBlock(), npc, builder);
 		}
 	}
 

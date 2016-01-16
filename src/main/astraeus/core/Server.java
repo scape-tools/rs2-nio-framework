@@ -12,6 +12,7 @@ import main.astraeus.core.game.processor.impl.ScheduledNetworkProcessor;
 import main.astraeus.core.game.processor.impl.ScheduledUpdateProcessor;
 import main.astraeus.core.net.packet.incoming.IncomingPacketRegistration;
 import main.astraeus.utility.startup.ItemDefinitionLoader;
+import main.astraeus.utility.startup.NpcSpawnLoader;
 import main.astraeus.utility.startup.ShopLoader;
 
 /**
@@ -49,6 +50,8 @@ public final class Server {
 		new IncomingPacketRegistration();
 			
 		new ShopLoader();
+		
+		new NpcSpawnLoader();
 		
 		new ItemDefinitionLoader();
 		

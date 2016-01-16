@@ -9,6 +9,7 @@ import main.astraeus.core.Configuration;
 import main.astraeus.core.game.model.Direction;
 import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.mobile.npc.NpcSpawn;
+import main.astraeus.core.game.model.entity.mobile.npc.Npcs;
 import main.astraeus.utility.JsonLoader;
 
 public class NpcSpawnLoader extends JsonLoader {
@@ -26,7 +27,7 @@ public class NpcSpawnLoader extends JsonLoader {
 		boolean randomWalk = reader.get("randomWalk").getAsBoolean();
 		String facing = Objects.requireNonNull(reader.get("facing").getAsString());
 		NpcSpawn spawn = new NpcSpawn(id, position, randomWalk, Direction.valueOf(facing));
-		//Npcs.createNpc(spawn);
+		Npcs.createNpc(spawn);
 	}
 
 }

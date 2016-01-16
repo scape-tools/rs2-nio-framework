@@ -28,6 +28,8 @@ public abstract class MobileEntity extends Entity {
 	private final List<Player> localPlayers = new LinkedList<Player>();
 	
 	private boolean registered = false;
+	
+	private String forcedChat = "";
 
 	/**
 	 * The direction the entity is walking.
@@ -137,4 +139,19 @@ public abstract class MobileEntity extends Entity {
 	public void setRegistered(boolean registered) {
 		this.registered = registered;
 	}
+
+	/**
+	 * @return the forcedChat
+	 */
+	public String getForcedChat() {
+		return forcedChat;
+	}
+
+	/**
+	 * @param forcedChat the forcedChat to set
+	 */
+	public void setForcedChat(String forcedChat) {
+		this.forcedChat = forcedChat;
+	}
+	
 }

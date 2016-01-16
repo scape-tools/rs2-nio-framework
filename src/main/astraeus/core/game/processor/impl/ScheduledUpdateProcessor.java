@@ -2,7 +2,8 @@ package main.astraeus.core.game.processor.impl;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import main.astraeus.core.game.model.entity.mobile.EntityList;
+import main.astraeus.core.game.World;
+import main.astraeus.core.game.model.entity.mobile.npc.Npc;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.processor.ProcessorConstants;
 import main.astraeus.core.game.processor.ScheduledProcessor;
@@ -15,8 +16,6 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	 * in a index to instance relationship.
 	 */
 	private final ConcurrentHashMap<Integer, Player> players = new ConcurrentHashMap<Integer, Player>();
-	
-	private final EntityList<Player> playerList = new EntityList<>(2000);
 
 	/**
 	 * The overloaded class constructor used for instantiation of this class
@@ -36,7 +35,7 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	 *            The instance of the new player.
 	 */
 	public final void addPlayer(Player player) {
-		playerList.add(player);
+		players.put(player.getIndex(), player);
 	}
 
 	/**
@@ -47,25 +46,42 @@ public final class ScheduledUpdateProcessor extends ScheduledProcessor {
 	 */
 	public final void removePlayer(Player player) {
 		players.remove(player.getIndex());
-		playerList.remove(player);
 	}
 
 	@Override
 	public void execute() {
 		synchronized (this) {
 			
+			// player movement
 			for (final Player player : getPlayers().values()) {
-				player.prepare(); //movement
+				player.prepare();
 			}
 			
+			// npc movement
+			for (final Npc npc : World.getNpcs()) {
+				if (npc == null || !npc.isRegistered()) {
+					continue;
+				}
+				npc.prepare();
+			}
+			
+			// update player and npc both in parallel
 			for (final Player player : players.values()) {
 				player.getEventListener().update(player);
-			}
+			}			
 			
-			
+			// clear player update flags
 			for (final Player player : players.values()) {
-				player.getUpdateFlags().clear(); // clears the flags
+				player.getUpdateFlags().clear();
 				player.setRegionChange(false);				
+			}			
+			
+			// clear npc update flags
+			for (final Npc npc : World.getNpcs()) {
+				if (npc == null || !npc.isRegistered()) {
+					continue;
+				}
+				npc.getUpdateFlags().clear();
 			}
 			
 		}

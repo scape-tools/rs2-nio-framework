@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import main.astraeus.core.game.model.entity.item.Item;
 import main.astraeus.core.game.model.entity.item.ItemDefinition;
-import main.astraeus.core.game.model.entity.mobile.npc.Npcs;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.packet.incoming.IncomingPacket;
 import main.astraeus.core.net.packet.incoming.IncomingPacketListener;
@@ -35,11 +34,7 @@ public class CommandPacketListener implements IncomingPacketListener {
 		
 		String command[] = new String(message).split(" ");
 		
-		switch(command[0]) {
-		
-		case "test":
-			Npcs.createNpc();
-			break;
+		switch(command[0]) {		
 		
 		case "interface":
 			try {

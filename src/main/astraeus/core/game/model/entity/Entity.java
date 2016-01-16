@@ -19,6 +19,8 @@ public abstract class Entity {
 	public EnumMap<Attributes, Object> getAttributes() {
 		return attributes;
 	}
+	
+	private transient int id;
 
 	/**
 	 * The current coordinate point the entity is residing on.
@@ -28,13 +30,7 @@ public abstract class Entity {
 	/**
 	 * Handles the movement procedures of an entity.
 	 */
-	private final Movement movement = new Movement(this);
-
-	/**
-	 * The numerical index of the entity. This index is synchronized
-	 * with the client and used for entity indication.
-	 */
-	private int index;
+	private final Movement movement = new Movement(this);	
 
 	/**
 	 * Returns an instance of the currently registered {@link EntityEventListener}.
@@ -70,22 +66,18 @@ public abstract class Entity {
 		return movement;
 	}
 
-
 	/**
-	 * Returns the entity's numerical identification index.
-	 * 
-	 * @return The returned index.
+	 * @return the id
 	 */
-	public int getIndex() {
-		return index;
+	public int getId() {
+		return id;
 	}
 
 	/**
-	 * Modifies the entity's numerical identification index.
-	 * 
-	 * @param index The new modification.
+	 * @param id the id to set
 	 */
-	public void setIndex(int index) {
-		this.index = index;
-	}
+	public void setId(int id) {
+		this.id = id;
+	}	
+	
 }

@@ -3,7 +3,7 @@ package main.astraeus.core.game.model.entity.object;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import main.astraeus.core.Server;
+import main.astraeus.core.game.World;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.packet.outgoing.impl.SendCreateObject;
 
@@ -41,7 +41,11 @@ public final class GameObjectManager {
 	 */
 	public final void createObject(GameObject object) {
 
-		for (Player player : Server.getUpdateProcessor().getPlayers().values()) {
+		for (Player player : World.getPlayers()) {
+			
+			if (player == null || !player.isRegistered()) {
+				continue;
+			}
 
 			if (player.getPosition().isWithinDistance(object.getPosition(), 30)) {
 				player.send(new SendCreateObject(object));

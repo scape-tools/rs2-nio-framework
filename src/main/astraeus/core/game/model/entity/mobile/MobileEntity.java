@@ -5,6 +5,7 @@ import java.util.List;
 
 import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.Entity;
+import main.astraeus.core.game.model.entity.mobile.npc.Npc;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags;
@@ -21,6 +22,11 @@ public abstract class MobileEntity extends Entity {
 	 * The update flags held by the entity.
 	 */
 	private UpdateFlags updateFlags = new UpdateFlags();
+	
+	/**
+	 * The index of an entity in an array.
+	 */
+	private int slot;
 	
 	/**
 	 * The players in the surrounding region of this entity.
@@ -152,6 +158,28 @@ public abstract class MobileEntity extends Entity {
 	 */
 	public void setForcedChat(String forcedChat) {
 		this.forcedChat = forcedChat;
+	}
+
+	/**
+	 * @return the slot
+	 */
+	public int getSlot() {
+		return slot;
+	}
+
+	/**
+	 * @param slot the slot to set
+	 */
+	public void setSlot(int slot) {
+		this.slot = slot;
+	}
+	
+	public boolean isNpc() {		
+		return this instanceof Npc ? true : false;
+	}
+	
+	public boolean isPlayer() {
+		return this instanceof Player ? true : false;
 	}
 	
 }

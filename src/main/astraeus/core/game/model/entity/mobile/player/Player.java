@@ -54,6 +54,11 @@ public final class Player extends MobileEntity {
 	private DialogueOption dialogueOption;
 	
 	/**
+	 * The flag that denotes a player disconnected.
+	 */
+	private boolean disconnected;
+	
+	/**
 	 * The inventory container for this player.
 	 */
 	private final ItemContainer inventoryContainer = new InventoryContainer(this);
@@ -376,6 +381,20 @@ public final class Player extends MobileEntity {
 	 */
 	public void setTeleporting(boolean teleporting) {
 		this.teleporting = teleporting;
+	}
+
+	/**
+	 * @return the disconnected
+	 */
+	public boolean isDisconnected() {
+		return disconnected;
+	}
+
+	/**
+	 * @param disconnected the disconnected to set
+	 */
+	public void setDisconnected(boolean disconnected) {
+		this.disconnected = disconnected;
 	}	
 	
 }

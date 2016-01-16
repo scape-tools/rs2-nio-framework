@@ -3,7 +3,7 @@ package main.astraeus.core.game.model.entity.mobile.player;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import main.astraeus.core.Server;
+import main.astraeus.core.game.World;
 import main.astraeus.core.game.model.entity.EntityEventListener;
 import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
@@ -21,13 +21,15 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 	
 	@Override
 	public void add(Player player) {
-			Server.getUpdateProcessor().addPlayer(player);	
-			
+
+			World.registerPlayer(player);			
+		
 			player.setPosition(player.load() ? player.getPosition() : PlayerConstants.START_COORDINATES);
 			player.setRegionChange(true);
 			player.getUpdateFlags().flag(UpdateFlag.APPEARANCE);
 			player.send(new SendMessage(PlayerConstants.WELCOME_MESSAGE));
-			player.sendTabs();			
+			player.sendTabs();
+			
 			logger.log(Level.INFO, String.format("[%s] has successfully logged in.", player.toString()));
 	}
 
@@ -38,11 +40,10 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 		player.save();
 		
 		PulseScheduler.getInstance().destoryPulsesForOwner(player.getDetails().getUsername());		
-		/*
-		 * Removes the player from the processor's registry.
-		 */
-		Server.getUpdateProcessor().removePlayer(player);
-		player.send(new SendLogout());		
+		
+		player.send(new SendLogout());
+		
+		World.deregister(player);
 		logger.log(Level.INFO, String.format("[%s] has left the server.", player.toString()));
 	}
 

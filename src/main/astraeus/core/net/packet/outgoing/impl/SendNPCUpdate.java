@@ -47,7 +47,7 @@ public class SendNPCUpdate extends OutgoingPacket {
 			
 			final Npc npc = iterator.next();
 			
-			if (World.getNpcs()[npc.getIndex()] != null && npc.isRegistered() && player.getPosition().isWithinDistance(npc.getPosition(),  Position.VIEWING_DISTANCE)) {
+			if (World.getNpcs()[npc.getSlot()] != null && npc.isRegistered() && player.getPosition().isWithinDistance(npc.getPosition(),  Position.VIEWING_DISTANCE)) {
 				updateMovement(npc, builder);
 				
 				if (npc.getUpdateFlags().isUpdateRequired()) {
@@ -131,7 +131,7 @@ public class SendNPCUpdate extends OutgoingPacket {
 	 */
 	public static void addNPC(Npc npc, Player player, PacketBuilder builder) {
 		player.getLocalNpcs().add(npc);
-		builder.putBits(12, npc.getIndex())
+		builder.putBits(12, npc.getSlot())
 		.putBits(5, npc.getPosition().getY() - player.getPosition().getY())
 		.putBits(5, npc.getPosition().getX() - player.getPosition().getY())
 		.putBit(npc.getUpdateFlags().isUpdateRequired())

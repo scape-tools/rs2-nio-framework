@@ -3,7 +3,7 @@ package main.astraeus.core.net.packet.outgoing.impl;
 import java.nio.ByteBuffer;
 import java.util.Iterator;
 
-import main.astraeus.core.Server;
+import main.astraeus.core.game.World;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.update.PlayerUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.player.update.impl.PlayerAppearanceUpdateBlock;
@@ -72,25 +72,24 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 			}
 		}
 
-		for (Player other : Server.getUpdateProcessor().getPlayers().values()) {
+		for (Player other : World.getPlayers()) {
+			
+			if (other == null || !other.isRegistered()) {
+				continue;
+			}
 
 			if (other.getLocalPlayers().size() >= 255) {
-
 				break;
 			}
 
 			if (other == player || player.getLocalPlayers().contains(other)) {
-
 				continue;
-
 			}
+			
 			if (other.getPosition().isWithinDistance(player.getPosition(), 15)) {
-
-
-
 				appendUpdates(other, update, true);
-
 			}
+			
 		}
 
 		if (update.getBuffer().position() > 0) {
@@ -123,7 +122,7 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 	public void addPlayer(Player player, Player other, PacketBuilder builder) {
 		player.getLocalPlayers().add(other);
 		
-		builder.putBits(11, other.getIndex())
+		builder.putBits(11, other.getSlot())
 		.putBits(1, 1)
 		.putBits(1, 1)
 		.putBits(5, other.getPosition().getY() - player.getPosition().getY())

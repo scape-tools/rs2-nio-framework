@@ -17,7 +17,7 @@ public class Npc extends MobileEntity {
 
 	public Npc(int id, int slot) {
 		this.id = id;
-		this.setIndex(slot);		
+		this.setSlot(slot);			
 	}
 
 	public void prepare() {

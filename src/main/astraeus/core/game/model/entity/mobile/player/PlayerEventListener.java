@@ -24,7 +24,7 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
 			Server.getUpdateProcessor().addPlayer(player);	
 			
 			player.setPosition(player.load() ? player.getPosition() : PlayerConstants.START_COORDINATES);
-			player.getUpdateFlags().flag(UpdateFlag.REGION_CHANGING);
+			player.setRegionChange(true);
 			player.getUpdateFlags().flag(UpdateFlag.APPEARANCE);
 			player.send(new SendMessage(PlayerConstants.WELCOME_MESSAGE));
 			player.sendTabs();			

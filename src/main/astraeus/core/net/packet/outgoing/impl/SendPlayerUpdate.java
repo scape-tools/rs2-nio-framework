@@ -13,15 +13,23 @@ import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteAccess;
 
+/**
+ * The {@link OutgoingPacket} that will update a player in the game world.
+ * 
+ * @author SeVen
+ */
 public final class SendPlayerUpdate extends OutgoingPacket {
 
+    /**
+     * Creates a new {@link SendPlayerUpdate}.
+     */
 	public SendPlayerUpdate() {
 		super(81, PacketHeader.VARIABLE_SHORT, 16384);
 	}
 
 	@Override
 	public PacketBuilder encode(Player player) {		
-		if(player.getUpdateFlags().get(UpdateFlag.REGION_CHANGING)) {
+		if(player.isRegionChange()) {
 			player.send(new SendRegionUpdate());
 		}
 		
@@ -78,17 +86,7 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 			}
 			if (other.getPosition().isWithinDistance(player.getPosition(), 15)) {
 
-				player.getLocalPlayers().add(other);
 
-				builder.putBits(11, other.getIndex());
-
-				builder.putBits(1, 1);
-
-				builder.putBits(1, 1);
-
-				builder.putBits(5, other.getPosition().getY() - player.getPosition().getY());
-
-				builder.putBits(5, other.getPosition().getX() - player.getPosition().getX());
 
 				appendUpdates(other, update, true);
 
@@ -111,44 +109,175 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 		return builder;
 	}
 	
-	public void updateMovement(Player player, PacketBuilder buffer) {
-		if (player.getUpdateFlags().get(UpdateFlag.REGION_CHANGING)) {
-			buffer.putBits(1, 1);
+    /**
+     * Adds a players to the local player list, and in-view of other players.
+     * 
+     * @param player
+     *            The player to add.
+     * 
+     * @param other
+     *            The other player that will be viewing this player.
+     * 
+     * @param builder
+     *            The builder used to write and store data.
+     */
+	public void addPlayer(Player player, Player other, PacketBuilder builder) {
+		player.getLocalPlayers().add(other);
+		
+		builder.putBits(11, other.getIndex())
+		.putBits(1, 1)
+		.putBits(1, 1)
+		.putBits(5, other.getPosition().getY() - player.getPosition().getY())
+		.putBits(5, other.getPosition().getX() - player.getPosition().getX());
+	}
+	
+	public void updateMovement(Player player, PacketBuilder buffer) {		
+		/*
+		 * Check if the player is teleporting.
+		 */
+		if (player.isTeleporting() || player.isRegionChange()) {
+			
+		    /*
+		     * They are, so an update is required.
+		     */
+			buffer.putBit(true);
+			
+		    /*
+		     * This value indicates the player teleported.
+		     */	 
 			buffer.putBits(2, 3);
+			
+		    /*
+		     * This is the new player height.
+		     */
 			buffer.putBits(2, player.getPosition().getHeight());
-			buffer.putBits(1, 1);
+			
+		    /*
+		     * This indicates that the client should discard the walking queue.
+		     */
+			buffer.putBits(1, player.isTeleporting() ? 1 : 0);
+			
+		    /*
+		     * This flag indicates if an update block is appended.
+		     */
 			buffer.putBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
+			
+			/*
+			 * The local Y position of this player.
+			 */			
 			buffer.putBits(7, player.getPosition().getLocalY(player.getLastPosition()));
+			
+			/*
+			 * The local X position of this player.
+			 */	
 			buffer.putBits(7, player.getPosition().getLocalX(player.getLastPosition()));
 		} else {
+		    /*
+		     * Otherwise, check if the player moved.
+		     */
 			if (player.getWalkingDirection() == -1) {
+				
+				/*
+				 * The player didn't move. Check if an update is required.
+				 */
 				if (player.getUpdateFlags().isUpdateRequired()) {
-					buffer.putBits(1, 1);
+				    /*
+				     * Signifies an update is required.
+				     */
+					buffer.putBit(true);
+					
+				    /*
+				     * But signifies that we didn't move.
+				     */
 					buffer.putBits(2, 0);
-				} else {
+				} else {					
+				    /*
+				     * Signifies that nothing changed.
+				     */
 					buffer.putBits(1, 0);
 				}
-			} else {
+			} else {				
+				/*
+				 * Check if the player was running.
+				 */
 				if (player.getRunningDirection() == -1) {
-					buffer.putBits(1, 1);
+				    /*
+				     * The player walked, an update is required.
+				     */
+					buffer.putBit(true);
+					
+				    /*
+				     * This indicates the player only walked.
+				     */
 					buffer.putBits(2, 1);
+					
+				    /*
+				     * This is the player's walking direction.
+				     */
 					buffer.putBits(3, player.getWalkingDirection());
+					
+				    /*
+				     * This flag indicates an update block is appended.
+				     */
 					buffer.putBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
-				} else {
-					buffer.putBits(1, 1);
+				} else {					
+				    /*
+				     * The player ran, so an update is required.
+				     */
+					buffer.putBit(true);
+					
+				    /*
+				     * This indicates the player ran.
+				     */
 					buffer.putBits(2, 2);
+					
+				    /*
+				     * This is the walking direction.
+				     */
 					buffer.putBits(3, player.getWalkingDirection());
+					
+				    /*
+				     * And this is the running direction.
+				     */
 					buffer.putBits(3, player.getRunningDirection());
+					
+				    /*
+				     * And this flag indicates an update block is appended.
+				     */
 					buffer.putBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 				}
 			}
 		}
 	}
 	
-	public void append(PlayerUpdateBlock block, Player player, PacketBuilder buffer) {
-		block.encode(player, buffer);
+    /**
+     * Appends pieces of a players update block to the main player update block.
+     * 
+     * @param block
+     *            The update block to append.
+     * 
+     * @param player
+     *            The player to append the update for.
+     * 
+     * @param builder
+     *            The buffer to store data.
+     */
+	public void append(PlayerUpdateBlock block, Player player, PacketBuilder builder) {
+		block.encode(player, builder);		
 	}
 	
+    /**
+     * Updates the state of a player.
+     * 
+     * @param player
+     *            The player to update the state for.
+     * 
+     * @param builder
+     *            The builder that constructs a packet and stores the data.
+     *            
+     * @param forceful
+     * 		The flag that determines if this player should be forcefully updated.
+     */
 	public void appendUpdates(Player player, PacketBuilder buffer, boolean forceful) {		
 		synchronized(player) {
 			

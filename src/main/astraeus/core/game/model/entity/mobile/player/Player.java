@@ -69,6 +69,16 @@ public final class Player extends MobileEntity {
 	private final Appearance appearance = new Appearance(this);	
 	
 	/**
+	 * The flag that denotes changing a region.
+	 */
+	private boolean regionChange;
+	
+	/**
+	 * The flag that denotes a player is teleporting.
+	 */
+	private boolean teleporting;
+	
+	/**
 	 * The attributes a player can have.
 	 */
 	public enum Attributes {
@@ -339,5 +349,33 @@ public final class Player extends MobileEntity {
 	public int getCurrentHealth() {
 		return 0;
 	}
+
+	/**
+	 * @return the regionChange
+	 */
+	public boolean isRegionChange() {
+		return regionChange;
+	}
+
+	/**
+	 * @param regionChange the regionChange to set
+	 */
+	public void setRegionChange(boolean regionChange) {
+		this.regionChange = regionChange;
+	}
+
+	/**
+	 * @return the teleporting
+	 */
+	public boolean isTeleporting() {
+		return teleporting;
+	}
+
+	/**
+	 * @param teleporting the teleporting to set
+	 */
+	public void setTeleporting(boolean teleporting) {
+		this.teleporting = teleporting;
+	}	
 	
 }

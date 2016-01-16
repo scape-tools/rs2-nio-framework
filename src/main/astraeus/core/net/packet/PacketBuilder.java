@@ -417,16 +417,6 @@ public final class PacketBuilder {
 		return this;
 	}
 	
-	/**
-	 * Places a flag into the buffer.
-	 * 
-	 * @param flag
-	 * 		The flag to place into the buffer.
-	 */
-	public PacketBuilder putBit(boolean flag) {
-		putBits(1, flag ? 1 : 0);
-		return this;
-	}
 
 	/**
 	 * Writes a series of bytes derived from the internal buffer.
@@ -459,6 +449,17 @@ public final class PacketBuilder {
 	 */
 	public final PacketBuilder putByte(int value, ByteValue byteValue) {
 		put(value, byteValue);
+		return this;
+	}
+	
+	/**
+	 * Places a flag into the buffer.
+	 * 
+	 * @param update
+	 * 		The flag to place into the buffer.
+	 */
+	public final PacketBuilder putBit(boolean update) {
+		putBits(1, update ? 1 : 0);
 		return this;
 	}
 

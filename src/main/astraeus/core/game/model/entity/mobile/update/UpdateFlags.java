@@ -17,12 +17,9 @@ public class UpdateFlags {
 	/**
 	 * The enumerated types of updates that can be updated.
 	 */
-	public enum UpdateFlag {
-		
+	public enum UpdateFlag {		
 		APPEARANCE,
 		CHAT,
-		TELEPORTING, // not a real mask...
-		REGION_CHANGING, // not a real mask...
 		GRAPHICS,
 		ANIMATION,
 		FORCED_CHAT,
@@ -31,8 +28,7 @@ public class UpdateFlags {
 		SINGLE_HIT,
 		DOUBLE_HIT,
 		TRANSFORM,
-		FORCE_MOVEMENT;
-		
+		FORCE_MOVEMENT;		
 	}
 
 	/**

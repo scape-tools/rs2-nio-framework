@@ -8,6 +8,7 @@ import main.astraeus.net.packet.incoming.impl.ButtonClickPacketListener;
 import main.astraeus.net.packet.incoming.impl.CommandPacketListener;
 import main.astraeus.net.packet.incoming.impl.DialoguePacketListener;
 import main.astraeus.net.packet.incoming.impl.MoveItemPacketListener;
+import main.astraeus.net.packet.incoming.impl.NPCInteractionPacketListener;
 import main.astraeus.net.packet.incoming.impl.ObjectInteractionPacketListener;
 import main.astraeus.net.packet.incoming.impl.RegionalUpdatePacketListener;
 import main.astraeus.net.packet.incoming.impl.SilentPacketListener;
@@ -30,14 +31,15 @@ public final class IncomingPacketRegistration {
 	 * upon class reference.
 	 */
 	public IncomingPacketRegistration() {
-		registerPacket(new ButtonClickPacketListener());
-		registerPacket(new CommandPacketListener());
-		registerPacket(new WalkingPacketListener());
-		registerPacket(new DialoguePacketListener());
-		registerPacket(new ObjectInteractionPacketListener());
-		registerPacket(new SilentPacketListener());
-		registerPacket(new RegionalUpdatePacketListener());
-		registerPacket(new MoveItemPacketListener());
+		registerHandler(new ButtonClickPacketListener());
+		registerHandler(new CommandPacketListener());
+		registerHandler(new WalkingPacketListener());
+		registerHandler(new DialoguePacketListener());
+		registerHandler(new ObjectInteractionPacketListener());
+		registerHandler(new SilentPacketListener());
+		registerHandler(new RegionalUpdatePacketListener());
+		registerHandler(new MoveItemPacketListener());
+		registerHandler(new NPCInteractionPacketListener());		
 	}
 
 	/**
@@ -45,7 +47,7 @@ public final class IncomingPacketRegistration {
 	 * 
 	 * @param listener The listener implementation - the owner of the annotated opcodes.
 	 */
-	private static final void registerPacket(IncomingPacketListener listener) {
+	private static final void registerHandler(IncomingPacketListener listener) {
 		IncomingPacketOpcode annotation = listener.getClass().getAnnotation(IncomingPacketOpcode.class);
 		if (annotation != null) {
 			for (int opcode : annotation.value()) {
@@ -62,10 +64,10 @@ public final class IncomingPacketRegistration {
 	 * 
 	 * @param player The player association.
 	 */
-	public static final void dispatchToListener(IncomingPacket packet, Player player) {
+	public static final void sendToHandler(IncomingPacket packet, Player player) {
 		IncomingPacketListener listener = INCOMING_PACKETS.get(packet.getOpcode());
 		if (listener != null) {
-			listener.handleMessage(player, packet);
+			listener.handleMessage(player, packet);			
 		}
 	}
 }

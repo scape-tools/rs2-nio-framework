@@ -125,7 +125,7 @@ public final class GamePacketDecoder extends ProtocolStateDecoder {
 
                   IncomingPacket packet = new IncomingPacket(opcode, header, packetPayload);
 
-                  IncomingPacketRegistration.dispatchToListener(packet, context.getPlayer());
+                  IncomingPacketRegistration.sendToHandler(packet, context.getPlayer());
 
                   if (Configuration.SERVER_DEBUG && context.getPlayer().isServerDebug()
                               && packet.getOpcode() != 0)

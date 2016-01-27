@@ -1,26 +1,30 @@
 package main.astraeus.core.net.packet;
 
 /**
- * The type of packet, also the header of a packet.
+ * Represents the header of a packet.
+ * 
+ * @author SeVen
  */
 public enum PacketHeader {
-	/**
-	 * No packet header is to be placed on the message.
-	 */
-	EMPTY,
 
-	/**
-	 * A standard packet header.
-	 */
-	STANDARD,
+    /**
+     * No packet header is to be placed on the message.
+     */
+    EMPTY,
 
-	/**
-	 * A header where the packet's length is written as a byte.
-	 */
-	VARIABLE_BYTE,
+    /**
+     * A fixed size packet where the size never changes.
+     */
+    FIXED,
 
-	/**
-	 * A header where the packet's length is written as a short.
-	 */
-	VARIABLE_SHORT;
+    /**
+     * A variable packet where the size is described by a byte.
+     */
+    VARIABLE_BYTE,
+
+    /**
+     * A variable packet where the size is described by a word.
+     */
+    VARIABLE_SHORT;
+
 }

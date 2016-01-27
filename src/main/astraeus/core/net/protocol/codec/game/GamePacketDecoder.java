@@ -43,7 +43,7 @@ public final class GamePacketDecoder extends ProtocolStateDecoder {
        */
       private GamePacketDecoderState state = GamePacketDecoderState.OPCODE;
 
-      private PacketHeader header = PacketHeader.STANDARD;
+      private PacketHeader header = PacketHeader.FIXED;
 
       @Override
       public void decode(PlayerChannel context) throws IOException {
@@ -81,7 +81,7 @@ public final class GamePacketDecoder extends ProtocolStateDecoder {
                   } else if (size == -2) {
                         header = PacketHeader.VARIABLE_SHORT;
                   } else {
-                        header = PacketHeader.STANDARD;
+                        header = PacketHeader.FIXED;
                   }
                 
             }

@@ -54,7 +54,7 @@ public final class PacketWriter {
        * @param opcode The opcode for this packet.
        */
       public PacketWriter(int opcode) {
-            this(opcode, PacketHeader.STANDARD);
+            this(opcode, PacketHeader.FIXED);
       }
 
 

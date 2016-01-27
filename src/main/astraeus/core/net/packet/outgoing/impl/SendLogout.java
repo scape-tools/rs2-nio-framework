@@ -2,7 +2,6 @@ package main.astraeus.core.net.packet.outgoing.impl;
 
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.packet.PacketWriter;
-import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 
 /**
@@ -12,17 +11,17 @@ import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
  */
 public class SendLogout extends OutgoingPacket {
 
-	/**
-	 * Creates a new {@link SendLogout}.
-	 */
-	public SendLogout() {
-		super(109, PacketHeader.STANDARD,  1);
-	}
+      /**
+       * Creates a new {@link SendLogout}.
+       */
+      public SendLogout() {
+            super(109, 1);
+      }
 
-	@Override
-	public PacketWriter encode(Player player) {
-		player.getContext().prepare(this, writer);
-		return writer;
-	}
+      @Override
+      public PacketWriter encode(Player player) {
+            player.getContext().prepare(this, writer);
+            return writer;
+      }
 
 }

@@ -3,7 +3,6 @@ package main.astraeus.core.net.packet.outgoing.impl;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.object.GameObject;
 import main.astraeus.core.net.packet.PacketWriter;
-import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 
 /**
@@ -26,7 +25,7 @@ public class SendCreateObject extends OutgoingPacket {
 	 * 		The object create.
 	 */
 	public SendCreateObject(GameObject object) {
-		super(151, PacketHeader.STANDARD, 5);
+		super(151, 5);
 		this.object = object;
 	}
 

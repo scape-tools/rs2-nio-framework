@@ -3,7 +3,6 @@ package main.astraeus.core.net.packet.outgoing.impl;
 import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.packet.PacketWriter;
-import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteModification;
 
@@ -25,7 +24,7 @@ public class SendCoordinate extends OutgoingPacket {
        * @param coordinate The new coordinate.
        */
       public SendCoordinate(Position coordinate) {
-            super(85, PacketHeader.STANDARD, 3);
+            super(85, 3);
             this.coordinate = coordinate;
       }
 

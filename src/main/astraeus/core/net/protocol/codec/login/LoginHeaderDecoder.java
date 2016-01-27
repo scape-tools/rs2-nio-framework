@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import main.astraeus.core.net.channel.PlayerChannel;
 import main.astraeus.core.net.channel.events.WriteChannelEvent;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.protocol.ProtocolStateDecoder;
 
@@ -27,10 +27,10 @@ public final class LoginHeaderDecoder extends ProtocolStateDecoder {
 	@Override
 	public void decode(PlayerChannel context) throws IOException {
 		
-		final PacketBuilder response = new PacketBuilder(ByteBuffer.allocate(17));		
-		response.put(0);
-		response.putLong(0);		
-		response.putLong(random.nextLong());
+		final PacketWriter response = new PacketWriter(ByteBuffer.allocate(17));		
+		response.write(0);
+		response.writeLong(0);		
+		response.writeLong(random.nextLong());
 		context.execute(new WriteChannelEvent(PacketHeader.EMPTY, response));
 		context.setProtocolDecoder(new LoginPayloadDecoder());
 	}

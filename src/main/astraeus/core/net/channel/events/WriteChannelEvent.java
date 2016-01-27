@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import main.astraeus.core.net.channel.ChannelEvent;
 import main.astraeus.core.net.channel.PlayerChannel;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.packet.PacketHeader;
 
 public final class WriteChannelEvent extends ChannelEvent {
@@ -17,7 +17,7 @@ public final class WriteChannelEvent extends ChannelEvent {
 	/**
 	 * The buffer being used.
 	 */
-	private final PacketBuilder buffer;
+	private final PacketWriter buffer;
 	
 	/**
 	 * Creates a new {@link WriteChannelEvent} with a
@@ -26,7 +26,7 @@ public final class WriteChannelEvent extends ChannelEvent {
 	 * @param buffer
 	 * 		The buffer being used.
 	 */
-	public WriteChannelEvent(PacketBuilder buffer) {
+	public WriteChannelEvent(PacketWriter buffer) {
 		this(PacketHeader.EMPTY, buffer);
 	}
 
@@ -39,7 +39,7 @@ public final class WriteChannelEvent extends ChannelEvent {
 	 * @param buffer
 	 * 		The buffer being used.
 	 */
-	public WriteChannelEvent(PacketHeader header, PacketBuilder buffer) {
+	public WriteChannelEvent(PacketHeader header, PacketWriter buffer) {
 		this.header = header;
 		this.buffer = buffer;
 	}

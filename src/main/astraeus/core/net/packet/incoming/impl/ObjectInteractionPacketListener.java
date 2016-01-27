@@ -5,6 +5,7 @@ import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
 import main.astraeus.core.game.pulse.PulseScheduler;
 import main.astraeus.core.game.pulse.impl.InteractionDistancePulse;
 import main.astraeus.core.game.pulse.impl.InteractionDistancePulse.InteractionType;
+import main.astraeus.core.net.packet.PacketReader;
 import main.astraeus.core.net.packet.incoming.IncomingPacket;
 import main.astraeus.core.net.packet.incoming.IncomingPacketConstants;
 import main.astraeus.core.net.packet.incoming.IncomingPacketListener;
@@ -20,12 +21,15 @@ public final class ObjectInteractionPacketListener implements IncomingPacketList
 
       @Override
       public void handleMessage(Player player, IncomingPacket packet) {
+            
+            final PacketReader reader = packet.getReader();
+            
             switch (packet.getOpcode()) {
 
                   case IncomingPacketConstants.FIRST_CLICK_OBJECT:
-                        int x = packet.readShort(ByteOrder.LITTLE, ByteModification.ADDITION);
-                        int id = packet.readShort(false);                        
-                        int y = packet.readShort(false, ByteModification.ADDITION);
+                        int x = reader.readShort(ByteOrder.LITTLE, ByteModification.ADDITION);
+                        int id = reader.readShort(false);                        
+                        int y = reader.readShort(false, ByteModification.ADDITION);
 
                         System.out.println("x: " + x + " id: " + id + " y: " + y);
                         

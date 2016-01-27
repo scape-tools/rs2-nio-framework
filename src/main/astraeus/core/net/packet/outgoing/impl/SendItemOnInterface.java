@@ -2,7 +2,7 @@ package main.astraeus.core.net.packet.outgoing.impl;
 
 import main.astraeus.core.game.model.entity.item.Item;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
@@ -41,26 +41,26 @@ public class SendItemOnInterface extends OutgoingPacket {
 	}
 
 	@Override
-	public PacketBuilder encode(Player player) {
-		player.getContext().prepare(this, builder);
-		builder.putShort(interfaceId);
-		builder.putShort(items.length);
+	public PacketWriter encode(Player player) {
+		player.getContext().prepare(this, writer);
+		writer.writeShort(interfaceId);
+		writer.writeShort(items.length);
 		for(Item item : items) {
 			if (item != null) {
 			if(item.getAmount() > 254) {
-				builder.put(255);
-				builder.putInt(item.getAmount(), ByteOrder.INVERSE);				
+				writer.write(255);
+				writer.writeInt(item.getAmount(), ByteOrder.INVERSE);				
 			} else {
-				builder.put(item.getAmount());
+				writer.write(item.getAmount());
 			}
-			builder.putShort(item.getId() + 1, ByteModification.ADDITION, ByteOrder.LITTLE);
+			writer.writeShort(item.getId() + 1, ByteModification.ADDITION, ByteOrder.LITTLE);
 			} else {
-				builder.put(0);
-				builder.putShort(0, ByteModification.ADDITION, ByteOrder.LITTLE);
+				writer.write(0);
+				writer.writeShort(0, ByteModification.ADDITION, ByteOrder.LITTLE);
 			}			
 		}
-		builder.endVariableShortPacketHeader();
-		return builder;
+		writer.endVariableShortPacketHeader();
+		return writer;
 	}
 
 }

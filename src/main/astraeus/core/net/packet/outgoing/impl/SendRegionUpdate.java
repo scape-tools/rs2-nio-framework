@@ -1,7 +1,7 @@
 package main.astraeus.core.net.packet.outgoing.impl;
 
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
 import main.astraeus.core.net.protocol.codec.ByteModification;
@@ -21,13 +21,13 @@ public class SendRegionUpdate extends OutgoingPacket {
 	}
 
 	@Override
-	public PacketBuilder encode(Player player) {
-		player.getContext().prepare(this, builder);
-		builder.putShort(player.getPosition().getRegionalX() + 6,
+	public PacketWriter encode(Player player) {
+		player.getContext().prepare(this, writer);
+		writer.writeShort(player.getPosition().getRegionalX() + 6,
 				ByteModification.ADDITION, ByteOrder.BIG);
-		builder.putShort(player.getPosition().getRegionalY() + 6);
+		writer.writeShort(player.getPosition().getRegionalY() + 6);
 		player.getLastPosition().setPosition(player.getPosition());
-		return builder;
+		return writer;
 	}
 
 }

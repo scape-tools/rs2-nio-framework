@@ -2,7 +2,7 @@ package main.astraeus.core.game.model.entity.mobile.update;
 
 import main.astraeus.core.game.model.entity.mobile.MobileEntity;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 
 /**
  * Represents an update block of the entity updating procedure.
@@ -38,7 +38,7 @@ public abstract class UpdateBlock<E extends MobileEntity> {
        * 
        * @param buffer The buffer that will store the data.
        */
-      public abstract void encode(E entity, PacketBuilder builder);
+      public abstract void encode(E entity, PacketWriter builder);
 
       /**
        * Gets the mask.

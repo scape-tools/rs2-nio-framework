@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import main.astraeus.core.net.channel.ChannelEvent;
 import main.astraeus.core.net.channel.PlayerChannel;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.packet.PacketHeader;
 
 public final class PrepareChannelEvent extends ChannelEvent {
@@ -17,7 +17,7 @@ public final class PrepareChannelEvent extends ChannelEvent {
 	/**
 	 * The buffer for this message.
 	 */
-	private final PacketBuilder buffer;
+	private final PacketWriter buffer;
 
 	/**
 	 * The opcode for this message.
@@ -37,7 +37,7 @@ public final class PrepareChannelEvent extends ChannelEvent {
 	 * @param opcode
 	 * 		The opcode for this message.
 	 */
-	public PrepareChannelEvent(PacketBuilder buffer, int opcode) {
+	public PrepareChannelEvent(PacketWriter buffer, int opcode) {
 		this(PacketHeader.EMPTY, buffer, opcode);
 	}
 
@@ -53,7 +53,7 @@ public final class PrepareChannelEvent extends ChannelEvent {
 	 * @param opcode
 	 * 		The opcode for this message.
 	 */
-	public PrepareChannelEvent(PacketHeader header, PacketBuilder buffer, int opcode) {
+	public PrepareChannelEvent(PacketHeader header, PacketWriter buffer, int opcode) {
 		this.header = header;
 		this.buffer = buffer;
 		this.opcode = opcode;
@@ -67,14 +67,14 @@ public final class PrepareChannelEvent extends ChannelEvent {
 		 * defined as a byte or a short the length must be indicated by that primitive.
 		 */
 		if (!header.equals(PacketHeader.EMPTY)) {
-			buffer.put(opcode + context.getPlayer().getIsaacRandomPair().getDecoder().getNextValue());
+			buffer.write(opcode + context.getPlayer().getIsaacRandomPair().getDecoder().getNextValue());
 			
 			if (header.equals(PacketHeader.VARIABLE_BYTE)) {
 				buffer.setLength(buffer.getBuffer().position());
-				buffer.put(0);
+				buffer.write(0);
 			} else if (header.equals(PacketHeader.VARIABLE_SHORT)) {
 				buffer.setLength(buffer.getBuffer().position());
-				buffer.putShort(0);
+				buffer.writeShort(0);
 			}
 		}
 	}

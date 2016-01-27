@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.channel.events.PrepareChannelEvent;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.ProtocolStateDecoder;
 
@@ -132,7 +132,7 @@ public final class PlayerChannel {
 	 * 
 	 * @param buffer The internal buffer.
 	 */
-	public final void prepare(OutgoingPacket packet, PacketBuilder builder) {
+	public final void prepare(OutgoingPacket packet, PacketWriter builder) {
 		execute(new PrepareChannelEvent(packet.getHeader(), builder, packet.getOpcode()));
 	}
 

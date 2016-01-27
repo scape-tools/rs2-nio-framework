@@ -1,7 +1,7 @@
 package main.astraeus.core.net.packet.outgoing.impl;
 
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteModification;
@@ -39,12 +39,12 @@ public class SendString extends OutgoingPacket {
 	}
 
 	@Override
-	public PacketBuilder encode(Player player) {
-		player.getContext().prepare(this, builder);
-		builder.putString(string);
-		builder.putShort(widget, ByteModification.ADDITION);
-		builder.endVariableShortPacketHeader();	
-		return builder;
+	public PacketWriter encode(Player player) {
+		player.getContext().prepare(this, writer);
+		writer.writeString(string);
+		writer.writeShort(widget, ByteModification.ADDITION);
+		writer.endVariableShortPacketHeader();	
+		return writer;
 	}
 
 }

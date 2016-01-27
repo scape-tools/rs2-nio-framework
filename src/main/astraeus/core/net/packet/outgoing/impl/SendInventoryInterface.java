@@ -1,7 +1,7 @@
 package main.astraeus.core.net.packet.outgoing.impl;
 
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteModification;
 
@@ -38,11 +38,11 @@ public class SendInventoryInterface extends OutgoingPacket {
 	}
 
 	@Override
-	public PacketBuilder encode(Player player) {
-		player.getContext().prepare(this, builder);
-		builder.putShort(open, ByteModification.ADDITION);
-		builder.putShort(overlay);
-		return builder;
+	public PacketWriter encode(Player player) {
+		player.getContext().prepare(this, writer);
+		writer.writeShort(open, ByteModification.ADDITION);
+		writer.writeShort(overlay);
+		return writer;
 	}
 
 }

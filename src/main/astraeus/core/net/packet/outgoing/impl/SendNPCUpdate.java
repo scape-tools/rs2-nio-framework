@@ -15,7 +15,7 @@ import main.astraeus.core.game.model.entity.mobile.npc.update.impl.NpcInteractio
 import main.astraeus.core.game.model.entity.mobile.npc.update.impl.NpcSingleHitUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteAccess;
@@ -35,28 +35,28 @@ public class SendNPCUpdate extends OutgoingPacket {
 	}
 
 	@Override
-	public PacketBuilder encode(Player player) {
+	public PacketWriter encode(Player player) {
 		
-		PacketBuilder update = new PacketBuilder();
+		PacketWriter update = new PacketWriter();
 		
-		builder.setAccessType(ByteAccess.BIT_ACCESS);
+		writer.setAccessType(ByteAccess.BIT_ACCESS);
 		
-		builder.putBits(8, player.getLocalNpcs().size());
+		writer.writeBits(8, player.getLocalNpcs().size());
 		
 		for (final Iterator<Npc> iterator = player.getLocalNpcs().iterator(); iterator.hasNext();) {
 			
 			final Npc npc = iterator.next();
 			
 			if (World.getNpcs()[npc.getSlot()] != null && npc.isRegistered() && player.getPosition().isWithinDistance(npc.getPosition(),  Position.VIEWING_DISTANCE)) {
-				updateMovement(npc, builder);
+				updateMovement(npc, writer);
 				
 				if (npc.getUpdateFlags().isUpdateRequired()) {
 					appendUpdates(npc, update);
 				}
 			} else {
 				iterator.remove();
-				builder.putBit(true);
-				builder.putBits(2, 3);
+				writer.writeBit(true);
+				writer.writeBits(2, 3);
 			}
 	
 		}
@@ -72,7 +72,7 @@ public class SendNPCUpdate extends OutgoingPacket {
 			}
 			
 			if (npc.getPosition().isWithinDistance(player.getPosition(), Position.VIEWING_DISTANCE)) {
-				addNPC(npc, player, builder);
+				addNPC(npc, player, writer);
 				
 				if (npc.getUpdateFlags().isUpdateRequired()) {
 					appendUpdates(npc, update);
@@ -81,14 +81,14 @@ public class SendNPCUpdate extends OutgoingPacket {
 		}
 		
 		if (update.getBuffer().position() > 0) {
-			builder.putBits(14, 16383)
+			writer.writeBits(14, 16383)
 			.setAccessType(ByteAccess.BYTE_ACCESS)
-			.putBytes(update.getBuffer());
+			.writeBytes(update.getBuffer());
 		} else {
-			builder.setAccessType(ByteAccess.BYTE_ACCESS);
+			writer.setAccessType(ByteAccess.BYTE_ACCESS);
 		}
 
-		return builder;
+		return writer;
 	}
 
 	/**
@@ -97,22 +97,22 @@ public class SendNPCUpdate extends OutgoingPacket {
 	 * @param npc
 	 *            The npc that will be updated.
 	 * 
-	 * @param builder
-	 *            The builder used to place data into a buffer.
+	 * @param writer
+	 *            The writer used to place data into a buffer.
 	 */
-	public static void updateMovement(Npc npc, PacketBuilder builder) {
+	public static void updateMovement(Npc npc, PacketWriter writer) {
 		if (npc.getWalkingDirection() == -1) {
 			if (npc.getUpdateFlags().isUpdateRequired()) {
-				builder.putBit(true)
-				.putBits(2, 0);
+				writer.writeBit(true)
+				.writeBits(2, 0);
 			} else {
-				builder.putBit(false);
+				writer.writeBit(false);
 			}
 		} else {
-			builder.putBit(true)
-			.putBits(2, 1)
-			.putBits(3, npc.getWalkingDirection())
-			.putBit(npc.getUpdateFlags().isUpdateRequired());
+			writer.writeBit(true)
+			.writeBits(2, 1)
+			.writeBits(3, npc.getWalkingDirection())
+			.writeBit(npc.getUpdateFlags().isUpdateRequired());
 		}
 	}
 
@@ -125,18 +125,18 @@ public class SendNPCUpdate extends OutgoingPacket {
 	 * @param player
 	 *            The player to display the npc for.
 	 * 
-	 * @param builder
-	 *            The builder used to place data into a buffer.
+	 * @param writer
+	 *            The writer used to place data into a buffer.
 	 * 
 	 */
-	public static void addNPC(Npc npc, Player player, PacketBuilder builder) {
+	public static void addNPC(Npc npc, Player player, PacketWriter writer) {
 		player.getLocalNpcs().add(npc);
-		builder.putBits(12, npc.getSlot())
-		.putBits(5, npc.getPosition().getY() - player.getPosition().getY())
-		.putBits(5, npc.getPosition().getX() - player.getPosition().getY())
-		.putBit(npc.getUpdateFlags().isUpdateRequired())
-		.putBits(12, npc.getId())
-		.putBit(true);
+		writer.writeBits(12, npc.getSlot())
+		.writeBits(5, npc.getPosition().getY() - player.getPosition().getY())
+		.writeBits(5, npc.getPosition().getX() - player.getPosition().getY())
+		.writeBit(npc.getUpdateFlags().isUpdateRequired())
+		.writeBits(12, npc.getId())
+		.writeBit(true);
 	}
 	
 	/**
@@ -151,8 +151,8 @@ public class SendNPCUpdate extends OutgoingPacket {
 	 * @param buffer
 	 *            The buffer to store data.
 	 */
-	public void append(NpcUpdateBlock block, Npc npc, PacketBuilder builder) {
-		block.encode(npc, builder);		
+	public void append(NpcUpdateBlock block, Npc npc, PacketWriter writer) {
+		block.encode(npc, writer);		
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class SendNPCUpdate extends OutgoingPacket {
 	 * @param update
 	 *            The update buffer to place data in.
 	 */
-	public void appendUpdates(Npc npc, PacketBuilder update) {
+	public void appendUpdates(Npc npc, PacketWriter update) {
 		
 		int updateMask = 0x0;
 		
@@ -200,34 +200,34 @@ public class SendNPCUpdate extends OutgoingPacket {
 			updateMask |= 0x4;
 		}
 
-		builder.put(updateMask);
+		writer.write(updateMask);
 
 		if (npc.getUpdateFlags().get(UpdateFlag.ANIMATION)) {
-			append(new NpcAnimationUpdateBlock(), npc, builder);
+			append(new NpcAnimationUpdateBlock(), npc, writer);
 		}
 
 		if (npc.getUpdateFlags().get(UpdateFlag.DOUBLE_HIT)) {
-			append(new NpcDoubleHitUpdateBlock(), npc, builder);
+			append(new NpcDoubleHitUpdateBlock(), npc, writer);
 		}
 
 		if (npc.getUpdateFlags().get(UpdateFlag.GRAPHICS)) {
-			append(new NpcGraphicsUpdateBlock(), npc, builder);
+			append(new NpcGraphicsUpdateBlock(), npc, writer);
 		}
 
 		if (npc.getUpdateFlags().get(UpdateFlag.ENTITY_INTERACTION)) {
-			append(new NpcInteractionUpdateBlock(), npc, builder);
+			append(new NpcInteractionUpdateBlock(), npc, writer);
 		}
 
 		if (npc.getUpdateFlags().get(UpdateFlag.FORCED_CHAT) && npc.getForcedChat().length() > 0) {
-			append(new NpcForceChatUpdateBlock(), npc, builder);
+			append(new NpcForceChatUpdateBlock(), npc, writer);
 		}
 
 		if (npc.getUpdateFlags().get(UpdateFlag.SINGLE_HIT)) {
-			append(new NpcSingleHitUpdateBlock(), npc, builder);
+			append(new NpcSingleHitUpdateBlock(), npc, writer);
 		}
 
 		if (npc.getUpdateFlags().get(UpdateFlag.FACE_COORDINATE)) {
-			append(new NpcFaceCoordinateUpdateBlock(), npc, builder);
+			append(new NpcFaceCoordinateUpdateBlock(), npc, writer);
 		}
 	}
 

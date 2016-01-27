@@ -4,7 +4,7 @@ import main.astraeus.core.game.model.entity.Entity;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.update.PlayerUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
 
 /**
@@ -23,7 +23,7 @@ public class PlayerInteractionUpdateBlock extends PlayerUpdateBlock {
     }
 
     @Override
-    public void encode(Player target, PacketBuilder builder) {
+    public void encode(Player target, PacketWriter builder) {
 
 	final Entity entity = target.getInteractingEntity();
 
@@ -34,9 +34,9 @@ public class PlayerInteractionUpdateBlock extends PlayerUpdateBlock {
 		index += +32768;
 	    }
 
-	    builder.putShort(index, ByteOrder.LITTLE);
+	    builder.writeShort(index, ByteOrder.LITTLE);
 	} else {
-	    builder.putShort(-1, ByteOrder.LITTLE);
+	    builder.writeShort(-1, ByteOrder.LITTLE);
 	}
 
     }

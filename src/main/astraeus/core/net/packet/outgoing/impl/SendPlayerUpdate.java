@@ -18,7 +18,7 @@ import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerGrap
 import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerInteractionUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerSingleHitUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteAccess;
@@ -43,39 +43,39 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 	}
 
 	@Override
-	public PacketBuilder encode(Player player) {		
+	public PacketWriter encode(Player player) {		
 		if(player.isRegionChange()) {
 			player.send(new SendRegionUpdate());
 		}
 		
-		PacketBuilder update = new PacketBuilder(ByteBuffer.allocate(8192));
+		PacketWriter update = new PacketWriter(ByteBuffer.allocate(8192));
 		
-		player.getContext().prepare(this, builder);
+		player.getContext().prepare(this, writer);
 
-		builder.setAccessType(ByteAccess.BIT_ACCESS);
+		writer.setAccessType(ByteAccess.BIT_ACCESS);
 
-		updateMovement(player, builder);
+		updateMovement(player, writer);
 
 		if (player.getUpdateFlags().isUpdateRequired()) {
 			appendUpdates(player, update, false, true);
 		}
 
-		builder.putBits(8, player.getLocalPlayers().size());
+		writer.writeBits(8, player.getLocalPlayers().size());
 
 		for (Iterator<Player> iterator = player.getLocalPlayers().iterator(); iterator.hasNext();) {
 
 			final Player other = iterator.next();
 
 			if (World.getPlayers()[other.getSlot()] != null && other.isRegistered() && other.getPosition().isWithinDistance(player.getPosition(), Position.VIEWING_DISTANCE)) {
-				updatePlayerMovement(other, builder);
+				updatePlayerMovement(other, writer);
 				
 				if (other.getUpdateFlags().isUpdateRequired()) {
 				    appendUpdates(other, update, false, false);
 				}
 			} else {
 				iterator.remove();
-				builder.putBit(true);
-				builder.putBits(2, 3);
+				writer.writeBit(true);
+				writer.writeBits(2, 3);
 			}
 		}
 		
@@ -92,21 +92,21 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 			}
 			
 			if (other.getPosition().isWithinDistance(player.getPosition(), 15)) {
-				addPlayer(player, other, builder);
+				addPlayer(player, other, writer);
 				appendUpdates(other, update, true, false);
 				playersAdded++;
 			}			
 		}
 		
 		if (update.getBuffer().position() > 0) {
-			builder.putBits(11, 2047)
+			writer.writeBits(11, 2047)
 			.setAccessType(ByteAccess.BYTE_ACCESS)
-			.putBytes(update.getBuffer());
+			.writeBytes(update.getBuffer());
 		} else {
-			builder.setAccessType(ByteAccess.BYTE_ACCESS);
+			writer.setAccessType(ByteAccess.BYTE_ACCESS);
 		}
 
-		return builder;
+		return writer;
 	}
 	
     /**
@@ -118,19 +118,19 @@ public final class SendPlayerUpdate extends OutgoingPacket {
      * @param other
      *            The other player that will be viewing this player.
      * 
-     * @param builder
-     *            The builder used to write and store data.
+     * @param writer
+     *            The writer used to write and store data.
      */
-	public void addPlayer(Player player, Player other, PacketBuilder builder) {
+	public void addPlayer(Player player, Player other, PacketWriter writer) {
 		player.getLocalPlayers().add(other);		
-		builder.putBits(11, other.getSlot())
-		.putBit(true)
-		.putBit(true)
-		.putBits(5, other.getPosition().getY() - player.getPosition().getY())
-		.putBits(5, other.getPosition().getX() - player.getPosition().getX());
+		writer.writeBits(11, other.getSlot())
+		.writeBit(true)
+		.writeBit(true)
+		.writeBits(5, other.getPosition().getY() - player.getPosition().getY())
+		.writeBits(5, other.getPosition().getX() - player.getPosition().getX());
 	}
 	
-	public void updateMovement(Player player, PacketBuilder buffer) {		
+	public void updateMovement(Player player, PacketWriter buffer) {		
 		/*
 		 * Check if the player is teleporting.
 		 */
@@ -139,37 +139,37 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 		    /*
 		     * They are, so an update is required.
 		     */
-			buffer.putBit(true);
+			buffer.writeBit(true);
 			
 		    /*
 		     * This value indicates the player teleported.
 		     */	 
-			buffer.putBits(2, 3);
+			buffer.writeBits(2, 3);
 			
 		    /*
 		     * This is the new player height.
 		     */
-			buffer.putBits(2, player.getPosition().getHeight());
+			buffer.writeBits(2, player.getPosition().getHeight());
 			
 		    /*
 		     * This indicates that the client should discard the walking queue.
 		     */
-			buffer.putBits(1, player.isTeleporting() ? 1 : 0);
+			buffer.writeBits(1, player.isTeleporting() ? 1 : 0);
 			
 		    /*
 		     * This flag indicates if an update block is appended.
 		     */
-			buffer.putBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
+			buffer.writeBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 			
 			/*
 			 * The local Y position of this player.
 			 */			
-			buffer.putBits(7, player.getPosition().getLocalY(player.getLastPosition()));
+			buffer.writeBits(7, player.getPosition().getLocalY(player.getLastPosition()));
 			
 			/*
 			 * The local X position of this player.
 			 */	
-			buffer.putBits(7, player.getPosition().getLocalX(player.getLastPosition()));
+			buffer.writeBits(7, player.getPosition().getLocalX(player.getLastPosition()));
 		} else {
 		    /*
 		     * Otherwise, check if the player moved.
@@ -183,17 +183,17 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 				    /*
 				     * Signifies an update is required.
 				     */
-					buffer.putBit(true);
+					buffer.writeBit(true);
 					
 				    /*
 				     * But signifies that we didn't move.
 				     */
-					buffer.putBits(2, 0);
+					buffer.writeBits(2, 0);
 				} else {					
 				    /*
 				     * Signifies that nothing changed.
 				     */
-					buffer.putBits(1, 0);
+					buffer.writeBits(1, 0);
 				}
 			} else {				
 				/*
@@ -203,47 +203,47 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 				    /*
 				     * The player walked, an update is required.
 				     */
-					buffer.putBit(true);
+					buffer.writeBit(true);
 					
 				    /*
 				     * This indicates the player only walked.
 				     */
-					buffer.putBits(2, 1);
+					buffer.writeBits(2, 1);
 					
 				    /*
 				     * This is the player's walking direction.
 				     */
-					buffer.putBits(3, player.getWalkingDirection());
+					buffer.writeBits(3, player.getWalkingDirection());
 					
 				    /*
 				     * This flag indicates an update block is appended.
 				     */
-					buffer.putBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
+					buffer.writeBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 				} else {					
 				    /*
 				     * The player ran, so an update is required.
 				     */
-					buffer.putBit(true);
+					buffer.writeBit(true);
 					
 				    /*
 				     * This indicates the player ran.
 				     */
-					buffer.putBits(2, 2);
+					buffer.writeBits(2, 2);
 					
 				    /*
 				     * This is the walking direction.
 				     */
-					buffer.putBits(3, player.getWalkingDirection());
+					buffer.writeBits(3, player.getWalkingDirection());
 					
 				    /*
 				     * And this is the running direction.
 				     */
-					buffer.putBits(3, player.getRunningDirection());
+					buffer.writeBits(3, player.getRunningDirection());
 					
 				    /*
 				     * And this flag indicates an update block is appended.
 				     */
-					buffer.putBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
+					buffer.writeBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 				}
 			}
 		}
@@ -252,12 +252,12 @@ public final class SendPlayerUpdate extends OutgoingPacket {
     /**
      * Updates a non-this player's movement.
      * 
-     * @param builder
+     * @param writer
      *            The packet.
      * @param otherPlayer
      *            The player.
      */
-    public static void updatePlayerMovement(Player player, PacketBuilder builder) {
+    public static void updatePlayerMovement(Player player, PacketWriter writer) {
 	/*
 	 * Check which type of movement took place.
 	 */
@@ -269,64 +269,64 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 		/*
 		 * Signify that an update happened.
 		 */
-		builder.putBit(true);
+		writer.writeBit(true);
 
 		/*
 		 * Signify that there was no movement.
 		 */
-		builder.putBits(2, 0);
+		writer.writeBits(2, 0);
 	    } else {
 		/*
 		 * Signify that nothing changed.
 		 */
-		builder.putBit(false);
+		writer.writeBit(false);
 	    }
 	} else if (player.getRunningDirection() == -1) {
 	    /*
 	     * The player moved but didn't run. Signify that an update is
 	     * required.
 	     */
-	    builder.putBit(true);
+	    writer.writeBit(true);
 
 	    /*
 	     * Signify we moved one tile.
 	     */
-	    builder.putBits(2, 1);
+	    writer.writeBits(2, 1);
 
 	    /*
 	     * Write the primary sprite (i.e. walk direction).
 	     */
-	    builder.putBits(3, player.getWalkingDirection());
+	    writer.writeBits(3, player.getWalkingDirection());
 
 	    /*
 	     * Write a flag indicating if a block update happened.
 	     */
-	    builder.putBit(player.getUpdateFlags().isUpdateRequired());
+	    writer.writeBit(player.getUpdateFlags().isUpdateRequired());
 	} else {
 	    /*
 	     * The player ran. Signify that an update happened.
 	     */
-	    builder.putBit(true);
+	    writer.writeBit(true);
 
 	    /*
 	     * Signify that we moved two tiles.
 	     */
-	    builder.putBits(2, 2);
+	    writer.writeBits(2, 2);
 
 	    /*
 	     * Write the primary sprite (i.e. walk direction).
 	     */
-	    builder.putBits(3, player.getWalkingDirection());
+	    writer.writeBits(3, player.getWalkingDirection());
 
 	    /*
 	     * Write the secondary sprite (i.e. run direction).
 	     */
-	    builder.putBits(3, player.getRunningDirection());
+	    writer.writeBits(3, player.getRunningDirection());
 
 	    /*
 	     * Write a flag indicating if a block update happened.
 	     */
-	    builder.putBit(player.getUpdateFlags().isUpdateRequired());
+	    writer.writeBit(player.getUpdateFlags().isUpdateRequired());
 	}
     }
 	
@@ -339,11 +339,11 @@ public final class SendPlayerUpdate extends OutgoingPacket {
      * @param player
      *            The player to append the update for.
      * 
-     * @param builder
+     * @param writer
      *            The buffer to store data.
      */
-	public void append(PlayerUpdateBlock block, Player player, PacketBuilder builder) {
-		block.encode(player, builder);		
+	public void append(PlayerUpdateBlock block, Player player, PacketWriter writer) {
+		block.encode(player, writer);		
 	}
 	
     /**
@@ -352,13 +352,13 @@ public final class SendPlayerUpdate extends OutgoingPacket {
      * @param player
      *            The player to update the state for.
      * 
-     * @param builder
-     *            The builder that constructs a packet and stores the data.
+     * @param writer
+     *            The writer that constructs a packet and stores the data.
      *            
      * @param forceAppearance
      * 		The flag that determines if this player should be forcefully updated.
      */
-	public void appendUpdates(Player player, PacketBuilder buffer, boolean forceAppearance, boolean noChat) {		
+	public void appendUpdates(Player player, PacketWriter buffer, boolean forceAppearance, boolean noChat) {		
 		synchronized(player) {
 			
 			if (!player.getUpdateFlags().isUpdateRequired() && !forceAppearance) {	    
@@ -413,30 +413,30 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 			
 			if (mask >= 0x100) {
 				mask |= 0x40;
-				buffer.put((mask & 0xFF))
-				.put((mask >> 8));
+				buffer.write((mask & 0xFF))
+				.write((mask >> 8));
 			} else {
-				buffer.put(mask);
+				buffer.write(mask);
 			}
 			
 			if (player.getUpdateFlags().get(UpdateFlag.GRAPHICS)) {
-			    append(new PlayerGraphicUpdateBlock(), player, builder);
+			    append(new PlayerGraphicUpdateBlock(), player, writer);
 			}
 			
 			if (player.getUpdateFlags().get(UpdateFlag.ANIMATION)) {
-			    append(new PlayerAnimationUpdateBlock(), player, builder);
+			    append(new PlayerAnimationUpdateBlock(), player, writer);
 			}
 			
 			if (player.getUpdateFlags().get(UpdateFlag.FORCED_CHAT) && player.getForcedChat().length() > 0) {
-			    append(new PlayerForceChatUpdateBlock(), player, builder);
+			    append(new PlayerForceChatUpdateBlock(), player, writer);
 			}
 			
 			if (player.getUpdateFlags().get(UpdateFlag.CHAT) && !noChat) {
-			    append(new PlayerChatUpdateBlock(), player, builder);
+			    append(new PlayerChatUpdateBlock(), player, writer);
 			}
 			
 			if (player.getUpdateFlags().get(UpdateFlag.ENTITY_INTERACTION)) {
-			    append(new PlayerInteractionUpdateBlock(), player, builder);
+			    append(new PlayerInteractionUpdateBlock(), player, writer);
 			}
 			
 			if (player.getUpdateFlags().get(UpdateFlag.APPEARANCE) || forceAppearance) {				
@@ -444,19 +444,19 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 			}
 			
 			if (player.getUpdateFlags().get(UpdateFlag.FORCE_MOVEMENT)) {
-			    append(new PlayerForceMovementUpdateBlock(), player, builder);
+			    append(new PlayerForceMovementUpdateBlock(), player, writer);
 			}
 			
 			if (player.getUpdateFlags().get(UpdateFlag.FACE_COORDINATE)) {
-			    append(new PlayerFaceCoordinateUpdateBlock(), player, builder);
+			    append(new PlayerFaceCoordinateUpdateBlock(), player, writer);
 			}
 			
 			if (player.getUpdateFlags().get(UpdateFlag.SINGLE_HIT)) {
-			    append(new PlayerSingleHitUpdateBlock(), player, builder);
+			    append(new PlayerSingleHitUpdateBlock(), player, writer);
 			}
 
 			if (player.getUpdateFlags().get(UpdateFlag.DOUBLE_HIT)) {
-			    append(new PlayerDoubleHitUpdateBlock(), player, builder);
+			    append(new PlayerDoubleHitUpdateBlock(), player, writer);
 			}
 		}
 	}

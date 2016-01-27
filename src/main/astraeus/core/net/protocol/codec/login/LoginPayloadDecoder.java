@@ -9,7 +9,7 @@ import main.astraeus.core.game.GameEngine;
 import main.astraeus.core.game.model.World;
 import main.astraeus.core.net.channel.PlayerChannel;
 import main.astraeus.core.net.channel.events.WriteChannelEvent;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.protocol.ProtocolConstants;
 import main.astraeus.core.net.protocol.ProtocolStateDecoder;
 import main.astraeus.core.net.protocol.codec.IsaacRandom;
@@ -124,7 +124,7 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 				final String password = readString(context.getBuffer()).trim();
 
 				/*
-				 * The local address of the player's computer.
+				 * The local address of the player's comwriteer.
 				 */
 				final String address = context.getChannel().getRemoteAddress().toString().replaceFirst("/", " ").trim();
 				
@@ -177,11 +177,11 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 	 * 
 	 * @return The encoder of this outgoing packet.
 	 */
-	public PacketBuilder sendResponseCode(PlayerChannel context, LoginResponse responseCode) {
-		final PacketBuilder response = new PacketBuilder(ByteBuffer.allocate(3));		
-		response.put(responseCode.getValue());
-		response.put(context.getPlayer().getDetails().getRights().getProtocolValue()); // player rights
-		response.put(0);
+	public PacketWriter sendResponseCode(PlayerChannel context, LoginResponse responseCode) {
+		final PacketWriter response = new PacketWriter(ByteBuffer.allocate(3));		
+		response.write(responseCode.getValue());
+		response.write(context.getPlayer().getDetails().getRights().getProtocolValue()); // player rights
+		response.write(0);
 		return response;
 	}
 

@@ -3,7 +3,7 @@ package main.astraeus.core.game.model.entity.mobile.npc.update.impl;
 import main.astraeus.core.game.model.entity.mobile.npc.Npc;
 import main.astraeus.core.game.model.entity.mobile.npc.update.NpcUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 
 public class NpcAnimationUpdateBlock extends NpcUpdateBlock {
 
@@ -12,7 +12,7 @@ public class NpcAnimationUpdateBlock extends NpcUpdateBlock {
 	}
 
 	@Override
-	public void encode(Npc entity, PacketBuilder builder) {
+	public void encode(Npc entity, PacketWriter builder) {
 
 	}
 

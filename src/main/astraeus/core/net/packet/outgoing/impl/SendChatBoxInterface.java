@@ -1,7 +1,7 @@
 package main.astraeus.core.net.packet.outgoing.impl;
 
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
 
@@ -29,10 +29,10 @@ public class SendChatBoxInterface extends OutgoingPacket {
 	}
 
 	@Override
-	public PacketBuilder encode(Player player) {
-		player.getContext().prepare(this, builder);
-		builder.putShort(interfaceId, ByteOrder.LITTLE);
-		return builder;
+	public PacketWriter encode(Player player) {
+		player.getContext().prepare(this, writer);
+		writer.writeShort(interfaceId, ByteOrder.LITTLE);
+		return writer;
 	}
 
 }

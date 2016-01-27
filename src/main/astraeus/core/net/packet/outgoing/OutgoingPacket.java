@@ -2,7 +2,7 @@ package main.astraeus.core.net.packet.outgoing;
 
 import java.io.IOException;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.packet.PacketHeader;
 
 /**
@@ -23,9 +23,9 @@ public abstract class OutgoingPacket {
 	private final PacketHeader header;
 	
 	/**
-	 * The builder that will be used to build a buffer.
+	 * The writer that will be used to build outgoing packets.
 	 */
-	protected PacketBuilder builder;
+	protected PacketWriter writer;
 	
 	/**
 	 * Encodes a packet for it to be sent through a channel.
@@ -33,7 +33,7 @@ public abstract class OutgoingPacket {
 	 * @throws IOException
 	 * 		The exception thrown if an error occurs while building or dispensing the packet.
 	 */
-	public abstract PacketBuilder encode(Player player);
+	public abstract PacketWriter encode(Player player);
 	
 	/**
 	 * Creates a new {@link OutgoingPacket} with a default
@@ -64,7 +64,7 @@ public abstract class OutgoingPacket {
 	public OutgoingPacket(int opcode, PacketHeader header, int allocate) {
 		this.opcode = opcode;
 		this.header = header;
-		this.builder = new PacketBuilder(opcode, header).allocate(allocate);
+		this.writer = new PacketWriter(opcode, header).allocate(allocate);
 	}
 	
 	/**
@@ -84,8 +84,8 @@ public abstract class OutgoingPacket {
 	/**
 	 * @return the builder
 	 */
-	public PacketBuilder getBuilder() {
-		return builder;
+	public PacketWriter getBuilder() {
+		return writer;
 	}
 
 }

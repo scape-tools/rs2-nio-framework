@@ -4,7 +4,7 @@ import main.astraeus.core.game.model.Animation;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.update.PlayerUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
-import main.astraeus.core.net.packet.PacketBuilder;
+import main.astraeus.core.net.packet.PacketWriter;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
 import main.astraeus.core.net.protocol.codec.ByteModification;
 
@@ -24,9 +24,10 @@ public class PlayerAnimationUpdateBlock extends PlayerUpdateBlock {
 	}
 
 	@Override
-	public void encode(Player entity, PacketBuilder builder) {
+	public void encode(Player entity, PacketWriter writer) {	      
 		final Animation animation = entity.getAnimation();
-		builder.putShort(animation.getId(), ByteOrder.LITTLE).put(animation.getDelay(), ByteModification.NEGATION);
+		writer.writeShort(animation.getId(), ByteOrder.LITTLE)
+		.write(animation.getDelay(), ByteModification.NEGATION);
 	}
 
 }

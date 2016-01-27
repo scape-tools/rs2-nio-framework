@@ -5,7 +5,7 @@ import main.astraeus.core.net.packet.PacketBuilder;
 import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
-import main.astraeus.core.net.protocol.codec.ByteValue;
+import main.astraeus.core.net.protocol.codec.ByteModification;
 
 /**
  * The {@link OutgoingPacket} that displays an npcs head model on an interface.
@@ -42,8 +42,8 @@ public class SendNpcDialogueHead extends OutgoingPacket {
 	@Override
 	public PacketBuilder encode(Player player) {
 		player.getContext().prepare(this, builder);
-		builder.putShort(npcId, ByteValue.ADDITION, ByteOrder.LITTLE);
-		builder.putShort(interfaceId, ByteValue.ADDITION, ByteOrder.LITTLE);
+		builder.putShort(npcId, ByteModification.ADDITION, ByteOrder.LITTLE);
+		builder.putShort(interfaceId, ByteModification.ADDITION, ByteOrder.LITTLE);
 		return builder;
 	}
 

@@ -3,7 +3,7 @@ package main.astraeus.core.net.packet.outgoing.impl;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.packet.PacketBuilder;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
-import main.astraeus.core.net.protocol.codec.ByteValue;
+import main.astraeus.core.net.protocol.codec.ByteModification;
 
 /**
  * Adds a side-bar interface onto a players game-frame.
@@ -41,7 +41,7 @@ public class SendSideBarInterface extends OutgoingPacket {
 	public PacketBuilder encode(Player player) {
 		player.getContext().prepare(this, builder);
 		builder.putShort(interfaceId);
-		builder.put(tabId, ByteValue.ADDITION);
+		builder.put(tabId, ByteModification.ADDITION);
 		return builder;
 	}
 

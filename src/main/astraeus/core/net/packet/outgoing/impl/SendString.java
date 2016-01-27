@@ -4,7 +4,7 @@ import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.packet.PacketBuilder;
 import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
-import main.astraeus.core.net.protocol.codec.ByteValue;
+import main.astraeus.core.net.protocol.codec.ByteModification;
 
 /**
  * The {@link OutgoingPacket} that sends a line of text on an interface.
@@ -42,7 +42,7 @@ public class SendString extends OutgoingPacket {
 	public PacketBuilder encode(Player player) {
 		player.getContext().prepare(this, builder);
 		builder.putString(string);
-		builder.putShort(widget, ByteValue.ADDITION);
+		builder.putShort(widget, ByteModification.ADDITION);
 		builder.endVariableShortPacketHeader();	
 		return builder;
 	}

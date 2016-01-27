@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 import main.astraeus.core.net.protocol.ProtocolConstants;
 import main.astraeus.core.net.protocol.codec.ByteAccess;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
-import main.astraeus.core.net.protocol.codec.ByteValue;
+import main.astraeus.core.net.protocol.codec.ByteModification;
 
 /**
  * Functions as a write-only {@link ByteBuffer} for building outgoing messages.
@@ -123,7 +123,7 @@ public final class PacketBuilder {
 	 * @param modification
 	 * 		The manipulation of this byte value.
 	 */
-	public PacketBuilder put(long value, ByteValue modification) {
+	public PacketBuilder put(long value, ByteModification modification) {
 		switch (modification) {
 
 		case ADDITION:
@@ -166,7 +166,7 @@ public final class PacketBuilder {
      * @return an instance of this message builder.
      */
 	public PacketBuilder putInt(int value) {
-		putInt(value, ByteValue.STANDARD, ByteOrder.BIG);
+		putInt(value, ByteModification.STANDARD, ByteOrder.BIG);
 		return this;
 	}
 	
@@ -179,7 +179,7 @@ public final class PacketBuilder {
 	 * @param byteValue
 	 * 		The manipulation of this integer value.
 	 */
-	public PacketBuilder putInt(int value, ByteValue byteValue) {
+	public PacketBuilder putInt(int value, ByteModification byteValue) {
 		switch (byteValue) {
 		
 		case ADDITION:
@@ -211,7 +211,7 @@ public final class PacketBuilder {
 	 * 		The order in which the bytes are written.
 	 */
 	public PacketBuilder putInt(int value, ByteOrder order) {
-		putInt(value, ByteValue.STANDARD, order);
+		putInt(value, ByteModification.STANDARD, order);
 		return this;
 	}
 	
@@ -227,7 +227,7 @@ public final class PacketBuilder {
 	 * @param order
 	 * 		The order in which the bytes are written.
 	 */
-	public PacketBuilder putInt(int value, ByteValue byteValue, ByteOrder order) {
+	public PacketBuilder putInt(int value, ByteModification byteValue, ByteOrder order) {
 		switch(order) {		
 		case BIG:
             put(value >> 24);
@@ -262,7 +262,7 @@ public final class PacketBuilder {
 	
 	/**
 	 * Places a single long value into the internal buffer which has
-	 * a default {@link ByteValue} of {@code STANDARD}.
+	 * a default {@link ByteModification} of {@code STANDARD}.
 	 * 
 	 * @param value
 	 * 		The value of this long.
@@ -271,7 +271,7 @@ public final class PacketBuilder {
 	 * 		The manipulation of this long value.
 	 */
 	public PacketBuilder putLong(long value) {
-		putLong(value, ByteValue.STANDARD);
+		putLong(value, ByteModification.STANDARD);
 		return this;
 	}
 	
@@ -284,7 +284,7 @@ public final class PacketBuilder {
 	 * @param modification
 	 * 		The manipulation of this long value.
 	 */
-	public PacketBuilder putLong(long value, ByteValue modification) {
+	public PacketBuilder putLong(long value, ByteModification modification) {
 		switch (modification) {
 
 		case ADDITION:
@@ -308,22 +308,22 @@ public final class PacketBuilder {
 	
 	/**
 	 * Places a single short value into the internal buffer that has
-	 * a Standard {@link ByteValue}, and Big Byte Order {@link ByteOrder}
+	 * a Standard {@link ByteModification}, and Big Byte Order {@link ByteOrder}
 	 * 
 	 * @param value
 	 * 		The value of this short.
 	 */
 	public PacketBuilder putShort(int value) {
-		putShort(value, ByteValue.STANDARD, ByteOrder.BIG);
+		putShort(value, ByteModification.STANDARD, ByteOrder.BIG);
 		return this;
 	}
 	
 	/**
 	 * Places a single short value into the internal buffer that has
-	 * a Standard {@link ByteValue}.
+	 * a Standard {@link ByteModification}.
 	 */
 	public PacketBuilder putShort(int value, ByteOrder order) {
-		putShort(value, ByteValue.STANDARD, order);
+		putShort(value, ByteModification.STANDARD, order);
 		return this;
 	}
 	
@@ -336,7 +336,7 @@ public final class PacketBuilder {
 	 * @param modification
 	 * 			The manipulation of this short value.
 	 */
-	public PacketBuilder putShort(long value, ByteValue modification) {
+	public PacketBuilder putShort(long value, ByteModification modification) {
 		switch (modification) {
 
 		case ADDITION:
@@ -371,16 +371,16 @@ public final class PacketBuilder {
 	 * @param order
 	 * 		The order to be placed into the internal buffer.
 	 */
-	public final PacketBuilder putShort(int value, ByteValue modification, ByteOrder order) {
+	public final PacketBuilder putShort(int value, ByteModification modification, ByteOrder order) {
 		switch (order) {
 		case BIG:
-			putByte(value >> 8, ByteValue.STANDARD);
+			putByte(value >> 8, ByteModification.STANDARD);
 			putByte(value, modification);
 			break;
 
 		case LITTLE:
 			putByte(value, modification);
-			putByte(value >> 8, ByteValue.STANDARD);
+			putByte(value >> 8, ByteModification.STANDARD);
 			break;
 
 		default:
@@ -401,7 +401,7 @@ public final class PacketBuilder {
 	 * @param modification
 	 * 		The manipulation of the byte values.
 	 */
-	public PacketBuilder putBits(long value, int amount, ByteValue modification) {	
+	public PacketBuilder putBits(long value, int amount, ByteModification modification) {	
 
 		int bytePosition = this.getPosition() >> 3;
 		int bitOffset = 8 - (this.getPosition() & 7);
@@ -450,7 +450,7 @@ public final class PacketBuilder {
 	 */
 	public final PacketBuilder putBytes(ByteBuffer source) {		
 		IntStream.range(0, source.position()).forEach(index -> {
-			putByte(source.get(index), ByteValue.STANDARD);
+			putByte(source.get(index), ByteModification.STANDARD);
 		});
 		return this;
 	}
@@ -461,7 +461,7 @@ public final class PacketBuilder {
 	 * @param value The value of the byte.
 	 */
 	public final PacketBuilder put(int value) {
-		put(value, ByteValue.STANDARD);		
+		put(value, ByteModification.STANDARD);		
 		return this;
 	}
 
@@ -472,7 +472,7 @@ public final class PacketBuilder {
 	 * 
 	 * @param byteValue The definition of any transformations performed on the byte.
 	 */
-	public final PacketBuilder putByte(int value, ByteValue byteValue) {
+	public final PacketBuilder putByte(int value, ByteModification byteValue) {
 		put(value, byteValue);
 		return this;
 	}
@@ -496,7 +496,7 @@ public final class PacketBuilder {
 	 * @param amount The amount of bits.
 	 */
 	public final PacketBuilder putBits(final int amount, int value) {
-		putBits(value, amount, ByteValue.STANDARD);
+		putBits(value, amount, ByteModification.STANDARD);
 		return this;
 	}
 

@@ -6,7 +6,7 @@ import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.update.PlayerUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.core.net.packet.PacketBuilder;
-import main.astraeus.core.net.protocol.codec.ByteValue;
+import main.astraeus.core.net.protocol.codec.ByteModification;
 import main.astraeus.utility.Utilities;
 
 public class PlayerAppearanceUpdateBlock extends PlayerUpdateBlock {
@@ -52,7 +52,7 @@ public class PlayerAppearanceUpdateBlock extends PlayerUpdateBlock {
             properties.putLong(Utilities.convertStringToLong(entity.getDetails().getUsername()));
             properties.put(3);
             properties.putShort(0);
-            buffer.put(properties.getBuffer().position(), ByteValue.NEGATION);
+            buffer.put(properties.getBuffer().position(), ByteModification.NEGATION);
             buffer.putBytes(properties.getBuffer());
       }
 

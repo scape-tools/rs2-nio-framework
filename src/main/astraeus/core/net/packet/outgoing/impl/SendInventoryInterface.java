@@ -3,7 +3,7 @@ package main.astraeus.core.net.packet.outgoing.impl;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.packet.PacketBuilder;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
-import main.astraeus.core.net.protocol.codec.ByteValue;
+import main.astraeus.core.net.protocol.codec.ByteModification;
 
 /**
  * The {@link OutgoingPacket} that displays over the side-bar area.
@@ -40,7 +40,7 @@ public class SendInventoryInterface extends OutgoingPacket {
 	@Override
 	public PacketBuilder encode(Player player) {
 		player.getContext().prepare(this, builder);
-		builder.putShort(open, ByteValue.ADDITION);
+		builder.putShort(open, ByteModification.ADDITION);
 		builder.putShort(overlay);
 		return builder;
 	}

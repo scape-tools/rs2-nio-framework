@@ -14,7 +14,7 @@ import main.astraeus.core.net.protocol.ProtocolConstants;
 import main.astraeus.core.net.protocol.ProtocolStateDecoder;
 import main.astraeus.core.net.protocol.codec.IsaacRandom;
 import main.astraeus.core.net.protocol.codec.IsaacRandomPair;
-import main.astraeus.core.net.protocol.codec.game.GamePacketPayloadDecoder;
+import main.astraeus.core.net.protocol.codec.game.GamePacketDecoder;
 
 public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 	
@@ -159,7 +159,7 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 				}
 				
 				context.getPlayer().getEventListener().add(context.getPlayer());
-				context.setProtocolDecoder(new GamePacketPayloadDecoder());			
+				context.setProtocolDecoder(new GamePacketDecoder());			
 				
 			} else {
 				logger.log(Level.WARNING, "Invalid RSA key.");

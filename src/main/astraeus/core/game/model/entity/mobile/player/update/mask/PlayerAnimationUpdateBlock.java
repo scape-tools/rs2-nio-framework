@@ -6,7 +6,7 @@ import main.astraeus.core.game.model.entity.mobile.player.update.PlayerUpdateBlo
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.core.net.packet.PacketBuilder;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
-import main.astraeus.core.net.protocol.codec.ByteValue;
+import main.astraeus.core.net.protocol.codec.ByteModification;
 
 /**
  * The {@link PlayerUpdateBlock} implementation that updates a players animation
@@ -26,7 +26,7 @@ public class PlayerAnimationUpdateBlock extends PlayerUpdateBlock {
 	@Override
 	public void encode(Player entity, PacketBuilder builder) {
 		final Animation animation = entity.getAnimation();
-		builder.putShort(animation.getId(), ByteOrder.LITTLE).put(animation.getDelay(), ByteValue.NEGATION);
+		builder.putShort(animation.getId(), ByteOrder.LITTLE).put(animation.getDelay(), ByteModification.NEGATION);
 	}
 
 }

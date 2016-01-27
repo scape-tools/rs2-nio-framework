@@ -8,8 +8,8 @@ import main.astraeus.core.net.packet.incoming.impl.ButtonClickPacketListener;
 import main.astraeus.core.net.packet.incoming.impl.CommandPacketListener;
 import main.astraeus.core.net.packet.incoming.impl.DialoguePacketListener;
 import main.astraeus.core.net.packet.incoming.impl.MoveItemPacketListener;
-import main.astraeus.core.net.packet.incoming.impl.MovementPacketListener;
-import main.astraeus.core.net.packet.incoming.impl.ObjectActionPacketListener;
+import main.astraeus.core.net.packet.incoming.impl.WalkingPacketListener;
+import main.astraeus.core.net.packet.incoming.impl.ObjectInteractionPacketListener;
 import main.astraeus.core.net.packet.incoming.impl.RegionalUpdatePacketListener;
 import main.astraeus.core.net.packet.incoming.impl.SilentPacketListener;
 
@@ -32,9 +32,9 @@ public final class IncomingPacketRegistration {
 	public IncomingPacketRegistration() {
 		registerPacket(new ButtonClickPacketListener());
 		registerPacket(new CommandPacketListener());
-		registerPacket(new MovementPacketListener());
+		registerPacket(new WalkingPacketListener());
 		registerPacket(new DialoguePacketListener());
-		registerPacket(new ObjectActionPacketListener());
+		registerPacket(new ObjectInteractionPacketListener());
 		registerPacket(new SilentPacketListener());
 		registerPacket(new RegionalUpdatePacketListener());
 		registerPacket(new MoveItemPacketListener());

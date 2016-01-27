@@ -4,7 +4,7 @@ import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.packet.PacketBuilder;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
-import main.astraeus.core.net.protocol.codec.ByteValue;
+import main.astraeus.core.net.protocol.codec.ByteModification;
 
 /**
  * The {@link OutgoingPacket} that displays a players head model on an interface.
@@ -32,7 +32,7 @@ public class SendPlayerDialogueHead extends OutgoingPacket {
 	@Override
 	public PacketBuilder encode(Player player) {
 		player.getContext().prepare(this, builder);
-		builder.putShort(interfaceId, ByteValue.ADDITION, ByteOrder.LITTLE);
+		builder.putShort(interfaceId, ByteModification.ADDITION, ByteOrder.LITTLE);
 		return builder;
 	}
 

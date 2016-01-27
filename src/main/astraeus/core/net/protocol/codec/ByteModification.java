@@ -5,7 +5,7 @@ package main.astraeus.core.net.protocol.codec;
  * 
  * @author SeVen
  */
-public enum ByteValue {
+public enum ByteModification {
 	/**
 	 * No modifications
 	 */

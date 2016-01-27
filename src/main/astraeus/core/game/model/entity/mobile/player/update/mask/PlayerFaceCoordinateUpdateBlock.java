@@ -6,7 +6,7 @@ import main.astraeus.core.game.model.entity.mobile.player.update.PlayerUpdateBlo
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.core.net.packet.PacketBuilder;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
-import main.astraeus.core.net.protocol.codec.ByteValue;
+import main.astraeus.core.net.protocol.codec.ByteModification;
 
 /**
  * The {@link PlayerUpdateBlock} implementation that updates a players facing
@@ -25,7 +25,7 @@ public class PlayerFaceCoordinateUpdateBlock extends PlayerUpdateBlock {
 
 	@Override
 	public void encode(Player entity, PacketBuilder builder) {
-		builder.putShort((Integer) entity.getAttributes().get(Attributes.FACING_COORDINATE_X), ByteValue.ADDITION,
+		builder.putShort((Integer) entity.getAttributes().get(Attributes.FACING_COORDINATE_X), ByteModification.ADDITION,
 				ByteOrder.LITTLE)
 				.putShort((Integer) entity.getAttributes().get(Attributes.FACING_COORDINATE_Y), ByteOrder.LITTLE);
 	}

@@ -4,7 +4,7 @@ import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.packet.PacketBuilder;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
-import main.astraeus.core.net.protocol.codec.ByteValue;
+import main.astraeus.core.net.protocol.codec.ByteModification;
 
 /**
  * The {@link OutgoingPacket} that updates a region for a player.
@@ -24,7 +24,7 @@ public class SendRegionUpdate extends OutgoingPacket {
 	public PacketBuilder encode(Player player) {
 		player.getContext().prepare(this, builder);
 		builder.putShort(player.getPosition().getRegionalX() + 6,
-				ByteValue.ADDITION, ByteOrder.BIG);
+				ByteModification.ADDITION, ByteOrder.BIG);
 		builder.putShort(player.getPosition().getRegionalY() + 6);
 		player.getLastPosition().setPosition(player.getPosition());
 		return builder;

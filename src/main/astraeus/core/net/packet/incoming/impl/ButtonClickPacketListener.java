@@ -36,7 +36,7 @@ public class ButtonClickPacketListener implements IncomingPacketListener {
 	
 	@Override
 	public void handleMessage(Player player, IncomingPacket packet) {
-		final int button = packet.getBuffer().getShort();
+		final int button = packet.getPayload().getShort();
 
 		if (isDialogueButton(button) && player.getDialogueOption() != null && player.getDialogueOption().handleSelection(player, button)); {
 

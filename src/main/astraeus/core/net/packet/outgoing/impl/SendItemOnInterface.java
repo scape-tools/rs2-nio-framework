@@ -6,7 +6,7 @@ import main.astraeus.core.net.packet.PacketBuilder;
 import main.astraeus.core.net.packet.PacketHeader;
 import main.astraeus.core.net.packet.outgoing.OutgoingPacket;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
-import main.astraeus.core.net.protocol.codec.ByteValue;
+import main.astraeus.core.net.protocol.codec.ByteModification;
 
 /**
  * The {@link OutgoingPacket} that sends an array of items on an interface.
@@ -53,10 +53,10 @@ public class SendItemOnInterface extends OutgoingPacket {
 			} else {
 				builder.put(item.getAmount());
 			}
-			builder.putShort(item.getId() + 1, ByteValue.ADDITION, ByteOrder.LITTLE);
+			builder.putShort(item.getId() + 1, ByteModification.ADDITION, ByteOrder.LITTLE);
 			} else {
 				builder.put(0);
-				builder.putShort(0, ByteValue.ADDITION, ByteOrder.LITTLE);
+				builder.putShort(0, ByteModification.ADDITION, ByteOrder.LITTLE);
 			}			
 		}
 		builder.endVariableShortPacketHeader();

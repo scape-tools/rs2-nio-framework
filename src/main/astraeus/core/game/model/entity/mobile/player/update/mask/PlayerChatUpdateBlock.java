@@ -6,7 +6,7 @@ import main.astraeus.core.game.model.entity.mobile.player.update.PlayerUpdateBlo
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.core.net.packet.PacketBuilder;
 import main.astraeus.core.net.protocol.codec.ByteOrder;
-import main.astraeus.core.net.protocol.codec.ByteValue;
+import main.astraeus.core.net.protocol.codec.ByteModification;
 
 /**
  * The {@link PlayerUpdateBlock} implementation that updates a players chat
@@ -29,7 +29,7 @@ public class PlayerChatUpdateBlock extends PlayerUpdateBlock {
 		final byte[] bytes = msg.getText();
 
 		builder.putShort(((msg.getColor() & 0xFF) << 8) + (msg.getEffect() & 0xFF), ByteOrder.LITTLE)
-				.put(entity.getRights().getProtocolValue()).put(bytes.length, ByteValue.NEGATION)
+				.put(entity.getRights().getProtocolValue()).put(bytes.length, ByteModification.NEGATION)
 				.putBytesReverse(bytes);
 	}
 

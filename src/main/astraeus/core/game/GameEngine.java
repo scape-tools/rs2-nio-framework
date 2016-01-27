@@ -16,7 +16,6 @@ import main.astraeus.core.game.service.impl.ScheduledNetworkService;
 import main.astraeus.core.game.service.impl.ScheduledUpdateService;
 import main.astraeus.core.net.packet.incoming.IncomingPacketRegistration;
 import main.astraeus.utility.startup.ItemDefinitionLoader;
-import main.astraeus.utility.startup.NpcSpawnLoader;
 
 /**
  * The {@link GameEngine} that runs and keeps the game in sync.
@@ -90,8 +89,6 @@ public class GameEngine {
           service.execute(() -> new IncomingPacketRegistration());
             
           service.execute(() -> new ItemDefinitionLoader());
-          
-          service.execute(() -> new NpcSpawnLoader());
           LOGGER.info("Loaded startup services");
       }
 

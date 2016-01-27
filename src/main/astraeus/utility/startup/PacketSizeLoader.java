@@ -5,8 +5,8 @@ import java.util.logging.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import main.astraeus.core.Configuration;
-import main.astraeus.core.net.NetworkConstants;
+import main.astraeus.Configuration;
+import main.astraeus.net.NetworkConstants;
 import main.astraeus.utility.JsonLoader;
 
 

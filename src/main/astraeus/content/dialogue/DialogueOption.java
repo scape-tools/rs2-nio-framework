@@ -1,6 +1,6 @@
 package main.astraeus.content.dialogue;
 
-import main.astraeus.core.game.model.entity.mobile.player.Player;
+import main.astraeus.game.model.entity.mobile.player.Player;
 
 public abstract class DialogueOption {
 

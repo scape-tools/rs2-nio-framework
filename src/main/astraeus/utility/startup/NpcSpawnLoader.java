@@ -5,11 +5,11 @@ import java.util.Objects;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import main.astraeus.core.Configuration;
-import main.astraeus.core.game.model.Direction;
-import main.astraeus.core.game.model.Position;
-import main.astraeus.core.game.model.entity.mobile.npc.NpcSpawn;
-import main.astraeus.core.game.model.entity.mobile.npc.Npcs;
+import main.astraeus.Configuration;
+import main.astraeus.game.model.Direction;
+import main.astraeus.game.model.Position;
+import main.astraeus.game.model.entity.mobile.npc.NpcSpawn;
+import main.astraeus.game.model.entity.mobile.npc.Npcs;
 import main.astraeus.utility.JsonLoader;
 
 public class NpcSpawnLoader extends JsonLoader {

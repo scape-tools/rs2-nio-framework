@@ -3,8 +3,8 @@ package main.astraeus.content.shop;
 import java.util.HashSet;
 import java.util.Set;
 
-import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.game.model.entity.mobile.player.Player.Attributes;
+import main.astraeus.game.model.entity.mobile.player.Player;
+import main.astraeus.game.model.entity.mobile.player.Player.Attributes;
 
 /**
  * A class that contains static utility methods for shops.

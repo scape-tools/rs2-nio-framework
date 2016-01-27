@@ -1,9 +1,9 @@
 package main.astraeus.content.shop;
 
 import main.astraeus.content.shop.Currency;
-import main.astraeus.core.game.model.entity.item.Item;
-import main.astraeus.core.game.model.entity.item.ItemContainer;
-import main.astraeus.core.game.model.entity.item.container.ShopContainer;
+import main.astraeus.game.model.entity.item.Item;
+import main.astraeus.game.model.entity.item.ItemContainer;
+import main.astraeus.game.model.entity.item.container.ShopContainer;
 
 /**
  * Represents a single in-game shop.

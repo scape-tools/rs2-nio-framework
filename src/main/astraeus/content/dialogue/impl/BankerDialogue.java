@@ -4,7 +4,7 @@ import main.astraeus.content.dialogue.Dialogue;
 import main.astraeus.content.dialogue.DialogueOption;
 import main.astraeus.content.dialogue.Dialogues;
 import main.astraeus.content.dialogue.Expression;
-import main.astraeus.core.game.model.entity.mobile.player.Player;
+import main.astraeus.game.model.entity.mobile.player.Player;
 
 public final class BankerDialogue extends Dialogue {
 

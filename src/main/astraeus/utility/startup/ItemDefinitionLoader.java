@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import main.astraeus.core.Configuration;
-import main.astraeus.core.game.model.entity.item.ItemDefinition;
-import main.astraeus.core.game.model.entity.item.ItemDefinition.WieldType;
+import main.astraeus.Configuration;
+import main.astraeus.game.model.entity.item.ItemDefinition;
+import main.astraeus.game.model.entity.item.ItemDefinition.WieldType;
 import main.astraeus.utility.JsonLoader;
 
 /**

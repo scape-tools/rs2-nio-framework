@@ -3,7 +3,7 @@ package main.astraeus.content.dialogue.impl;
 import main.astraeus.content.dialogue.Dialogue;
 import main.astraeus.content.dialogue.DialogueOption;
 import main.astraeus.content.dialogue.Dialogues;
-import main.astraeus.core.game.model.entity.mobile.player.Player;
+import main.astraeus.game.model.entity.mobile.player.Player;
 
 public class TestDialogue extends Dialogue {
 

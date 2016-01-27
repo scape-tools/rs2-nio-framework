@@ -2,8 +2,8 @@ package main.astraeus.core.net.packet.outgoing.impl;
 
 import java.util.Iterator;
 
-import main.astraeus.core.game.World;
 import main.astraeus.core.game.model.Position;
+import main.astraeus.core.game.model.World;
 import main.astraeus.core.game.model.entity.mobile.npc.Npc;
 import main.astraeus.core.game.model.entity.mobile.npc.update.NpcUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.npc.update.impl.NpcAnimationUpdateBlock;

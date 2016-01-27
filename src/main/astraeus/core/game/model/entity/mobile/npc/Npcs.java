@@ -1,7 +1,7 @@
 package main.astraeus.core.game.model.entity.mobile.npc;
 
-import main.astraeus.core.game.World;
 import main.astraeus.core.game.model.Position;
+import main.astraeus.core.game.model.World;
 import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.utility.Utilities;
 

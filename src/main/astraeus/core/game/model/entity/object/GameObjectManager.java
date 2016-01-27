@@ -3,7 +3,7 @@ package main.astraeus.core.game.model.entity.object;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import main.astraeus.core.game.World;
+import main.astraeus.core.game.model.World;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.net.packet.outgoing.impl.SendCreateObject;
 

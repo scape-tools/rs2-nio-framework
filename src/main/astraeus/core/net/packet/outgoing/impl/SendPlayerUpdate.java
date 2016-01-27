@@ -3,8 +3,8 @@ package main.astraeus.core.net.packet.outgoing.impl;
 import java.nio.ByteBuffer;
 import java.util.Iterator;
 
-import main.astraeus.core.game.World;
 import main.astraeus.core.game.model.Position;
+import main.astraeus.core.game.model.World;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
 import main.astraeus.core.game.model.entity.mobile.player.update.PlayerUpdateBlock;
 import main.astraeus.core.game.model.entity.mobile.player.update.mask.PlayerAnimationUpdateBlock;

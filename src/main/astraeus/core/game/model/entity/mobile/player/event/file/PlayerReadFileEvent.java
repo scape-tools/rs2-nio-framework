@@ -14,7 +14,7 @@ import com.google.gson.JsonSyntaxException;
 
 import main.astraeus.core.game.model.Position;
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.game.model.entity.mobile.player.Rights;
+import main.astraeus.core.game.model.entity.mobile.player.PlayerRights;
 import main.astraeus.core.game.model.entity.mobile.player.event.PlayerFileEvent;
 import main.astraeus.utility.Decodeable;
 
@@ -57,7 +57,7 @@ public class PlayerReadFileEvent extends PlayerFileEvent implements Decodeable {
 				getPlayer().getDetails().setPassword(password);
 
 			if (reader.has("rights")) {
-				getPlayer().getDetails().setRights(Rights.valueOf(reader.get("rights").getAsString()));
+				getPlayer().getDetails().setRights(PlayerRights.valueOf(reader.get("rights").getAsString()));
 			}
 
 			if (reader.has("position"))

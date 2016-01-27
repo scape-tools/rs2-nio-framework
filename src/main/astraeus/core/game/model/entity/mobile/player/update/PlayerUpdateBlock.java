@@ -11,14 +11,13 @@ import main.astraeus.core.game.model.entity.mobile.update.UpdateFlags.UpdateFlag
  */
 public abstract class PlayerUpdateBlock extends UpdateBlock<Player> {
 
-	/**
-	 * Creates a new {@link PlayerUpdateBlock}.
-	 * 
-	 * @param flag
-	 * 		The enumerated update block.
-	 */
-	public PlayerUpdateBlock(int mask, UpdateFlag flag) {
-		super(mask, flag);
-	}
+      /**
+       * Creates a new {@link PlayerUpdateBlock}.
+       * 
+       * @param flag The enumerated update block.
+       */
+      public PlayerUpdateBlock(int mask, UpdateFlag flag) {
+            super(mask, flag);
+      }
 
 }

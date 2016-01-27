@@ -156,7 +156,7 @@ public final class Player extends MobileEntity {
 	/**
 	 * Gets this players rights.
 	 */
-	public Rights getRights() {
+	public PlayerRights getRights() {
 		return this.getDetails().getRights();
 	}
 	

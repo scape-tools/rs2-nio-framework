@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.game.model.entity.mobile.player.Rights;
+import main.astraeus.core.game.model.entity.mobile.player.PlayerRights;
 import main.astraeus.core.net.packet.incoming.IncomingPacket;
 import main.astraeus.core.net.packet.incoming.IncomingPacketListener;
 import main.astraeus.core.net.packet.incoming.IncomingPacketOpcode;
@@ -42,7 +42,7 @@ public class ButtonClickPacketListener implements IncomingPacketListener {
 
 		}
 		
-		if (player.getRights().greaterOrEqual(Rights.DEVELOPER) && player.isServerDebug()) {
+		if (player.getRights().greaterOrEqual(PlayerRights.DEVELOPER) && player.isServerDebug()) {
 			player.sendMessage("[ButtonClick] - ButtonId: " + button);
 		}
 		
@@ -66,7 +66,7 @@ public class ButtonClickPacketListener implements IncomingPacketListener {
 			break;
 
 		default:
-			if (player.getRights().greaterOrEqual(Rights.DEVELOPER) && player.isServerDebug()) {
+			if (player.getRights().greaterOrEqual(PlayerRights.DEVELOPER) && player.isServerDebug()) {
 			player.sendMessage("[ButtonClick] - Unhandled ButtonId: " + button);
 			}
 			break;

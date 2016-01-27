@@ -1,7 +1,7 @@
 package main.astraeus.core.net.packet.incoming.impl;
 
 import main.astraeus.core.game.model.entity.mobile.player.Player;
-import main.astraeus.core.game.model.entity.mobile.player.Rights;
+import main.astraeus.core.game.model.entity.mobile.player.PlayerRights;
 import main.astraeus.core.net.packet.incoming.IncomingPacket;
 import main.astraeus.core.net.packet.incoming.IncomingPacketConstants;
 import main.astraeus.core.net.packet.incoming.IncomingPacketListener;
@@ -24,7 +24,7 @@ public class MoveItemPacketListener implements IncomingPacketListener {
 		int from = packet.readLittleEndianShortAddition();		
 		int to = packet.readLittleEndianShort();
 		
-		if(player.getRights().greaterOrEqual(Rights.DEVELOPER)) {
+		if(player.getRights().greaterOrEqual(PlayerRights.DEVELOPER)) {
 			player.sendMessage("[MoveItem] - InterfaceId: " + interfaceId + " from: " + from + " to: " + to);
 		}
 		

@@ -1,10 +1,10 @@
 package main.astraeus.net.packet.incoming.impl;
 
+import main.astraeus.content.clicking.objects.ObjectFirstClick;
+import main.astraeus.content.clicking.objects.ObjectSecondClick;
+import main.astraeus.game.model.Position;
 import main.astraeus.game.model.entity.mobile.player.Player;
-import main.astraeus.game.model.entity.mobile.player.Player.Attributes;
-import main.astraeus.game.pulse.PulseScheduler;
-import main.astraeus.game.pulse.impl.InteractionDistancePulse;
-import main.astraeus.game.pulse.impl.InteractionDistancePulse.InteractionType;
+import main.astraeus.game.model.entity.object.GameObject;
 import main.astraeus.net.packet.PacketReader;
 import main.astraeus.net.packet.incoming.IncomingPacket;
 import main.astraeus.net.packet.incoming.IncomingPacketConstants;
@@ -14,7 +14,10 @@ import main.astraeus.net.protocol.codec.ByteModification;
 import main.astraeus.net.protocol.codec.ByteOrder;
 
 /**
- * The packet opcodes which this listener implementation handles.
+ * The {@link IncomingPacket} responsible for clicking various options of an
+ * in-game object.
+ * 
+ * @author SeVen
  */
 @IncomingPacketOpcode({132, 252, 70})
 public final class ObjectInteractionPacketListener implements IncomingPacketListener {
@@ -27,36 +30,57 @@ public final class ObjectInteractionPacketListener implements IncomingPacketList
             switch (packet.getOpcode()) {
 
                   case IncomingPacketConstants.FIRST_CLICK_OBJECT:
-                        int x = reader.readShort(ByteOrder.LITTLE, ByteModification.ADDITION);
-                        int id = reader.readShort(false);                        
-                        int y = reader.readShort(false, ByteModification.ADDITION);
-
-                        System.out.println("x: " + x + " id: " + id + " y: " + y);
-                        
-                        player.getAttributes().put(Attributes.CLICK_Y, y);
-                        player.getAttributes().put(Attributes.CLICK_INDEX, id);
-                        player.getAttributes().put(Attributes.CLICK_X, x);
-                        PulseScheduler.getInstance()
-                                    .register(new InteractionDistancePulse(player,
-                                                InteractionType.OBJECT_INTERACTION_FIRST_CLICK),
-                                    true);
+                        handleFirstClickObject(player, reader);
                         break;
 
                   case IncomingPacketConstants.SECOND_CLICK_OBJECT:
-//                        objectIndex = packet.readLEShortA();
-//                        objectY = packet.readLEShort();
-//                        objectX = packet.readShortA();
-//
-//                        player.getAttributes().put(Attributes.CLICK_Y, objectY);
-//                        player.getAttributes().put(Attributes.CLICK_INDEX, objectIndex);
-//                        player.getAttributes().put(Attributes.CLICK_X, objectX);
-//                        PulseScheduler.getInstance()
-//                                    .register(new InteractionDistancePulse(player,
-//                                                InteractionType.OBJECT_INTERACTION_SECOND_CLICK),
-//                                    true);
+                        handleSecondClickObject(player, reader);
                         break;
             }
 
+      }
+      
+      /**
+       * Handles the event when a {@code player} uses the first option on an in-game object.
+       * 
+       *    @param player
+       *      The player performing the action.
+       *    
+       *    @param reader
+       *       The reader used to read the packet information.
+       */
+      private void handleFirstClickObject(Player player, PacketReader reader) {
+            int x = reader.readShort(ByteOrder.LITTLE, ByteModification.ADDITION);
+            int id = reader.readShort(false);                        
+            int y = reader.readShort(false, ByteModification.ADDITION);
+            
+            GameObject object = new GameObject(id, new Position(x, y, player.getPosition().getHeight()));
+
+            if (player.getPosition().isWithinInteractionDistance(object.getPosition())) {
+                  ObjectFirstClick.handleAction(player, object);  
+            }
+
+      }
+      
+      /**
+       * Handles the event when a {@code player} uses the second option on an in-game object.
+       * 
+       *    @param player
+       *      The player performing the action.
+       *    
+       *    @param reader
+       *       The reader used to read the packet information.
+       */
+      private void handleSecondClickObject(Player player, PacketReader reader) {
+            int id = reader.readShort(ByteOrder.LITTLE, ByteModification.STANDARD);
+            int y = reader.readShort(ByteOrder.LITTLE);
+            int x = reader.readShort(ByteModification.ADDITION);
+            
+            GameObject object = new GameObject(id, new Position(x, y, player.getPosition().getHeight()));
+
+            if (player.getPosition().isWithinInteractionDistance(object.getPosition())) {
+                  ObjectSecondClick.handleAction(player, object);  
+            }
       }
 
 }

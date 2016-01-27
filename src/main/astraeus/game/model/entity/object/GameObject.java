@@ -6,84 +6,118 @@ import main.astraeus.game.model.entity.Entity;
 import main.astraeus.game.model.entity.EntityEventListener;
 
 /**
- * The class that represents an object in the game world.
+ * Represents an object that can be spawned into the game world.
  * 
  * @author SeVen
  */
-public final class GameObject extends Entity {
+public class GameObject extends Entity {
 
-	/**
-	 * The id of this object.
-	 */
-	private final int id;
+      /**
+       * The id of this object.
+       */
+      private final int id;
 
-	/**
-	 * The position of this object.
-	 */
-	private final Position position;
+      /**
+       * The type of this object.
+       */
+      private final GameObjectType type;
 
-	/**
-	 * The type of this object.
-	 */
-	private final int type;
+      /**
+       * The location of this object.
+       */
+      private final Position location;
 
-	/**
-	 * The facing direction of this object.
-	 */
-	private final Direction facing;
+      /**
+       * The orientation of this object.
+       */
+      private final Direction orientation;
 
-	/**
-	 * Constructs a new {@link GameObject}.
-	 * 
-	 * @param id
-	 * 		The id of this object.
-	 * 
-	 * @param position
-	 * 		The position of this object.
-	 * 
-	 * @param type
-	 * 		The type of this object.
-	 * 
-	 * @param facing
-	 * 		The facing direction of this object.
-	 */
-	public GameObject(int id, Position position, int type, Direction facing) {
-		this.id = id;
-		this.position = position;
-		this.type = type;
-		this.facing = facing;
-	}
+      /**
+       * Creates a new {@link GameObject}, with a default type of {@code 10}.
+       * 
+       * @param id The id of this object.
+       * 
+       * @param location The location of this object.
+       */
+      public GameObject(int id, Position location) {
+            this(id, GameObjectType.INTERACTABLE, location, Direction.SOUTH);
+      }
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+      /**
+       * Creates a new {@link GameObject}, with a default type of {@code 10}.
+       * 
+       * @param id The id of this object.
+       * 
+       * @param location The location of this object.
+       * 
+       * @param orientation The facing direction of this object.
+       */
+      public GameObject(int id, Position location, Direction orientation) {
+            this(id, GameObjectType.INTERACTABLE, location, orientation);
+      }
 
-	/**
-	 * @return the position
-	 */
-	public Position getPosition() {
-		return position;
-	}
+      /**
+       * Creates a new {@link GameObject}.
+       * 
+       * @param id The id of this object.
+       * 
+       * @param type The type of this object.
+       * 
+       * @param location The location of this object.
+       * 
+       * @param orientation The facing direction of this object.
+       */
+      public GameObject(int id, GameObjectType type, Position location, Direction orientation) {
+            this.id = id;
+            this.type = type;
+            this.location = location;
+            this.orientation = orientation;
+      }
 
-	/**
-	 * @return the type
-	 */
-	public int getType() {
-		return type;
-	}
+      /**
+       * @return the id
+       */
+      public int getId() {
+            return id;
+      }
 
-	/**
-	 * @return the facing
-	 */
-	public Direction getFacingDirection() {
-		return facing;
-	}
+      /**
+       * @return the location
+       */
+      @Override
+      public Position getPosition() {
+            return location;
+      }
 
-	@Override
-	public EntityEventListener<? extends Entity> getEventListener() {
-		return null;
-	}
+      /**
+       * The facing direction of this object.
+       * 
+       * @return The orientation
+       */
+      public Direction getOrientation() {
+            return orientation;
+      }
+
+      /**
+       * @return the type
+       */
+      public GameObjectType getType() {
+            return type;
+      }
+      
+      @Override
+      public String toString() {
+            return String.format("[ID= %d], [POS= %s], [TYPE= %s]", id, location.toString(), entityType().name());
+      }
+
+      @Override
+      public Type entityType() {
+            return Type.GAME_OBJECT;
+      }
+
+      @Override
+      public EntityEventListener<? extends Entity> getEventListener() {
+            return null;
+      }
+
 }

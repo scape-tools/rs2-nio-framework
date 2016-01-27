@@ -66,4 +66,9 @@ public final class Item extends Entity {
 	public EntityEventListener<? extends Entity> getEventListener() {
 		return null;
 	}
+
+      @Override
+      public Type entityType() {
+            return Type.ITEM;
+      }
 }

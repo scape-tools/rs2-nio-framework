@@ -14,7 +14,7 @@ public class TestDialogue extends Dialogue {
 			Dialogues.sendOption(player, "This is option 1", "This is option 2", "test 3", "test 4", "Test 5", new DialogueOption() {
 
 				@Override
-				public boolean handleSelection(Player player, int buttonId) {
+				public boolean handleSelection(Player player, OptionType option) {
 					return false;
 				}
 				

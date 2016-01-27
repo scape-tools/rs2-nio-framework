@@ -7,6 +7,40 @@ import main.astraeus.game.model.entity.mobile.Movement;
 import main.astraeus.game.model.entity.mobile.player.Player.Attributes;
 
 public abstract class Entity {
+      
+      /**
+       * The enumerated types of entities found in the game world.
+       * 
+       * @author SeVen
+       */
+      public enum Type {
+
+        /**
+         * The entity that resembles an item on the ground.
+         */
+        GROUND_ITEM,
+
+        /**
+         * The entity that resembles in-game items.
+         */
+        ITEM,
+
+        /**
+         * The entity that resembles a non-playable character.
+         */
+        NPC,
+
+        /**
+         * The entity that resembles in-game objects.
+         */
+        GAME_OBJECT,
+
+        /**
+         * The entity that resembles a player.
+         */
+        PLAYER;
+
+      }
 	
 	/**
 	 * The map of attributes for a player.
@@ -19,6 +53,11 @@ public abstract class Entity {
 	public EnumMap<Attributes, Object> getAttributes() {
 		return attributes;
 	}
+	
+	 /**
+   * Gets the type of entity.
+   */
+  public abstract Type entityType();
 	
 	private transient int id;
 	

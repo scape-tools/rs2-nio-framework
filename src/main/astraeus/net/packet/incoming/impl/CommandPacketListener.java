@@ -87,9 +87,9 @@ public class CommandPacketListener implements IncomingPacketListener {
                         break;
 
                   case "debug":
-                        player.setServerDebug(!player.isServerDebug() ? true : false);
-                        player.sendMessage(player.isServerDebug() ? "[DEBUG MODE] - ON"
-                                    : "[DEBUG MODE] - OFF");
+                        player.setDebugMode(!player.isDebugMode() ? true : false);
+                        player.sendMessage(player.isServerDebug() ? "[DEBUG MODE= ON]"
+                                    : "[DEBUG MODE= OFF]");
                         break;
 
                   case "region":

@@ -21,9 +21,9 @@ public final class BankerDialogue extends Dialogue {
 			Dialogues.sendOption(player, "I'd like to access my bank account, please.", "I'd like to check my PIN settings.", "I don't need anything.", new DialogueOption() {
 
 				@Override
-				public boolean handleSelection(Player player, int buttonId) {
+				public boolean handleSelection(Player player, OptionType option) {
 
-					switch(buttonId) {
+					switch(option) {
 					case FIRST_OPTION:
 						Dialogues.sendDialogue(player, new Dialogue() {
 
@@ -73,7 +73,9 @@ public final class BankerDialogue extends Dialogue {
 								}
 							}							
 						});
-						break;		
+						break;
+                                    default:
+                                          break;		
 					}			
 					
 					return false;

@@ -3,15 +3,12 @@ package main.astraeus.net.packet.incoming.impl;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import main.astraeus.content.clicking.ButtonClick;
 import main.astraeus.game.model.entity.mobile.player.Player;
-import main.astraeus.game.model.entity.mobile.player.PlayerRights;
 import main.astraeus.net.packet.PacketReader;
 import main.astraeus.net.packet.incoming.IncomingPacket;
 import main.astraeus.net.packet.incoming.IncomingPacketListener;
 import main.astraeus.net.packet.incoming.IncomingPacketOpcode;
-import main.astraeus.net.packet.outgoing.impl.SendLogout;
-import main.astraeus.net.protocol.codec.ByteModification;
-import main.astraeus.net.protocol.codec.ByteOrder;
 
 /**
  * The packet responsible for clicking in-game buttons.
@@ -40,50 +37,12 @@ public class ButtonClickPacketListener implements IncomingPacketListener {
 
       @Override
       public void handleMessage(Player player, IncomingPacket packet) {
-            
+
             final PacketReader reader = packet.getReader();
+
+            final int button = reader.readShort();
             
-            final int button = reader.readShort(true, ByteOrder.BIG, ByteModification.STANDARD);
-
-            if (isDialogueButton(button) && player.getDialogueOption() != null
-                        && player.getDialogueOption().handleSelection(player, button))
-                  ;
-            {
-
-            }
-
-            if (player.getRights().greaterOrEqual(PlayerRights.DEVELOPER)
-                        && player.isServerDebug()) {
-                  player.sendMessage("[ButtonClick] - ButtonId: " + button);
-            }
-
-            switch (button) {
-
-                  // walk
-                  case 152:
-                        player.getMovement().setRunning(false);
-                        player.getMovement().setRunningQueueEnabled(false);
-                        break;
-
-                  // run
-                  case 153:
-                        player.getMovement().setRunning(true);
-                        player.getMovement().setRunningQueueEnabled(true);
-                        break;
-
-                  // logout
-                  case 2458:
-                        player.send(new SendLogout());
-                        break;
-
-                  default:
-                        if (player.getRights().greaterOrEqual(PlayerRights.DEVELOPER)
-                                    && player.isServerDebug()) {
-                              player.sendMessage("[ButtonClick] - Unhandled ButtonId: " + button);
-                        }
-                        break;
-
-            }
+            ButtonClick.handleAction(player, button);
       }
 
 }

@@ -7,7 +7,6 @@ import main.astraeus.game.model.World;
 import main.astraeus.game.model.entity.EntityEventListener;
 import main.astraeus.game.model.entity.mobile.player.Player.Attributes;
 import main.astraeus.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
-import main.astraeus.game.pulse.PulseScheduler;
 import main.astraeus.net.packet.outgoing.impl.SendLogout;
 import main.astraeus.net.packet.outgoing.impl.SendMessage;
 import main.astraeus.net.packet.outgoing.impl.SendPlayerUpdate;
@@ -37,7 +36,6 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
             player.getAttributes().put(Attributes.WALK_TO_ACTION, false);
             player.getMovement().resetMovement();
             player.save();
-            PulseScheduler.getInstance().destoryPulsesForOwner(player.getDetails().getUsername());
             player.send(new SendLogout());
 
             World.deregister(player);

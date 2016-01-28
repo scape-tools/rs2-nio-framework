@@ -11,7 +11,7 @@ import main.astraeus.net.protocol.codec.ByteOrder;
  * 
  * @author SeVen
  */
-public class SendNpcDialogueHead extends OutgoingPacket {
+public class SendNPCDialogueHead extends OutgoingPacket {
 
       /**
        * The id of the npc to display.
@@ -24,13 +24,13 @@ public class SendNpcDialogueHead extends OutgoingPacket {
       private final int interfaceId;
 
       /**
-       * Creates a new {@link SendNpcDialogueHead}.
+       * Creates a new {@link SendNPCDialogueHead}.
        * 
        * @param npcId The id of the npc to display.
        * 
        * @param interfaceId The id of the interface to show the head model on.
        */
-      public SendNpcDialogueHead(int npcId, int interfaceId) {
+      public SendNPCDialogueHead(int npcId, int interfaceId) {
             super(75, 15);
             this.npcId = npcId;
             this.interfaceId = interfaceId;

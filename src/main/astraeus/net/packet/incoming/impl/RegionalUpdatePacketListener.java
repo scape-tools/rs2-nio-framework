@@ -11,7 +11,7 @@ import main.astraeus.net.packet.incoming.IncomingPacketOpcode;
 public class RegionalUpdatePacketListener implements IncomingPacketListener {
 
       @Override
-      public void handleMessage(Player player, IncomingPacket packet) {
+      public void handlePacket(Player player, IncomingPacket packet) {
 
             switch (packet.getOpcode()) {
 

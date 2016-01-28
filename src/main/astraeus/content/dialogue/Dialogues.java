@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import main.astraeus.game.model.entity.mobile.player.Player;
 import main.astraeus.net.packet.outgoing.impl.SendChatBoxInterface;
 import main.astraeus.net.packet.outgoing.impl.SendInterfaceAnimation;
-import main.astraeus.net.packet.outgoing.impl.SendNpcDialogueHead;
+import main.astraeus.net.packet.outgoing.impl.SendNPCDialogueHead;
 import main.astraeus.net.packet.outgoing.impl.SendPlayerDialogueHead;
 import main.astraeus.net.packet.outgoing.impl.SendString;
 import main.astraeus.utility.Utilities;
@@ -116,7 +116,7 @@ public class Dialogues {
 			player.send(new SendInterfaceAnimation(4883, expression.getId()));
 			player.send(new SendString(npcName, 4884));
 			player.send(new SendString(lines[0], 4885));
-			player.send(new SendNpcDialogueHead(npcId, 4883));
+			player.send(new SendNPCDialogueHead(npcId, 4883));
 			player.send(new SendChatBoxInterface(4882));
 			break;
 			
@@ -125,7 +125,7 @@ public class Dialogues {
 			player.send(new SendString(npcName, 4889));
 			player.send(new SendString(lines[0], 4890));
 			player.send(new SendString(lines[1], 4891));
-			player.send(new SendNpcDialogueHead(npcId, 4888));
+			player.send(new SendNPCDialogueHead(npcId, 4888));
 			player.send(new SendChatBoxInterface(4887));
 			break;
 			
@@ -135,7 +135,7 @@ public class Dialogues {
 			player.send(new SendString(lines[0], 4896));
 			player.send(new SendString(lines[1], 4897));
 			player.send(new SendString(lines[2], 4898));
-			player.send(new SendNpcDialogueHead(npcId, 4894));
+			player.send(new SendNPCDialogueHead(npcId, 4894));
 			player.send(new SendChatBoxInterface(4893));
 			break;
 			
@@ -146,7 +146,7 @@ public class Dialogues {
 			player.send(new SendString(lines[1], 4904));
 			player.send(new SendString(lines[2], 4905));
 			player.send(new SendString(lines[3], 4906));
-			player.send(new SendNpcDialogueHead(npcId, 4901));
+			player.send(new SendNPCDialogueHead(npcId, 4901));
 			player.send(new SendChatBoxInterface(4900));
 			break;
 			

@@ -28,7 +28,7 @@ public class CommandPacketListener implements IncomingPacketListener {
       public static final Logger logger = Logger.getLogger(CommandPacketListener.class.getName());
 
       @Override
-      public void handleMessage(Player player, IncomingPacket packet) {
+      public void handlePacket(Player player, IncomingPacket packet) {
 
             final PacketReader reader = packet.getReader();
 
@@ -87,8 +87,8 @@ public class CommandPacketListener implements IncomingPacketListener {
                         break;
 
                   case "debug":
-                        player.setDebugMode(!player.isDebugMode() ? true : false);
-                        player.sendMessage(player.isServerDebug() ? "[DEBUG MODE= ON]"
+                        player.setDebugMode(player.isDebugMode() ? false : true);
+                        player.sendMessage(player.isDebugMode() ? "[DEBUG MODE= ON]"
                                     : "[DEBUG MODE= OFF]");
                         break;
 

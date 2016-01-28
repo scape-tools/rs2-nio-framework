@@ -23,7 +23,7 @@ import main.astraeus.net.protocol.codec.ByteOrder;
 public final class ObjectInteractionPacketListener implements IncomingPacketListener {
 
       @Override
-      public void handleMessage(Player player, IncomingPacket packet) {
+      public void handlePacket(Player player, IncomingPacket packet) {
             
             final PacketReader reader = packet.getReader();
             

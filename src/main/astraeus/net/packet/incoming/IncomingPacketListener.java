@@ -19,6 +19,6 @@ public interface IncomingPacketListener {
 	 * @param packet
 	 * 		The packet that has been received.
 	 */
-	void handleMessage(Player player, IncomingPacket packet);
+	void handlePacket(Player player, IncomingPacket packet);
 
 }

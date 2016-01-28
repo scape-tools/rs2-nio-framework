@@ -45,5 +45,6 @@ public final class PlayerEventListener extends EntityEventListener<Player> {
       @Override
       public void update(Player player) {
             player.send(new SendPlayerUpdate());
+            //player.send(new SendNPCUpdate());
       }
 }

@@ -59,7 +59,6 @@ public class SendItemOnInterface extends OutgoingPacket {
 				writer.writeShort(0, ByteModification.ADDITION, ByteOrder.LITTLE);
 			}			
 		}
-		writer.endVariableShortPacketHeader();
 		return writer;
 	}
 

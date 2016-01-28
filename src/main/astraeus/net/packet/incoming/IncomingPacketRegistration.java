@@ -11,7 +11,7 @@ import main.astraeus.net.packet.incoming.impl.MoveItemPacketListener;
 import main.astraeus.net.packet.incoming.impl.NPCInteractionPacketListener;
 import main.astraeus.net.packet.incoming.impl.ObjectInteractionPacketListener;
 import main.astraeus.net.packet.incoming.impl.RegionalUpdatePacketListener;
-import main.astraeus.net.packet.incoming.impl.SilentPacketListener;
+import main.astraeus.net.packet.incoming.impl.DefaultPacketListener;
 import main.astraeus.net.packet.incoming.impl.WalkingPacketListener;
 
 /**
@@ -36,7 +36,7 @@ public final class IncomingPacketRegistration {
 		registerHandler(new WalkingPacketListener());
 		registerHandler(new DialoguePacketListener());
 		registerHandler(new ObjectInteractionPacketListener());
-		registerHandler(new SilentPacketListener());
+		registerHandler(new DefaultPacketListener());
 		registerHandler(new RegionalUpdatePacketListener());
 		registerHandler(new MoveItemPacketListener());
 		registerHandler(new NPCInteractionPacketListener());		
@@ -67,7 +67,7 @@ public final class IncomingPacketRegistration {
 	public static final void sendToHandler(IncomingPacket packet, Player player) {
 		IncomingPacketListener listener = INCOMING_PACKETS.get(packet.getOpcode());
 		if (listener != null) {
-			listener.handleMessage(player, packet);			
+			listener.handlePacket(player, packet);			
 		}
 	}
 }

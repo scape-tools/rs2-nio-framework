@@ -13,38 +13,35 @@ import main.astraeus.net.protocol.codec.ByteModification;
  */
 public class SendString extends OutgoingPacket {
 
-	/**
-	 * The string that will be displayed on the interface.
-	 */
-	private final String string;
-	
-	/**
-	 * The id of the interface that the text will be displayed on.
-	 */
-	private final int widget;
-	
-	/**
-	 * Creates a new {@link SendString}.
-	 * 
-	 * @param string
-	 * 		The string to send.
-	 * 
-	 * @param widget
-	 * 		The interface to display on.
-	 */
-	public SendString(String string, int widget) {
-		super(126, PacketHeader.VARIABLE_SHORT, string.length() + 6);
-		this.string = string;
-		this.widget = widget;
-	}
+      /**
+       * The string that will be displayed on the interface.
+       */
+      private final String string;
 
-	@Override
-	public PacketWriter encode(Player player) {
-		player.getContext().prepare(this, writer);
-		writer.writeString(string);
-		writer.writeShort(widget, ByteModification.ADDITION);
-		writer.endVariableShortPacketHeader();	
-		return writer;
-	}
+      /**
+       * The id of the interface that the text will be displayed on.
+       */
+      private final int widget;
+
+      /**
+       * Creates a new {@link SendString}.
+       * 
+       * @param string The string to send.
+       * 
+       * @param widget The interface to display on.
+       */
+      public SendString(String string, int widget) {
+            super(126, PacketHeader.VARIABLE_SHORT, string.length() + 6);
+            this.string = string;
+            this.widget = widget;
+      }
+
+      @Override
+      public PacketWriter encode(Player player) {
+            player.getContext().prepare(this, writer);
+            writer.writeString(string);
+            writer.writeShort(widget, ByteModification.ADDITION);
+            return writer;
+      }
 
 }

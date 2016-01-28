@@ -21,7 +21,7 @@ import main.astraeus.net.protocol.codec.ByteOrder;
 public class WalkingPacketListener implements IncomingPacketListener {
 
       @Override
-      public void handleMessage(Player player, IncomingPacket packet) {
+      public void handlePacket(Player player, IncomingPacket packet) {
             
             final PacketReader reader = packet.getReader();
 

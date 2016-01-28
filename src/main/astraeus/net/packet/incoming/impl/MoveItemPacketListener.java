@@ -16,7 +16,7 @@ import main.astraeus.net.packet.incoming.IncomingPacketOpcode;
 public class MoveItemPacketListener implements IncomingPacketListener {
 
 	@Override
-	public void handleMessage(Player player, IncomingPacket packet) {
+	public void handlePacket(Player player, IncomingPacket packet) {
 		
 	}
 

@@ -2,6 +2,7 @@ package main.astraeus.game.service.impl;
 
 import main.astraeus.game.GameConstants;
 import main.astraeus.game.model.World;
+import main.astraeus.game.model.entity.mobile.npc.Npc;
 import main.astraeus.game.model.entity.mobile.player.Player;
 import main.astraeus.game.service.ScheduledService;
 
@@ -25,6 +26,14 @@ public final class ScheduledUpdateService extends ScheduledService {
                         }
                         player.prepare();
                   }
+                  
+                  for (final Npc npc : World.getNpcs()) {
+                        if (npc == null || !npc.isRegistered()) {
+                              continue;
+                        }
+                        
+                        npc.prepare();
+                  }
 
                   // update player and npc both in parallel
                   for (final Player player : World.getPlayers()) {
@@ -41,6 +50,14 @@ public final class ScheduledUpdateService extends ScheduledService {
                         }
                         player.getUpdateFlags().clear();
                         player.setRegionChange(false);
+                  }
+                  
+                  for (final Npc npc : World.getNpcs()) {
+                        if (npc == null || !npc.isRegistered()) {
+                              continue;
+                        }
+                        
+                        npc.getUpdateFlags().clear();
                   }
 
             }

@@ -505,14 +505,6 @@ public final class PacketWriter {
       }
 
       /**
-       * Completes the variable short packet header.
-       */
-      public final PacketWriter endVariableShortPacketHeader() {
-            buffer.putShort(getLength(), (short) (getPosition() - getLength() - 2));
-            return this;
-      }
-
-      /**
        * Returns an instance of the internal buffer.
        * 
        * @return The returned instance.

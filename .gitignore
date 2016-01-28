@@ -1,1 +1,7 @@
 /deps/
+/target/
+/bin/
+/.project
+/.classpath
+/.settings
+/data/characters/test.json

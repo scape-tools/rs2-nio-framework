@@ -16,7 +16,7 @@ import main.astraeus.net.protocol.codec.IsaacRandom;
 import main.astraeus.net.protocol.codec.IsaacRandomPair;
 import main.astraeus.net.protocol.codec.game.GamePacketDecoder;
 
-public final class LoginPayloadDecoder extends ProtocolStateDecoder {
+public final class LoginPayloadDecoder implements ProtocolStateDecoder {
 	
 	/**
 	 * The single logger for this class.

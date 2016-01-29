@@ -11,7 +11,7 @@ import main.astraeus.net.packet.PacketHeader;
 import main.astraeus.net.packet.PacketWriter;
 import main.astraeus.net.protocol.ProtocolStateDecoder;
 
-public final class LoginHeaderDecoder extends ProtocolStateDecoder {
+public final class LoginHeaderDecoder implements ProtocolStateDecoder {
 	
 	/**
 	 * The single logger for this class. 

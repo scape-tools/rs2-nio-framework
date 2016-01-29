@@ -8,7 +8,7 @@ import main.astraeus.net.channel.PlayerChannel;
 import main.astraeus.net.protocol.ProtocolConstants;
 import main.astraeus.net.protocol.ProtocolStateDecoder;
 
-public final class LoginRequestDecoder extends ProtocolStateDecoder {
+public final class LoginRequestDecoder implements ProtocolStateDecoder {
 	
 	/**
 	 * The single logger for this class.

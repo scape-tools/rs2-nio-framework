@@ -19,7 +19,7 @@ import main.astraeus.net.protocol.ProtocolStateDecoder;
  * 
  * @author SeVen
  */
-public final class GamePacketDecoder extends ProtocolStateDecoder {
+public final class GamePacketDecoder implements ProtocolStateDecoder {
 
       /**
        * The single logger for this class.

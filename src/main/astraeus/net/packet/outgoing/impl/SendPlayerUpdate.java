@@ -21,7 +21,7 @@ import main.astraeus.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.net.packet.PacketHeader;
 import main.astraeus.net.packet.PacketWriter;
 import main.astraeus.net.packet.outgoing.OutgoingPacket;
-import main.astraeus.net.protocol.codec.ByteAccess;
+import main.astraeus.net.protocol.codec.AccessType;
 
 /**
  * The {@link OutgoingPacket} that will update a player in the game world.
@@ -52,7 +52,7 @@ public final class SendPlayerUpdate extends OutgoingPacket {
 
             player.getContext().prepare(this, writer);
 
-            writer.setAccessType(ByteAccess.BIT_ACCESS);
+            writer.setAccessType(AccessType.BIT_ACCESS);
 
             updateMovement(player, writer);
 
@@ -104,10 +104,10 @@ public final class SendPlayerUpdate extends OutgoingPacket {
             }
 
             if (update.getBuffer().position() > 0) {
-                  writer.writeBits(11, 2047).setAccessType(ByteAccess.BYTE_ACCESS)
+                  writer.writeBits(11, 2047).setAccessType(AccessType.BYTE_ACCESS)
                               .writeBytes(update.getBuffer());
             } else {
-                  writer.setAccessType(ByteAccess.BYTE_ACCESS);
+                  writer.setAccessType(AccessType.BYTE_ACCESS);
             }
 
             return writer;

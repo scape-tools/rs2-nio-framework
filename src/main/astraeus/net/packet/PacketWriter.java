@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.stream.IntStream;
 
 import main.astraeus.net.protocol.ProtocolConstants;
-import main.astraeus.net.protocol.codec.ByteAccess;
+import main.astraeus.net.protocol.codec.AccessType;
 import main.astraeus.net.protocol.codec.ByteModification;
 import main.astraeus.net.protocol.codec.ByteOrder;
 
@@ -479,7 +479,7 @@ public final class PacketWriter {
        * 
        * @param access The access type modification.
        */
-      public final PacketWriter setAccessType(ByteAccess access) {
+      public final PacketWriter setAccessType(AccessType access) {
             switch (access) {
 
                   case BIT_ACCESS:

@@ -1,6 +1,6 @@
 package main.astraeus.net.protocol.codec;
 
-public enum ByteAccess {
+public enum AccessType {
 
 	/**
 	 * Messages are being packed into the buffer in the form of bytes.

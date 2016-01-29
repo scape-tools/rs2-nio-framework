@@ -18,7 +18,7 @@ import main.astraeus.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.net.packet.PacketHeader;
 import main.astraeus.net.packet.PacketWriter;
 import main.astraeus.net.packet.outgoing.OutgoingPacket;
-import main.astraeus.net.protocol.codec.ByteAccess;
+import main.astraeus.net.protocol.codec.AccessType;
 
 /**
  * The {@link OutgoingPacket} that updates a non-player character.
@@ -41,7 +41,7 @@ public class SendNPCUpdate extends OutgoingPacket {
 
             player.getContext().prepare(this, writer);
             
-            writer.setAccessType(ByteAccess.BIT_ACCESS);
+            writer.setAccessType(AccessType.BIT_ACCESS);
 
             writer.writeBits(8, player.getLocalNpcs().size());
 
@@ -87,10 +87,10 @@ public class SendNPCUpdate extends OutgoingPacket {
             }
 
             if (update.getBuffer().position() > 0) {
-                  writer.writeBits(14, 16383).setAccessType(ByteAccess.BYTE_ACCESS)
+                  writer.writeBits(14, 16383).setAccessType(AccessType.BYTE_ACCESS)
                               .writeBytes(update.getBuffer());
             } else {
-                  writer.setAccessType(ByteAccess.BYTE_ACCESS);
+                  writer.setAccessType(AccessType.BYTE_ACCESS);
             }
 
             return writer;

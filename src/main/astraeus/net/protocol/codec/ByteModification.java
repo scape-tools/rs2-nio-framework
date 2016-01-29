@@ -6,6 +6,7 @@ package main.astraeus.net.protocol.codec;
  * @author SeVen
  */
 public enum ByteModification {
+      
 	/**
 	 * No modifications
 	 */

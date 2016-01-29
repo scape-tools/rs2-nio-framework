@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import main.astraeus.game.model.entity.mobile.player.Player;
@@ -143,7 +142,7 @@ public final class PlayerChannel {
             try {
                   event.execute(this);
             } catch (IOException exception) {
-                  close();
+                  logger.info("A connection has been closed.");
             }
       }
 
@@ -164,12 +163,15 @@ public final class PlayerChannel {
                          * Removes the player from the virtual world.
                          */
                         player.getEventListener().remove(player);
-
+                        
                         /*
                          * Informs the user of the removal of the channel's connection.
                          */
-                        logger.log(Level.INFO, "Closed : " + channel.getLocalAddress() + ".");
-                  }
+                        logger.info(String.format("[%s] - Connection has been closed.", channel.getLocalAddress()));
+                        
+
+                        channel.close();
+                   }
             } catch (IOException exception) {
                   exception.printStackTrace();
             }

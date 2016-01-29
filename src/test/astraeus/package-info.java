@@ -1,8 +1,4 @@
 /**
- * 
- */
-/**
- * @author chief
- *
+ * @author SeVen
  */
 package test.astraeus;

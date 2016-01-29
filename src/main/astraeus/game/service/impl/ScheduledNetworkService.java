@@ -43,7 +43,7 @@ public final class ScheduledNetworkService extends ScheduledService {
       public void execute() {
             try {
                   selector.selectNow();
-                  final Iterator<SelectionKey> iterator = selector.keys().iterator();
+                  final Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
 
                   while (iterator.hasNext()) {
 

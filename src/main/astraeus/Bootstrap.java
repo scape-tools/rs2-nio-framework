@@ -18,7 +18,7 @@ import main.astraeus.utility.startup.ItemDefinitionLoader;
 import main.astraeus.utility.startup.PacketSizeLoader;
 
 /**
- * The {@link Bootstrap} that runs and keeps the game in sync.
+ * The {@link Bootstrap} that will prepare the game and network.
  * 
  * @author SeVen
  */

@@ -7,7 +7,7 @@ import main.astraeus.game.model.entity.mobile.player.update.PlayerUpdateBlock;
 import main.astraeus.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
 import main.astraeus.net.packet.PacketWriter;
 import main.astraeus.net.protocol.codec.ByteModification;
-import main.astraeus.utility.Utilities;
+import main.astraeus.utility.LongUtils;
 
 public class PlayerAppearanceUpdateBlock extends PlayerUpdateBlock {
 
@@ -49,7 +49,7 @@ public class PlayerAppearanceUpdateBlock extends PlayerUpdateBlock {
             properties.writeShort(0x335);
             properties.writeShort(0x336);
             properties.writeShort(0x338);
-            properties.writeLong(Utilities.convertStringToLong(entity.getDetails().getUsername()));
+            properties.writeLong(LongUtils.convertStringToLong(entity.getDetails().getUsername()));
             properties.write(3);
             properties.writeShort(0);
             buffer.write(properties.getBuffer().position(), ByteModification.NEGATION);

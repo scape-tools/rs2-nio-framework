@@ -8,7 +8,7 @@ import main.astraeus.game.model.entity.Entity;
 import main.astraeus.game.model.entity.mobile.player.MovementPoint;
 import main.astraeus.game.model.entity.mobile.player.Player;
 import main.astraeus.net.packet.outgoing.impl.SendRegionUpdate;
-import main.astraeus.utility.Utilities;
+import main.astraeus.utility.IntUtils;
 
 /**
  * @author Dylan Vicchiarelli
@@ -246,7 +246,7 @@ public final class Movement {
 
 		MovementPoint lastPosition = getFocusPoints().peekLast();
 
-		int direction = Utilities.parseDirection(x - lastPosition.getX(), y - lastPosition.getY());
+		int direction = IntUtils.parseDirection(x - lastPosition.getX(), y - lastPosition.getY());
 
 		if (direction > -1) {
 

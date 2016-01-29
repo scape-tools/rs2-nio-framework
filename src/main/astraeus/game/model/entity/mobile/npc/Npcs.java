@@ -3,13 +3,13 @@ package main.astraeus.game.model.entity.mobile.npc;
 import main.astraeus.game.model.Position;
 import main.astraeus.game.model.World;
 import main.astraeus.game.model.entity.mobile.update.UpdateFlags.UpdateFlag;
-import main.astraeus.utility.Utilities;
+import main.astraeus.utility.IntUtils;
 
 public class Npcs {
 	
 	public static void createNpc(NpcSpawn spawn) {
 		
-		int slot = Utilities.findFreeIndex(World.getNpcs());
+		int slot = IntUtils.findFreeIndex(World.getNpcs());
 		
 		if (slot == -1) {
 			return;

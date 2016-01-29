@@ -25,7 +25,7 @@ import main.astraeus.net.packet.outgoing.impl.SendSideBarInterface;
 import main.astraeus.net.protocol.codec.IsaacRandomPair;
 import main.astraeus.utility.Decodeable;
 import main.astraeus.utility.Encodeable;
-import main.astraeus.utility.Utilities;
+import main.astraeus.utility.StringUtils;
 
 public final class Player extends MobileEntity {
 
@@ -347,7 +347,7 @@ public final class Player extends MobileEntity {
 
       @Override
       public String toString() {
-            return Utilities.capitalizePlayerName(details.getUsername()) + " "
+            return StringUtils.capitalizePlayerName(details.getUsername()) + " "
                         + details.getAddress();
       }
 

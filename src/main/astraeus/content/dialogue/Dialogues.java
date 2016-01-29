@@ -11,7 +11,7 @@ import main.astraeus.net.packet.outgoing.impl.SendInterfaceAnimation;
 import main.astraeus.net.packet.outgoing.impl.SendNPCDialogueHead;
 import main.astraeus.net.packet.outgoing.impl.SendPlayerDialogueHead;
 import main.astraeus.net.packet.outgoing.impl.SendString;
-import main.astraeus.utility.Utilities;
+import main.astraeus.utility.StringUtils;
 
 /**
  * The static utility class that contains functions for sending dialogues.
@@ -174,7 +174,7 @@ public class Dialogues {
 		switch(lines.length) {		
 		case 1:
 			player.send(new SendInterfaceAnimation(969,  expression.getId()));
-			player.send(new SendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 714));
+			player.send(new SendString(StringUtils.capitalizePlayerName(player.getDetails().getUsername()), 714));
 			player.send(new SendString(lines[0], 715));
 			player.send(new SendPlayerDialogueHead(969));
 			player.send(new SendChatBoxInterface(968));
@@ -182,7 +182,7 @@ public class Dialogues {
 			
 		case 2:
 			player.send(new SendInterfaceAnimation(974,  expression.getId()));
-			player.send(new SendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 719));
+			player.send(new SendString(StringUtils.capitalizePlayerName(player.getDetails().getUsername()), 719));
 			player.send(new SendString(lines[0], 720));
 			player.send(new SendString(lines[1], 721));
 			player.send(new SendPlayerDialogueHead(974));
@@ -191,7 +191,7 @@ public class Dialogues {
 			
 		case 3:
 			player.send(new SendInterfaceAnimation(980,  expression.getId()));
-			player.send(new SendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 725));
+			player.send(new SendString(StringUtils.capitalizePlayerName(player.getDetails().getUsername()), 725));
 			player.send(new SendString(lines[0], 726));
 			player.send(new SendString(lines[1], 727));
 			player.send(new SendString(lines[2], 728));
@@ -201,7 +201,7 @@ public class Dialogues {
 			
 		case 4:
 			player.send(new SendInterfaceAnimation(987,  expression.getId()));
-			player.send(new SendString(Utilities.capitalizePlayerName(player.getDetails().getUsername()), 988));
+			player.send(new SendString(StringUtils.capitalizePlayerName(player.getDetails().getUsername()), 988));
 			player.send(new SendString(lines[0], 989));
 			player.send(new SendString(lines[1], 990));
 			player.send(new SendString(lines[2], 991));

@@ -17,50 +17,47 @@ public final class ScheduledUpdateService extends ScheduledService {
 
       @Override
       public void execute() {
-            synchronized (this) {
-
-                  // player movement
-                  for (final Player player : World.getPlayers()) {
-                        if (player == null || !player.isRegistered()) {
-                              continue;
-                        }
-                        player.prepare();
+            // player movement
+            for (final Player player : World.getPlayers()) {
+                  if (player == null || !player.isRegistered()) {
+                        continue;
                   }
-                  
-                  for (final Npc npc : World.getNpcs()) {
-                        if (npc == null || !npc.isRegistered()) {
-                              continue;
-                        }
-                        
-                        npc.prepare();
-                  }
-
-                  // update player and npc both in parallel
-                  for (final Player player : World.getPlayers()) {
-                        if (player == null || !player.isRegistered()) {
-                              continue;
-                        }
-                        player.getEventListener().update(player);
-                  }
-
-                  // clear player update flags
-                  for (final Player player : World.getPlayers()) {
-                        if (player == null || !player.isRegistered()) {
-                              continue;
-                        }
-                        player.getUpdateFlags().clear();
-                        player.setRegionChange(false);
-                  }
-                  
-                  for (final Npc npc : World.getNpcs()) {
-                        if (npc == null || !npc.isRegistered()) {
-                              continue;
-                        }
-                        
-                        npc.getUpdateFlags().clear();
-                  }
-
+                  player.prepare();
             }
+
+            for (final Npc npc : World.getNpcs()) {
+                  if (npc == null || !npc.isRegistered()) {
+                        continue;
+                  }
+
+                  npc.prepare();
+            }
+
+            // update player and npc both in parallel
+            for (final Player player : World.getPlayers()) {
+                  if (player == null || !player.isRegistered()) {
+                        continue;
+                  }
+                  player.getEventListener().update(player);
+            }
+
+            // clear player update flags
+            for (final Player player : World.getPlayers()) {
+                  if (player == null || !player.isRegistered()) {
+                        continue;
+                  }
+                  player.getUpdateFlags().clear();
+                  player.setRegionChange(false);
+            }
+
+            for (final Npc npc : World.getNpcs()) {
+                  if (npc == null || !npc.isRegistered()) {
+                        continue;
+                  }
+
+                  npc.getUpdateFlags().clear();
+            }
+
       }
 
 }

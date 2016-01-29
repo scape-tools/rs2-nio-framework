@@ -3,8 +3,6 @@ package main.astraeus.net.packet.incoming.impl;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import main.astraeus.game.model.entity.item.Item;
-import main.astraeus.game.model.entity.item.ItemDefinition;
 import main.astraeus.game.model.entity.mobile.player.Player;
 import main.astraeus.net.packet.PacketReader;
 import main.astraeus.net.packet.incoming.IncomingPacket;
@@ -52,37 +50,6 @@ public class CommandPacketListener implements IncomingPacketListener {
                         int index = Integer.parseInt(command[1]);
                         for (int i = 0; i < index; i++) {
                               player.send(new SendString(i + "", i));
-                        }
-                        break;
-
-                  case "item":
-                        try {
-                              int itemId = Integer.parseInt(command[1]);
-                              int itemAmount = Integer.parseInt(command[2]);
-
-                              if (itemId < 0 || itemAmount <= 0) {
-                                    player.sendMessage(
-                                                "Invalid input: " + command[1] + " " + command[2]);
-                                    return;
-                              }
-
-
-                              if (player.getInventoryContainer().getFreeSlots() < itemAmount
-                                          && !ItemDefinition.getDefinitions()[itemId]
-                                                      .isStackable()) {
-                                    player.sendMessage(
-                                                "You don't have enough inventory space to spawn this item..");
-                                    return;
-                              }
-
-                              player.getInventoryContainer().addItem(new Item(itemId, itemAmount));
-                              player.sendMessage("You have successfully spawned " + itemAmount
-                                          + "X " + ItemDefinition.getDefinitions()[itemId].getName()
-                                          + ".");
-
-                        } catch (Exception exception) {
-                              player.sendMessage("Invalid syntax: " + command[0] + " " + command[1]
-                                          + " " + command[2] + ".");
                         }
                         break;
 

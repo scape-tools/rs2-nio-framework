@@ -9,8 +9,6 @@ import main.astraeus.content.dialogue.DialogueOption;
 import main.astraeus.game.GameConstants;
 import main.astraeus.game.model.ChatMessage;
 import main.astraeus.game.model.entity.EntityEventListener;
-import main.astraeus.game.model.entity.item.ItemContainer;
-import main.astraeus.game.model.entity.item.container.InventoryContainer;
 import main.astraeus.game.model.entity.mobile.MobileEntity;
 import main.astraeus.game.model.entity.mobile.npc.Npc;
 import main.astraeus.game.model.entity.mobile.player.appearance.Appearance;
@@ -60,11 +58,6 @@ public final class Player extends MobileEntity {
        * The flag that denotes a player disconnected.
        */
       private boolean disconnected;
-
-      /**
-       * The inventory container for this player.
-       */
-      private final ItemContainer inventoryContainer = new InventoryContainer(this);
 
       /**
        * The details of this player's account.
@@ -295,13 +288,6 @@ public final class Player extends MobileEntity {
        */
       public void setCryptographyPair(IsaacRandomPair isaacRandomPair) {
             this.isaacRandomPair = isaacRandomPair;
-      }
-
-      /**
-       * @return the inventoryContainer
-       */
-      public ItemContainer getInventoryContainer() {
-            return inventoryContainer;
       }
 
       /**

@@ -1,7 +1,5 @@
 package main.astraeus;
 
-import main.astraeus.game.GameEngine;
-
 /**
  * The core class for the server.
  * 
@@ -16,7 +14,7 @@ public final class Server {
        * @throws Exception 
        */
       public static void main(String... args) throws Exception {
-            new GameEngine().build().bind();
+            new Bootstrap().build().bind();
       }
 
 }

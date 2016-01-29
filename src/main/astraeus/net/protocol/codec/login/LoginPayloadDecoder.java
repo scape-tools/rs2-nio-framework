@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import main.astraeus.game.GameEngine;
+import main.astraeus.Bootstrap;
 import main.astraeus.game.model.World;
 import main.astraeus.net.channel.PlayerChannel;
 import main.astraeus.net.channel.events.WriteChannelEvent;
@@ -146,7 +146,7 @@ public final class LoginPayloadDecoder extends ProtocolStateDecoder {
 					loginResponse = LoginResponse.ACCOUNT_IS_ALREADY_LOGGED_IN;
 				}
 				
-				if (!GameEngine.SERVER_STARTED) {
+				if (!Bootstrap.SERVER_STARTED) {
 					loginResponse = LoginResponse.SERVER_UPDATED;					
 				}
 

@@ -1,4 +1,4 @@
-package main.astraeus.game;
+package main.astraeus;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -10,7 +10,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import main.astraeus.Configuration;
 import main.astraeus.game.service.ScheduledService;
 import main.astraeus.game.service.impl.ScheduledNetworkService;
 import main.astraeus.game.service.impl.ScheduledUpdateService;
@@ -19,16 +18,16 @@ import main.astraeus.utility.startup.ItemDefinitionLoader;
 import main.astraeus.utility.startup.PacketSizeLoader;
 
 /**
- * The {@link GameEngine} that runs and keeps the game in sync.
+ * The {@link Bootstrap} that runs and keeps the game in sync.
  * 
  * @author SeVen
  */
-public class GameEngine {
+public class Bootstrap {
       
       /**
        * The single logger for this class.
        */
-      private static final Logger LOGGER = Logger.getLogger(GameEngine.class.getName());      
+      private static final Logger LOGGER = Logger.getLogger(Bootstrap.class.getName());      
 
       /**
        * The service that executes game tasks.
@@ -45,7 +44,7 @@ public class GameEngine {
        */
       public static boolean SERVER_STARTED = false;
       
-      public GameEngine build() throws Exception {
+      public Bootstrap build() throws Exception {
             LOGGER.info("Preparing Game Engine... ");
             
             startup();
@@ -65,7 +64,7 @@ public class GameEngine {
       /**
        * Binds the {@link ServerSocketChannel} to a specified address and port
        */
-      public GameEngine bind() throws IOException {
+      public Bootstrap bind() throws IOException {
         LOGGER.info("Building network");
         final ServerSocketChannel channel = ServerSocketChannel.open();
         final Selector selector = Selector.open();
